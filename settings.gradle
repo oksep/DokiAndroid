@@ -1,0 +1,15 @@
+rootProject.name = 'DokiDoki'
+
+include ':app', ':center', ':admin'
+
+project(':center').projectDir = new File(settingsDir, 'common/center')
+
+// features
+def localProperties = new File("local.properties")
+if (localProperties.canRead()) {
+    def config = new Properties()
+    config.load(new FileInputStream(localProperties))
+    apply from: config.getProperty("featureFile", "features.gradle")
+} else {
+    apply from: "features.gradle"
+}

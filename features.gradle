@@ -1,0 +1,2 @@
+include ':admin'
+project(':admin').projectDir = new File(settingsDir, 'feature/admin')
