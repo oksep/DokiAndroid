@@ -3,7 +3,7 @@
 //]
 ext {
     buildMeta = [
-            packageName      : 'com.dokiwa.dokidoki123',
+            packageName      : 'com.dokiwa.dokidoki',
             compileSdkVersion: 28,
             minSdkVersion    : 21,
             targetSdkVersion : 28,

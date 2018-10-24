@@ -27,3 +27,9 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+Closure.metaClass.implementationFeature = { projectName ->
+    if (findProject(projectName) != null) {
+        delegate.implementation delegate.project(path: "${projectName}")
+    }
+}
