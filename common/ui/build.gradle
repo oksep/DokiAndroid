@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion buildMeta.compileSdkVersion
@@ -8,6 +9,9 @@ android {
         minSdkVersion buildMeta.minSdkVersion
         targetSdkVersion buildMeta.targetSdkVersion
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled  true
     }
 
     buildTypes {
@@ -16,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -23,8 +31,12 @@ dependencies {
 
     implementation dep.kotlin
     implementation dep.supportCompat
+    implementation dep.supportConstraintLayout
+    implementation dep.supportDesign
 
     testImplementation dep.testJunit
     androidTestImplementation dep.testSupportTestRunner
     androidTestImplementation dep.testEspresso
+
+    implementation dep.roundImageView
 }

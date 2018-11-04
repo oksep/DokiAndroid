@@ -27,4 +27,17 @@ dependencies {
     testImplementation dep.testJunit
     androidTestImplementation dep.testSupportTestRunner
     androidTestImplementation dep.testEspresso
+
+    // network
+    implementation dep.retrofit
+    implementation dep.retorfiAdapterRxJava
+    implementation dep.retrofitGson
+    implementation dep.retrofitScalars
+    implementation dep.okhttp
+    implementation dep.okhttpLog
+
+    // util
+    implementation dep.gson
+    implementation dep.rxjava2
+    implementation dep.rajava2Android
 }

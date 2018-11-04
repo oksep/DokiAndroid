@@ -14,12 +14,19 @@ android {
         versionCode buildMeta.versionCode
         versionName buildMeta.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled  true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -34,8 +41,27 @@ dependencies {
     androidTestImplementation dep.testSupportTestRunner
     androidTestImplementation dep.testEspresso
 
-    implementation project(':center')
+    // network
+    implementation dep.retrofit
+    implementation dep.retorfiAdapterRxJava
+    implementation dep.retrofitGson
+    implementation dep.retrofitScalars
+    implementation dep.okhttp
+    implementation dep.okhttpLog
 
+    // util
+    implementation dep.gson
+    implementation dep.rxjava2
+    implementation dep.rajava2Android
+
+    // ui
+    implementation dep.roundImageView
+
+    // baseline
+    implementation project(':center')
+    implementation project(':ui')
+
+    // feature plugin
     implementationFeature(':admin')
     implementationFeature(':login')
 }

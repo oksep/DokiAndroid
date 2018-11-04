@@ -1,0 +1,14 @@
+<resources>
+
+    <declare-styleable name="RoundImageView">
+        <attr name="rv_radius" format="dimension"/>
+        <attr name="rv_circle" format="boolean"/>
+        <attr name="rv_border_width" format="dimension"/>
+        <attr name="rv_border_color" format="color|reference"/>
+        <attr name="rv_radius_top_left" format="dimension"/>
+        <attr name="rv_radius_top_right" format="dimension"/>
+        <attr name="rv_radius_bottom_left" format="dimension"/>
+        <attr name="rv_radius_bottom_right" format="dimension"/>
+    </declare-styleable>
+
+</resources>
