@@ -3,18 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
-
-
+    compileSdkVersion builds.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        minSdkVersion builds.minSdkVersion
+        targetSdkVersion builds.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -23,21 +17,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation dep.kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation dep.supportCompat
-    implementation dep.supportConstraintLayout
-    implementation dep.supportDesign
+    // android-x
+    implementation "androidx.appcompat:appcompat:${versions.axCompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
+    implementation "com.google.android.material:material:${versions.axMaterial}"
 
-    testImplementation dep.testJunit
-    androidTestImplementation dep.testSupportTestRunner
-    androidTestImplementation dep.testEspresso
+    // test
+    testImplementation "junit:junit:${versions.testJunit}"
+    androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
 
     implementation project(':center')
 }

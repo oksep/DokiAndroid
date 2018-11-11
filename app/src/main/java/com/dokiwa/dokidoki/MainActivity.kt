@@ -3,8 +3,8 @@ package com.dokiwa.dokidoki
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin

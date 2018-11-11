@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion buildMeta.compileSdkVersion
+    compileSdkVersion builds.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion buildMeta.minSdkVersion
-        targetSdkVersion buildMeta.targetSdkVersion
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion builds.minSdkVersion
+        targetSdkVersion builds.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -22,14 +22,17 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation dep.kotlin
-    implementation dep.supportCompat
-    implementation dep.supportConstraintLayout
-    implementation dep.supportDesign
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    testImplementation dep.testJunit
-    androidTestImplementation dep.testSupportTestRunner
-    androidTestImplementation dep.testEspresso
+    // android-x
+    implementation "androidx.appcompat:appcompat:${versions.axCompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
+    implementation "com.google.android.material:material:${versions.axMaterial}"
+
+    // test
+    testImplementation "junit:junit:${versions.testJunit}"
+    androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
 
     implementation project(':center')
 }

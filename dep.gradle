@@ -1,51 +1,49 @@
-//ext.dep = [
-//
-//]
-ext {
-    buildMeta = [
-            packageName      : 'com.dokiwa.dokidoki',
-            compileSdkVersion: 28,
-            minSdkVersion    : 21,
-            targetSdkVersion : 28,
-            versionCode      : 1,
-            versionName      : '1.0'
-    ]
+//////////////////////// build ////////////////////////
+def builds = [:]
+builds.packageName          = 'com.dokiwa.dokidoki'
+builds.compileSdkVersion    = 28
+builds.minSdkVersion        = 21
+builds.targetSdkVersion     = 28
+builds.versionCode          = 1
+builds.versionName          = '0.0.1'
+builds.renderScriptTarget   = 21
+ext.builds = builds
 
-    dep = [
-            kotlin                 : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+//////////////////////// versions ////////////////////////
+def versions = [:]
 
-            // support
-            supportCompat          : 'com.android.support:appcompat-v7:28.0.0',
-            supportConstraintLayout: 'com.android.support.constraint:constraint-layout:1.1.3',
-            supportDesign          : "com.android.support:design:28.0.0",
+// android-x
+versions.axCompat='1.0.2'
+versions.axConstraintLayout = '2.0.0-alpha2'
+versions.axLifecycle = '2.0.0'
+versions.axMaterial = '1.1.0-alpha01'
+versions.axCardView = '1.0.0'
 
-            // test
-            testJunit              : 'junit:junit:4.12',
-            testEspresso           : 'com.android.support.test.espresso:espresso-core:3.0.2',
-            testSupportTestRunner  : 'com.android.support.test:runner:1.0.2',
+// test
+versions.testJunit = '4.12'
+versions.testAxEspresso = '3.1.0'
+versions.testAxRunner= '1.1.0'
+versions.testMockito = '2.7.22'
+versions.testMockitoAndroid = '2.7.22'
+versions.testMockitoKotlin = '1.5.0'
+versions.testRobolectric = '3.5.1'
+versions.testAssertj = '2.8.0'
+versions.testArchRoomTest = '1.1.1'
 
-            testMockito            : "org.mockito:mockito-core:2.7.22",
-            testMockitoAndroid     : "org.mockito:mockito-android:2.7.22",
-            testMockitoKotlin      : "com.nhaarman:mockito-kotlin-kt1.1:1.5.0'",
-            testRobolectric        : "org.robolectric:robolectric:3.5.1",
-            testKotlinJunit        : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
-            testAssertj            : "org.assertj:assertj-core:2.8.0",
-            testArchRoomTest       : "android.arch.persistence.room:testing:1.1.1",
+// ui
+versions.roundImageView = '2.3.0'
 
-            // ui
-            roundImageView         : "com.makeramen:roundedimageview:2.3.0",
+// net
+versions.retrofit = '2.4.0'
+versions.retorfiAdapterRxJava = '2.4.0'
+versions.retrofitGson = '2.3.0'
+versions.retrofitScalars = '2.3.0'
+versions.okhttp = '3.11.0'
+versions.okhttpLog = '3.11.0'
 
-            // net
-            retrofit               : 'com.squareup.retrofit2:retrofit:2.4.0',
-            retorfiAdapterRxJava   : 'com.squareup.retrofit2:adapter-rxjava2:2.4.0',
-            retrofitGson           : 'com.squareup.retrofit2:converter-gson:2.3.0',
-            retrofitScalars        : 'com.squareup.retrofit2:converter-scalars:2.3.0',
-            okhttp                 : 'com.squareup.okhttp3:okhttp:3.11.0',
-            okhttpLog              : 'com.squareup.okhttp3:logging-interceptor:3.11.0',
+// tool
+versions.gson = '2.8.4'
+versions.rxjava2 = '2.1.17'
+versions.rxjava2Android = '2.0.2'
 
-            // util
-            gson                   : 'com.google.code.gson:gson:2.8.4',
-            rxjava2                : 'io.reactivex.rxjava2:rxjava:2.1.17',
-            rajava2Android         : 'io.reactivex.rxjava2:rxandroid:2.0.2',
-    ]
-}
+ext.versions = versions

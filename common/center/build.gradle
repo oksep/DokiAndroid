@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion buildMeta.compileSdkVersion
+    compileSdkVersion builds.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion buildMeta.minSdkVersion
-        targetSdkVersion buildMeta.targetSdkVersion
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion builds.minSdkVersion
+        targetSdkVersion builds.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -21,23 +21,29 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation dep.kotlin
-    implementation dep.supportCompat
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    testImplementation dep.testJunit
-    androidTestImplementation dep.testSupportTestRunner
-    androidTestImplementation dep.testEspresso
+    // android-x
+    implementation "androidx.appcompat:appcompat:${versions.axCompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
+    implementation "com.google.android.material:material:${versions.axMaterial}"
+
+    // test
+    testImplementation "junit:junit:${versions.testJunit}"
+    androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
+
 
     // network
-    implementation dep.retrofit
-    implementation dep.retorfiAdapterRxJava
-    implementation dep.retrofitGson
-    implementation dep.retrofitScalars
-    implementation dep.okhttp
-    implementation dep.okhttpLog
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retorfiAdapterRxJava}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofitGson}"
+    implementation "com.squareup.retrofit2:converter-scalars:${versions.retrofitScalars}"
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttpLog}"
 
     // util
-    implementation dep.gson
-    implementation dep.rxjava2
-    implementation dep.rajava2Android
+    implementation "com.google.code.gson:gson:${versions.gson}"
+    implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
 }

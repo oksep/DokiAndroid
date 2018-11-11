@@ -6,8 +6,8 @@ import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
-import android.support.annotation.ColorRes
-import android.support.v4.content.res.ResourcesCompat
+import androidx.annotation.ColorRes
+import androidx.core.content.res.ResourcesCompat
 import java.io.File
 import java.io.FileOutputStream
 
