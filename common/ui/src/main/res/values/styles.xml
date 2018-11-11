@@ -2,11 +2,33 @@
 <resources>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:buttonStyle">@android:style/Widget.Holo.Button.Borderless</item>
-        <item name="android:dialogTheme">@style/AppThemeDialogStyle</item>
-        <item name="android:alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
-        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
-        <item name="colorControlHighlight">@color/black_20</item>
+        <item name="android:buttonStyle">@android:style/Widget.Material.Button.Borderless.Colored</item>
+        <!--<item name="android:dialogTheme">@style/AppThemeDialogStyle</item>-->
+        <!--<item name="android:alertDialogTheme">@style/AppCompatAlertDialogStyle</item>-->
+        <!--<item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>-->
+        <!--<item name="colorControlHighlight">@color/black_20</item>-->
+        <!--<item name="android:background">@color/white</item>-->
+
+        <!--主色调 -->
+        <item name="colorPrimary">@color/dd_blue</item>
+        <!--状态栏颜色-->
+        <!--<item name="colorPrimaryDark">@color/transparent</item>-->
+        <!--控制各个控件被选中时的颜色-->
+        <item name="colorAccent">@color/dd_red</item>
+        <!--页面背景色-->
+        <item name="android:windowBackground">@color/dd_window</item>
+        <!--底部导航栏颜色-->
+        <!--<item name="android:navigationBarColor">@color/transparent</item>-->
+        <!--ToolBar上的Title颜色-->
+        <item name="android:textColorPrimary">@color/text_dft</item>
+        <!--各个控制控件的默认颜色 与colorAccent相反-->
+        <item name="android:colorControlNormal">@color/dd_gray_middle</item>
+        <!--控制所有可点击的View的涟漪效果颜色-->
+        <item name="android:colorControlHighlight">@color/dd_red</item>
+        <!--EditText 输入框中字体的颜色-->
+        <item name="android:editTextColor">@color/text_dft</item>
+        <item name="android:textColor">@color/text_dft</item>
+
     </style>
 
     <!-- dialog -->

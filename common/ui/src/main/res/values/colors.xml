@@ -5,17 +5,18 @@
     <color name="dd_white">#fff</color>
     <color name="dd_black">#000</color>
     <color name="dd_blue">#ff33b5e5</color>
-    <color name="dd_red">#f44</color>
+    <color name="dd_red">#FF3264</color>
     <color name="dd_yellow">#fb3</color>
     <color name="dd_green">#9c0</color>
     <color name="dd_gray_light">#F1F3F5</color>
     <color name="dd_gray_middle">#E0E4EB</color>
     <color name="dd_gray_dark">#BEC5D0</color>
+    <color name="dd_window">#F5F8FA</color>
 
-    <color name="text_primary">#202020</color>
-    <color name="text_dft">#DE000000</color>
-    <color name="text_sub">#989aa1</color>
-    <color name="text_tip">#cbcccd</color>
+    <color name="text_dft">#333</color>
+    <color name="text_sub">#666</color>
+    <color name="text_tip">#a4aab3</color>
+
     <color name="text_success">#9c0</color>
     <color name="text_error">#f44</color>
     <color name="text_hint">#d8d8d8</color>
@@ -28,6 +29,7 @@
     <color name="white_70">#99FFFFFF</color>
     <color name="white_80">#CCFFFFFF</color>
     <color name="white_90">#E6FFFFFF</color>
+    <color name="white">#FFF</color>
 
     <color name="black_10">#1A000000</color>
     <color name="black_20">#33000000</color>
@@ -37,6 +39,7 @@
     <color name="black_60">#99000000</color>
     <color name="black_80">#CC000000</color>
     <color name="black_90">#E6000000</color>
+    <color name="black">#000</color>
 
     <color name="line_light">@color/dd_gray_light</color>
     <color name="line_middle">@color/dd_gray_middle</color>
