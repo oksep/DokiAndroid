@@ -1,23 +1,29 @@
 package com.dokiwa.dokidoki
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
-import android.os.Build
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.view.View
-import android.view.WindowManager
 import com.dokiwa.dokidoki.center.activity.BaseActivity
+import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.ui.ext.blurBitmap
 import com.dokiwa.dokidoki.ui.ext.maskColor
 import com.dokiwa.dokidoki.ui.ext.scaleByRatio
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_home.*
 
-class MainActivity : BaseActivity() {
+class HomeActivity : BaseActivity() {
+
+    companion object {
+        fun launch(context: Activity) {
+            context.startActivity(Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+            context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+    }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -39,7 +45,13 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        translucentStatusBar()
+
+        setContentView(R.layout.activity_home)
+
+        toolBar.setRightIconClickListener(View.OnClickListener {
+            toast("Hello")
+        })
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 

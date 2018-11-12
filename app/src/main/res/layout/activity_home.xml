@@ -5,25 +5,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    tools:context=".MainActivity">
+    tools:context=".HomeActivity">
 
-    <LinearLayout
-        android:fitsSystemWindows="true"
-        android:background="@color/dd_green"
-        android:paddingTop="20dp"
+    <com.dokiwa.dokidoki.ui.view.ToolBar
+        android:id="@+id/toolBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:tb_right_ic="@drawable/ic_search_light"
+        app:tb_title="@string/app_name"
+        app:tb_title_color="@color/white"
+        android:background="@drawable/bg_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="AAAAAAAAAAA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.Toolbar
+        android:visibility="gone"
         android:background="@color/dd_green"
         app:title="Hello ToolBar"
-        android:id="@+id/toolBar"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="120dp"
         android:layout_width="match_parent"
@@ -43,6 +42,7 @@
 
 
     <ScrollView
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/toolBar"
         app:layout_constraintBottom_toTopOf="@id/navigation"
         android:orientation="vertical"
@@ -170,13 +170,5 @@
             </RadioGroup>
         </LinearLayout>
     </ScrollView>
-
-    <SearchView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/toolBar"
-        app:layout_constraintDimensionRatio="5:2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

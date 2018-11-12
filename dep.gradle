@@ -18,6 +18,7 @@ versions.axConstraintLayout = '2.0.0-alpha2'
 versions.axLifecycle = '2.0.0'
 versions.axMaterial = '1.1.0-alpha01'
 versions.axCardView = '1.0.0'
+versions.axKtx = '1.0.1'
 
 // test
 versions.testJunit = '4.12'

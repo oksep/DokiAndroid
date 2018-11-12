@@ -11,4 +11,11 @@
         <attr name="rv_radius_bottom_right" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="ToolBar">
+        <attr name="tb_left_ic" format="reference"/>
+        <attr name="tb_right_ic" format="reference"/>
+        <attr name="tb_title" format="string|reference"/>
+        <attr name="tb_title_color" format="color|reference"/>
+    </declare-styleable>
+
 </resources>

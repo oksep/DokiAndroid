@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi builds.renderScriptTarget
-        renderscriptSupportModeEnabled  true
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -41,6 +41,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.axLifecycle}"
     implementation "com.google.android.material:material:${versions.axMaterial}"
     implementation "androidx.cardview:cardview:${versions.axCardView}"
+    implementation "androidx.core:core-ktx:${versions.axKtx}"
 
     // test
     testImplementation "junit:junit:${versions.testJunit}"
