@@ -1,11 +1,15 @@
 package com.dokiwa.dokidoki
 
+import android.app.Activity
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import android.view.WindowManager
+import com.dokiwa.dokidoki.center.activity.BaseActivity
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.ui.ext.blurBitmap
@@ -13,7 +17,7 @@ import com.dokiwa.dokidoki.ui.ext.maskColor
 import com.dokiwa.dokidoki.ui.ext.scaleByRatio
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {

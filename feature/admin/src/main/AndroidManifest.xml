@@ -5,8 +5,7 @@
     <application>
         <activity
                 android:name=".AdminActivity"
-                android:label="@string/title_activity_admin"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:label="@string/title_activity_admin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

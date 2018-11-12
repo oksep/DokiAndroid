@@ -9,7 +9,6 @@ import com.makeramen.roundedimageview.RoundedImageView
 
 class RoundImageView : RoundedImageView {
 
-
     constructor(context: Context) : super(context) {
         init(null, 0)
     }
