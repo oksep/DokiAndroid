@@ -2,19 +2,21 @@ package com.dokiwa.dokidoki
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.dokiwa.dokidoki.center.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
-import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
-import com.dokiwa.dokidoki.ui.ext.blurBitmap
-import com.dokiwa.dokidoki.ui.ext.maskColor
-import com.dokiwa.dokidoki.ui.ext.scaleByRatio
+import com.dokiwa.dokidoki.fragment.FeedFragment
+import com.dokiwa.dokidoki.fragment.MeFragment
+import com.dokiwa.dokidoki.fragment.MsgFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
+import android.view.MotionEvent
+
 
 class HomeActivity : BaseActivity() {
 
@@ -27,16 +29,19 @@ class HomeActivity : BaseActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
-                toolBar.setTitle(R.string.title_home)
+            R.id.navigation_home_feed -> {
+                toolBar.setTitle(R.string.title_home_feed)
+                viewPager.currentItem = 0
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                toolBar.setTitle(R.string.title_dashboard)
+            R.id.navigation_home_msg -> {
+                toolBar.setTitle(R.string.title_home_msg)
+                viewPager.currentItem = 1
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
-                toolBar.setTitle(R.string.title_notifications)
+            R.id.navigation_home_me -> {
+                toolBar.setTitle(R.string.title_home_me)
+                viewPager.currentItem = 2
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -55,20 +60,43 @@ class HomeActivity : BaseActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        img2.let {
-            val bmp = BitmapFactory.decodeResource(resources, R.drawable.test)
-                .scaleByRatio(0.5f)
-                .maskColor(this, R.color.white_20)
-                .blurBitmap(this, 10f, true)
-            it.setImageDrawable(BitmapDrawable(resources, bmp))
-        }
+        setupViewPager(viewPager)
     }
 
-    fun openAdminActivity(view: View) {
-        IAdminPlugin.get().launchAdmin(this)
+    private fun setupViewPager(viewPager: ViewPager) {
+        val adapter = BottomAdapter(supportFragmentManager)
+        adapter.addFragment(FeedFragment.newInstance())
+        adapter.addFragment(MsgFragment.newInstance())
+        adapter.addFragment(MeFragment.newInstance())
+        viewPager.adapter = adapter
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                navigation.menu.getItem(position).isChecked = true
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+        })
+    }
+}
+
+class BottomAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+    private val fragments = mutableListOf<Fragment>()
+
+    override fun getItem(position: Int): Fragment {
+        return fragments[position]
     }
 
-    fun openLoginActivity(view: View) {
-        ILoginPlugin.get().launchLoginActivity(this)
+    override fun getCount(): Int {
+        return fragments.size
+    }
+
+    fun addFragment(fragment: Fragment) {
+        fragments.add(fragment)
     }
 }
