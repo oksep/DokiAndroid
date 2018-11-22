@@ -7,6 +7,8 @@ import android.view.View
 import androidx.core.os.HandlerCompat
 import com.dokiwa.dokidoki.center.activity.BaseActivity
 import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.rx.subscribe
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,11 +21,13 @@ class LaunchActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
-
     }
 
     fun onBtnClick(view: View) {
-        Api.get(MockApi::class.java, "http://192.168.45.136:3000")
+        FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+        finish()
+
+        Api.get(MockApi::class.java, "http://192.168.0.104:3000")
             .getUserList(10, 20)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
@@ -40,7 +44,7 @@ class LaunchActivity : BaseActivity() {
 
     private fun delayToHome() {
         HandlerCompat.postDelayed(Handler(), {
-            HomeActivity.launch(this@LaunchActivity)
+            FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
             finish()
         }, null, 1000)
     }

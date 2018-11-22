@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.fragment
+package com.dokiwa.dokidoki.home.fragment
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,27 +6,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dokiwa.dokidoki.home.R
 
-import com.dokiwa.dokidoki.R
-
-class MsgFragment : Fragment() {
+class MeFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MsgFragment()
+        fun newInstance() = MeFragment()
     }
 
-    private lateinit var viewModel: MsgViewModel
+    private lateinit var viewModel: MeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_msg, container, false)
+        return inflater.inflate(R.layout.fragment_me, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MsgViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(MeViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

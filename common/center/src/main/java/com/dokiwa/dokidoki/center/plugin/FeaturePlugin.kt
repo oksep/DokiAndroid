@@ -1,7 +1,9 @@
 package com.dokiwa.dokidoki.center.plugin
 
 import android.content.Context
+import android.util.Log
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
+import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -10,6 +12,9 @@ import java.lang.reflect.Proxy
 /**
  * Created by Septenary on 2018/8/11.
  */
+
+const val TAG = "FeaturePlugin"
+
 interface FeaturePlugin {
     fun onInit(context: Context) {
     }
@@ -21,16 +26,18 @@ interface FeaturePlugin {
             fun <T : FeaturePlugin> inMap(clazz: Class<T>) {
                 val implClassName = clazz.getAnnotation(PluginImplMeta::class.java).implClassName
                 try {
-                    map[clazz] = (Class.forName(implClassName)?.newInstance() as? FeaturePlugin)?.apply {
+                    map[clazz] = (Class.forName(implClassName).newInstance() as? FeaturePlugin)?.apply {
                         onInit(context)
                     }
-                } catch (ex: Exception) {
+                } catch (ex: Throwable) {
                     ex.printStackTrace()
+                    Log.e(TAG, "plugin $clazz not found.")
                 }
             }
 
             inMap(IAdminPlugin::class.java)
             inMap(ILoginPlugin::class.java)
+            inMap(IHomePlugin::class.java)
         }
 
         inline fun <reified T : FeaturePlugin> get(clazz: Class<T>): T {

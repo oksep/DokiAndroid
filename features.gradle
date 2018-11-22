@@ -1,3 +1,6 @@
+include ':home'
+project(':home').projectDir = new File(settingsDir, 'feature/home')
+
 include ':admin'
 project(':admin').projectDir = new File(settingsDir, 'feature/admin')
 

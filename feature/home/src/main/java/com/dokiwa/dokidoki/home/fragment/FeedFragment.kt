@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.fragment
+package com.dokiwa.dokidoki.home.fragment
 
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.dokiwa.dokidoki.R
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.home.R
 import com.dokiwa.dokidoki.ui.ext.blurBitmap
 import com.dokiwa.dokidoki.ui.ext.maskColor
 import com.dokiwa.dokidoki.ui.ext.scaleByRatio

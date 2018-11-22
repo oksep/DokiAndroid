@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Home</string>
+
+    <!--首页-->
+    <string name="title_home_feed">首页</string>
+    <string name="title_home_msg">消息</string>
+    <string name="title_home_me">我的</string>
+</resources>

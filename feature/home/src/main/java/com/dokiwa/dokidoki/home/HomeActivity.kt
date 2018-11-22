@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki
+package com.dokiwa.dokidoki.home
 
 import android.app.Activity
 import android.content.Intent
@@ -10,18 +10,18 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.dokiwa.dokidoki.center.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.fragment.FeedFragment
-import com.dokiwa.dokidoki.fragment.MeFragment
-import com.dokiwa.dokidoki.fragment.MsgFragment
+import com.dokiwa.dokidoki.home.fragment.FeedFragment
+import com.dokiwa.dokidoki.home.fragment.MeFragment
+import com.dokiwa.dokidoki.home.fragment.MsgFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
-import android.view.MotionEvent
 
 
 class HomeActivity : BaseActivity() {
 
     companion object {
         fun launch(context: Activity) {
+            Log.d("HomeActivity", "launch")
             context.startActivity(Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
             context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }

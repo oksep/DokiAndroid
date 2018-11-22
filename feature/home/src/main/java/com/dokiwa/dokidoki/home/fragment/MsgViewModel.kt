@@ -1,7 +1,7 @@
-package com.dokiwa.dokidoki.fragment
+package com.dokiwa.dokidoki.home.fragment
 
 import androidx.lifecycle.ViewModel
 
-class MeViewModel : ViewModel() {
+class MsgViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
