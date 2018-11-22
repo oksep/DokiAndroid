@@ -1,24 +1,20 @@
 package com.dokiwa.dokidoki.center.api
 
+import com.dokiwa.dokidoki.center.Log
 import okhttp3.Interceptor
-import okhttp3.Response
-import okhttp3.internal.platform.Platform
-import okhttp3.internal.platform.Platform.INFO
-import okhttp3.logging.HttpLoggingInterceptor
-import okio.Buffer
 
+import okhttp3.Response
+import okio.Buffer
 import java.io.EOFException
+
 import java.io.IOException
 import java.nio.charset.Charset
 
-/**
- * Created by Septenary on 2018/11/4.
- */
-object CURLInterceptor : Interceptor {
+private val UTF8 = Charset.forName("UTF-8")
 
-    private val LOGGER = HttpLoggingInterceptor.Logger { message -> Platform.get().log(INFO, message, null) }
+private val TAG = "API"
 
-    private val UTF8 = Charset.forName("UTF-8")
+class CURLInterceptor : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -60,9 +56,9 @@ object CURLInterceptor : Interceptor {
 
         sb.append(" \"").append(request.url()).append("\"")
 
-        LOGGER.log("╭--- cURL (" + request.url() + ")")
-        LOGGER.log(sb.toString())
-        LOGGER.log("╰--- (copy and paste the above line to a terminal)")
+        Log.d(TAG, "╭--- cURL (" + request.url() + ")")
+        Log.d(TAG, sb.toString())
+        Log.d(TAG, "╰--- (copy and paste the above line to a terminal)")
 
         return chain.proceed(request)
     }

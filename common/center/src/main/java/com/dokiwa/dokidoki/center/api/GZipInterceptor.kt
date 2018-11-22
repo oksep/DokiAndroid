@@ -13,7 +13,7 @@ import java.io.IOException
 /**
  * Created by Septenary on 2018/11/4.
  */
-object GZipInterceptor : Interceptor {
+class GZipInterceptor : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -53,7 +53,7 @@ object GZipInterceptor : Interceptor {
     private fun gzip(body: RequestBody?): RequestBody {
         return object : RequestBody() {
             override fun contentType(): MediaType? {
-                return body!!.contentType()
+                return body?.contentType()
             }
 
             override fun contentLength(): Long {
@@ -63,7 +63,7 @@ object GZipInterceptor : Interceptor {
             @Throws(IOException::class)
             override fun writeTo(sink: BufferedSink) {
                 val gzipSink = Okio.buffer(GzipSink(sink))
-                body!!.writeTo(gzipSink)
+                body?.writeTo(gzipSink)
                 gzipSink.close()
             }
         }

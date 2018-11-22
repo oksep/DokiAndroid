@@ -5,17 +5,28 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.dokiwa.dokidoki.center.rx.CompositeDisposableContext
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * Created by Septenary on 2018/11/12.
  */
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(), CompositeDisposableContext {
+
+    private val disposableContainer by lazy { CompositeDisposable() }
+
+    override fun addDispose(dispose: Disposable) {
+        disposableContainer.add(dispose)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        disposableContainer.dispose()
     }
 
     protected fun translucentStatusBar() {
