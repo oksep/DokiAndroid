@@ -7,14 +7,16 @@ import android.view.View
 import androidx.core.os.HandlerCompat
 import com.dokiwa.dokidoki.center.activity.BaseActivity
 import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.api.ApiData
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.rx.subscribe
+import com.google.gson.annotations.SerializedName
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
-import retrofit2.http.Query
+
 
 class LaunchActivity : BaseActivity() {
 
@@ -24,11 +26,12 @@ class LaunchActivity : BaseActivity() {
     }
 
     fun onBtnClick(view: View) {
-        FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
-        finish()
+        getAppConfig()
+    }
 
-        Api.get(MockApi::class.java, "http://192.168.0.104:3000")
-            .getUserList(10, 20)
+    private fun getAppConfig() {
+        Api.get(ConfigApi::class.java)
+            .getConfig()
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -37,7 +40,7 @@ class LaunchActivity : BaseActivity() {
                     Log.d("MockApi", it.toString())
                 },
                 {
-                    Log.e("MockApi", "登录失败", it)
+                    Log.e("MockApi", "Request config failed", it)
                 }
             )
     }
@@ -50,9 +53,12 @@ class LaunchActivity : BaseActivity() {
     }
 }
 
-data class User(val name: String, val address: String)
+data class ApiConfig(val status: Status, val data: Data) : ApiData {
+    data class Status(val code: Int, val err_msg: String)
+    data class Data(@SerializedName("image_size_limit") val imageSizeLimit: String)
+}
 
-interface MockApi {
-    @GET("/api/list")
-    fun getUserList(@Query("from") from: Int, @Query("limit") limit: Int): Observable<List<User>>
+interface ConfigApi {
+    @GET("/api/doki/v1/config")
+    fun getConfig(): Observable<ApiConfig>
 }

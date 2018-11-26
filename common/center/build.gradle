@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion builds.compileSdkVersion
@@ -8,6 +9,10 @@ android {
         minSdkVersion builds.minSdkVersion
         targetSdkVersion builds.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_BASE_URL", "\"https://bigmom.dokiwa.com\""
+        buildConfigField "String", "API_KEY", "\"f99h95vkks88bnwcrjq342p8nsfrdkr7\""
+        buildConfigField "String", "API_SECRET", "\"jg59qdjahrjpc6y59b6h3yu5awmbq4v8\""
     }
 
     buildTypes {
