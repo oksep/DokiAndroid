@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.center.api
+package com.dokiwa.dokidoki.center.api.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -6,7 +6,7 @@ import okhttp3.Response
 /**
  * Created by Septenary on 2018/11/4.
  */
-class TokenInterceptor(var token: String? = null) : Interceptor {
+class TokenInterceptor(private var token: String? = null) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         return if (token != null) {

@@ -7,14 +7,11 @@ import android.view.View
 import androidx.core.os.HandlerCompat
 import com.dokiwa.dokidoki.center.activity.BaseActivity
 import com.dokiwa.dokidoki.center.api.Api
-import com.dokiwa.dokidoki.center.api.ApiData
+import com.dokiwa.dokidoki.center.api.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
-import com.dokiwa.dokidoki.center.rx.subscribe
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import retrofit2.http.GET
 
 
@@ -27,22 +24,19 @@ class LaunchActivity : BaseActivity() {
 
     fun onBtnClick(view: View) {
         getAppConfig()
+
     }
 
     private fun getAppConfig() {
-        Api.get(ConfigApi::class.java)
-            .getConfig()
-            .subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                this,
-                {
-                    Log.d("MockApi", it.toString())
-                },
-                {
-                    Log.e("MockApi", "Request config failed", it)
-                }
-            )
+        Api.get(ConfigApi::class.java).getConfig().subscribeApi(
+            this,
+            {
+                Log.d("MockApi", it.toString())
+            },
+            {
+                Log.e("MockApi", "Request config failed", it)
+            }
+        )
     }
 
     private fun delayToHome() {
@@ -53,9 +47,17 @@ class LaunchActivity : BaseActivity() {
     }
 }
 
-data class ApiConfig(val status: Status, val data: Data) : ApiData {
-    data class Status(val code: Int, val err_msg: String)
-    data class Data(@SerializedName("image_size_limit") val imageSizeLimit: String)
+data class ApiConfig(val status: Status, val data: Data) {
+    data class Status(
+        @SerializedName("err_msg")
+        val errMsg: String,
+        val code: Int
+    )
+
+    data class Data(
+        @SerializedName("image_size_limit")
+        val imageSizeLimit: String
+    )
 }
 
 interface ConfigApi {

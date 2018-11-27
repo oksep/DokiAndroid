@@ -11,6 +11,7 @@ import java.net.URLEncoder
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ApiTest {
+
     @Test
     fun sign_is_correct() {
         val ts = 1543241108
@@ -36,5 +37,36 @@ class ApiTest {
         val sign = unSign.sha1()
 
         Assert.assertEquals("fd1f3cdf3e05eda52aa30e813c7d437505670ce0", sign)
+    }
+
+    @Test
+    fun testListSortBy() {
+        val list = genShuffleList()
+        list.sortBy { it.first }
+        Assert.assertEquals(list.first().second, "ab-cd-ef-g")
+        Assert.assertEquals(list.last().second, "3")
+    }
+
+    @Test
+    fun testListSortedBy() {
+        val list = genShuffleList()
+        val newList = list.sortedBy { it.first }
+        Assert.assertEquals(newList.first().second, "ab-cd-ef-g")
+        Assert.assertEquals(newList.last().second, "3")
+    }
+
+    private fun genShuffleList(): MutableList<Pair<String, String>> {
+        return mutableListOf(
+            Pair("_ts", "123456"),
+            Pair("_nonce", "654321"),
+            Pair("page", "3"),
+            Pair("limit", "20"),
+            Pair("_ak", "ab-cd-ef-g")
+        ).also { it.shuffle() }
+    }
+
+    @Test
+    fun testRetryWhen() {
+        com.dokiwa.dokidoki.center.Test().test()
     }
 }

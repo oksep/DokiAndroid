@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.center.api
+package com.dokiwa.dokidoki.center.api.interceptor
 
 import com.dokiwa.dokidoki.center.Log
 import okhttp3.Interceptor
@@ -12,7 +12,7 @@ import java.nio.charset.Charset
 
 private val UTF8 = Charset.forName("UTF-8")
 
-private val TAG = "API"
+private const val TAG = "API"
 
 class CURLInterceptor : Interceptor {
 

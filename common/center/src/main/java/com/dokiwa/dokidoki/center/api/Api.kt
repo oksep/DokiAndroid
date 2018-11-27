@@ -2,9 +2,21 @@ package com.dokiwa.dokidoki.center.api
 
 import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.Log
+import com.dokiwa.dokidoki.center.api.convert.ApiGsonConverterFactory
+import com.dokiwa.dokidoki.center.api.exception.SignatureException
+import com.dokiwa.dokidoki.center.api.exception.toApiException
+import com.dokiwa.dokidoki.center.api.interceptor.CURLInterceptor
+import com.dokiwa.dokidoki.center.api.interceptor.GZipInterceptor
+import com.dokiwa.dokidoki.center.api.interceptor.HeaderInterceptor
+import com.dokiwa.dokidoki.center.api.interceptor.QueryInterceptor
+import com.dokiwa.dokidoki.center.api.interceptor.TokenInterceptor
+import com.dokiwa.dokidoki.center.rx.CompositeDisposableContext
+import com.dokiwa.dokidoki.center.rx.subscribe
+import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,15 +32,17 @@ object Api {
 
     private const val BASE_URL = BuildConfig.API_BASE_URL
 
-    private val commonQueries = mapOf<String, String>()
+    private val commonQueries =
+        mutableListOf<Pair<String, String>>().also { it.add(Pair("email", "seven__up@sina.cn")) }
     private val commonHeaders = mapOf<String, String>()
 
-    private val queryInterceptor = QueryInterceptor(BuildConfig.API_KEY, commonQueries)
+    private val queryInterceptor = QueryInterceptor(
+        BuildConfig.API_KEY,
+        BuildConfig.API_SECRET,
+        commonQueries
+    )
     private val headerInterceptor = HeaderInterceptor(commonHeaders)
     private val tokenInterceptor = TokenInterceptor()
-    private val signingInterceptor = SigningInterceptor(BuildConfig.API_KEY, BuildConfig.API_SECRET) {
-        queryInterceptor.timeDif = it
-    }
     private val curlInterceptor = CURLInterceptor()
     private val gzipInterceptor = GZipInterceptor()
 
@@ -43,11 +57,10 @@ object Api {
             .connectTimeout(15L, TimeUnit.SECONDS)
             .writeTimeout(5L, TimeUnit.SECONDS)
             .readTimeout(5L, TimeUnit.SECONDS)
-            .addInterceptor(queryInterceptor)
             .addInterceptor(headerInterceptor)
+            .addInterceptor(queryInterceptor)
             .addInterceptor(tokenInterceptor)
             .addInterceptor(gzipInterceptor)
-            .addInterceptor(signingInterceptor)
             .addInterceptor(curlInterceptor)
             .addInterceptor(loggingInterceptor.apply { level = HttpLoggingInterceptor.Level.BODY })
             .authenticator { _, response ->
@@ -68,9 +81,16 @@ object Api {
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())
+            // TODO: 2018/11/28 @Septenary custom converter
+            // .addConverterFactory(ApiGsonConverterFactory.create())
             .client(client)
             .build()
             .create(clazz)
+    }
+
+    // 矫正本地时间
+    fun correctTimestamp(timeDif: Long) {
+        queryInterceptor.timeDif = timeDif
     }
 
 //    private fun commonHeaders(context: Context): Map<String, String> {
@@ -89,4 +109,33 @@ object Api {
 //        params["sDeviceId"] = ContextHelper.getSdeviceId(context)
 //        return params
 //    }
+}
+
+/**
+ * 封装网络接口请求订阅方法，如果是签算错误，矫正时间戳，重试一次
+ */
+fun <T> Observable<T>.subscribeApi(
+    context: CompositeDisposableContext,
+    onNext: ((t: T) -> Unit)? = null,
+    onError: ((e: Throwable) -> Unit)? = null,
+    onComplete: (() -> Unit)? = null
+) {
+    var retried = false
+    this.retryWhen {
+        it.flatMap { error ->
+            if (error is HttpException) {
+                val apiException = error.toApiException()
+                if (apiException is SignatureException && !retried) {
+                    Api.correctTimestamp(apiException.timeDif)
+                    Observable.just(Unit)
+                } else {
+                    Observable.error(apiException)
+                }
+            } else {
+                Observable.error(error)
+            }.also {
+                retried = true
+            }
+        }
+    }.subscribe(context, onNext, onError, onComplete)
 }
