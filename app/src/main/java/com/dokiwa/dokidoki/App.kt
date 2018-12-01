@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki
 
 import android.app.Application
+import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 
 /**
@@ -9,6 +10,7 @@ import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        AppCenter.init(this)
         FeaturePlugin.init(this)
     }
 }

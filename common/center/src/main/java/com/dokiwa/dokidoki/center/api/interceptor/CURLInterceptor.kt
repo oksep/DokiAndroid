@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.center.api.interceptor
 
 import com.dokiwa.dokidoki.center.Log
+import com.dokiwa.dokidoki.center.api.Api
 import okhttp3.Interceptor
 
 import okhttp3.Response
@@ -11,8 +12,6 @@ import java.io.IOException
 import java.nio.charset.Charset
 
 private val UTF8 = Charset.forName("UTF-8")
-
-private const val TAG = "API"
 
 class CURLInterceptor : Interceptor {
 
@@ -56,9 +55,9 @@ class CURLInterceptor : Interceptor {
 
         sb.append(" \"").append(request.url()).append("\"")
 
-        Log.d(TAG, "╭--- cURL (" + request.url() + ")")
-        Log.d(TAG, sb.toString())
-        Log.d(TAG, "╰--- (copy and paste the above line to a terminal)")
+        Log.d(Api.TAG, "╭--- cURL content")
+        Log.d(Api.TAG, sb.toString())
+        Log.d(Api.TAG, "╰--- cURL (copy and paste the above line to a terminal)")
 
         return chain.proceed(request)
     }

@@ -4,7 +4,7 @@ import com.dokiwa.dokidoki.center.ext.sha1
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.net.URLEncoder
-import java.util.UUID
+import java.util.*
 
 /**
  * Created by Septenary on 2018/11/4.
@@ -12,8 +12,9 @@ import java.util.UUID
 class QueryInterceptor(
     private val apiKey: String,
     private val apiSecret: String,
-    private val commonQueries: List<Pair<String, String>>,
-    var timeDif: Long = 0L
+    queries: Map<String, String>,
+    private val commonQueries: List<Pair<String, String>> = queries.toList(),
+    @Volatile var timeDif: Long = 0L
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

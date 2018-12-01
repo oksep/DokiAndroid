@@ -64,9 +64,4 @@ class ApiTest {
             Pair("_ak", "ab-cd-ef-g")
         ).also { it.shuffle() }
     }
-
-    @Test
-    fun testRetryWhen() {
-        com.dokiwa.dokidoki.center.Test().test()
-    }
 }

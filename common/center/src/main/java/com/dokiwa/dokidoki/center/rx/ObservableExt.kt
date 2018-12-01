@@ -8,7 +8,7 @@ import io.reactivex.schedulers.Schedulers
  * 扩展带 dispose 上下文的订阅方法
  */
 fun <T> Observable<T>.subscribe(
-    context: CompositeDisposableContext,
+    context: CompositeDisposableContext?,
     onNext: ((t: T) -> Unit)? = null,
     onError: ((e: Throwable) -> Unit)? = null,
     onComplete: (() -> Unit)? = null
@@ -26,7 +26,7 @@ fun <T> Observable<T>.subscribe(
  * 扩展带 dispose 上下文的订阅方法，同时允许重试一次
  */
 fun <T> Observable<T>.retryOnShotSubscribe(
-    context: CompositeDisposableContext,
+    context: CompositeDisposableContext?,
     onNext: ((t: T) -> Unit)? = null,
     onError: ((e: Throwable) -> Unit)? = null,
     onComplete: (() -> Unit)? = null
@@ -53,7 +53,6 @@ fun <T> Observable<T>.retryOnShotSubscribe(
  * 统一封装线程切换
  * job    ==> io
  * result ==> main
- * TODO: scheduler (io -> network)
  */
 fun <T> Observable<T>.composeIoMain(): Observable<T> {
     return this.compose { upstream ->

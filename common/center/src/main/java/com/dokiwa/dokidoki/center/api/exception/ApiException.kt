@@ -1,7 +1,7 @@
 package com.dokiwa.dokidoki.center.api.exception
 
+import com.dokiwa.dokidoki.center.api.model.ApiData
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import retrofit2.HttpException
 
 sealed class ApiException(m: String, t: Throwable, val action: String? = null) : RuntimeException(m, t)
@@ -30,17 +30,12 @@ class ServerException(m: String, t: Throwable) : ApiException(m, t)
 // 未知错误
 class UnknownException(m: String, t: Throwable) : ApiException(m, t)
 
-data class ApiErrorResponse(val status: Status, val time: Int, val action: Action?) {
-    data class Action(val to: String)
-    data class Status(val code: Int, @SerializedName("err_msg") val message: String?)
-}
-
 fun HttpException.toApiException(): ApiException {
     val code = this.code()
     when {
         code >= 400 -> {
             this.response().errorBody()?.string()?.let {
-                val errorResponse = Gson().fromJson(it, ApiErrorResponse::class.java)
+                val errorResponse = Gson().fromJson(it, ApiData::class.java)
                 val actionTo = errorResponse.action?.to
                 return when (errorResponse.status.code) {
                     400000 -> InvalidParamException("参数错误", this, actionTo)
@@ -54,7 +49,7 @@ fun HttpException.toApiException(): ApiException {
                     401000 -> AuthorizationException("授权失败，需重新登录", this, actionTo)
                     401002 -> UnbindMobileNumberException("第三方账号未绑定手机", this, actionTo)
                     else -> {
-                        OthersException(errorResponse.status.message ?: "其它授权错误", this, actionTo)
+                        OthersException(errorResponse.status.errorMessage ?: "其它授权错误", this, actionTo)
                     }
                 }
             }
