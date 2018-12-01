@@ -1,6 +1,6 @@
 package com.dokiwa.dokidoki.home
 
-object Log {
+internal object Log {
 
     private const val MODULE = "Home"
 

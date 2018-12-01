@@ -36,6 +36,12 @@
 
     </style>
 
+    <style name="AppTheme" parent="BaseTheme"/>
+
+    <style name="AppTheme.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!-- dialog -->
     <style name="AppThemeDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/dd_red</item>

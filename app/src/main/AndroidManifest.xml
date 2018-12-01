@@ -29,7 +29,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
-            android:theme="@style/AppThemeFullScreen"
+            android:theme="@style/AppTheme.FullScreen"
             android:name=".LaunchActivity"
             android:launchMode="singleInstance">
             <intent-filter>

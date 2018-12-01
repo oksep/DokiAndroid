@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Admin</string>
-    <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_admin">管理员</string>
 </resources>

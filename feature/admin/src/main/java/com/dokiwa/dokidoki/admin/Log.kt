@@ -1,6 +1,6 @@
 package com.dokiwa.dokidoki.admin
 
-object Log {
+internal object Log {
 
     private const val MODULE = "Admin"
 

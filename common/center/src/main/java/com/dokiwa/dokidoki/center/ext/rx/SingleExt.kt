@@ -17,8 +17,8 @@ import retrofit2.HttpException
  */
 fun <T> Single<T>.subscribe(
     context: CompositeDisposableContext?,
-    onSuccess: Consumer<T>? = null,
-    onError: Consumer<Throwable>? = null
+    onSuccess: Consumer<T>,
+    onError: Consumer<Throwable>
 ) {
     this.composeIoMain().subscribe(onSuccess, onError).bind(context)
 }
@@ -28,8 +28,8 @@ fun <T> Single<T>.subscribe(
  */
 fun <T> Single<T>.retryOnShotSubscribe(
     context: CompositeDisposableContext?,
-    onSuccess: Consumer<T>? = null,
-    onError: Consumer<Throwable>? = null
+    onSuccess: Consumer<T>,
+    onError: Consumer<Throwable>
 ) {
     var retried = false
     this.retryWhen { errors ->
@@ -61,8 +61,8 @@ fun <T> Single<T>.composeIoMain(): Single<T> {
  */
 fun <T> Single<T>.subscribeApi(
     context: CompositeDisposableContext? = null,
-    onSuccess: Consumer<T>? = null,
-    onError: Consumer<Throwable>? = null
+    onSuccess: Consumer<T>,
+    onError: Consumer<Throwable>
 ) {
     var retried = false
     this.retryWhen { errors ->

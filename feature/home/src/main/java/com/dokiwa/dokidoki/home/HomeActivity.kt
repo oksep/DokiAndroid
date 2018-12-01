@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.dokiwa.dokidoki.center.base.activity.BaseActivity
+import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
@@ -19,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : TranslucentActivity() {
 
     companion object {
         fun launch(context: Activity) {
@@ -29,39 +29,19 @@ class HomeActivity : BaseActivity() {
         }
     }
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home_feed -> {
-                toolBar.setTitle(R.string.title_home_feed)
-                viewPager.currentItem = 0
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_home_msg -> {
-                toolBar.setTitle(R.string.title_home_msg)
-                viewPager.currentItem = 1
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_home_me -> {
-                toolBar.setTitle(R.string.title_home_me)
-                viewPager.currentItem = 2
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        translucentStatusBar()
 
         setContentView(R.layout.activity_home)
 
         toolBar.setRightIconClickListener(View.OnClickListener {
-            toast("Hello")
+            // TODO: 2018/12/1 @Septenary 
+            toast("to search page")
         })
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.setOnNavigationItemSelectedListener(getNavigationSelectListener())
 
+        viewPager.offscreenPageLimit = 2
         setupViewPager(viewPager)
 
         FeaturePlugin.get(IAdminPlugin::class.java).attachShakeAdmin(lifecycle)
@@ -73,19 +53,34 @@ class HomeActivity : BaseActivity() {
         adapter.addFragment(MsgFragment.newInstance())
         adapter.addFragment(MeFragment.newInstance())
         viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-            }
-
+        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 navigation.menu.getItem(position).isChecked = true
             }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
         })
+    }
+
+    private fun getNavigationSelectListener(): BottomNavigationView.OnNavigationItemSelectedListener {
+        return BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home_feed -> {
+                    toolBar.setTitle(R.string.title_home_feed)
+                    viewPager.setCurrentItem(0, false)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_home_msg -> {
+                    toolBar.setTitle(R.string.title_home_msg)
+                    viewPager.setCurrentItem(1, false)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_home_me -> {
+                    toolBar.setTitle(R.string.title_home_me)
+                    viewPager.setCurrentItem(2, false)
+                    return@OnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
     }
 }
 
