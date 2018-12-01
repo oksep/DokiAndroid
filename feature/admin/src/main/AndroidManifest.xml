@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.dokiwa.dokidoki.admin">
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application>
         <activity
                 android:name=".AdminActivity"

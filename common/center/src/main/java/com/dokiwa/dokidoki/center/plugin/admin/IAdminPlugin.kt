@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.center.plugin.admin
 
 import android.content.Context
+import androidx.lifecycle.Lifecycle
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 
@@ -12,6 +13,8 @@ import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 interface IAdminPlugin : FeaturePlugin {
 
     fun launchAdmin(context: Context)
+
+    fun attachShakeAdmin(lifecycle: Lifecycle)
 
     companion object {
         fun get(): IAdminPlugin {

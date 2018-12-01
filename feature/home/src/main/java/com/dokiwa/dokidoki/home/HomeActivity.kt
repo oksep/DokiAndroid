@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.home.fragment.FeedFragment
 import com.dokiwa.dokidoki.home.fragment.MeFragment
 import com.dokiwa.dokidoki.home.fragment.MsgFragment
@@ -61,6 +63,8 @@ class HomeActivity : BaseActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         setupViewPager(viewPager)
+
+        FeaturePlugin.get(IAdminPlugin::class.java).attachShakeAdmin(lifecycle)
     }
 
     private fun setupViewPager(viewPager: ViewPager) {
