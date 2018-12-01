@@ -1,9 +1,10 @@
-package com.dokiwa.dokidoki.center.rx
+package com.dokiwa.dokidoki.center.ext.rx
 
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.api.exception.SignatureException
 import com.dokiwa.dokidoki.center.api.exception.toApiException
+import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

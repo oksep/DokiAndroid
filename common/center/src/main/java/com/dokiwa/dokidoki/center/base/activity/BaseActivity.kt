@@ -1,11 +1,11 @@
-package com.dokiwa.dokidoki.center.activity
+package com.dokiwa.dokidoki.center.base.activity
 
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.dokiwa.dokidoki.center.rx.CompositeDisposableContext
+import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 

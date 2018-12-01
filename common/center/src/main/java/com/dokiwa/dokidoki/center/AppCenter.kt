@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.dokiwa.dokidoki.center.api.Api
-import com.dokiwa.dokidoki.center.rx.subscribeApi
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
 import retrofit2.http.GET

@@ -5,7 +5,8 @@ import android.os.Handler
 import android.view.View
 import androidx.core.os.HandlerCompat
 import com.dokiwa.dokidoki.center.AppCenter
-import com.dokiwa.dokidoki.center.activity.BaseActivity
+import com.dokiwa.dokidoki.center.base.activity.BaseActivity
+import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 
@@ -18,7 +19,7 @@ class LaunchActivity : BaseActivity() {
     }
 
     fun onBtnClick(view: View) {
-        
+        toast(AppCenter.get().apiConfig.toString())
     }
 
     private fun delayToHome() {

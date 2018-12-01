@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.dokiwa.dokidoki.center.activity.BaseActivity
+import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.home.fragment.FeedFragment
 import com.dokiwa.dokidoki.home.fragment.MeFragment

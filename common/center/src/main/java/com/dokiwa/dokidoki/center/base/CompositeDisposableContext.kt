@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.center.rx
+package com.dokiwa.dokidoki.center.base
 
 import io.reactivex.disposables.Disposable
 

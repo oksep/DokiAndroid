@@ -1,5 +1,6 @@
-package com.dokiwa.dokidoki.center.rx
+package com.dokiwa.dokidoki.center.ext.rx
 
+import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import io.reactivex.disposables.Disposable
 
 /**
