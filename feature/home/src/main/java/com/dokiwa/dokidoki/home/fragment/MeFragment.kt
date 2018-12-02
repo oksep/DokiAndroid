@@ -1,14 +1,17 @@
 package com.dokiwa.dokidoki.home.fragment
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
 
-class MeFragment : Fragment() {
+class MeFragment : Fragment(), OnPageSelectedListener {
 
     companion object {
         fun newInstance() = MeFragment()
@@ -29,4 +32,9 @@ class MeFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    override fun onPageSelected() {
+        context?.let {
+            FeaturePlugin.get(ILoginPlugin::class.java).launchLoginActivity(it)
+        }
+    }
 }

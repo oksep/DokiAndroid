@@ -5,6 +5,7 @@ import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribe
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
+import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
 import java.util.concurrent.TimeUnit
@@ -18,6 +19,10 @@ class LaunchActivity : BaseActivity() {
     }
 
     private fun delayToHome() {
+        FeaturePlugin.get(ILoginPlugin::class.java).launchLoginActivity(this)
+        if (this != null) {
+            return
+        }
         fun toHome() {
             FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
             finish()

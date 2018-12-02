@@ -42,6 +42,7 @@ class AppCenter private constructor(val context: Context) {
 }
 
 data class ApiConfig(
+    // 上传文件大小限制，单位 byte
     @SerializedName("image_size_limit")
     val imageSizeLimit: Int
 )

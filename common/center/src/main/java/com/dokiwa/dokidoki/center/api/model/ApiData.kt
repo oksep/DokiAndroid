@@ -26,7 +26,7 @@ data class ApiData<T>(
     val time: Int,
     val data: T,
     val action: Action?
-) {
+) : IApiModel {
     data class Status(
         @SerializedName("err_msg")
         val errorMessage: String?,
@@ -36,4 +36,13 @@ data class ApiData<T>(
     data class Action(
         val to: String
     )
+}
+
+interface IApiModel
+
+/**
+ * 分页脚
+ */
+interface IApiModelPage {
+    val nextQ: Map<String, String?>
 }

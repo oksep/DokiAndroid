@@ -18,4 +18,9 @@
         <attr name="tb_title_color" format="color|reference"/>
     </declare-styleable>
 
+    <declare-styleable name="WaterMaskView">
+        <attr name="wm_text" format="reference|string"/>
+        <attr name="wm_angle" format="float"/>
+    </declare-styleable>
+
 </resources>

@@ -1,6 +1,5 @@
 package com.dokiwa.dokidoki.center.api
 
-import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.convert.CustomConverterFactory
@@ -27,11 +26,12 @@ object Api {
     private const val BASE_URL = BuildConfig.API_BASE_URL
 
     private val commonQueries by lazy {
-        mapOf(
-            "appId" to AppCenter.get().context.packageName,
-            "deviceId" to "",
-            "sDeviceId" to ""
-        )
+        mapOf<String, String>()
+        /*
+        "appId" to AppCenter.get().context.packageName,
+        "deviceId" to "",
+        "sDeviceId" to ""
+        */
     }
 
     private val commonHeaders by lazy {

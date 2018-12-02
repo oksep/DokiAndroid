@@ -42,4 +42,5 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
 
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
 }

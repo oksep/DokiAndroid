@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UI</string>
+
+    <string name="ui_loading_no_more">没有更多了</string>
+    <string name="ui_loading_loading">加载中</string>
+    <string name="ui_loading_failed_and_retry">加载失败，点击重新加载</string>
 </resources>

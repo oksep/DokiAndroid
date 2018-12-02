@@ -33,6 +33,7 @@ versions.testArchRoomTest = '1.1.1'
 
 // ui
 versions.roundImageView = '2.3.0'
+versions.quickAdapter = '2.9.35'
 
 // net
 versions.retrofit = '2.4.0'

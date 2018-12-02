@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.center.ext
 
+import android.net.Uri
 import java.security.MessageDigest
 
 /**
@@ -26,5 +27,15 @@ fun String.capitalize(): String {
         this
     } else {
         Character.toUpperCase(first) + this.substring(1)
+    }
+}
+
+fun String.toRetrofitQueryMap(): Map<String, String?>? {
+    return Uri.parse(this).run {
+        val map = mutableMapOf<String, String?>()
+        queryParameterNames.forEach { key ->
+            map[key] = getQueryParameter(key)
+        }
+        map
     }
 }

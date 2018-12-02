@@ -56,6 +56,7 @@ class HomeActivity : TranslucentActivity() {
         viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 navigation.menu.getItem(position).isChecked = true
+                (adapter.getItem(position) as? OnPageSelectedListener)?.onPageSelected()
             }
         })
     }
@@ -82,6 +83,10 @@ class HomeActivity : TranslucentActivity() {
             false
         }
     }
+}
+
+interface OnPageSelectedListener {
+    fun onPageSelected()
 }
 
 class BottomAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

@@ -1,28 +1,38 @@
 package com.dokiwa.dokidoki.home.fragment
 
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
-import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
+import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.home.Log
+import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
-import com.dokiwa.dokidoki.ui.ext.blurBitmap
-import com.dokiwa.dokidoki.ui.ext.maskColor
-import com.dokiwa.dokidoki.ui.ext.scaleByRatio
+import com.dokiwa.dokidoki.home.api.HomeApi
+import com.dokiwa.dokidoki.home.api.model2.Feed
+import com.dokiwa.dokidoki.home.api.model2.FeedPage
+import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_feed.*
 
-class FeedFragment : Fragment() {
+
+class FeedFragment : Fragment(), OnPageSelectedListener {
 
     companion object {
         fun newInstance() = FeedFragment()
     }
 
     private lateinit var viewModel: FeedViewModel
+
+    private var data = mutableListOf<FeedPage>()
+
+    private val adapter by lazy { FeedAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,36 +44,108 @@ class FeedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
-        // TODO: Use the ViewModel
+    }
 
-        toAdmin.setOnClickListener {
-            openAdminActivity()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapter.setLoadMoreView(LoadMoreView())
+        adapter.setOnLoadMoreListener({
+            loadMore()
+        }, recyclerView)
+        adapter.disableLoadMoreIfNotFullPage(recyclerView)
+        adapter.setEnableLoadMore(true)
+
+        recyclerView.adapter = adapter
+
+        refreshLayout.setColorSchemeResources(R.color.dd_red)
+        refreshLayout.setOnRefreshListener {
+            data.clear()
+            loadData()
         }
 
-        toLogin.setOnClickListener {
-            openLoginActivity()
-        }
+        loadData()
+    }
 
-        context?.let { context ->
-            img2.let {
-                val bmp = BitmapFactory.decodeResource(resources, R.drawable.test)
-                    .scaleByRatio(0.5f)
-                    .maskColor(context, R.color.white_20)
-                    .blurBitmap(context, 10f, true)
-                it.setImageDrawable(BitmapDrawable(resources, bmp))
+    private fun setData(feedPage: FeedPage) {
+        this.data.add(feedPage)
+        adapter.setNewData(feedPage.feedList)
+    }
+
+    private fun addData(feedPage: FeedPage) {
+        this.data.add(feedPage)
+        adapter.addData(feedPage.feedList)
+    }
+
+    private fun showLoadMoreEnd() {
+        adapter.loadMoreEnd()
+    }
+
+    private fun showLoadMoreFailed() {
+        adapter.loadMoreFail()
+    }
+
+    private fun showLoadMoreComplete() {
+        adapter.loadMoreComplete()
+    }
+
+    private fun showRefreshing() {
+        refreshLayout.isRefreshing = true
+    }
+
+    private fun hideRefreshing() {
+        refreshLayout.isRefreshing = false
+    }
+
+    override fun onPageSelected() {
+        Log.d("AAAAAA", "FeedFragment onPageSelected")
+    }
+
+    private fun loadData() {
+        Api.get(HomeApi::class.java)
+            .getFeedList()
+            .doOnSubscribe {
+                showRefreshing()
             }
-        }
+            .subscribeApi(
+                context as? CompositeDisposableContext,
+                {
+                    hideRefreshing()
+                    setData(it)
+                    if (it.next == null) {
+                        showLoadMoreEnd()
+                    }
+                },
+                {
+                    hideRefreshing()
+                }
+            )
     }
 
-    private fun openAdminActivity() {
-        context?.let {
-            IAdminPlugin.get().launchAdmin(it)
-        }
+    private fun loadMore() {
+        Api.get(HomeApi::class.java)
+            .getFeedList(map = this.data.lastOrNull()?.nextQ ?: mapOf())
+            .subscribeApi(
+                context as? CompositeDisposableContext,
+                {
+                    addData(it)
+                    if (it.next == null) {
+                        showLoadMoreEnd()
+                    } else {
+                        showLoadMoreComplete()
+                    }
+                },
+                {
+                    showLoadMoreFailed()
+                }
+            )
     }
+}
 
-    private fun openLoginActivity() {
-        context?.let {
-            ILoginPlugin.get().launchLoginActivity(it)
-        }
+private class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.item_feed, null) {
+
+    override fun convert(helper: BaseViewHolder, item: Feed) {
+        helper.getView<TextView>(R.id.title).text = item.user_profile.nickname
+        helper.getView<TextView>(R.id.subTitle).text = item.user_profile.intro
     }
 }
