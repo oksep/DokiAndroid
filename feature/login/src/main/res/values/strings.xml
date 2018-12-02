@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Login</string>
     <string name="login_watermark">dokidoki</string>
+    <string name="login_by_phone_number">请输入手机号</string>
+    <string name="login_verify_code_tip">请输入手机号 %1$s 收到的验证码</string>
+    <string name="login_phone_number_hint">输入手机号</string>
+    <string name="login_usage_protocol">继续表示您同意<u>《DokiDoki用户协议》</u></string>
+    <string name="login_submit_confirm">确认</string>
+    <string name="login_usage_third_party">------------------\u0020\u0020\u0020使用第三方账户\u0020\u0020\u0020------------------</string>
+    <string name="login_input_correct_phone_number">请输入正确的手机号码</string>
+    <string name="log_verify_count_down">%1$ds 后可重新获取</string>
+    <string name="log_verify_retry">重新获取验证码</string>
 </resources>

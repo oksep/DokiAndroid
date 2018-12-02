@@ -27,7 +27,6 @@ dependencies {
     // android-x
     implementation "androidx.appcompat:appcompat:${versions.axCompat}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
-    implementation "com.google.android.material:material:${versions.axMaterial}"
 
     // test
     testImplementation "junit:junit:${versions.testJunit}"
@@ -37,6 +36,10 @@ dependencies {
     implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
     implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
+
+    implementation("com.alimuzaffar.lib:pinentryedittext:${versions.pinEntryEditText}") {
+        exclude group: 'androidx.appcompat', module: 'appcompat'
+    }
 
     implementation project(':center')
     implementation project(':ui')

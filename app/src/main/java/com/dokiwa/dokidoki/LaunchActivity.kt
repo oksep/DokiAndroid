@@ -20,9 +20,6 @@ class LaunchActivity : BaseActivity() {
 
     private fun delayToHome() {
         FeaturePlugin.get(ILoginPlugin::class.java).launchLoginActivity(this)
-        if (this != null) {
-            return
-        }
         fun toHome() {
             FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
             finish()
