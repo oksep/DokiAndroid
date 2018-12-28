@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
@@ -35,7 +36,7 @@ class HomeActivity : TranslucentActivity() {
         setContentView(R.layout.activity_home)
 
         toolBar.setRightIconClickListener(View.OnClickListener {
-            // TODO: 2018/12/1 @Septenary 
+            // TODO: 2018/12/1 @Septenary 跳转到搜索页
             toast("to search page")
         })
 
@@ -45,6 +46,9 @@ class HomeActivity : TranslucentActivity() {
         setupViewPager(viewPager)
 
         FeaturePlugin.get(IAdminPlugin::class.java).attachShakeAdmin(lifecycle)
+
+        // TODO: 2018/12/28 @Septenary 测试未认证用户
+        // Api.testUnAuth()
     }
 
     private fun setupViewPager(viewPager: ViewPager) {

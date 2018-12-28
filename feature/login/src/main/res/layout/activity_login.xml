@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_water_mask"
-    tools:context=".LoginActivity">
+    tools:context=".activity.LoginActivity">
 
     <com.dokiwa.dokidoki.ui.view.WaterMaskView
         app:wm_text="@string/login_watermark"

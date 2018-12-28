@@ -1,10 +1,15 @@
-package com.dokiwa.dokidoki.login
+package com.dokiwa.dokidoki.login.activity
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.login.Log
+import com.dokiwa.dokidoki.login.R
+import com.dokiwa.dokidoki.login.api.LoginApi
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_verify_code.*
@@ -34,13 +39,24 @@ class VerifyCodeActivity : TranslucentActivity() {
         verifyCodeTitle.text = getString(R.string.login_verify_code_tip, phoneNumber)
 
         confirmBtn.setOnClickListener {
-            // TODO: 2018/12/3 @Septenary 
+            requestVerifyCode()
         }
 
         requestVerifyCode()
     }
 
     private fun requestVerifyCode() {
+        Api.get(LoginApi::class.java)
+            .getVerifyCode(this.phoneNumber)
+            .subscribeApi(
+                this,
+                {
+                    Log.d("AAAA", "VerifyCode $it")
+                },
+                {
+                    Log.d("AAAA", "Error $it")
+                }
+            )
         countDownTip()
     }
 

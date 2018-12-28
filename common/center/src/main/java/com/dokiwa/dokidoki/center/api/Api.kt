@@ -65,7 +65,7 @@ object Api {
             .addInterceptor(headerInterceptor)
             .addInterceptor(queryInterceptor)
             .addInterceptor(tokenInterceptor)
-            .addInterceptor(gzipInterceptor)
+//            .addInterceptor(gzipInterceptor)
             .addInterceptor(curlInterceptor)
             .addInterceptor(loggingInterceptor.apply { level = HttpLoggingInterceptor.Level.BODY })
             .authenticator { _, response ->
@@ -94,5 +94,10 @@ object Api {
     // 矫正本地时间
     fun correctTimestamp(timeDif: Long) {
         queryInterceptor.timeDif = timeDif
+    }
+
+    fun testUnAuth() {
+        Log.d("LoginPlugin", "test unauth")
+        unAuthenticationSubject.onNext(Unit)
     }
 }

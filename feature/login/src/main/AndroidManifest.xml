@@ -6,13 +6,13 @@
         <activity
             android:windowSoftInputMode="stateVisible"
             android:theme="@style/AppTheme"
-            android:name=".LoginActivity">
+            android:name=".activity.LoginActivity">
         </activity>
 
         <activity
             android:windowSoftInputMode="stateVisible"
             android:theme="@style/AppTheme"
-            android:name=".VerifyCodeActivity">
+            android:name=".activity.VerifyCodeActivity">
         </activity>
     </application>
 

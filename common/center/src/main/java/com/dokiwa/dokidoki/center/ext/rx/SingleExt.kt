@@ -31,18 +31,7 @@ fun <T> Single<T>.retryOnShotSubscribe(
     onSuccess: Consumer<T>,
     onError: Consumer<Throwable>
 ) {
-    var retried = false
-    this.retryWhen { errors ->
-        errors.flatMap { e ->
-            if (retried) {
-                Flowable.error<Throwable>(e)
-            } else {
-                Flowable.just(Unit)
-            }.also {
-                retried = true
-            }
-        }
-    }.subscribe(context, onSuccess, onError)
+    this.retry().subscribe(context, onSuccess, onError)
 }
 
 /**

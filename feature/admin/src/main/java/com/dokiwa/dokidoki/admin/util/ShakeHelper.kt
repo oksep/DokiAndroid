@@ -63,7 +63,7 @@ object ShakeHelper : SensorEventListener, LifecycleObserver {
     }
 
     private fun playSound() {
-        // TODO: 2018/12/1 @Septenary
+        // TODO: 2018/12/1 @Septenary 添加音效
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

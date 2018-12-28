@@ -8,8 +8,10 @@ import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
  * Created by Septenary on 2018/10/24.
  */
 @PluginImplMeta("com.dokiwa.dokidoki.login.LoginPlugin")
-interface ILoginPlugin: FeaturePlugin {
+interface ILoginPlugin : FeaturePlugin {
     fun launchLoginActivity(context: Context)
+
+    fun getUser(): UserModel?
 
     companion object {
         fun get(): ILoginPlugin {
