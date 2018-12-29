@@ -1,6 +1,6 @@
 package com.dokiwa.dokidoki.home.api
 
-import com.dokiwa.dokidoki.home.api.model2.FeedPage
+import com.dokiwa.dokidoki.home.api.model.FeedPage
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

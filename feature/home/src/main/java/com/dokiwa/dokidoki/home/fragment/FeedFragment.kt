@@ -16,8 +16,8 @@ import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
 import com.dokiwa.dokidoki.home.api.HomeApi
-import com.dokiwa.dokidoki.home.api.model2.Feed
-import com.dokiwa.dokidoki.home.api.model2.FeedPage
+import com.dokiwa.dokidoki.home.api.model.Feed
+import com.dokiwa.dokidoki.home.api.model.FeedPage
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_feed.*
 
