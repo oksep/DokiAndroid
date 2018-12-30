@@ -30,13 +30,12 @@ class LoginPlugin : ILoginPlugin {
 
         // 初始化认证 token
         val userToken = LoginSP.getUserToken()
-        Api.resetAuthenticationToken(
-            macKey = userToken?.macKey,
-            accessToken = userToken?.accessToken
-        )
+        Api.resetAuthenticationToken(userToken?.macKey, userToken?.accessToken)
 
         // 用户认证失败重新登录
         Api.unAuthenticationSubject.delay(2, TimeUnit.SECONDS).subscribe {
+            LoginSP.clearUserToken()
+            Api.resetAuthenticationToken(null, null)
             launchLoginActivity(context)
         }
     }
