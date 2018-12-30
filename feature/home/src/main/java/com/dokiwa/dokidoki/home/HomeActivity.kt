@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
@@ -24,8 +23,11 @@ class HomeActivity : TranslucentActivity() {
 
     companion object {
         fun launch(context: Activity) {
-            Log.d("HomeActivity", "launch")
-            context.startActivity(Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+            context.startActivity(
+                Intent(context, HomeActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            )
             context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }

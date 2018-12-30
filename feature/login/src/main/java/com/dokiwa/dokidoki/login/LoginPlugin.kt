@@ -2,7 +2,6 @@ package com.dokiwa.dokidoki.login
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.login.UserModel
@@ -14,14 +13,6 @@ import java.util.concurrent.TimeUnit
  */
 class LoginPlugin : ILoginPlugin {
 
-    @SuppressLint("CheckResult")
-    private fun registerAuthentication(context: Context) {
-        Api.unAuthenticationSubject.delay(2, TimeUnit.SECONDS).subscribe {
-            Log.d("LoginPlugin", "请重新登录")
-            launchLoginActivity(context)
-        }
-    }
-
     override fun onInit(context: Context) {
         registerAuthentication(context)
     }
@@ -31,6 +22,22 @@ class LoginPlugin : ILoginPlugin {
     }
 
     override fun launchLoginActivity(context: Context) {
-        context.startActivity(Intent(context, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        LoginActivity.launch(context)
+    }
+
+    @SuppressLint("CheckResult")
+    private fun registerAuthentication(context: Context) {
+
+        // 初始化认证 token
+        val userToken = LoginSP.getUserToken()
+        Api.resetAuthenticationToken(
+            macKey = userToken?.macKey,
+            accessToken = userToken?.accessToken
+        )
+
+        // 用户认证失败重新登录
+        Api.unAuthenticationSubject.delay(2, TimeUnit.SECONDS).subscribe {
+            launchLoginActivity(context)
+        }
     }
 }

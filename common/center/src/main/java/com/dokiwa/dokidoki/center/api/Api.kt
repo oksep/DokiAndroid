@@ -45,17 +45,23 @@ object Api {
         */
     }
 
-    private val queryInterceptor = QueryInterceptor(BuildConfig.API_KEY, BuildConfig.API_SECRET, commonQueries)
     private val headerInterceptor = HeaderInterceptor(commonHeaders)
+    private val queryInterceptor = QueryInterceptor(BuildConfig.API_KEY, BuildConfig.API_SECRET, commonQueries)
     private val tokenInterceptor = TokenInterceptor()
     private val curlInterceptor = CURLInterceptor()
     private val gzipInterceptor = GZipInterceptor()
 
-    private val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-        Log.d(TAG, "Response ==> $message")
-    })
+    private val loggingInterceptor = HttpLoggingInterceptor(
+        HttpLoggingInterceptor.Logger { message ->
+            Log.d(TAG, "Response ==> $message")
+        }
+    )
 
     val unAuthenticationSubject by lazy { BehaviorSubject.create<Unit>() }
+
+    fun resetAuthenticationToken(macKey: String?, accessToken: String?) {
+        tokenInterceptor.resetAuthenticationToken(macKey, accessToken)
+    }
 
     private val baseClient by lazy {
         OkHttpClient.Builder()

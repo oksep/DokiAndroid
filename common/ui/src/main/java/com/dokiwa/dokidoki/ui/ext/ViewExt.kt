@@ -1,5 +1,7 @@
 package com.dokiwa.dokidoki.ui.ext
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.view.View
 import android.view.ViewGroup
 
@@ -32,5 +34,25 @@ fun View.rootTop(): Int {
     return when {
         this.parent === this.rootView -> this.top
         else -> this.top + (this.parent as View).rootTop()
+    }
+}
+
+fun View.fadeOutGone() {
+    if (this.isShown) {
+        this.visibility = View.VISIBLE
+        this.alpha = 1f
+        this.animate().alpha(0f).setListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                this@fadeOutGone.visibility = View.GONE
+            }
+        }).start()
+    }
+}
+
+fun View.fadeInVisible() {
+    if (!this.isShown) {
+        this.visibility = View.VISIBLE
+        this.alpha = 0f
+        this.animate().alpha(1f).setListener(null).start()
     }
 }

@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.login.api
 
-import com.dokiwa.dokidoki.center.api.model.ApiData
+import com.dokiwa.dokidoki.login.api.model.UserToken
+import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -13,5 +14,14 @@ interface LoginApi {
 
     @FormUrlEncoded
     @POST("/api/captcha/v1/send")
-    fun getVerifyCode(@Field("phone") phone: String): Single<ApiData<Any>>
+    fun getVerifyCode(@Field("phone") phoneNumber: String): Single<JsonElement>
+
+    @FormUrlEncoded
+    @POST("/api/auth/v1/token")
+    fun loginByVerifyCode(
+        @Field("x_phone_number") phoneNumber: String,
+        @Field("x_phone_code") verifyCode: String,
+        @Field("grant_type") grantType: String = "x-phone"
+    ): Single<UserToken>
+
 }

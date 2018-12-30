@@ -22,7 +22,7 @@ class QueryInterceptor(
 
         // seed
         val ts = Pair("_ts", (System.currentTimeMillis() / 1000 + timeDif).toString())
-        val nonce = Pair("_nonce", UUID.randomUUID().toString().substring(0, 6))
+        val nonce = Pair("_nonce", UUID.randomUUID().toString().substring(0, 5))
         val ak = Pair("_ak", apiKey)
 
         val originUrl = chain.request().url()
@@ -68,8 +68,6 @@ class QueryInterceptor(
         }.build()
 
         // new request
-        val request = chain.request().newBuilder().url(newUrl).build()
-
-        return chain.proceed(request)
+        return chain.request().newBuilder().url(newUrl).build().run { chain.proceed(this) }
     }
 }

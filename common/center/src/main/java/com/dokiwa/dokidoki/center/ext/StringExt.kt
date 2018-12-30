@@ -1,7 +1,10 @@
 package com.dokiwa.dokidoki.center.ext
 
 import android.net.Uri
+import android.util.Base64
 import java.security.MessageDigest
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 /**
  * Created by Septenary on 2018/11/23.
@@ -9,6 +12,15 @@ import java.security.MessageDigest
 
 fun String.sha1(): String {
     return this.hashWithAlgorithm("SHA-1")
+}
+
+fun String.hmacSha256Base64(secret: String): String {
+    val algorithm = "HmacSHA256"
+    val hash = Mac.getInstance(algorithm).run {
+        init(SecretKeySpec(secret.toByteArray(), algorithm))
+        doFinal(this@hmacSha256Base64.toByteArray(Charsets.UTF_8))
+    }
+    return Base64.encodeToString(hash, Base64.NO_WRAP)
 }
 
 fun String.md5(): String {

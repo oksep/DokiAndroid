@@ -4,6 +4,7 @@
 
     <application>
         <activity
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateVisible"
             android:theme="@style/AppTheme"
             android:name=".activity.LoginActivity">
