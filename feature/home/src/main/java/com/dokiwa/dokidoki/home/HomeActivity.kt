@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.OnApplyWindowInsetsListener
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -63,6 +65,7 @@ class HomeActivity : TranslucentActivity() {
             override fun onPageSelected(position: Int) {
                 navigation.menu.getItem(position).isChecked = true
                 (adapter.getItem(position) as? OnPageSelectedListener)?.onPageSelected()
+                toolBar.visibility = if (position == 2) View.GONE else View.VISIBLE
             }
         })
     }

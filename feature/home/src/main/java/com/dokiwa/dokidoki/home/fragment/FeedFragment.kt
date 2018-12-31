@@ -28,7 +28,9 @@ class FeedFragment : Fragment(), OnPageSelectedListener {
         fun newInstance() = FeedFragment()
     }
 
-    private lateinit var viewModel: FeedViewModel
+    private val sharedModel by lazy {
+        ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
+    }
 
     private var data = mutableListOf<FeedPage>()
 
@@ -39,11 +41,6 @@ class FeedFragment : Fragment(), OnPageSelectedListener {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_feed, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(FeedViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

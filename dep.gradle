@@ -16,7 +16,7 @@ def versions = [:]
 versions.axCompat='1.0.2'
 versions.axConstraintLayout = '2.0.0-alpha3'
 versions.axLifecycle = '2.0.0'
-versions.axMaterial = '1.1.0-alpha01'
+versions.axMaterial = '1.1.0-alpha02'
 versions.axCardView = '1.0.0'
 versions.axKtx = '1.0.1'
 

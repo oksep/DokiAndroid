@@ -10,9 +10,32 @@ android {
         targetSdkVersion builds.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        // api 配置
         buildConfigField "String", "API_BASE_URL", "\"https://bigmom.dokiwa.com\""
         buildConfigField "String", "API_KEY", "\"f99h95vkks88bnwcrjq342p8nsfrdkr7\""
         buildConfigField "String", "API_SECRET", "\"jg59qdjahrjpc6y59b6h3yu5awmbq4v8\""
+
+        // qq
+        buildConfigField "String", "QQ_KEY", "\"1106849149\""
+        buildConfigField "String", "QQ_SECRET", "\"c9q2etkxlXRMPYKX\""
+
+        // 微信
+        buildConfigField "String", "WX_KEY", "\"wxf16da9e973876bf8\""
+        buildConfigField "String", "WX_SECRET", "\"489f9913aa2e0ad8ede7115f7e0afa15\""
+
+        // 微博
+        buildConfigField "String", "WEIBO_KEY", "\"3202337661\""
+        buildConfigField "String", "WEIBO_SECRET", "\"53f722943f7f65fac01f4b00594f4f4c\""
+
+        // 蚂蚁认证
+        buildConfigField "String", "SESAME_CERT_ID", "\"300002982\""
+
+        // 网易云信
+        buildConfigField "String", "IM_KEY", "\"76a9babb54ea608123d97d54b7cba037\""
+        buildConfigField "String", "IM_SECRET", "\"ffc44d46c714\""
+
+        // 友盟
+        buildConfigField "String", "UMENG_KEY", "\"5afecaa9a40fa3721b00023b\""
     }
 
     buildTypes {
