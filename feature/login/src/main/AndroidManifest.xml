@@ -4,13 +4,14 @@
 
     <application>
         <activity
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateVisible"
             android:theme="@style/AppTheme"
             android:name=".activity.LoginActivity">
         </activity>
 
         <activity
+            android:launchMode="singleTask"
             android:windowSoftInputMode="stateVisible"
             android:theme="@style/AppTheme"
             android:name=".activity.VerifyCodeActivity">

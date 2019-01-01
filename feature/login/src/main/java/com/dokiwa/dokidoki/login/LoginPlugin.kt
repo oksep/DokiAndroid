@@ -25,6 +25,13 @@ class LoginPlugin : ILoginPlugin {
         LoginActivity.launch(context)
     }
 
+    override fun ensureLogin(context: Context) {
+        // 没有 token，跳转到 登录页
+        if (LoginSP.getUserToken() == null) {
+            launchLoginActivity(context)
+        }
+    }
+
     @SuppressLint("CheckResult")
     private fun registerAuthentication(context: Context) {
 
@@ -32,9 +39,6 @@ class LoginPlugin : ILoginPlugin {
         val userToken = LoginSP.getUserToken()
         if (userToken != null) {
             Api.resetAuthenticationToken(userToken.macKey, userToken.accessToken)
-        } else {
-            // TODO: 2018/12/31 @Septenary 跳转到引导登录页
-            launchLoginActivity(context)
         }
 
         // 用户认证失败重新登录

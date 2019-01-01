@@ -15,7 +15,10 @@ class LoginActivity : TranslucentActivity() {
 
     companion object {
         fun launch(context: Context) {
-            context.startActivity(Intent(context, LoginActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            val intent = Intent(context, LoginActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
         }
     }
 

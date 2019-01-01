@@ -13,6 +13,8 @@ interface ILoginPlugin : FeaturePlugin {
 
     fun getUser(): UserModel?
 
+    fun ensureLogin(context: Context)
+
     companion object {
         fun get(): ILoginPlugin {
             return FeaturePlugin.get(ILoginPlugin::class.java)

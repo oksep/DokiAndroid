@@ -5,7 +5,7 @@
     <application>
         <activity
             android:name=".HomeActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTask">
         </activity>
     </application>
 

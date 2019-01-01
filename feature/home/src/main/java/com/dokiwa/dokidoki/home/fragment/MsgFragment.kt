@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.home.Log
@@ -18,7 +18,7 @@ import com.dokiwa.dokidoki.ui.ext.maskColor
 import com.dokiwa.dokidoki.ui.ext.scaleByRatio
 import kotlinx.android.synthetic.main.fragment_msg.*
 
-class MsgFragment : Fragment(), OnPageSelectedListener {
+class MsgFragment : BaseFragment(), OnPageSelectedListener {
 
     companion object {
         fun newInstance() = MsgFragment()

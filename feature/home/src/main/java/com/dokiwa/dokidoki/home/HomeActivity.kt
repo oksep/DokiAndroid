@@ -14,6 +14,7 @@ import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
+import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.home.fragment.FeedFragment
 import com.dokiwa.dokidoki.home.fragment.MeFragment
 import com.dokiwa.dokidoki.home.fragment.MsgFragment
@@ -26,9 +27,7 @@ class HomeActivity : TranslucentActivity() {
     companion object {
         fun launch(context: Activity) {
             context.startActivity(
-                Intent(context, HomeActivity::class.java)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             )
             context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
@@ -50,6 +49,7 @@ class HomeActivity : TranslucentActivity() {
         setupViewPager(viewPager)
 
         FeaturePlugin.get(IAdminPlugin::class.java).attachShakeAdmin(lifecycle)
+        FeaturePlugin.get(ILoginPlugin::class.java).ensureLogin(this)
 
         // TODO: 2018/12/28 @Septenary 测试未认证用户
         // Api.testUnAuth()

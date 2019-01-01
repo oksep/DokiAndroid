@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
+import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
@@ -22,7 +22,7 @@ import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 
-class FeedFragment : Fragment(), OnPageSelectedListener {
+class FeedFragment : BaseFragment(), OnPageSelectedListener {
 
     companion object {
         fun newInstance() = FeedFragment()
@@ -105,7 +105,7 @@ class FeedFragment : Fragment(), OnPageSelectedListener {
                 showRefreshing()
             }
             .subscribeApi(
-                context as? CompositeDisposableContext,
+                this,
                 {
                     hideRefreshing()
                     setData(it)

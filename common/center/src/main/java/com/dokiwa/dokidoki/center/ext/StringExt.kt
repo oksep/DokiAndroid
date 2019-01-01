@@ -2,9 +2,11 @@ package com.dokiwa.dokidoki.center.ext
 
 import android.net.Uri
 import android.util.Base64
+import com.google.gson.GsonBuilder
 import java.security.MessageDigest
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
+
 
 /**
  * Created by Septenary on 2018/11/23.
@@ -50,4 +52,9 @@ fun String.toRetrofitQueryMap(): Map<String, String?>? {
         }
         map
     }
+}
+
+fun Any.toPrettyJson(): String {
+    val gson = GsonBuilder().setPrettyPrinting().create()
+    return gson.toJson(this)
 }
