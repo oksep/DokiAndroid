@@ -9,3 +9,6 @@ project(':login').projectDir = new File(settingsDir, 'feature/login')
 
 include ':profile'
 project(':profile').projectDir = new File(settingsDir, 'feature/profile')
+
+include ':web'
+project(':web').projectDir = new File(settingsDir, 'feature/web')

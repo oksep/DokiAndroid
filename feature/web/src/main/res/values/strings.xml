@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">web</string>
+    <string name="web_loadfailed">无法连接网络</string>
+    <string-array name="web_modify_uploaded_photo">
+        <item>删除</item>
+        <item>重新上传</item>
+    </string-array>
+</resources>

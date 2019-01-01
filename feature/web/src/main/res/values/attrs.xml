@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NoData">
+        <attr name="nd_tips1" format="reference|string"/>
+        <attr name="nd_tips2" format="reference|string"/>
+    </declare-styleable>
+</resources>

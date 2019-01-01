@@ -11,6 +11,7 @@ import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toPrettyJson
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
 import com.dokiwa.dokidoki.home.api.HomeApi
@@ -41,7 +42,7 @@ class MeFragment : BaseFragment(), OnPageSelectedListener {
 
     override fun onPageSelected() {
         context?.let {
-             FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(it)
+             FeaturePlugin.get(IWebPlugin::class.java).launchWebActivity(it, "http://www.septenary.cn")
         }
     }
 

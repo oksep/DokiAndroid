@@ -79,4 +79,5 @@ dependencies {
     implementationFeature(':admin')
     implementationFeature(':login')
     implementationFeature(':profile')
+    implementationFeature(':web')
 }
