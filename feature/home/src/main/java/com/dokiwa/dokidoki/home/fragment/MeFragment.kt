@@ -9,6 +9,8 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toPrettyJson
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
 import com.dokiwa.dokidoki.home.api.HomeApi
@@ -39,7 +41,7 @@ class MeFragment : BaseFragment(), OnPageSelectedListener {
 
     override fun onPageSelected() {
         context?.let {
-            // FeaturePlugin.get(ILoginPlugin::class.java).launchLoginActivity(it)
+             FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(it)
         }
     }
 

@@ -6,3 +6,6 @@ project(':admin').projectDir = new File(settingsDir, 'feature/admin')
 
 include ':login'
 project(':login').projectDir = new File(settingsDir, 'feature/login')
+
+include ':profile'
+project(':profile').projectDir = new File(settingsDir, 'feature/profile')
