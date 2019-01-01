@@ -49,4 +49,7 @@ versions.gson = '2.8.4'
 versions.rxjava2 = '2.1.17'
 versions.rxjava2Android = '2.0.2'
 
+// glide
+versions.glide = '4.8.0'
+
 ext.versions = versions

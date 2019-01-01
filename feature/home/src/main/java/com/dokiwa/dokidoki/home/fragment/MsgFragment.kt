@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
+import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.home.Log
@@ -55,6 +56,8 @@ class MsgFragment : BaseFragment(), OnPageSelectedListener {
                 it.setImageDrawable(BitmapDrawable(resources, bmp))
             }
         }
+
+        removeImg.loadImgFromNetWork("http://assets.septenary.cn/dirty_bytes.png")
     }
 
     private fun openAdminActivity() {
