@@ -8,6 +8,8 @@ import android.text.TextWatcher
 import android.view.View
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import com.dokiwa.dokidoki.login.R
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -42,7 +44,7 @@ class LoginActivity : TranslucentActivity() {
         })
 
         loginByQQ.setOnClickListener {
-            // TODO: 2018/12/2 @Septenary 通过 QQ 登录
+
         }
 
         loginByWechat.setOnClickListener {
@@ -68,7 +70,7 @@ class LoginActivity : TranslucentActivity() {
 
     private fun showThirdPartyLoginBtns() {
         confirmBtn.visibility = View.GONE
-        loginByQQ.visibility = View.GONE
+        loginByQQ.visibility = View.VISIBLE
         loginByWechat.visibility = View.VISIBLE
         loginByWeibo.visibility = View.VISIBLE
         tip.text = getString(R.string.login_usage_third_party)
@@ -82,7 +84,7 @@ class LoginActivity : TranslucentActivity() {
         loginByWeibo.visibility = View.GONE
         tip.setText(R.string.login_usage_protocol)
         tip.setOnClickListener {
-            // TODO: 2018/12/3 @Septenary 跳转到 web 页面
+            FeaturePlugin.get(IWebPlugin::class.java).launchWebActivity(this, "https://dokiwa.com/agreement/")
         }
     }
 }

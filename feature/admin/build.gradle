@@ -34,5 +34,9 @@ dependencies {
     androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
 
+    // ui
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
+
     implementation project(':center')
+    implementation project(':ui')
 }
