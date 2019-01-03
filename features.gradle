@@ -12,3 +12,6 @@ project(':profile').projectDir = new File(settingsDir, 'feature/profile')
 
 include ':web'
 project(':web').projectDir = new File(settingsDir, 'feature/web')
+
+include ':social'
+project(':social').projectDir = new File(settingsDir, 'feature/social')

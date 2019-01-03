@@ -52,4 +52,7 @@ versions.rxjava2Android = '2.0.2'
 // glide
 versions.glide = '4.8.0'
 
+// sdk
+versions.wechatSdk = '5.1.4'
+
 ext.versions = versions

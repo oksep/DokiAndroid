@@ -9,6 +9,7 @@ import android.view.View
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.social.ISocialPlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import com.dokiwa.dokidoki.login.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -44,15 +45,15 @@ class LoginActivity : TranslucentActivity() {
         })
 
         loginByQQ.setOnClickListener {
-
+            FeaturePlugin.get(ISocialPlugin::class.java).auth(this, ISocialPlugin.SocialType.QQ)
         }
 
         loginByWechat.setOnClickListener {
-
+            FeaturePlugin.get(ISocialPlugin::class.java).auth(this, ISocialPlugin.SocialType.Wechat)
         }
 
         loginByWeibo.setOnClickListener {
-
+            FeaturePlugin.get(ISocialPlugin::class.java).auth(this, ISocialPlugin.SocialType.Weibo)
         }
 
         confirmBtn.setOnClickListener {

@@ -5,6 +5,7 @@ import android.util.Log
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.center.plugin.social.ISocialPlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -41,6 +42,7 @@ interface FeaturePlugin {
             inMap(IHomePlugin::class.java)
             inMap(ILoginPlugin::class.java)
             inMap(IWebPlugin::class.java)
+            inMap(ISocialPlugin::class.java)
         }
 
         inline fun <reified T : FeaturePlugin> get(clazz: Class<T>): T {

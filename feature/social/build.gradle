@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion builds.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion builds.minSdkVersion
+        targetSdkVersion builds.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // android-x
+    implementation "androidx.appcompat:appcompat:${versions.axCompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
+
+    // test
+    testImplementation "junit:junit:${versions.testJunit}"
+    androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
+
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "com.google.code.gson:gson:${versions.gson}"
+    implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
+
+    implementation("com.alimuzaffar.lib:pinentryedittext:${versions.pinEntryEditText}") {
+        exclude group: 'androidx.appcompat', module: 'appcompat'
+    }
+
+    implementation project(':center')
+    implementation project(':ui')
+
+    // sdk
+    implementation "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:${versions.wechatSdk}"
+
+}

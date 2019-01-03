@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
@@ -68,8 +69,11 @@ object Api {
         tokenInterceptor.resetAuthenticationToken(macKey, accessToken)
     }
 
-    private val baseClient by lazy {
-        OkHttpClient.Builder()
+    private val simpleClient by lazy { OkHttpClient.Builder().build() }
+
+    private val dokiClient by lazy {
+        simpleClient
+            .newBuilder()
             .connectTimeout(15L, TimeUnit.SECONDS)
             .writeTimeout(5L, TimeUnit.SECONDS)
             .readTimeout(5L, TimeUnit.SECONDS)
@@ -92,11 +96,22 @@ object Api {
     }
 
     fun <T> get(clazz: Class<T>, baseUrl: String = BASE_URL): T {
-        val client = baseClient.newBuilder().build()
+        val client = dokiClient.newBuilder().build()
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(CustomConverterFactory.create())
+            .client(client)
+            .build()
+            .create(clazz)
+    }
+
+    fun <T> getSimpleClient(clazz: Class<T>, baseUrl: String): T {
+        val client = dokiClient.newBuilder().build()
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+            .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
             .create(clazz)

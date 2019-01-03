@@ -77,7 +77,8 @@ dependencies {
     // feature plugin
     implementationFeature(':home')
     implementationFeature(':admin')
-    implementationFeature(':login')
+    implementationFeature(':auth')
     implementationFeature(':profile')
     implementationFeature(':web')
+    implementationFeature(':social')
 }
