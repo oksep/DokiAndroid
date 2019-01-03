@@ -11,6 +11,23 @@ import retrofit2.http.GET
 
 class AppCenter private constructor(val context: Context) {
 
+    val API_BASE_URL = BuildConfig.API_BASE_URL
+    val API_KEY = BuildConfig.API_KEY
+    val API_SECRET = BuildConfig.API_SECRET
+    val IM_KEY = BuildConfig.IM_KEY
+    val IM_SECRET = BuildConfig.IM_SECRET
+    val QQ_KEY = BuildConfig.QQ_KEY
+    val QQ_SECRET = BuildConfig.QQ_SECRET
+    val SESAME_CERT_ID = BuildConfig.SESAME_CERT_ID
+    val UMENG_KEY = BuildConfig.UMENG_KEY
+    val WEIBO_KEY = BuildConfig.WEIBO_KEY
+    val WEIBO_SECRET = BuildConfig.WEIBO_SECRET
+    val WX_KEY = BuildConfig.WX_KEY
+    val WX_SECRET = BuildConfig.WX_SECRET
+    val DEBUG = BuildConfig.DEBUG
+    val IMAGE_SIZE_LIMIT: Int
+        get() = apiConfig.imageSizeLimit
+
     companion object {
 
         @SuppressLint("StaticFieldLeak")
@@ -24,8 +41,7 @@ class AppCenter private constructor(val context: Context) {
         fun get() = appCenter
     }
 
-    var apiConfig: ApiConfig = ApiConfig(imageSizeLimit = 1024 * 1024 * 24)
-        private set
+    private var apiConfig: ApiConfig = ApiConfig(imageSizeLimit = 1024 * 1024 * 24)
 
     private fun getApiConfig() {
         Api.get(CenterApi::class.java).getConfig().subscribeApi(

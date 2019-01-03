@@ -1,7 +1,7 @@
 package com.dokiwa.dokidoki
 
 import android.os.Bundle
-import com.dokiwa.dokidoki.center.BuildConfig
+import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribe
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
@@ -20,7 +20,7 @@ class LaunchActivity : BaseActivity() {
     }
 
     private fun delayToHome() {
-        if (BuildConfig.DEBUG) {
+        if (AppCenter.get().DEBUG) {
             FeaturePlugin.get(IAdminPlugin::class.java).launchAdmin(this)
             finish()
             return

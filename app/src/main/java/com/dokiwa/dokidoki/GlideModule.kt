@@ -7,7 +7,7 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.executor.GlideExecutor
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
-import com.dokiwa.dokidoki.center.BuildConfig
+import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.Log
 
 private const val TAG = "GlideModule"
@@ -27,7 +27,7 @@ class GlideModule : AppGlideModule() {
         )
 
         builder.setDefaultRequestOptions(RequestOptions().format(DecodeFormat.PREFER_RGB_565).disallowHardwareConfig())
-        if (BuildConfig.DEBUG) {
+        if (AppCenter.get().DEBUG) {
             builder.setLogLevel(android.util.Log.DEBUG)
         }
     }

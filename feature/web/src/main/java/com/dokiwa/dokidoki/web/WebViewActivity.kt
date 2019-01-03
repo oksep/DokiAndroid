@@ -17,7 +17,7 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
-import com.dokiwa.dokidoki.center.BuildConfig
+import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.ui.view.ToolBar
 
@@ -128,7 +128,7 @@ class WebViewActivity : BaseActivity() {
 
         mWebView.settings.javaScriptCanOpenWindowsAutomatically = true
 
-        if (BuildConfig.DEBUG) {
+        if (AppCenter.get().DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true)
         }
 

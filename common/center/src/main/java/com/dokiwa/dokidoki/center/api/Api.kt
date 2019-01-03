@@ -1,6 +1,6 @@
 package com.dokiwa.dokidoki.center.api
 
-import com.dokiwa.dokidoki.center.BuildConfig
+import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.convert.CustomConverterFactory
 import com.dokiwa.dokidoki.center.api.interceptor.CURLInterceptor
@@ -23,7 +23,8 @@ object Api {
 
     const val TAG = "API"
 
-    private const val BASE_URL = BuildConfig.API_BASE_URL
+    private val BASE_URL: String
+        get() = AppCenter.get().API_BASE_URL
 
     private val commonQueries by lazy {
         mapOf<String, String>()
@@ -46,7 +47,11 @@ object Api {
     }
 
     private val headerInterceptor = HeaderInterceptor(commonHeaders)
-    private val queryInterceptor = QueryInterceptor(BuildConfig.API_KEY, BuildConfig.API_SECRET, commonQueries)
+    private val queryInterceptor = QueryInterceptor(
+        AppCenter.get().API_KEY,
+        AppCenter.get().API_SECRET,
+        commonQueries
+    )
     private val tokenInterceptor = TokenInterceptor()
     private val curlInterceptor = CURLInterceptor()
     private val gzipInterceptor = GZipInterceptor()
