@@ -20,16 +20,65 @@ android {
         renderscriptTargetApi builds.renderScriptTarget
         renderscriptSupportModeEnabled true
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
 
     dataBinding {
         enabled = true
     }
+
+    dexOptions {
+        additionalParameters += '--minimal-main-dex'
+        keepRuntimeAnnotatedClasses = false
+    }
+
+    signingConfigs {
+        release {
+            def propFile = keystoreFile()
+            if (propFile.exists()) {
+                Properties p = new Properties()
+                p.load(new FileInputStream(propFile))
+                storeFile file(p['storeFile'])
+                storePassword p['storePassword']
+                keyAlias p['keyAlias']
+                keyPassword p['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            matchingFallbacks = ['release']
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (keystoreFile().exists()) signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            matchingFallbacks = ['debug']
+            applicationIdSuffix ".dev"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            // def flavor = variant.productFlavors[0].name
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+            def version = variant.versionName
+            def versionCode = variant.versionCode
+            def date = new Date()
+            def formattedDate = date.format('yyyy-MM-dd-HH:mm:ss')
+            def outputFileName = "${buildType}_${version}_${versionCode}_${formattedDate}.apk"
+
+            def rootDir = output.packageApplication.outputDirectory.toPath().relativize(rootDir.toPath()).toFile()
+
+            output.outputFileName = new File("$rootDir/release", outputFileName)
+        }
+    }
+}
+
+def keystoreFile() {
+    return file('./keystore/keystore.properties')
 }
 
 dependencies {
@@ -76,9 +125,11 @@ dependencies {
 
     // feature plugin
     implementationFeature(':home')
-    implementationFeature(':admin')
     implementationFeature(':auth')
     implementationFeature(':profile')
     implementationFeature(':web')
     implementationFeature(':social')
+
+    // admin feature for debug
+    debugImplementation project(':admin')
 }

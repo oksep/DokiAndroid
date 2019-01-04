@@ -2,10 +2,12 @@ rootProject.name = 'DokiDoki'
 
 include ':app',
         ':center',
-        ':ui'
+        ':ui',
+        ':admin'
 
 project(':center').projectDir = new File(settingsDir, 'common/center')
 project(':ui').projectDir = new File(settingsDir, 'common/ui')
+project(':admin').projectDir = new File(settingsDir, 'feature/admin')
 
 // features
 def localProperties = new File("local.properties")

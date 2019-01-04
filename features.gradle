@@ -1,9 +1,6 @@
 include ':home'
 project(':home').projectDir = new File(settingsDir, 'feature/home')
 
-include ':admin'
-project(':admin').projectDir = new File(settingsDir, 'feature/admin')
-
 include ':login'
 project(':login').projectDir = new File(settingsDir, 'feature/login')
 
