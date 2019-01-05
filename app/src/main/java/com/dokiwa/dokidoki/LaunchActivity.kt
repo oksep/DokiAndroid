@@ -20,11 +20,6 @@ class LaunchActivity : BaseActivity() {
     }
 
     private fun delayToHome() {
-        if (AppCenter.get().DEBUG) {
-            FeaturePlugin.get(IAdminPlugin::class.java).launchAdmin(this)
-            finish()
-            return
-        }
         fun toHome() {
             FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
             finish()

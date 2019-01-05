@@ -19,6 +19,10 @@ android {
 
         renderscriptTargetApi builds.renderScriptTarget
         renderscriptSupportModeEnabled true
+
+        ndk {
+            abiFilters "armeabi-v7a"
+        }
     }
 
     dataBinding {
@@ -48,37 +52,35 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            matchingFallbacks = ['release']
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             if (keystoreFile().exists()) signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            matchingFallbacks = ['debug']
         }
         debug {
             minifyEnabled false
             shrinkResources false
+            if (keystoreFile().exists()) signingConfig signingConfigs.release
             matchingFallbacks = ['debug']
-            applicationIdSuffix ".dev"
         }
-    }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
-            // def flavor = variant.productFlavors[0].name
-            def buildType = variant.variantData.variantConfiguration.buildType.name
-            def version = variant.versionName
-            def versionCode = variant.versionCode
-            def date = new Date()
-            def formattedDate = date.format('yyyy-MM-dd-HH:mm:ss')
-            def outputFileName = "${buildType}_${version}_${versionCode}_${formattedDate}.apk"
-
-            def rootDir = output.packageApplication.outputDirectory.toPath().relativize(rootDir.toPath()).toFile()
-
-            output.outputFileName = new File("$rootDir/release", outputFileName)
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                // def flavor = variant.productFlavors[0].name
+                def buildType = variant.variantData.variantConfiguration.buildType.name
+                def version = variant.versionName
+                def versionCode = variant.versionCode
+                def date = new Date()
+                def formattedDate = date.format('yyyy-MM-dd-HH:mm:ss')
+                def outputFileName = "${buildType}_${version}_${versionCode}_${formattedDate}.apk"
+                def rootDir = output.packageApplication.outputDirectory.toPath().relativize(rootDir.toPath()).toFile()
+                output.outputFileName = new File("$rootDir/release", outputFileName)
+            }
         }
     }
 }
 
 def keystoreFile() {
-    return file('./keystore/keystore.properties')
+     return file('./keystore/keystore.properties')
 }
 
 dependencies {
@@ -122,13 +124,13 @@ dependencies {
     // baseline
     implementation project(':center')
     implementation project(':ui')
+    implementation project(':social')
 
     // feature plugin
     implementationFeature(':home')
     implementationFeature(':auth')
     implementationFeature(':profile')
     implementationFeature(':web')
-    implementationFeature(':social')
 
     // admin feature for debug
     debugImplementation project(':admin')

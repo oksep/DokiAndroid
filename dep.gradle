@@ -46,8 +46,8 @@ versions.okhttpLog = '3.11.0'
 
 // tool
 versions.gson = '2.8.4'
-versions.rxjava2 = '2.1.17'
-versions.rxjava2Android = '2.0.2'
+versions.rxjava2 = '2.2.0'
+versions.rxjava2Android = '2.1.0'
 
 // glide
 versions.glide = '4.8.0'

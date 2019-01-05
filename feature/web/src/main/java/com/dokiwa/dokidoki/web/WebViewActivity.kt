@@ -128,7 +128,7 @@ class WebViewActivity : BaseActivity() {
 
         mWebView.settings.javaScriptCanOpenWindowsAutomatically = true
 
-        if (AppCenter.get().DEBUG) {
+        if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true)
         }
 

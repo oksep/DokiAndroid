@@ -37,6 +37,12 @@ dependencies {
     // ui
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
 
+    // util
+    implementation "com.google.code.gson:gson:${versions.gson}"
+    implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
+
     implementation project(':center')
     implementation project(':ui')
+    implementation project(':social')
 }

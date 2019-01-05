@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion builds.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion builds.minSdkVersion
+        targetSdkVersion builds.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // android-x
+    implementation "androidx.appcompat:appcompat:${versions.axCompat}"
+
+    // test
+    testImplementation "junit:junit:${versions.testJunit}"
+    androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
+
+    implementation files('libs/open_sdk_r6019_lite.jar')
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.4'
+    implementation 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
+    // implementation 'com.sina.weibo.sdk:core:4.2.7:openDefaultRelease@aar'
+    implementation 'com.alibaba.android:ddsharesdk:1.1.0'
+
+    // util
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "com.google.code.gson:gson:${versions.gson}"
+    implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
+}

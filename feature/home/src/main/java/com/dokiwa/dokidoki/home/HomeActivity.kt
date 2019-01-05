@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.OnApplyWindowInsetsListener
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -18,6 +16,7 @@ import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.home.fragment.FeedFragment
 import com.dokiwa.dokidoki.home.fragment.MeFragment
 import com.dokiwa.dokidoki.home.fragment.MsgFragment
+import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -91,6 +90,16 @@ class HomeActivity : TranslucentActivity() {
             }
             false
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        SocialGo.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        SocialGo.onNewIntent(intent)
+        super.onNewIntent(intent)
     }
 }
 

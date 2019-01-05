@@ -16,26 +16,34 @@ android {
         buildConfigField "String", "API_SECRET", "\"jg59qdjahrjpc6y59b6h3yu5awmbq4v8\""
 
         // qq
-        buildConfigField "String", "QQ_KEY", "\"1106849149\""
-        buildConfigField "String", "QQ_SECRET", "\"c9q2etkxlXRMPYKX\""
+        buildConfigField "String", "QQ_ID", "\"1106924564\""
+        buildConfigField "String", "QQ_SECRET", "\"dd19be76ZzguYs7f\""
 
         // 微信
-        buildConfigField "String", "WX_KEY", "\"wxf16da9e973876bf8\""
-        buildConfigField "String", "WX_SECRET", "\"489f9913aa2e0ad8ede7115f7e0afa15\""
+        buildConfigField "String", "WECHAT_KEY", "\"wxf16da9e973876bf8\""
+        buildConfigField "String", "WECHAT_SECRET", "\"489f9913aa2e0ad8ede7115f7e0afa15\""
 
         // 微博
         buildConfigField "String", "WEIBO_KEY", "\"3202337661\""
         buildConfigField "String", "WEIBO_SECRET", "\"53f722943f7f65fac01f4b00594f4f4c\""
-
-        // 蚂蚁认证
-        buildConfigField "String", "SESAME_CERT_ID", "\"300002982\""
+        buildConfigField "String", "WEIBO_REDIRECT_URL", "\"https://api.weibo.com/oauth2/default.html\""
 
         // 网易云信
         buildConfigField "String", "IM_KEY", "\"76a9babb54ea608123d97d54b7cba037\""
         buildConfigField "String", "IM_SECRET", "\"ffc44d46c714\""
 
+        // bugly
+        buildConfigField "String", "BUGLY_ID", "\"900bcc52e8\""
+        buildConfigField "String", "BUBLY_KEY", "\"007a6062-0f10-4183-abde-7fa6fd3b4e55\""
+
+        // 蚂蚁认证
+        buildConfigField "String", "SESAME_CERT_ID", "\"300002982\""
+
         // 友盟
-        buildConfigField "String", "UMENG_KEY", "\"5afecaa9a40fa3721b00023b\""
+        buildConfigField "String", "UMENG_KEY", "\"5c30b59ab465f52965000468\""
+
+        // 高德地图
+        buildConfigField "String", "AMAP_KEY", "\"\""
     }
 
     buildTypes {
@@ -60,7 +68,6 @@ dependencies {
     testImplementation "junit:junit:${versions.testJunit}"
     androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
-
 
     // network
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
