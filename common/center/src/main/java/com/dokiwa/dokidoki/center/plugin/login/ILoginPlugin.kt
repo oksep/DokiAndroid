@@ -15,6 +15,10 @@ interface ILoginPlugin : FeaturePlugin {
 
     fun ensureLogin(context: Context)
 
+    fun logOut(context: Context)
+
+    fun launchBindPhoneActivity(context: Context)
+
     companion object {
         fun get(): ILoginPlugin {
             return FeaturePlugin.get(ILoginPlugin::class.java)

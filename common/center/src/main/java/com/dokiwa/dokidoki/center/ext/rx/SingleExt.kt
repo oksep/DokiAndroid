@@ -41,7 +41,7 @@ fun <T> Single<T>.retryOnShotSubscribe(
  */
 fun <T> Single<T>.composeIoMain(): Single<T> {
     return this.compose { upstream ->
-        upstream.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+        upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 }
 

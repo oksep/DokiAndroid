@@ -2,8 +2,10 @@ package com.dokiwa.dokidoki.ui.ext
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 
 /**
  * Created by Septenary on 2018/11/4.
@@ -54,5 +56,15 @@ fun View.fadeInVisible() {
         this.visibility = View.VISIBLE
         this.alpha = 0f
         this.animate().alpha(1f).setListener(null).start()
+    }
+}
+
+fun View.hideSoftInputWhenClick() {
+    fun hideKeyboard(view: View) {
+        val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+    this.setOnClickListener {
+        hideKeyboard(it)
     }
 }

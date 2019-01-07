@@ -10,85 +10,96 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
+import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import com.dokiwa.dokidoki.login.LoginSP
 import com.dokiwa.dokidoki.login.R
 import com.dokiwa.dokidoki.login.api.LoginApi
 import com.dokiwa.dokidoki.login.api.model.UserToken
-import com.dokiwa.dokidoki.ui.ext.fadeInVisible
-import com.dokiwa.dokidoki.ui.ext.fadeOutGone
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_verify_code.*
+import kotlinx.android.synthetic.main.activity_bind_phone.*
 import java.util.concurrent.TimeUnit
 
+private const val TAG = "BindPhoneActivity"
 
-private const val EXTRA_PHONE_NUMBER = "extra.phone_number"
-private const val TAG = "VerifyCodeActivity"
+class BindPhoneActivity : TranslucentActivity() {
 
-class VerifyCodeActivity : TranslucentActivity() {
+    private var phoneNumber: String? = null
+    private var verifyCode: String? = null
+    private val socialCode by lazy { intent.getStringExtra(EXTRA_SOCIAL_CODE) ?: "" }
+    private val socialType by lazy { intent.getStringExtra(EXTRA_SOCIAL_TYPE) ?: "" }
 
     companion object {
-        fun launch(context: Context, phoneNumber: String) {
+        private const val EXTRA_SOCIAL_CODE = "extra.social_code"
+        private const val EXTRA_SOCIAL_TYPE = "extra.social_type"
+        fun launch(context: Context, socialCode: String, socialType: String) {
             context.startActivity(
-                Intent(context, VerifyCodeActivity::class.java).putExtra(
-                    EXTRA_PHONE_NUMBER,
-                    phoneNumber
-                )
+                Intent(context, BindPhoneActivity::class.java)
+                    .putExtra(EXTRA_SOCIAL_CODE, socialCode)
+                    .putExtra(EXTRA_SOCIAL_TYPE, socialType)
             )
         }
     }
 
-    private val phoneNumber by lazy { intent.getStringExtra(EXTRA_PHONE_NUMBER) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_verify_code)
-
-        verifyCodeTitle.text = getString(R.string.login_verify_code_tip, phoneNumber)
-
-        pinEntryEdit.addTextChangedListener(object : TextWatcher {
+        setContentView(R.layout.activity_bind_phone)
+        content.hideSoftInputWhenClick()
+        toolBar.setLeftIconClickListener(View.OnClickListener {
+            finish()
+        })
+        countDownTip.setOnClickListener {
+            requestVerifyCode()
+        }
+        phoneEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val verifyCode = s.toString()
-                if (verifyCode.length == 6) {
-                    confirmBtn.fadeInVisible()
-                } else {
-                    confirmBtn.fadeOutGone()
-                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                this@BindPhoneActivity.phoneNumber = s?.toString()
             }
         })
+        codeEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
 
-        confirmBtn.setOnClickListener {
-            login(pinEntryEdit.text.toString())
-        }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
-        content.hideSoftInputWhenClick()
-
-        toolBar.setLeftIconClickListener(View.OnClickListener {
-            finish()
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                this@BindPhoneActivity.verifyCode = s?.toString()
+            }
         })
-
-        requestVerifyCode()
+        confirmBtn.setOnClickListener {
+            login()
+        }
+        tip.setText(R.string.login_usage_protocol)
+        tip.setOnClickListener {
+            FeaturePlugin.get(IWebPlugin::class.java).launchWebActivity(this, "https://dokiwa.com/agreement/")
+        }
     }
 
     // 请求手机短信验证码
     private fun requestVerifyCode() {
+        if (this.phoneNumber.isNullOrEmpty()) {
+            toast(R.string.login_input_correct_phone_number)
+            return
+        }
         var countDown: Disposable? = null
         Api.get(LoginApi::class.java)
-            .getVerifyCode(this.phoneNumber)
+            .getVerifyCode("+86$phoneNumber")
             .doOnSubscribe {
                 countDown = countDownTip()
-                countDown?.bind(this@VerifyCodeActivity)
+                countDown?.bind(this@BindPhoneActivity)
             }
             .subscribeApi(
                 this,
@@ -98,13 +109,12 @@ class VerifyCodeActivity : TranslucentActivity() {
                     toastApiException(it, R.string.log_request_verify_failed)
                 }
             )
-        countDownTip()
     }
 
     // 验证码倒计时
     private fun countDownTip(): Disposable {
         fun countDownComplete() {
-            countDownTip.text = getString(R.string.log_verify_retry)
+            countDownTip.text = getString(R.string.log_verify_retry_simple)
             countDownTip.setOnClickListener {
                 requestVerifyCode()
             }
@@ -114,7 +124,7 @@ class VerifyCodeActivity : TranslucentActivity() {
 
         return Observable.interval(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                countDownTip.text = getString(R.string.log_verify_count_down, times)
+                countDownTip.text = getString(R.string.log_verify_count_down_simple, times)
                 countDownTip.setOnClickListener(null)
             }
             .doOnDispose {
@@ -123,17 +133,33 @@ class VerifyCodeActivity : TranslucentActivity() {
             .take(times - 1)
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { countDownTip.text = getString(R.string.log_verify_count_down, times - it - 1) },
+                { countDownTip.text = getString(R.string.log_verify_count_down_simple, times - it - 1) },
                 { countDownComplete() },
                 { countDownComplete() }
             )
     }
 
     // 通过验证码登录
-    private fun login(verifyCode: String) {
+    private fun login() {
+
+        if (this.phoneNumber.isNullOrEmpty()) {
+            toast(R.string.login_input_correct_phone_number)
+            return
+        }
+
+        if (this.verifyCode.isNullOrEmpty()) {
+            toast(R.string.login_input_correct_verify_code)
+            return
+        }
+
         Api.get(LoginApi::class.java)
-            .loginByVerifyCode(this.phoneNumber, verifyCode)
-            .subscribeApi(this, ::toHomePage)
+            .loginByVerifyCodeWithSocial(
+                phoneNumber = "+86${this.phoneNumber}",
+                verifyCode = this.verifyCode!!,
+                socialType = socialType,
+                socialCode = socialCode
+            )
+            .subscribeApi(this, ::toHomePage) { toastApiException(it, R.string.login_failed) }
     }
 
     // 登录成功后跳转到主页

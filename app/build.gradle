@@ -131,6 +131,7 @@ dependencies {
     implementationFeature(':auth')
     implementationFeature(':profile')
     implementationFeature(':web')
+    implementationFeature(':login')
 
     // admin feature for debug
     debugImplementation project(':admin')

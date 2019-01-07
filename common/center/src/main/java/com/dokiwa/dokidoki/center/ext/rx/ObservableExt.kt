@@ -57,6 +57,6 @@ fun <T> Observable<T>.retryOnShotSubscribe(
  */
 fun <T> Observable<T>.composeIoMain(): Observable<T> {
     return this.compose { upstream ->
-        upstream.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+        upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 }

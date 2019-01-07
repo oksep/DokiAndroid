@@ -16,12 +16,10 @@ import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.annotation.IdRes
-import androidx.core.content.ContextCompat
-import com.dokiwa.dokidoki.center.AppCenter
-import com.dokiwa.dokidoki.center.base.activity.BaseActivity
+import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.ui.view.ToolBar
 
-class WebViewActivity : BaseActivity() {
+class WebViewActivity : TranslucentActivity() {
 
 
     private fun <T : View> Activity.bind(@IdRes res: Int): Lazy<T> {
@@ -102,12 +100,6 @@ class WebViewActivity : BaseActivity() {
         setContentView(R.layout.activity_webview)
 
         mNavigationBar.setTitle(intent?.getStringExtra(EXTRA_TITLE))
-        mNavigationBar.setLeftIcon(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.ic_navigation_back_dark
-            )
-        )
         mNavigationBar.setLeftIconClickListener(View.OnClickListener { onBackPressed() })
 
         val url = intent?.getStringExtra(EXTRA_URL) ?: ""

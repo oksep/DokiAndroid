@@ -5,9 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.dokiwa.dokidoki.social.SocialHelper
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
-import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import kotlinx.android.synthetic.main.activity_admin.*
@@ -39,18 +37,11 @@ internal class AdminActivity : BaseActivity() {
     data class Item(val text: String, val clickListener: () -> Unit)
 
     private val list = listOf(
-        Item("登录页面") {
-            FeaturePlugin.get(ILoginPlugin::class.java).launchLoginActivity(this)
+        Item("登出并登录") {
+            FeaturePlugin.get(ILoginPlugin::class.java).logOut(this)
         },
-        Item("微信登录") {
-            SocialHelper.login(
-                this@AdminActivity,
-                SocialHelper.SocialType.WECHAT
-            ).subscribeApi(this, {
-                Log.d("AAAAAA", "com.dokiwa.dokidoki.core.auth success: $it")
-            }, {
-                Log.e("AAAAAAA", "com.dokiwa.dokidoki.core.auth error: $it")
-            })
+        Item("绑定手机号页面") {
+            FeaturePlugin.get(ILoginPlugin::class.java).launchBindPhoneActivity(this)
         }
     )
 }

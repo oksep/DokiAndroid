@@ -8,6 +8,15 @@
     <string name="login_submit_confirm">确认</string>
     <string name="login_usage_third_party">------------------\u0020\u0020\u0020使用第三方账户\u0020\u0020\u0020------------------</string>
     <string name="login_input_correct_phone_number">请输入正确的手机号码</string>
-    <string name="log_verify_count_down">%1$ds 后可重新获取</string>
+    <string name="login_input_correct_verify_code">请输入正确的验证码</string>
+    <string name="log_request_verify_failed">获取验证码失败</string>
+    <string name="log_verify_count_down">%1$ds 秒后可重新获取</string>
     <string name="log_verify_retry">重新获取验证码</string>
+    <string name="log_verify_count_down_simple">%1$ds 秒</string>
+    <string name="log_verify_retry_simple">重新获取</string>
+    <string name="login_bind_phone">绑定手机号</string>
+    <string name="log_verify_fetch">获取验证码</string>
+    <string name="login_verify_input">请输验证码</string>
+    <string name="login_plus_86">+86</string>
+    <string name="login_failed">登录失败</string>
 </resources>

@@ -30,8 +30,7 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
             android:theme="@style/AppTheme.FullScreen"
-            android:name=".LaunchActivity"
-            android:launchMode="singleInstance">
+            android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

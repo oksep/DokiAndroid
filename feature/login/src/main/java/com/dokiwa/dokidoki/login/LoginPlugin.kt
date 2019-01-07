@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.login
 import android.annotation.SuppressLint
 import android.content.Context
 import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.ext.toUriAndResolveDeepLink
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.login.UserModel
 import com.dokiwa.dokidoki.login.activity.LoginActivity
@@ -25,6 +26,16 @@ class LoginPlugin : ILoginPlugin {
         LoginActivity.launch(context)
     }
 
+    override fun launchBindPhoneActivity(context: Context) {
+        "dokidoki://dokiwa.com/me/bind_phone".toUriAndResolveDeepLink(context, false)
+    }
+
+    override fun logOut(context: Context) {
+        LoginSP.clearUserToken()
+        Api.resetAuthenticationToken(null, null)
+        launchLoginActivity(context)
+    }
+
     override fun ensureLogin(context: Context) {
         // 没有 token，跳转到 登录页
         if (LoginSP.getUserToken() == null) {
@@ -43,9 +54,11 @@ class LoginPlugin : ILoginPlugin {
 
         // 用户认证失败重新登录
         Api.unAuthenticationSubject.delay(2, TimeUnit.SECONDS).subscribe {
-            LoginSP.clearUserToken()
             Api.resetAuthenticationToken(null, null)
-            launchLoginActivity(context)
+            if (LoginSP.getUserToken() != null) {
+                LoginSP.clearUserToken()
+                launchLoginActivity(context)
+            }
         }
     }
 }

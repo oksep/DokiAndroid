@@ -6,12 +6,26 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.api.exception.UnbindMobileNumberException
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
+import com.dokiwa.dokidoki.login.Log
+import com.dokiwa.dokidoki.login.LoginSP
 import com.dokiwa.dokidoki.login.R
+import com.dokiwa.dokidoki.login.api.LoginApi
+import com.dokiwa.dokidoki.login.api.model.UserToken
+import com.dokiwa.dokidoki.social.SocialHelper
+import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
+import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
 import kotlinx.android.synthetic.main.activity_login.*
+
+private const val TAG = "LoginActivity"
 
 class LoginActivity : TranslucentActivity() {
 
@@ -27,6 +41,16 @@ class LoginActivity : TranslucentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        initView()
+        initSocialView()
+        showSocialLoginBtn()
+    }
+
+    private fun initView() {
+        toolBar.setLeftIconClickListener(View.OnClickListener {
+            finish()
+        })
+        content.hideSoftInputWhenClick()
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -38,20 +62,22 @@ class LoginActivity : TranslucentActivity() {
                 if (count > 0) {
                     showConfirmBtn()
                 } else {
-                    showThirdPartyLoginBtns()
+                    showSocialLoginBtn()
                 }
             }
         })
+    }
 
+    private fun initSocialView() {
         loginByQQ.setOnClickListener {
+            loginSocial(SocialHelper.SocialType.QQ)
         }
-
         loginByWechat.setOnClickListener {
+            loginSocial(SocialHelper.SocialType.WECHAT)
         }
-
         loginByWeibo.setOnClickListener {
+            loginSocial(SocialHelper.SocialType.WEIBO)
         }
-
         confirmBtn.setOnClickListener {
             if (editText.length() == 11) {
                 VerifyCodeActivity.launch(this, "+86${editText.text}")
@@ -59,13 +85,9 @@ class LoginActivity : TranslucentActivity() {
                 toast(R.string.login_input_correct_phone_number)
             }
         }
-
-        showThirdPartyLoginBtns()
-
-        editText.setText("15601919567")
     }
 
-    private fun showThirdPartyLoginBtns() {
+    private fun showSocialLoginBtn() {
         confirmBtn.visibility = View.GONE
         loginByQQ.visibility = View.VISIBLE
         loginByWechat.visibility = View.VISIBLE
@@ -83,5 +105,50 @@ class LoginActivity : TranslucentActivity() {
         tip.setOnClickListener {
             FeaturePlugin.get(IWebPlugin::class.java).launchWebActivity(this, "https://dokiwa.com/agreement/")
         }
+    }
+
+    private fun loginSocial(type: SocialHelper.SocialType) {
+        val xSocialType = when (type) {
+            SocialHelper.SocialType.QQ -> LoginApi.XSocialType.QQ
+            SocialHelper.SocialType.WEIBO -> LoginApi.XSocialType.Weibo
+            SocialHelper.SocialType.WECHAT -> LoginApi.XSocialType.Wechat
+        }.type
+        var socialCode: String? = null
+        SocialHelper.auth(this, type)
+            .flatMap {
+                socialCode = it
+                Api.get(LoginApi::class.java).loginBySocial(
+                    socialCode = it,
+                    socialType = xSocialType
+                )
+            }
+            .subscribeApi(this, {
+                Log.d(TAG, "auth success: $it")
+                toHomePage(it)
+            }, {
+                Log.e(TAG, "auth error: $it")
+                if (it is UnbindMobileNumberException && socialCode != null) {
+                    BindPhoneActivity.launch(this, socialCode!!, xSocialType)
+                } else {
+                    toastApiException(it, R.string.login_failed)
+                }
+            })
+    }
+
+    // 登录成功后跳转到主页
+    private fun toHomePage(userToken: UserToken) {
+        LoginSP.saveUserToken(userToken)
+        Api.resetAuthenticationToken(userToken.macKey, userToken.accessToken)
+        FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        SocialGo.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        SocialGo.onNewIntent(intent)
+        super.onNewIntent(intent)
     }
 }

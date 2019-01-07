@@ -45,4 +45,5 @@ dependencies {
 
     implementation project(':center')
     implementation project(':ui')
+    implementation project(':social')
 }

@@ -39,7 +39,6 @@ interface FeaturePlugin {
             inMap(IAdminPlugin::class.java)
             inMap(ILoginPlugin::class.java)
             inMap(IHomePlugin::class.java)
-            inMap(ILoginPlugin::class.java)
             inMap(IWebPlugin::class.java)
         }
 

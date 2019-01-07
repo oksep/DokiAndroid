@@ -24,4 +24,27 @@ interface LoginApi {
         @Field("grant_type") grantType: String = "x-phone"
     ): Single<UserToken>
 
+    @FormUrlEncoded
+    @POST("/api/auth/v1/token")
+    fun loginByVerifyCodeWithSocial(
+        @Field("x_phone_social_type") socialType: String,
+        @Field("x_phone_social_code") socialCode: String,
+        @Field("x_phone_number") phoneNumber: String,
+        @Field("x_phone_code") verifyCode: String,
+        @Field("grant_type") grantType: String = "x-phone"
+    ): Single<UserToken>
+
+    @FormUrlEncoded
+    @POST("/api/auth/v1/token")
+    fun loginBySocial(
+        @Field("x_social_code") socialCode: String,
+        @Field("x_social_type") socialType: String,
+        @Field("grant_type") grantType: String = "x-social"
+    ): Single<UserToken>
+
+    enum class XSocialType(val type: String) {
+        QQ("qq"),
+        Weibo("weibo"),
+        Wechat("wechat")
+    }
 }

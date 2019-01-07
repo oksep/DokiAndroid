@@ -8,6 +8,7 @@
     android:layout_height="44dp">
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:duplicateParentState="false"
         android:id="@+id/ui_left_img"
         android:scaleType="center"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -30,6 +31,7 @@
         android:layout_height="44dp"/>
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:duplicateParentState="false"
         android:id="@+id/ui_right_img"
         android:scaleType="center"
         app:layout_constraintRight_toRightOf="parent"

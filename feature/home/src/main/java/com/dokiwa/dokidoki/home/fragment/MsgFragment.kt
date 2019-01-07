@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
+import com.dokiwa.dokidoki.social.SocialHelper
 import com.dokiwa.dokidoki.ui.ext.blurBitmap
 import com.dokiwa.dokidoki.ui.ext.maskColor
 import com.dokiwa.dokidoki.ui.ext.scaleByRatio
@@ -34,10 +36,20 @@ class MsgFragment : BaseFragment(), OnPageSelectedListener {
         return inflater.inflate(R.layout.fragment_msg, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        loginBtn1.setOnClickListener {
+            shareImage(SocialHelper.SocialType.WECHAT)
+        }
+        loginBtn2.setOnClickListener {
+            shareImage(SocialHelper.SocialType.QQ)
+        }
+        loginBtn3.setOnClickListener {
+            shareImage(SocialHelper.SocialType.WEIBO)
+        }
+
         viewModel = ViewModelProviders.of(this).get(MsgViewModel::class.java)
-        // TODO: Use the ViewModel
 
         toAdmin.setOnClickListener {
             openAdminActivity()
@@ -58,6 +70,13 @@ class MsgFragment : BaseFragment(), OnPageSelectedListener {
         }
 
         removeImg.loadImgFromNetWork("http://assets.septenary.cn/dirty_bytes.png")
+    }
+
+    private fun shareImage(type: SocialHelper.SocialType) {
+        SocialHelper.shareImage(
+            activity!!, type,
+            (resources.getDrawable(R.drawable.share, null) as BitmapDrawable).bitmap
+        ).subscribeApi(this)
     }
 
     private fun openAdminActivity() {

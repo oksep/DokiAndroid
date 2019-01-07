@@ -19,6 +19,7 @@ package com.dokiwa.dokidoki.center.ext
 import android.content.Context
 import android.widget.Toast
 import androidx.annotation.StringRes
+import com.dokiwa.dokidoki.center.api.exception.ApiException
 
 /**
  * Creates and shows a [Toast] with the given [text]
@@ -37,4 +38,12 @@ inline fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT)
  */
 inline fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT): Toast {
     return Toast.makeText(this, resId, duration).apply { show() }
+}
+
+inline fun Context.toastApiException(throwable: Throwable, @StringRes resId: Int): Toast {
+    return if (throwable is ApiException && throwable.message != null) {
+        Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT)
+    } else {
+        Toast.makeText(this, resId, Toast.LENGTH_SHORT)
+    }.apply { show() }
 }

@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import com.dokiwa.dokidoki.social.authgo.core.AuthGo
+import com.dokiwa.dokidoki.social.authgo.core.callback.SocialAuthCallback
 import com.dokiwa.dokidoki.social.authgo.core.callback.SocialLoginCallback
+import com.dokiwa.dokidoki.social.authgo.core.entities.AuthResult
 import com.dokiwa.dokidoki.social.authgo.core.entities.BaseUser
 import com.dokiwa.dokidoki.social.sharego.core.ShareGo
 import com.dokiwa.dokidoki.social.sharego.core.callback.SocialShareCallback
@@ -12,6 +14,7 @@ import com.dokiwa.dokidoki.social.sharego.core.entities.ShareEntity
 import com.dokiwa.dokidoki.social.socialgo.config.SocialConfig
 import io.reactivex.Single
 import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 // qq这个：
@@ -41,9 +44,13 @@ object SocialHelper {
         SocialConfig.init(context.applicationContext, builder)
     }
 
-    fun login(context: Activity, type: SocialType): Single<AuthUser> {
-        return Single.unsafeCreate<AuthUser> { emitter ->
-            val callback = object : SocialLoginCallback() {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // 认证
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    fun auth(context: Activity, type: SocialType): Single<String> {
+        return Single.unsafeCreate<String> { emitter ->
+            val callback = object : SocialAuthCallback() {
                 override fun fail(errorCode: Int, defaultMsg: String?) {
                     emitter.onError(SocialAuthException(errorCode, defaultMsg))
                 }
@@ -52,9 +59,39 @@ object SocialHelper {
                     emitter.onError(SocialAuthException(0, "auth canceled"))
                 }
 
+                override fun success(authResult: AuthResult) {
+                    emitter.onSuccess(authResult.code)
+                }
+            }
+
+            when (type) {
+                SocialType.WECHAT -> {
+                    AuthGo.getInstance().authWX(context, callback)
+                }
+                SocialType.QQ -> {
+                    AuthGo.getInstance().authQQ(context, callback)
+                }
+                SocialType.WEIBO -> {
+                    AuthGo.getInstance().authWB(context, callback)
+                }
+            }
+        }.subscribeOn(AndroidSchedulers.mainThread()).subscribeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun login(context: Activity, type: SocialType): Single<AuthUser> {
+        return Single.unsafeCreate<AuthUser> { emitter ->
+            val callback = object : SocialLoginCallback() {
+                override fun fail(errorCode: Int, defaultMsg: String?) {
+                    emitter.onError(SocialLoginException(errorCode, defaultMsg))
+                }
+
+                override fun cancel() {
+                    emitter.onError(SocialLoginException(0, "login canceled"))
+                }
+
                 override fun success(user: BaseUser?) {
                     if (user == null) {
-                        emitter.onError(SocialAuthException(0, "auth user not get"))
+                        emitter.onError(SocialLoginException(0, "login user not get"))
                     } else {
                         emitter.onSuccess(user.toAuthUser())
                     }
@@ -72,8 +109,12 @@ object SocialHelper {
                     AuthGo.getInstance().loginWB(context, callback)
                 }
             }
-        }
+        }.subscribeOn(AndroidSchedulers.mainThread()).subscribeOn(AndroidSchedulers.mainThread())
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // 分享
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     fun shareText(context: Activity, type: SocialType, text: String): Single<Unit> {
         val shareEntity = ShareEntity.createTextInfo(ShareEntity.SHARE_TYPE_TEXT, text)
@@ -94,7 +135,7 @@ object SocialHelper {
                 SocialType.QQ -> shareGo.shareQQ(context, shareEntity, callback)
                 SocialType.WEIBO -> shareGo.shareWB(context, shareEntity, callback)
             }
-        }
+        }.subscribeOn(AndroidSchedulers.mainThread()).subscribeOn(AndroidSchedulers.mainThread())
     }
 
     private fun obtainShareCallback(emitter: SingleObserver<in Unit>): SocialShareCallback {
@@ -116,6 +157,8 @@ object SocialHelper {
     enum class SocialType { WEIBO, QQ, WECHAT }
 
     class SocialAuthException(errorCode: Int, message: String?) : Exception("code: $errorCode, message: $message")
+
+    class SocialLoginException(errorCode: Int, message: String?) : Exception("code: $errorCode, message: $message")
 
     class SocialShareException(errorCode: Int, message: String?) : Exception("code: $errorCode, message: $message")
 
