@@ -68,12 +68,16 @@ public class WXAuth extends WXSocial implements IAuth, IWXAPIEventHandler {
             if (baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
                 //授权码
                 String code = ((SendAuth.Resp) baseResp).code;
+
+                if (socialCallback instanceof SocialAuthCallback) {
+                    ((SocialAuthCallback) socialCallback).success(new AuthResult("", code));
+                    return;
+                }
+
                 getAccessToken(code).subscribe(new Consumer<AuthResult>() {
                     @Override
                     public void accept(AuthResult authResult) throws Exception {
-                        if (socialCallback instanceof SocialAuthCallback) {
-                            ((SocialAuthCallback) socialCallback).success(authResult);
-                        } else if (socialCallback instanceof SocialLoginCallback) {
+                        if (socialCallback instanceof SocialLoginCallback) {
                             fetchUserInfo(authResult, ((SocialLoginCallback) socialCallback));
                         }
                     }
