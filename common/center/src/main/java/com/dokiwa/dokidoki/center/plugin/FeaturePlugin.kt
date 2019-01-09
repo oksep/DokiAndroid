@@ -42,7 +42,7 @@ interface FeaturePlugin {
             inMap(IWebPlugin::class.java)
         }
 
-        inline fun <reified T : FeaturePlugin> get(clazz: Class<T>): T {
+        fun <T> get(clazz: Class<T>): T {
             return map[clazz] as? T ?: ShadowPlugin.newInstance(clazz)
         }
     }
