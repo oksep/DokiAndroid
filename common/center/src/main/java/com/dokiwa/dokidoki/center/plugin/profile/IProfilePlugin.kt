@@ -12,6 +12,8 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun launchProfileActivity(context: Context)
 
+    fun launchCreateProfileActivity(context: Context)
+
     companion object {
         fun get(): IProfilePlugin {
             return FeaturePlugin.get(IProfilePlugin::class.java)

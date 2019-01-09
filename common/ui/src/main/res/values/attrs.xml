@@ -14,6 +14,10 @@
     <declare-styleable name="ToolBar">
         <attr name="tb_left_ic" format="reference"/>
         <attr name="tb_right_ic" format="reference"/>
+        <attr name="tb_left_text" format="reference|string"/>
+        <attr name="tb_left_text_color" format="reference|color"/>
+        <attr name="tb_right_text" format="reference|string"/>
+        <attr name="tb_right_text_color" format="reference|color"/>
         <attr name="tb_title" format="string|reference"/>
         <attr name="tb_title_color" format="color|reference"/>
     </declare-styleable>

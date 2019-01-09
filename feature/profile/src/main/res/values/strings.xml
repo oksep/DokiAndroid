@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">profile</string>
+    <string name="profile_create_profile_skip">跳过</string>
+    <string name="profile_create_profile_tip">角色创建中，请如实填写资料喔～</string>
+
+    <string name="profile_create_profile_gender_tip">我的性别是</string>
+    <string name="profile_create_profile_gender_tip2">*性别确认后无法修改</string>
+    <string name="profile_create_profile_gender_male">男</string>
+    <string name="profile_create_profile_gender_female">女</string>
+
+    <string name="profile_create_profile_avatar_tip">上传头像</string>
+    <string name="profile_create_profile_avatar_tip2">*建议使用真实头像</string>
+
+    <string name="profile_create_confirm">确认</string>
 </resources>

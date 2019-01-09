@@ -14,6 +14,7 @@ import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toPrettyJson
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.google.gson.JsonElement
 import kotlinx.android.synthetic.main.activity_admin.*
 
@@ -50,6 +51,9 @@ internal class AdminActivity : BaseActivity() {
         },
         Item("绑定手机号页面") {
             FeaturePlugin.get(ILoginPlugin::class.java).launchBindPhoneActivity(this)
+        },
+        Item("角色创建页面") {
+            FeaturePlugin.get(IProfilePlugin::class.java).launchCreateProfileActivity(this)
         },
         Item("API - 获取自己的资料") { text ->
             Api.get(AdminApi::class.java).getProfile().subscribeApi(this, {

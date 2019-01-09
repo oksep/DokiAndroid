@@ -79,7 +79,7 @@
 
     <Button
         android:id="@+id/confirmBtn"
-        android:background="@drawable/bg_btn_confirm"
+        android:background="@drawable/bg_btn_round_border_white"
         app:layout_constraintLeft_toLeftOf="@+id/pinEntryEdit"
         app:layout_constraintRight_toRightOf="@+id/pinEntryEdit"
         app:layout_constraintTop_toBottomOf="@+id/pinEntryEdit"
