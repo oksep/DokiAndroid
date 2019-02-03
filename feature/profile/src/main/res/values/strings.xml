@@ -11,5 +11,25 @@
     <string name="profile_create_profile_avatar_tip">上传头像</string>
     <string name="profile_create_profile_avatar_tip2">*建议使用真实头像</string>
 
+    <string name="profile_create_profile_nick_tip">我的昵称是</string>
+    <string name="profile_create_profile_nick_tip2">*注册后昵称可随时修改</string>
+    <string name="profile_create_profile_nick_hint">我的昵称</string>
+    <string name="profile_create_profile_nick_error">请填写合法的昵称 </string>
+
+    <string name="profile_create_profile_birth_tip">我的生日是</string>
+    <string name="profile_create_profile_birth_tip2">*生日确认后无法修改</string>
+
+    <string name="profile_create_profile_height_tip">我的身高是</string>
+
+    <string name="profile_create_profile_city_tip">我常在的地点是</string>
+
     <string name="profile_create_confirm">确认</string>
+
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+
+    <string name="calendar_day">日</string>
+    <string name="calendar_month">月</string>
+    <string name="calendar_year">年</string>
+    <string name="cm">cm</string>
 </resources>

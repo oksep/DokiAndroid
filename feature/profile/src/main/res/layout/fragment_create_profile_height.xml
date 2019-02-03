@@ -7,36 +7,23 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tip1"
-        android:text="@string/profile_create_profile_birth_tip"
+        android:id="@+id/tip"
+        android:text="@string/profile_create_profile_height_tip"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tip2"
+        app:layout_constraintBottom_toTopOf="@+id/heightText"
         app:layout_constraintVertical_chainStyle="packed"
         android:textColor="#FF333333"
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/tip2"
-        app:layout_constraintLeft_toLeftOf="@+id/tip1"
-        app:layout_constraintRight_toRightOf="@+id/tip1"
-        app:layout_constraintTop_toBottomOf="@+id/tip1"
-        app:layout_constraintBottom_toTopOf="@+id/dateContainerView"
-        android:layout_marginTop="10dp"
-        android:text="@string/profile_create_profile_birth_tip2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#AEB3BA"
-        android:textSize="12sp"/>
-
     <LinearLayout
-        android:id="@+id/dateContainerView"
+        android:id="@+id/heightText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tip2"
+        app:layout_constraintTop_toBottomOf="@+id/tip"
         app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
         android:orientation="horizontal"
         android:layout_marginTop="40dp"
@@ -44,8 +31,8 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/yearTextView"
-            tools:text="1993"
+            android:id="@+id/heightTextView"
+            tools:text="183"
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="#FF333333"
@@ -53,49 +40,12 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="@string/calendar_year"
+            android:text="@string/cm"
             android:gravity="center"
             android:textColor="#FFA4AAB3"
             android:textSize="14sp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/monthTextView"
-            tools:text="05"
-            android:textSize="20sp"
-            android:textColor="#FF333333"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text="@string/calendar_month"
-            android:gravity="center"
-            android:textColor="#FFA4AAB3"
-            android:textSize="14sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/dayTextView"
-            tools:text="30"
-            android:textSize="20sp"
-            android:textColor="#FF333333"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text="@string/calendar_day"
-            android:textColor="#FFA4AAB3"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -112,10 +62,11 @@
         android:layout_width="200dp"
         android:layout_height="44dp"
         android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/datePickerView"/>
+        app:layout_constraintBottom_toTopOf="@+id/numberPickerView"/>
 
-    <com.dokiwa.dokidoki.profile.view.DatePickerView
-        android:id="@+id/datePickerView"
+    <com.dokiwa.dokidoki.profile.view.NumberPickerView
+        android:id="@+id/numberPickerView"
+        tools:background="@color/dd_green"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

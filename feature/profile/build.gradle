@@ -38,6 +38,13 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
     implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
 
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.google.code.gson:gson:${versions.gson}"
+
+    // ui
+    implementation "com.github.javiersantos:BottomDialogs:${versions.bottomDialog}"
+    implementation "com.contrarywind:Android-PickerView:${versions.pickerView}"
+
     implementation project(':center')
     implementation project(':ui')
 }

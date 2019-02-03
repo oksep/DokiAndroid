@@ -22,6 +22,8 @@ class LaunchActivity : BaseActivity() {
     private fun delayToHome() {
         fun toHome() {
             FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+            // TODO: 2019/2/11 @Septenary testing
+            FeaturePlugin.get(IAdminPlugin::class.java).launchAdmin(this)
             finish()
         }
         Single.timer(1000 * 1, TimeUnit.MILLISECONDS)

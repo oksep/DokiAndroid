@@ -73,8 +73,9 @@ android {
                 def date = new Date()
                 def formattedDate = date.format('yyyy-MM-dd-HH:mm:ss')
                 def outputFileName = "${buildType}_${version}_${versionCode}_${formattedDate}.apk"
-                def rootDir = output.packageApplication.outputDirectory.toPath().relativize(rootDir.toPath()).toFile()
-                output.outputFileName = new File("$rootDir/release", outputFileName)
+                // def rootDir = output.packageApplication.outputDirectory.toPath().relativize(rootDir.toPath()).toFile()
+                // output.outputFileName = new File("$rootDir/release", outputFileName)
+                output.outputFileName = new File("../../../../../release/", outputFileName)
             }
         }
     }

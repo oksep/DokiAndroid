@@ -13,10 +13,10 @@ ext.builds = builds
 def versions = [:]
 
 // android-x
-versions.axCompat='1.0.2'
+versions.axCompat='1.1.0-alpha02'
 versions.axConstraintLayout = '2.0.0-alpha3'
 versions.axLifecycle = '2.0.0'
-versions.axMaterial = '1.1.0-alpha02'
+versions.axMaterial = '1.1.0-alpha03'
 versions.axCardView = '1.0.0'
 versions.axKtx = '1.0.1'
 
@@ -35,6 +35,8 @@ versions.testArchRoomTest = '1.1.1'
 versions.roundImageView = '2.3.0'
 versions.quickAdapter = '2.9.35'
 versions.pinEntryEditText = '2.0.6'
+versions.pickerView = '4.1.7'
+versions.bottomDialog = '1.2.1'
 
 // net
 versions.retrofit = '2.4.0'

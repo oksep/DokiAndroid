@@ -2,17 +2,81 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:text="城市"
+        android:id="@+id/tip"
+        android:text="@string/profile_create_profile_city_tip"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/heightText"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:textColor="#FF333333"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/cityTextContainer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tip"
+        app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
+        android:orientation="horizontal"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/province"
+            tools:text="183"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#FF333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:background="@color/dd_gray_middle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/city"
+            tools:text="183"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#FF333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/confirmBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/bg_btn_round_border_red"
+        android:text="@string/profile_create_confirm"
+        android:textColor="@color/dd_red"
+        android:layout_marginTop="120dp"
+        android:layout_width="200dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/cityPickerView"/>
+
+    <com.dokiwa.dokidoki.profile.view.CityPickerView
+        android:id="@+id/cityPickerView"
+        tools:background="@color/dd_gray_middle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="0dp"
+        android:layout_height="260dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

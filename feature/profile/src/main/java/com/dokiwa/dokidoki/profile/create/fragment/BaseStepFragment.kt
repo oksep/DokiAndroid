@@ -30,8 +30,19 @@ internal abstract class BaseStepFragment : BaseFragment() {
     abstract val layoutId: Int
 
     abstract fun reset()
+
+    fun requestNextStep() {
+        (activity as? IStepFragmentInteract)?.requestNextStep()
+    }
+
+    fun requestPreStep() {
+        (activity as? IStepFragmentInteract)?.requestPreStep()
+    }
+
+    abstract val skipable: Boolean
 }
 
 internal interface IStepFragmentInteract {
     fun requestNextStep()
+    fun requestPreStep()
 }

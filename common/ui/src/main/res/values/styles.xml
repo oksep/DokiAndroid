@@ -46,7 +46,6 @@
     <style name="AppThemeDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/dd_red</item>
         <item name="android:textColorPrimary">@color/text_dft</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <!-- alert dialog -->
@@ -57,6 +56,14 @@
         <item name="android:windowMinWidthMajor">65%</item>
         <item name="android:windowMinWidthMinor">90%</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="SpinnerDatePickerDialog" parent="AppCompatAlertDialogStyle">
+        <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
+    </style>
+
+    <style name="SpinnerDatePicker">
+        <item name="android:datePickerMode">spinner</item>
     </style>
 
 </resources>

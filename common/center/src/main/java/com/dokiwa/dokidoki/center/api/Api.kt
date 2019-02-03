@@ -1,11 +1,13 @@
 package com.dokiwa.dokidoki.center.api
 
+import android.content.Context
 import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.convert.CustomConverterFactory
 import com.dokiwa.dokidoki.center.api.interceptor.CURLInterceptor
 import com.dokiwa.dokidoki.center.api.interceptor.GZipInterceptor
 import com.dokiwa.dokidoki.center.api.interceptor.HeaderInterceptor
+import com.dokiwa.dokidoki.center.api.interceptor.LocalAssetsInterceptor
 import com.dokiwa.dokidoki.center.api.interceptor.QueryInterceptor
 import com.dokiwa.dokidoki.center.api.interceptor.TokenInterceptor
 import io.reactivex.subjects.BehaviorSubject
@@ -95,6 +97,7 @@ object Api {
             .build()
     }
 
+    // dok api
     fun <T> get(clazz: Class<T>, baseUrl: String = BASE_URL): T {
         val client = dokiClient.newBuilder().build()
         return Retrofit.Builder()
@@ -106,12 +109,25 @@ object Api {
             .create(clazz)
     }
 
+    // simple api
     fun <T> getSimpleClient(clazz: Class<T>, baseUrl: String): T {
         val client = dokiClient.newBuilder().build()
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+            .create(clazz)
+    }
+
+    // local api
+    fun <T> getLocalAsset(context: Context, clazz: Class<T>): T {
+        val client = dokiClient.newBuilder().addInterceptor(LocalAssetsInterceptor(context)).build()
+        return Retrofit.Builder()
+            .baseUrl("http://local.assets")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+            .addConverterFactory(CustomConverterFactory.create())
             .client(client)
             .build()
             .create(clazz)

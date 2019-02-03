@@ -162,4 +162,12 @@ class ToolBar : FrameLayout {
         rightTextView.setTextColor(color)
         return this
     }
+
+    fun showRightText() {
+        rightTextView.visibility = View.VISIBLE
+    }
+
+    fun hideRightText() {
+        rightTextView.visibility = View.GONE
+    }
 }
