@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Center</string>
+
+    <string name="image_choose_no_camera_hint">未在您的设备上找到可用的拍照应用</string>
+    <string name="image_choose_from_album">从相册选择</string>
+    <string name="image_choose_from_camera">拍照</string>
+    <string name="image_choose_title">选择图片</string>
+
 </resources>
