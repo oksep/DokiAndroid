@@ -1,10 +1,12 @@
 package com.dokiwa.dokidoki.center.ext.rx
 
+import android.app.Activity
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.api.exception.SignatureException
 import com.dokiwa.dokidoki.center.api.exception.toApiException
 import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
+import com.dokiwa.dokidoki.center.dialog.RxDialog
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -87,4 +89,32 @@ fun <T> Single<T>.subscribeApi(
         Consumer { onSuccess?.invoke(it) },
         Consumer { onError?.invoke(it) }
     )
+}
+
+
+/**
+ * 封装网络接口请求订阅方法，如果是签算错误，矫正时间戳，重试一次
+ */
+fun <T> Single<T>.subscribeApiWithDialog(
+    activity: Activity,
+    context: CompositeDisposableContext,
+    title: String,
+    message: String,
+    onSuccess: ((T) -> Unit)? = null,
+    onError: ((Throwable) -> Unit)? = null
+) {
+    val observable = RxDialog.progressDialog(activity, title, message)
+    context.addDispose(observable.subscribe { dialog ->
+        this.subscribeApi(
+            context,
+            Consumer {
+                dialog.cancel()
+                onSuccess?.invoke(it)
+            },
+            Consumer {
+                dialog.cancel()
+                onError?.invoke(it)
+            }
+        )
+    })
 }

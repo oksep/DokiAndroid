@@ -2,14 +2,17 @@ package com.dokiwa.dokidoki.profile.create
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
+import com.dokiwa.dokidoki.center.base.activity.BaseChooseImageActivity
 import com.dokiwa.dokidoki.center.base.adapter.SimplePagerAdapter
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
+import com.dokiwa.dokidoki.center.uploader.SimpleUploader
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.create.fragment.AvatarFragment
@@ -26,11 +29,11 @@ import kotlinx.android.synthetic.main.activity_create_profile.*
 /**
  * Created by Septenary on 2018/12/28.
  */
-private const val TAG = "CreateProfileActivity"
-
-class CreateProfileActivity : TranslucentActivity(), IStepFragmentInteract {
+class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
 
     companion object {
+        private const val TAG = "CreateProfileActivity"
+
         fun launch(context: Context) {
             context.startActivity(Intent(context, CreateProfileActivity::class.java))
         }
@@ -126,13 +129,6 @@ class CreateProfileActivity : TranslucentActivity(), IStepFragmentInteract {
 
     // 下一步
     private fun nextStep(isSkip: Boolean) {
-        // 跳过提交
-        if (isSkip) {
-            viewPager.currentItem = viewPager.currentItem + 1
-            // submitPayload()
-            return
-        }
-
         // 最后一页提交
         if (viewPager.currentItem == viewPager.adapter!!.count - 1) {
             submitPayload()
@@ -153,7 +149,39 @@ class CreateProfileActivity : TranslucentActivity(), IStepFragmentInteract {
 
     // 提交
     private fun submitPayload() {
-        // TODO: 2019/1/10 @Septenary 提交用户信息
-        finishAffinity()
+        Log.d(TAG, "submit payload: $sharedViewModel")
+//        finishAffinity()
+//        Api.get(ProfileApi::class.java)
+//            .createProfile(
+//                sharedViewModel.gender.value,
+//                sharedViewModel.birth.value,
+//                sharedViewModel.height.value,
+//                sharedViewModel.city.value,
+//                sharedViewModel.nick.value
+//            )
+    }
+
+    override fun onChooseImageFromAlbum(uri: Uri) {
+        getCurrentStepFragment()?.onChooseImageFromAlbum(uri)
+    }
+
+    override fun onChooseImageFromCamera(uri: Uri) {
+        getCurrentStepFragment()?.onChooseImageFromCamera(uri)
+    }
+
+    private fun uploadAvatar(uri: Uri) {
+        SimpleUploader.uploadImage(uri, SimpleUploader.ImageType.AVATAR)
+            .subscribeApiWithDialog(
+                this,
+                this,
+                getString(R.string.profile_create_profile_avatar_upload_title),
+                getString(R.string.profile_create_profile_avatar_upload_message),
+                {
+                    Log.d(TAG, "update success: $it")
+                },
+                {
+                    Log.w(TAG, "update failed", it)
+                }
+            )
     }
 }

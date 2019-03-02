@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.profile.create.fragment
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import com.dokiwa.dokidoki.profile.create.model.SharedViewModel
  */
 internal abstract class BaseStepFragment : BaseFragment() {
 
-    private val sharedViewModel by lazy {
+    protected val sharedViewModel by lazy {
         ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
     }
 
@@ -23,6 +24,14 @@ internal abstract class BaseStepFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         updateContent(sharedViewModel)
+    }
+
+    open fun onChooseImageFromAlbum(uri: Uri) {
+
+    }
+
+    open fun onChooseImageFromCamera(uri: Uri) {
+
     }
 
     abstract fun updateContent(viewModel: SharedViewModel)

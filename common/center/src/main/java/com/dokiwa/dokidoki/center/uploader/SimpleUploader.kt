@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.center.uploader
 
+import android.net.Uri
 import com.dokiwa.dokidoki.center.api.Api
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
@@ -42,9 +43,15 @@ object SimpleUploader {
     }
 
 
-    fun upateImage(filePath: String, imageType: ImageType): Single<UploadImageResult> {
+    fun uploadImage(filePath: String, imageType: ImageType): Single<UploadImageResult> {
+        return this.uploadImage(File(filePath), imageType)
+    }
 
-        val file = File(filePath)
+    fun uploadImage(uri: Uri, imageType: ImageType): Single<UploadImageResult> {
+        return this.uploadImage(File(uri.path), imageType)
+    }
+
+    fun uploadImage(file: File, imageType: ImageType): Single<UploadImageResult> {
 
         val requestFile = RequestBody.create(MediaType.parse("image/png"), file)
         val body1 = MultipartBody.Part.createFormData("file", file.name, requestFile)

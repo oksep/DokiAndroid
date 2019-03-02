@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.profile.create.model
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -20,5 +21,17 @@ class SharedViewModel : ViewModel() {
     val nick = MutableLiveData<String>()
 
     // 头像 URL，上传规则 @see common.md 通用接口-上传图片
-    val avatar = MutableLiveData<String>()
+    val avatar = MutableLiveData<Uri>()
+
+    override fun toString(): String {
+        return """
+            Mode ->
+            gender: ${gender.value}
+            birth: ${birth.value}
+            height: ${height.value}
+            city: ${city.value}
+            nick: ${nick.value}
+            avatar: ${avatar.value}
+        """.trimIndent()
+    }
 }

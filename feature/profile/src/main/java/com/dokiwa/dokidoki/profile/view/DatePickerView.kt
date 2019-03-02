@@ -30,7 +30,7 @@ class DatePickerView : FrameLayout {
         initLunarPicker()
     }
 
-    private fun getTime(date: Date): String {//可根据需要自行截取数据显示
+    private fun getTime(date: Date): String {
         Log.d("getTime()", "choice date millis: " + date.time)
         val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         return format.format(date)
@@ -44,9 +44,6 @@ class DatePickerView : FrameLayout {
         val startDate = Calendar.getInstance()
         startDate.set(1900, 1, 1)
 
-        val endDate = Calendar.getInstance()
-        endDate.set(2099, 12, 31)
-
         var timePickerView: TimePickerView? = null
 
         //时间选择器 ，自定义布局
@@ -55,7 +52,7 @@ class DatePickerView : FrameLayout {
             this.cb?.invoke(selectDate)
         })
             .setDate(currentDate)
-            .setRangDate(startDate, endDate)
+            .setRangDate(startDate, currentDate)
             .setLayoutRes(R.layout.view_date_picker) { v ->
                 v.findViewById<View>(R.id.pickerConfirmBtn).setOnClickListener {
                     timePickerView?.returnData()
