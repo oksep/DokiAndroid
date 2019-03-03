@@ -53,7 +53,7 @@ internal class AdminActivity : BaseActivity() {
             FeaturePlugin.get(ILoginPlugin::class.java).launchBindPhoneActivity(this)
         },
         Item("角色创建页面") {
-            FeaturePlugin.get(IProfilePlugin::class.java).launchCreateProfileActivity(this)
+            FeaturePlugin.get(IProfilePlugin::class.java).launchCreateProfileActivity(this, null)
         },
         Item("API - 获取自己的资料") { text ->
             Api.get(AdminApi::class.java).getProfile().subscribeApi(this, {

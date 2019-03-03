@@ -6,4 +6,6 @@
     <string name="image_choose_from_camera">拍照</string>
     <string name="image_choose_title">选择图片</string>
 
+    <string name="loading_failed_retry">加载失败，请重试</string>
+
 </resources>

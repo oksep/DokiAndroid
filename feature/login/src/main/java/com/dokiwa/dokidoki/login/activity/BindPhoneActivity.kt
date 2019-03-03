@@ -13,12 +13,10 @@ import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
-import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
-import com.dokiwa.dokidoki.login.LoginSP
 import com.dokiwa.dokidoki.login.R
 import com.dokiwa.dokidoki.login.api.LoginApi
-import com.dokiwa.dokidoki.login.api.model.UserToken
+import com.dokiwa.dokidoki.login.model.UserToken
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -164,9 +162,6 @@ class BindPhoneActivity : TranslucentActivity() {
 
     // 登录成功后跳转到主页
     private fun toHomePage(userToken: UserToken) {
-        finishAffinity()
-        LoginSP.saveUserToken(userToken)
-        Api.resetAuthenticationToken(userToken.macKey, userToken.accessToken)
-        FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+        ToHomeUtil.ensureProfileThenToHome(userToken, this)
     }
 }

@@ -135,7 +135,7 @@ abstract class BaseSharedPreferences(
 
     open fun wrapKey(key: String): String {
         return if (isAsUserData) {
-            "$key${FeaturePlugin.get(ILoginPlugin::class.java).getUser()?.id ?: ""}"
+            "$key${FeaturePlugin.get(ILoginPlugin::class.java).getLoginUserId() ?: ""}"
         } else {
             key
         }

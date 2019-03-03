@@ -26,7 +26,8 @@ class HomeActivity : TranslucentActivity() {
     companion object {
         fun launch(context: Activity) {
             context.startActivity(
-                Intent(context, HomeActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                Intent(context, HomeActivity::class.java)
+                    // .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             )
             context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }

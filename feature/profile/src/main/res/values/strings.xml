@@ -30,6 +30,10 @@
     <string name="profile_create_profile_avatar_upload_message">正在上传头像</string>
     <string name="profile_create_profile_avatar_upload_failed">上传头像失败</string>
 
+    <string name="profile_avatar_crop_title">剪裁头像</string>
+    <string name="profile_avatar_crop_cancel">取消</string>
+    <string name="profile_avatar_crop_ok">确认</string>
+
     <string name="cancel">取消</string>
     <string name="confirm">确认</string>
 

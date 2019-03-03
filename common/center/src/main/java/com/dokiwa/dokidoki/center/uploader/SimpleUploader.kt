@@ -35,11 +35,17 @@ object SimpleUploader {
     data class UploadImageResult(val image: Image) {
         data class Image(
             @SerializedName("middle_url")
-            val middleUrl: String,
+            val middleUrl: String?,
             @SerializedName("raw_url")
-            val rawUrl: String,
-            val url: String
+            val rawUrl: String?,
+            val url: String?
         )
+
+        companion object {
+            fun obtainEmptyImageResult(): UploadImageResult {
+                return UploadImageResult(Image(null, null, null))
+            }
+        }
     }
 
 

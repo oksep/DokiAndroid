@@ -13,13 +13,11 @@ import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
-import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import com.dokiwa.dokidoki.login.Log
-import com.dokiwa.dokidoki.login.LoginSP
 import com.dokiwa.dokidoki.login.R
 import com.dokiwa.dokidoki.login.api.LoginApi
-import com.dokiwa.dokidoki.login.api.model.UserToken
+import com.dokiwa.dokidoki.login.model.UserToken
 import com.dokiwa.dokidoki.social.SocialHelper
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
@@ -122,24 +120,26 @@ class LoginActivity : TranslucentActivity() {
                     socialType = xSocialType
                 )
             }
-            .subscribeApi(this, {
-                Log.d(TAG, "auth success: $it")
-                toHomePage(it)
-            }, {
-                Log.e(TAG, "auth error: $it")
-                if (it is UnbindMobileNumberException && socialCode != null) {
-                    BindPhoneActivity.launch(this, socialCode!!, xSocialType)
-                } else {
-                    toastApiException(it, R.string.login_failed)
+            .subscribeApi(
+                this,
+                {
+                    Log.d(TAG, "auth success: $it")
+                    toHomePage(it)
+                },
+                {
+                    Log.e(TAG, "auth error: $it")
+                    if (it is UnbindMobileNumberException && socialCode != null) {
+                        BindPhoneActivity.launch(this, socialCode!!, xSocialType)
+                    } else {
+                        toastApiException(it, R.string.login_failed)
+                    }
                 }
-            })
+            )
     }
 
     // 登录成功后跳转到主页
     private fun toHomePage(userToken: UserToken) {
-        LoginSP.saveUserToken(userToken)
-        Api.resetAuthenticationToken(userToken.macKey, userToken.accessToken)
-        FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+        ToHomeUtil.ensureProfileThenToHome(userToken, this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

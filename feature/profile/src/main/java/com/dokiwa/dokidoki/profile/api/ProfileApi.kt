@@ -1,8 +1,10 @@
 package com.dokiwa.dokidoki.profile.api
 
-import com.google.gson.JsonElement
+import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.profile.Gender
 import io.reactivex.Single
 import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 /**
@@ -29,15 +31,16 @@ interface ProfileApi {
     |  pictures | string | 个人照片展示墙，多个照片间用 "," 分隔  |
     |  keywords | string | 个人关键词，多个关键词间用 "," 分隔，关键词只可以在关键词组中选择，@see common.md 通用接口-获取关键词组  |
      */
+    @FormUrlEncoded
     @POST("/api/profile/v1/update")
     fun createProfile(
-        @Field("gender") gender: Int?,
-        @Field("birthday") birthday: String?,
-        @Field("height") height: Int?,
-        @Field("city_code") cityCode: String?,
-        @Field("nickname") nickname: String?,
+        @Field("gender") gender: Int? = Gender.UNKNOWN,
+        @Field("birthday") birthday: String? = "",
+        @Field("height") height: Int? = 0,
+        @Field("city_code") cityCode: String? = "",
+        @Field("nickname") nickname: String? = "",
 
         // TODO: 2019/3/2 @Septenary avatar url
-        @Field("avatar") avatar: String? = null
-    ): Single<JsonElement>
+        @Field("avatar") avatar: String? = ""
+    ): Single<UserProfileWrap>
 }

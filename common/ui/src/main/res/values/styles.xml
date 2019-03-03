@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">@color/transparent</item>
@@ -56,6 +56,21 @@
         <item name="android:windowMinWidthMajor">65%</item>
         <item name="android:windowMinWidthMinor">90%</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="FullDialog" parent="AppThemeDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="NormalDialog" parent="AppThemeDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 
     <style name="SpinnerDatePickerDialog" parent="AppCompatAlertDialogStyle">

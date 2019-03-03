@@ -42,7 +42,7 @@ fun HttpException.toApiException(): ApiException {
                     val data = getApiDataFromJson(it)
                     val actionTo = data.action?.to
                     when (data.status.code) {
-                        400000 -> InvalidParamException("参数错误", this, actionTo)
+                        400000 -> InvalidParamException(data.status.errorMessage ?: "参数错误", this, actionTo)
                         400001 -> {
                             val localTs = this.response().raw().request().url().queryParameter("_ts")?.toLong()
                             checkNotNull(localTs) { "未添加本地时间戳参数" }

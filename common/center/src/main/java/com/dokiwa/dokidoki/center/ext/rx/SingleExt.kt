@@ -98,12 +98,10 @@ fun <T> Single<T>.subscribeApi(
 fun <T> Single<T>.subscribeApiWithDialog(
     activity: Activity,
     context: CompositeDisposableContext,
-    title: String,
-    message: String,
     onSuccess: ((T) -> Unit)? = null,
     onError: ((Throwable) -> Unit)? = null
 ) {
-    val observable = RxDialog.progressDialog(activity, title, message)
+    val observable = RxDialog.progressDialog(activity)
     context.addDispose(observable.subscribe { dialog ->
         this.subscribeApi(
             context,

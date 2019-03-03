@@ -11,12 +11,9 @@ import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toastApiException
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
-import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
-import com.dokiwa.dokidoki.login.LoginSP
 import com.dokiwa.dokidoki.login.R
 import com.dokiwa.dokidoki.login.api.LoginApi
-import com.dokiwa.dokidoki.login.api.model.UserToken
+import com.dokiwa.dokidoki.login.model.UserToken
 import com.dokiwa.dokidoki.ui.ext.fadeInVisible
 import com.dokiwa.dokidoki.ui.ext.fadeOutGone
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
@@ -25,7 +22,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_verify_code.*
 import java.util.concurrent.TimeUnit
-
 
 private const val EXTRA_PHONE_NUMBER = "extra.phone_number"
 private const val TAG = "VerifyCodeActivity"
@@ -138,9 +134,6 @@ class VerifyCodeActivity : TranslucentActivity() {
 
     // 登录成功后跳转到主页
     private fun toHomePage(userToken: UserToken) {
-        finishAffinity()
-        LoginSP.saveUserToken(userToken)
-        Api.resetAuthenticationToken(userToken.macKey, userToken.accessToken)
-        FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+        ToHomeUtil.ensureProfileThenToHome(userToken, this)
     }
 }

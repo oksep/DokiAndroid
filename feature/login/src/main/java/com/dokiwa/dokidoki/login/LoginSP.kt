@@ -1,7 +1,7 @@
 package com.dokiwa.dokidoki.login
 
 import com.dokiwa.dokidoki.center.sp.BaseSharedPreferences
-import com.dokiwa.dokidoki.login.api.model.UserToken
+import com.dokiwa.dokidoki.login.model.UserToken
 import com.google.gson.Gson
 
 /**

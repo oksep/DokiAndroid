@@ -2,11 +2,14 @@ package com.dokiwa.dokidoki.login
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Parcelable
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.ext.toUriAndResolveDeepLink
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
-import com.dokiwa.dokidoki.center.plugin.login.UserModel
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.login.activity.LoginActivity
+import com.dokiwa.dokidoki.login.model.UserToken
 import java.util.concurrent.TimeUnit
 
 /**
@@ -18,8 +21,8 @@ class LoginPlugin : ILoginPlugin {
         registerAuthentication(context)
     }
 
-    override fun getUser(): UserModel? {
-        return null
+    override fun getLoginUserId(): Int? {
+        return FeaturePlugin.get(IProfilePlugin::class.java).getLoginUserProfile()?.userId
     }
 
     override fun launchLoginActivity(context: Context) {
@@ -30,9 +33,23 @@ class LoginPlugin : ILoginPlugin {
         "dokidoki://dokiwa.com/me/bind_phone".toUriAndResolveDeepLink(context, false)
     }
 
+    override fun saveLoginUserToken(userToken: Parcelable?) {
+        if (userToken is UserToken) {
+            LoginSP.saveUserToken(userToken)
+        }
+    }
+
     override fun logOut(context: Context) {
+        // token
         LoginSP.clearUserToken()
+
+        // api
         Api.resetAuthenticationToken(null, null)
+
+        // user profile
+        FeaturePlugin.get(IProfilePlugin::class.java).clearUserProfile()
+
+        // to login activity
         launchLoginActivity(context)
     }
 

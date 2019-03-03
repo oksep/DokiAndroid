@@ -1,10 +1,12 @@
 package com.dokiwa.dokidoki.login.api
 
-import com.dokiwa.dokidoki.login.api.model.UserToken
+import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.login.model.UserToken
 import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 /**
@@ -47,4 +49,7 @@ interface LoginApi {
         Weibo("weibo"),
         Wechat("wechat")
     }
+
+    @GET("/api/profile/v1/me")
+    fun getLoginUserProfile(): Single<UserProfileWrap>
 }

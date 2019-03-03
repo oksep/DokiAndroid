@@ -4,17 +4,25 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
+import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseChooseImageActivity
 import com.dokiwa.dokidoki.center.base.adapter.SimplePagerAdapter
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
+import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
+import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader
 import com.dokiwa.dokidoki.profile.Log
+import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
+import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.create.fragment.AvatarFragment
 import com.dokiwa.dokidoki.profile.create.fragment.BaseStepFragment
 import com.dokiwa.dokidoki.profile.create.fragment.BirthFragment
@@ -24,6 +32,7 @@ import com.dokiwa.dokidoki.profile.create.fragment.HeightFragment
 import com.dokiwa.dokidoki.profile.create.fragment.IStepFragmentInteract
 import com.dokiwa.dokidoki.profile.create.fragment.NickFragment
 import com.dokiwa.dokidoki.profile.create.model.SharedViewModel
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_create_profile.*
 
 /**
@@ -34,8 +43,12 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
     companion object {
         private const val TAG = "CreateProfileActivity"
 
-        fun launch(context: Context) {
-            context.startActivity(Intent(context, CreateProfileActivity::class.java))
+        private const val EXTRA_USER_TOKEN = "extra.user_token"
+
+        fun launch(context: Context, userToken: Parcelable?) {
+            context.startActivity(
+                Intent(context, CreateProfileActivity::class.java).putExtra(EXTRA_USER_TOKEN, userToken)
+            )
         }
     }
 
@@ -150,15 +163,36 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
     // 提交
     private fun submitPayload() {
         Log.d(TAG, "submit payload: $sharedViewModel")
-//        finishAffinity()
-//        Api.get(ProfileApi::class.java)
-//            .createProfile(
-//                sharedViewModel.gender.value,
-//                sharedViewModel.birth.value,
-//                sharedViewModel.height.value,
-//                sharedViewModel.city.value,
-//                sharedViewModel.nick.value
-//            )
+
+        val uri = sharedViewModel.avatar.value
+        if (uri != null) {
+            SimpleUploader.uploadImage(uri, SimpleUploader.ImageType.AVATAR)
+        } else {
+            Single.just(SimpleUploader.UploadImageResult.obtainEmptyImageResult())
+        }.flatMap {
+            Api.get(ProfileApi::class.java)
+                .createProfile(
+                    sharedViewModel.gender.value,
+                    sharedViewModel.birth.value,
+                    sharedViewModel.height.value,
+                    sharedViewModel.city.value,
+                    sharedViewModel.nick.value,
+                    it.image.rawUrl
+                )
+        }.subscribeApiWithDialog(this, this,
+            {
+                Log.d(TAG, "submit payload success")
+                FeaturePlugin.get(ILoginPlugin::class.java)
+                    .saveLoginUserToken(intent.getParcelableExtra(CreateProfileActivity.EXTRA_USER_TOKEN))
+                FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+                ProfileSP.saveUserProfile(it.profile)
+                finishAffinity()
+            },
+            {
+                Log.e(TAG, "submit payload failed", it)
+                toast(R.string.loading_failed_retry)
+            }
+        )
     }
 
     override fun onChooseImageFromAlbum(uri: Uri) {
@@ -167,21 +201,5 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
 
     override fun onChooseImageFromCamera(uri: Uri) {
         getCurrentStepFragment()?.onChooseImageFromCamera(uri)
-    }
-
-    private fun uploadAvatar(uri: Uri) {
-        SimpleUploader.uploadImage(uri, SimpleUploader.ImageType.AVATAR)
-            .subscribeApiWithDialog(
-                this,
-                this,
-                getString(R.string.profile_create_profile_avatar_upload_title),
-                getString(R.string.profile_create_profile_avatar_upload_message),
-                {
-                    Log.d(TAG, "update success: $it")
-                },
-                {
-                    Log.w(TAG, "update failed", it)
-                }
-            )
     }
 }

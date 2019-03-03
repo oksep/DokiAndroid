@@ -1,11 +1,9 @@
 package com.dokiwa.dokidoki
 
 import android.os.Bundle
-import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribe
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
-import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
@@ -22,8 +20,6 @@ class LaunchActivity : BaseActivity() {
     private fun delayToHome() {
         fun toHome() {
             FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
-            // TODO: 2019/2/11 @Septenary testing
-            FeaturePlugin.get(IAdminPlugin::class.java).launchAdmin(this)
             finish()
         }
         Single.timer(1000 * 1, TimeUnit.MILLISECONDS)
