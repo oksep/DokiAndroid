@@ -12,7 +12,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import com.dokiwa.dokidoki.ui.R
 
-class ToolBar : FrameLayout {
+open class ToolBar : FrameLayout {
 
     private val leftImgView by lazy { findViewById<AppCompatImageView>(R.id.ui_left_img) }
     private val rightImgView by lazy { findViewById<AppCompatImageView>(R.id.ui_right_img) }

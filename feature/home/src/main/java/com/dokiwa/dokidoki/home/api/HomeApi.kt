@@ -1,7 +1,8 @@
 package com.dokiwa.dokidoki.home.api
 
+import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.home.api.model.FeedPage
-import com.dokiwa.dokidoki.home.api.model.MeProfile
+import com.dokiwa.dokidoki.home.api.model.RelationCount
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -19,5 +20,8 @@ interface HomeApi {
     ): Single<FeedPage>
 
     @GET("/api/profile/v1/me")
-    fun getMeProfile(): Single<MeProfile>
+    fun getMeProfile(): Single<UserProfileWrap>
+
+    @GET("/api/relation/v1/count")
+    fun getRelatinCount(): Single<RelationCount>
 }

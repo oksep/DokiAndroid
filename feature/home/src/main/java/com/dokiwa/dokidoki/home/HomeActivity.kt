@@ -3,13 +3,11 @@ package com.dokiwa.dokidoki.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
-import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
@@ -25,10 +23,7 @@ class HomeActivity : TranslucentActivity() {
 
     companion object {
         fun launch(context: Activity) {
-            context.startActivity(
-                Intent(context, HomeActivity::class.java)
-                    // .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            )
+            context.startActivity(Intent(context, HomeActivity::class.java))
             context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
@@ -37,11 +32,6 @@ class HomeActivity : TranslucentActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_home)
-
-        toolBar.setRightIconClickListener(View.OnClickListener {
-            // TODO: 2018/12/1 @Septenary 跳转到搜索页
-            toast("to search page")
-        })
 
         navigation.setOnNavigationItemSelectedListener(getNavigationSelectListener())
 
@@ -65,7 +55,6 @@ class HomeActivity : TranslucentActivity() {
             override fun onPageSelected(position: Int) {
                 navigation.menu.getItem(position).isChecked = true
                 (adapter.getItem(position) as? OnPageSelectedListener)?.onPageSelected()
-                toolBar.visibility = if (position == 2) View.GONE else View.VISIBLE
             }
         })
     }
@@ -74,17 +63,14 @@ class HomeActivity : TranslucentActivity() {
         return BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home_feed -> {
-                    toolBar.setTitle(R.string.title_home_feed)
                     viewPager.setCurrentItem(0, false)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_home_msg -> {
-                    toolBar.setTitle(R.string.title_home_msg)
                     viewPager.setCurrentItem(1, false)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_home_me -> {
-                    toolBar.setTitle(R.string.title_home_me)
                     viewPager.setCurrentItem(2, false)
                     return@OnNavigationItemSelectedListener true
                 }

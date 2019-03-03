@@ -51,4 +51,6 @@ dependencies {
     implementation project(':center')
     implementation project(':ui')
     implementation project(':social')
+
+    implementation "com.github.bumptech.glide:glide:${versions.glide}"
 }

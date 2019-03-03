@@ -12,6 +12,7 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
@@ -60,6 +61,10 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
             data.clear()
             loadData()
         }
+
+        toolBar.setRightIconClickListener(View.OnClickListener {
+            requireContext().toast("to search page")
+        })
 
         loadData()
     }

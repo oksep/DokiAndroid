@@ -9,6 +9,7 @@ data class UserProfile(
     val avatar: Avatar,
     val birthday: String,
     val certification: Certification,
+    val verify: Verify?,
     val city: City,
     val education: Int,
     val gender: Int,
@@ -23,15 +24,15 @@ data class UserProfile(
 ) : IApiModel {
 
     data class Avatar(
-        @SerializedName("middle_url") val middleUrl: String,
-        @SerializedName("raw_url") val rawUrl: String,
-        val url: String
+        @SerializedName("middle_url") val middleUrl: String?,
+        @SerializedName("raw_url") val rawUrl: String?,
+        val url: String?
     ) : IApiModel
 
     data class Certification(
         // TODO: 2019/3/3 @Septenary education!
-        val education: Any,
-        val identification: Identification
+        val education: Education?,
+        val identification: Identification?
     ) : IApiModel
 
     data class Province(
@@ -54,5 +55,16 @@ data class UserProfile(
     data class Identification(
         val name: String,
         val number: String
+    ) : IApiModel
+
+    data class Education(
+        val education: String,
+        val graduation_year: Int,
+        val school: String
+    ) : IApiModel
+
+    data class Verify(
+        val type: String,
+        val title: String
     ) : IApiModel
 }
