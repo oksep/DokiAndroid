@@ -46,6 +46,10 @@ internal class AdminActivity : BaseActivity() {
     data class Item(val text: String, val clickListener: (String) -> Unit)
 
     private val list = listOf(
+        Item("测试账号登陆") {
+            // 12345000001 - 12345000010
+            FeaturePlugin.get(ILoginPlugin::class.java).loginTestingAccount(this, "+8612345000007", "233333")
+        },
         Item("登出并登录") {
             FeaturePlugin.get(ILoginPlugin::class.java).logOut(this)
         },

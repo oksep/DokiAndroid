@@ -2,6 +2,7 @@ package com.dokiwa.dokidoki.center.plugin.login
 
 import android.content.Context
 import android.os.Parcelable
+import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 
@@ -21,6 +22,8 @@ interface ILoginPlugin : FeaturePlugin {
     fun launchBindPhoneActivity(context: Context)
 
     fun saveLoginUserToken(userToken: Parcelable?)
+
+    fun loginTestingAccount(context: BaseActivity, phoneNumber: String, verifyCode: String)
 
     companion object {
         fun get(): ILoginPlugin {
