@@ -4,7 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.profile.Gender
+import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.create.CreateProfileActivity

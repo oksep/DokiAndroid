@@ -17,6 +17,9 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.dokiwa.dokidoki.center.Log
+import com.dokiwa.dokidoki.center.R
+import com.dokiwa.dokidoki.center.plugin.model.Gender
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.ui.ext.dp2px
 import com.dokiwa.dokidoki.ui.util.BitmapUtil
 import java.io.File
@@ -120,6 +123,30 @@ fun ImageView.loadImgFromNetWork(url: String, @DrawableRes placeHolder: Int) {
         url,
         ContextCompat.getDrawable(context, placeHolder),
         null, null, null
+    )
+}
+
+fun ImageView.loadAvatar(profile: UserProfile) {
+    loadImgFromNetWork(
+        (profile.avatar.middleUrl ?: profile.avatar.url) ?: profile.avatar.rawUrl,
+        ContextCompat.getDrawable(
+            context, if (profile.gender == Gender.FEMALE) {
+                R.drawable.ic_avatar_default_female
+            } else {
+                R.drawable.ic_avatar_default_male
+            }
+        ),
+        null,
+        null,
+        object : LoadImgCallback {
+            override fun onSuccess(url: String) {
+                Log.d("LoadAvatar", "success $url")
+            }
+
+            override fun onFailed(url: String, exception: Exception) {
+                Log.e("LoadAvatar", "failed $url, $exception")
+            }
+        }
     )
 }
 

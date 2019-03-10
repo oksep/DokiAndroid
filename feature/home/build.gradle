@@ -46,6 +46,7 @@ dependencies {
 
     // ui
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
+    implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
 
     // modules
     implementation project(':center')

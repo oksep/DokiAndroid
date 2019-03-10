@@ -25,7 +25,7 @@ data class UserProfile(
 
     data class Avatar(
         @SerializedName("middle_url") val middleUrl: String?,
-        @SerializedName("raw_url") val rawUrl: String?,
+        @SerializedName("raw_url") val rawUrl: String,
         val url: String?
     ) : IApiModel
 
@@ -67,4 +67,10 @@ data class UserProfile(
         val type: String,
         val title: String
     ) : IApiModel
+}
+
+object Gender {
+    const val UNKNOWN = 0 // 未知
+    const val MALE = 1 // 男
+    const val FEMALE = 2 // 女
 }

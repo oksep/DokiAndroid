@@ -1,7 +1,7 @@
 package com.dokiwa.dokidoki.profile.api
 
+import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
-import com.dokiwa.dokidoki.profile.Gender
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

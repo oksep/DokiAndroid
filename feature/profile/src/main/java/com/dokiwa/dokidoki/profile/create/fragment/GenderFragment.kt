@@ -2,7 +2,7 @@ package com.dokiwa.dokidoki.profile.create.fragment
 
 import android.view.View
 import androidx.lifecycle.Observer
-import com.dokiwa.dokidoki.profile.Gender
+import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.create.model.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_create_profile_gener.*

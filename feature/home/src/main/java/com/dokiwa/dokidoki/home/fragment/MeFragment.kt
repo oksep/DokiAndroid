@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
+import com.dokiwa.dokidoki.center.ext.loadAvatar
+import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toPrettyJson
 import com.dokiwa.dokidoki.center.ext.toast
@@ -100,7 +103,7 @@ class MeFragment : BaseFragment(), OnPageSelectedListener {
     private fun setProfile(user: UserProfileWrap) {
         text.text = user.toPrettyJson()
         val profile = user.profile
-//        Glide.with(this).load(profile.avatar.middleUrl ?: profile.avatar.url).into(avatar as ImageView)
+        avatar.loadAvatar(user.profile)
         nameTextView.text = profile.nickname
         idTextView.text = getString(R.string.home_me_id, profile.userId)
         if (profile.verify != null) {
