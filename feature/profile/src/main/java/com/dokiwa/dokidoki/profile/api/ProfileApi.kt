@@ -3,9 +3,7 @@ package com.dokiwa.dokidoki.profile.api
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import io.reactivex.Single
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by Septenary on 2019/3/2.
@@ -43,4 +41,10 @@ interface ProfileApi {
         // TODO: 2019/3/2 @Septenary avatar url
         @Field("avatar") avatar: String? = ""
     ): Single<UserProfileWrap>
+
+    @GET("/api/profile/v1/user")
+    fun getUserProfileById(@Query("user_id") userId: String): Single<UserProfileWrap>
+
+    @GET("/api/profile/v1/user")
+    fun getUserProfileByUUID(@Query("uuid") uuid: String): Single<UserProfileWrap>
 }

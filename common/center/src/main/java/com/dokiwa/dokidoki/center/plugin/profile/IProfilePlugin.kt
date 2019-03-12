@@ -12,7 +12,7 @@ import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 @PluginImplMeta("com.dokiwa.dokidoki.profile.ProfilePlugin")
 interface IProfilePlugin : FeaturePlugin {
 
-    fun launchProfileActivity(context: Context)
+    fun launchProfileActivity(context: Context, uuid: String)
 
     fun launchCreateProfileActivity(context: Context, userToken: Parcelable?)
 

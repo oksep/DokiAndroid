@@ -11,8 +11,8 @@ import com.dokiwa.dokidoki.profile.create.CreateProfileActivity
  */
 class ProfilePlugin : IProfilePlugin {
 
-    override fun launchProfileActivity(context: Context) {
-        ProfileActivity.launch(context)
+    override fun launchProfileActivity(context: Context, uuid: String) {
+        ProfileActivity.launch(context, uuid)
     }
 
     override fun launchCreateProfileActivity(context: Context, userToken: Parcelable?) {
