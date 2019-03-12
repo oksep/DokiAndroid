@@ -70,9 +70,9 @@ class VerifyCodeActivity : TranslucentActivity() {
 
         content.hideSoftInputWhenClick()
 
-        toolBar.setLeftIconClickListener(View.OnClickListener {
+        toolBar.leftIconView.setOnClickListener {
             finish()
-        })
+        }
 
         requestVerifyCode()
     }

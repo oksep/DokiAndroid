@@ -49,9 +49,9 @@ class BindPhoneActivity : TranslucentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bind_phone)
         content.hideSoftInputWhenClick()
-        toolBar.setLeftIconClickListener(View.OnClickListener {
+        toolBar.leftIconView.setOnClickListener {
             finish()
-        })
+        }
         countDownTip.setOnClickListener {
             requestVerifyCode()
         }

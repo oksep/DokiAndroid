@@ -10,9 +10,10 @@
 
     <com.dokiwa.dokidoki.home.widget.HomeFragmentToolBar
         android:id="@+id/toolBar"
-        app:tb_right_ic="@drawable/ic_search_light"
-        app:tb_title="@string/title_home_feed"
-        app:tb_title_color="@color/white"
+        style="@style/AppToolBar.Icon"
+        app:toolbar_rightIcon="@drawable/ic_search_light"
+        app:toolbar_leftIconVisibility="gone"
+        app:toolbar_titleText="@string/title_home_feed"
         tools:layout_height="44dp"
         android:background="@drawable/bg_toolbar"
         android:layout_height="wrap_content"

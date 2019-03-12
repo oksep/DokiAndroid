@@ -3,8 +3,11 @@ package com.dokiwa.dokidoki.ui.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.view.*;
+
+import java.util.Random;
 
 public class ViewUtil {
 
@@ -206,5 +209,10 @@ public class ViewUtil {
                 }
             }
         }
+    }
+
+    public static int randomColor() {
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
 }

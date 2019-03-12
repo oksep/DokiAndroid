@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.Glide
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.loadAvatar
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
-import com.dokiwa.dokidoki.center.ext.toPrettyJson
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
 import com.dokiwa.dokidoki.home.api.HomeApi
@@ -30,6 +30,8 @@ class MeFragment : BaseFragment(), OnPageSelectedListener {
         ViewModelProviders.of(activity!!).get(SharedViewModel::class.java)
     }
 
+    private var profile: UserProfile? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +41,9 @@ class MeFragment : BaseFragment(), OnPageSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         entranceUserPage.setOnClickListener {
-            requireContext().toast("TODO")
+            profile?.let {
+                FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(requireContext(), it.uuid)
+            }
         }
 
         entranceEdit.setOnClickListener {
@@ -101,7 +105,6 @@ class MeFragment : BaseFragment(), OnPageSelectedListener {
     }
 
     private fun setProfile(user: UserProfileWrap) {
-        text.text = user.toPrettyJson()
         val profile = user.profile
         avatar.loadAvatar(user.profile)
         nameTextView.text = profile.nickname
@@ -124,6 +127,8 @@ class MeFragment : BaseFragment(), OnPageSelectedListener {
         } else {
             View.GONE
         }
+
+        this.profile = profile
     }
 
     private fun setRelationCount(relationCount: RelationCount) {

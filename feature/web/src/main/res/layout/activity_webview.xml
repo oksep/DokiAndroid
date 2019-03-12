@@ -5,16 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.dokiwa.dokidoki.ui.view.ToolBar
+    <com.dokiwa.dokidoki.ui.view.AppToolBar
         android:id="@+id/toolBar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:tb_left_ic="@drawable/ic_back_light"
-        app:tb_title_color="@color/white"
-        android:background="@drawable/bg_toolbar"
-        tools:layout_height="44dp"
-        tools:background="@color/dd_green"
+        style="@style/AppToolBar.Icon.Left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

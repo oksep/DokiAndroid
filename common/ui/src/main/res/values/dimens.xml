@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ui_toolbar_fit_height">48dp</dimen>
+    <dimen name="ui_toolbar_default_text_size">14sp</dimen>
+</resources>

@@ -45,9 +45,9 @@ class LoginActivity : TranslucentActivity() {
     }
 
     private fun initView() {
-        toolBar.setLeftIconClickListener(View.OnClickListener {
+        toolBar.leftIconView.setOnClickListener {
             finish()
-        })
+        }
         content.hideSoftInputWhenClick()
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

@@ -87,9 +87,9 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
     }
 
     private fun initView() {
-        toolBar.setRightTextClickListner(View.OnClickListener {
+        toolBar.rightTextView.setOnClickListener {
             nextStep(true)
-        })
+        }
         val adapter = SimplePagerAdapter(supportFragmentManager).apply {
             addFragment(GenderFragment())
             addFragment(BirthFragment())
@@ -110,19 +110,19 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
 
     private fun changeNavigation(position: Int) {
         if (position == 0) {
-            toolBar.setLeftIcon(null)
-            toolBar.setLeftIconClickListener(null)
+            toolBar.leftIconView.setImageDrawable(null)
+            toolBar.leftIconView.setOnClickListener(null)
         } else {
-            toolBar.setLeftIcon(ResourcesCompat.getDrawable(resources, R.drawable.ic_back_light, null))
-            toolBar.setLeftIconClickListener(View.OnClickListener {
+            toolBar.leftIconView.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_back_light, null))
+            toolBar.leftIconView.setOnClickListener {
                 preStep()
-            })
+            }
         }
 
         if (getCurrentStepFragment()?.skipable == true) {
-            toolBar.showRightText()
+            toolBar.rightTextView.visibility = View.VISIBLE
         } else {
-            toolBar.hideRightText()
+            toolBar.rightTextView.visibility = View.GONE
         }
     }
 

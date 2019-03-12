@@ -17,7 +17,7 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.annotation.IdRes
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
-import com.dokiwa.dokidoki.ui.view.ToolBar
+import com.dokiwa.dokidoki.ui.view.AppToolBar
 
 class WebViewActivity : TranslucentActivity() {
 
@@ -29,7 +29,7 @@ class WebViewActivity : TranslucentActivity() {
     private val mNoDataView: NoDataSuit by bind(R.id.nodata_suit)
     private val mProgress: ProgressBar by bind(R.id.progress_bar)
     private val mWebView: WebView by lazy { chooseWebView() }
-    private val mNavigationBar: ToolBar by bind(R.id.toolBar)
+    private val mNavigationBar: AppToolBar by bind(R.id.toolBar)
     private val mHandler = Handler()
 
     private val mWebChromeClient: WebChromeClient = object : WebChromeClient() {
@@ -99,8 +99,8 @@ class WebViewActivity : TranslucentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
 
-        mNavigationBar.setTitle(intent?.getStringExtra(EXTRA_TITLE))
-        mNavigationBar.setLeftIconClickListener(View.OnClickListener { onBackPressed() })
+        mNavigationBar.title.text = intent?.getStringExtra(EXTRA_TITLE)
+        mNavigationBar.leftIconView.setOnClickListener { onBackPressed() }
 
         val url = intent?.getStringExtra(EXTRA_URL) ?: ""
 

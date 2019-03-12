@@ -81,4 +81,69 @@
         <item name="android:datePickerMode">spinner</item>
     </style>
 
+    <style name="AppToolBar">
+
+        <item name="toolbar_leftIcon">@drawable/ic_back_light</item>
+        <item name="toolbar_leftIconVisibility">visible</item>
+
+        <item name="toolbar_rightIcon">@drawable/ic_forward_light</item>
+        <item name="toolbar_rightIconVisibility">visible</item>
+
+        <item name="toolbar_leftText">Left</item>
+        <item name="toolbar_leftTextColor">@color/white</item>
+        <item name="toolbar_leftTextPaddingH">0dp</item>
+        <item name="toolbar_leftTextPaddingV">0dp</item>
+        <item name="toolbar_leftTextSize">13sp</item>
+        <item name="toolbar_leftTextVisibility">visible</item>
+
+        <item name="toolbar_rightText">Right</item>
+        <item name="toolbar_rightTextColor">@color/white</item>
+        <item name="toolbar_rightTextPaddingH">0dp</item>
+        <item name="toolbar_rightTextPaddingV">0dp</item>
+        <item name="toolbar_rightTextSize">13sp</item>
+        <item name="toolbar_rightTextVisibility">visible</item>
+
+        <item name="toolbar_titleText">Title</item>
+        <item name="toolbar_titleTextColor">@color/white</item>
+        <item name="toolbar_titleTextPaddingH">0dp</item>
+        <item name="toolbar_titleTextPaddingV">0dp</item>
+        <item name="toolbar_titleTextSize">8sp</item>
+        <item name="toolbar_titleVisibility">visible</item>
+
+        <item name="toolbar_subTitleText">Subtitle</item>
+        <item name="toolbar_subTitleTextColor">@color/white</item>
+        <item name="toolbar_subTitleTextPaddingH">0dp</item>
+        <item name="toolbar_subTitleTextPaddingV">0dp</item>
+        <item name="toolbar_subTitleVisibility">gone</item>
+        <item name="toolbar_subTitleTextSize">5sp</item>
+        <item name="android:elevation">3dp</item>
+        <item name="android:background">@drawable/bg_toolbar</item>
+    </style>
+
+    <style name="AppToolBar.Text" parent="AppToolBar">
+        <item name="toolbar_leftIconVisibility">gone</item>
+        <item name="toolbar_rightIconVisibility">gone</item>
+    </style>
+
+    <style name="AppToolBar.Text.Left" parent="AppToolBar.Text">
+        <item name="toolbar_rightTextVisibility">gone</item>
+    </style>
+
+    <style name="AppToolBar.Text.Right" parent="AppToolBar.Text">
+        <item name="toolbar_leftTextVisibility">gone</item>
+    </style>
+
+    <style name="AppToolBar.Icon" parent="AppToolBar">
+        <item name="toolbar_leftTextVisibility">gone</item>
+        <item name="toolbar_rightTextVisibility">gone</item>
+    </style>
+
+    <style name="AppToolBar.Icon.Left" parent="AppToolBar.Icon">
+        <item name="toolbar_rightIconVisibility">gone</item>
+    </style>
+
+    <style name="AppToolBar.Icon.Right" parent="AppToolBar.Icon">
+        <item name="toolbar_leftIconVisibility">gone</item>
+    </style>
+
 </resources>

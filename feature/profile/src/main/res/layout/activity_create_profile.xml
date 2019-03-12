@@ -8,12 +8,12 @@
     android:orientation="vertical"
     tools:context=".create.CreateProfileActivity">
 
-    <com.dokiwa.dokidoki.ui.view.ToolBar
+    <com.dokiwa.dokidoki.ui.view.AppToolBar
         android:id="@+id/toolBar"
-        app:tb_left_ic="@drawable/ic_back_light"
-        app:tb_right_text="@string/profile_create_profile_skip"
-        app:tb_right_text_color="@color/white"
-        app:tb_title_color="@color/white"
+        style="@style/AppToolBar.Icon.Left"
+        app:toolbar_rightTextVisibility="visible"
+        app:toolbar_rightText="@string/profile_create_profile_skip"
+        app:toolbar_leftIcon="@drawable/ic_back_light"
         android:background="@drawable/bg_toolbar"
         tools:layout_height="44dp"
         tools:background="@color/dd_green"

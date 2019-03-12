@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="ui_toolbar_space"/>
+    <item type="id" name="ui_toolbar_left_icon"/>
+    <item type="id" name="ui_toolbar_left_text"/>
+    <item type="id" name="ui_toolbar_title"/>
+    <item type="id" name="ui_toolbar_subtitle"/>
+    <item type="id" name="ui_toolbar_right_text"/>
+    <item type="id" name="ui_toolbar_right_icon"/>
+</resources>

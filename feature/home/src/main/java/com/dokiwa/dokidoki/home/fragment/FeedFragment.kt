@@ -62,9 +62,9 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
             loadData()
         }
 
-        toolBar.setRightIconClickListener(View.OnClickListener {
+        toolBar.rightIconView.setOnClickListener {
             requireContext().toast("to search page")
-        })
+        }
 
         loadData()
     }

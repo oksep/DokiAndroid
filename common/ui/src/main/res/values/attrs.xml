@@ -11,15 +11,71 @@
         <attr name="rv_radius_bottom_right" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="ToolBar">
-        <attr name="tb_left_ic" format="reference"/>
-        <attr name="tb_right_ic" format="reference"/>
-        <attr name="tb_left_text" format="reference|string"/>
-        <attr name="tb_left_text_color" format="reference|color"/>
-        <attr name="tb_right_text" format="reference|string"/>
-        <attr name="tb_right_text_color" format="reference|color"/>
-        <attr name="tb_title" format="string|reference"/>
-        <attr name="tb_title_color" format="color|reference"/>
+    <declare-styleable name="AppToolBar">
+        <!--left icon-->
+        <attr name="toolbar_leftIcon" format="reference"/>
+        <attr name="toolbar_leftIconVisibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+
+        <!--right icon-->
+        <attr name="toolbar_rightIcon" format="reference"/>
+        <attr name="toolbar_rightIconVisibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+
+        <!--left text-->
+        <attr name="toolbar_leftTextColor" format="reference|color"/>
+        <attr name="toolbar_leftText" format="reference|string"/>
+        <attr name="toolbar_leftTextPaddingH" format="dimension"/>
+        <attr name="toolbar_leftTextPaddingV" format="dimension"/>
+        <attr name="toolbar_leftTextSize" format="dimension"/>
+        <attr name="toolbar_leftTextVisibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+
+        <!--right text-->
+        <attr name="toolbar_rightTextColor" format="reference"/>
+        <attr name="toolbar_rightText" format="reference|string"/>
+        <attr name="toolbar_rightTextPaddingH" format="dimension"/>
+        <attr name="toolbar_rightTextPaddingV" format="dimension"/>
+        <attr name="toolbar_rightTextSize" format="dimension"/>
+        <attr name="toolbar_rightTextVisibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+
+        <!--title-->
+        <attr name="toolbar_titleTextColor" format="reference"/>
+        <attr name="toolbar_titleText" format="reference|string"/>
+        <attr name="toolbar_titleTextPaddingH" format="dimension"/>
+        <attr name="toolbar_titleTextPaddingV" format="dimension"/>
+        <attr name="toolbar_titleTextSize" format="dimension"/>
+        <attr name="toolbar_titleVisibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+
+        <!--subtitle-->
+        <attr name="toolbar_subTitleTextColor" format="reference"/>
+        <attr name="toolbar_subTitleText" format="string|string"/>
+        <attr name="toolbar_subTitleTextPaddingH" format="dimension"/>
+        <attr name="toolbar_subTitleTextPaddingV" format="dimension"/>
+        <attr name="toolbar_subTitleTextSize" format="dimension"/>
+        <attr name="toolbar_subTitleVisibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr>
+
     </declare-styleable>
 
     <declare-styleable name="WaterMaskView">

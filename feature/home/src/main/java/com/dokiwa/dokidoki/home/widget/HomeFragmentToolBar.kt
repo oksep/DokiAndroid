@@ -3,9 +3,9 @@ package com.dokiwa.dokidoki.home.widget
 import android.content.Context
 import android.util.AttributeSet
 import com.dokiwa.dokidoki.ui.util.ViewUtil
-import com.dokiwa.dokidoki.ui.view.ToolBar
+import com.dokiwa.dokidoki.ui.view.AppToolBar
 
-class HomeFragmentToolBar : ToolBar {
+class HomeFragmentToolBar : AppToolBar {
 
     constructor(context: Context) : super(context)
 
