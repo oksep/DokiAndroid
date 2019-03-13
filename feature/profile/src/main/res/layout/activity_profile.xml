@@ -13,6 +13,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             style="@style/AppToolBar.Icon"
+            app:toolbar_titleText="个人中心"
+            app:toolbar_rightIconVisibility="gone"
             android:background="@drawable/bg_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

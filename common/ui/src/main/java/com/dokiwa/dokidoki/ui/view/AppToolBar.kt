@@ -70,7 +70,6 @@ open class AppToolBar : ConstraintLayout {
         val titleTextPaddingV = a.getDimensionPixelSize(R.styleable.AppToolBar_toolbar_titleTextPaddingV, 0)
         val titleTextSize = a.getDimension(R.styleable.AppToolBar_toolbar_titleTextSize, defaultTextSize)
         val titleVisibility = a.getInt(R.styleable.AppToolBar_toolbar_titleVisibility, AppToolBar.VISIBLE)
-        Log.d("AAAAAA", "text: $titleText")
 
         val subTitleTextColor = a.getColor(R.styleable.AppToolBar_toolbar_subTitleTextColor, 0)
         val subTitleText = a.getText(R.styleable.AppToolBar_toolbar_subTitleText)
@@ -248,7 +247,7 @@ open class AppToolBar : ConstraintLayout {
             this.maxLines = 1
             this.text = text
             this.setTextColor(textColor)
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
             setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
             setBackgroundResource(backgroundRes)
             if (isInEditMode) {
