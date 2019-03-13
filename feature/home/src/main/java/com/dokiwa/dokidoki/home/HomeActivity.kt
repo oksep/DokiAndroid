@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -87,6 +88,22 @@ class HomeActivity : TranslucentActivity() {
     override fun onNewIntent(intent: Intent) {
         SocialGo.onNewIntent(intent)
         super.onNewIntent(intent)
+    }
+
+    fun switchFeedPage(view: View) {
+
+    }
+
+    fun switchUFeedPage(view: View) {
+
+    }
+
+    fun switchMsgPage(view: View) {
+
+    }
+
+    fun switchMePage(view: View) {
+
     }
 }
 
