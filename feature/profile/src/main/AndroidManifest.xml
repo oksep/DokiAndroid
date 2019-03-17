@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".detail.ProfileDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".create.CreateProfileActivity"

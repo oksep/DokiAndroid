@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.annotation.IdRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.dokiwa.dokidoki.ui.R
-import com.dokiwa.dokidoki.ui.util.ViewUtil
 
 open class AppToolBar : ConstraintLayout {
 
@@ -200,7 +198,9 @@ open class AppToolBar : ConstraintLayout {
                 subTitleTextPaddingV,
                 subTitleVisibility,
                 rippleBg
-            ),
+            ).apply {
+                setPadding(0, 0, 0, subTitleTextPaddingV)
+            },
             LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
                 leftToRight = R.id.ui_toolbar_space
                 rightToLeft = R.id.ui_toolbar_space
@@ -250,9 +250,6 @@ open class AppToolBar : ConstraintLayout {
             setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
             setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
             setBackgroundResource(backgroundRes)
-            if (isInEditMode) {
-                setBackgroundColor(ViewUtil.randomColor())
-            }
             this.gravity = Gravity.CENTER
             this.visibility = when (visibility) {
                 AppToolBar.VISIBLE -> View.VISIBLE

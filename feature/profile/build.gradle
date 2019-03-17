@@ -45,6 +45,7 @@ dependencies {
     // ui
     implementation "com.github.javiersantos:BottomDialogs:${versions.bottomDialog}"
     implementation "com.contrarywind:Android-PickerView:${versions.pickerView}"
+    implementation "com.google.android:flexbox:${versions.flexBox}"
 
     implementation project(':center')
     implementation project(':ui')

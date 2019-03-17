@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.profile.create.CreateProfileActivity
+import com.dokiwa.dokidoki.profile.detail.ProfileDetailActivity
 
 /**
  * Created by Septenary on 2019/1/2.
@@ -12,7 +13,7 @@ import com.dokiwa.dokidoki.profile.create.CreateProfileActivity
 class ProfilePlugin : IProfilePlugin {
 
     override fun launchProfileActivity(context: Context, uuid: String) {
-        ProfileActivity.launch(context, uuid)
+        ProfileDetailActivity.launch(context, uuid)
     }
 
     override fun launchCreateProfileActivity(context: Context, userToken: Parcelable?) {
