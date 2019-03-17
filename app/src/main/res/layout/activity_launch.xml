@@ -16,14 +16,4 @@
         android:layout_width="186dp"
         android:layout_height="50dp"/>
 
-    <com.dokiwa.dokidoki.ui.view.AppToolBar
-            android:id="@+id/toolBar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            style="@style/AppToolBar.Icon"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:layout_height="wrap_content"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

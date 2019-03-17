@@ -90,15 +90,15 @@
         <item name="toolbar_rightIconVisibility">visible</item>
 
         <item name="toolbar_leftTextColor">@color/white</item>
-        <item name="toolbar_leftTextPaddingH">0dp</item>
+        <item name="toolbar_leftTextPaddingH">16dp</item>
         <item name="toolbar_leftTextPaddingV">0dp</item>
-        <item name="toolbar_leftTextSize">13sp</item>
+        <item name="toolbar_leftTextSize">16sp</item>
         <item name="toolbar_leftTextVisibility">visible</item>
 
         <item name="toolbar_rightTextColor">@color/white</item>
-        <item name="toolbar_rightTextPaddingH">0dp</item>
+        <item name="toolbar_rightTextPaddingH">16dp</item>
         <item name="toolbar_rightTextPaddingV">0dp</item>
-        <item name="toolbar_rightTextSize">13sp</item>
+        <item name="toolbar_rightTextSize">16sp</item>
         <item name="toolbar_rightTextVisibility">visible</item>
 
         <item name="toolbar_titleTextColor">@color/white</item>
