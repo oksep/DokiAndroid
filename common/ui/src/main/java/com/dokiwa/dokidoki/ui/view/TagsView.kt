@@ -1,16 +1,16 @@
-package com.dokiwa.dokidoki.profile.view
+package com.dokiwa.dokidoki.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.TextView
-import com.dokiwa.dokidoki.profile.R
+import com.dokiwa.dokidoki.ui.R
 import com.google.android.flexbox.FlexboxLayout
 
 /**
  * Created by Septenary on 2019/2/12.
  */
-class TagContainerView : FlexboxLayout {
+class TagsView : FlexboxLayout {
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -42,7 +42,7 @@ class TagContainerView : FlexboxLayout {
     fun setTags(tags: List<String>) {
         removeAllViews()
         repeat(tags.size) {
-            LayoutInflater.from(context).inflate(R.layout.view_tag, this, true)
+            LayoutInflater.from(context).inflate(R.layout.ui_view_tag, this, true)
         }
         tags.forEachIndexed { index, tag ->
             (getChildAt(index) as? TextView)?.text = tag

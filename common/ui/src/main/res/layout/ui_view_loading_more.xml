@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:drawableStart="@drawable/ic_refresh_s"
+        android:drawableStart="@drawable/ui_ic_refresh_s"
         android:drawablePadding="5dp"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"

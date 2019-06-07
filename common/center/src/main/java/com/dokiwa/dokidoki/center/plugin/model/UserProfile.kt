@@ -11,19 +11,28 @@ data class UserProfile(
     val certification: Certification,
     val verify: Verify?,
     val city: City,
+    val industry: Industry?,
+    @SerializedName("keyword_list") val tags: List<Tag>?,
     val education: Int,
     val gender: Int,
     val height: Int,
     val income: Int,
-    val intro: String,
+    val intro: String?,
     @SerializedName("last_active") val lastActive: Int,
     val nickname: String,
     val setting: Setting,
     @SerializedName("user_id") val userId: Int,
-    val uuid: String
+    val uuid: String,
+    @SerializedName("picture_list") val pictures: List<Picture>?
 ) : IApiModel {
 
     data class Avatar(
+        @SerializedName("middle_url") val middleUrl: String?,
+        @SerializedName("raw_url") val rawUrl: String,
+        val url: String?
+    ) : IApiModel
+
+    data class Picture(
         @SerializedName("middle_url") val middleUrl: String?,
         @SerializedName("raw_url") val rawUrl: String,
         val url: String?
@@ -59,7 +68,7 @@ data class UserProfile(
 
     data class Education(
         val education: String,
-        val graduation_year: Int,
+        @SerializedName("graduation_year") val graduationYear: Int,
         val school: String
     ) : IApiModel
 
@@ -67,10 +76,29 @@ data class UserProfile(
         val type: String,
         val title: String
     ) : IApiModel
+
+    data class Industry(
+        val id: Int,
+        val name: String,
+        @SerializedName("parent_industry") val parent: Industry? = null
+    ) : IApiModel
+
+    data class Tag(
+        val name: String
+    ) : IApiModel
 }
 
 object Gender {
     const val UNKNOWN = 0 // 未知
     const val MALE = 1 // 男
     const val FEMALE = 2 // 女
+}
+
+object Education {
+    const val UNKOWN = 0    // 未知
+    const val JUNIOR = 1    // 大专
+    const val BACHELOR = 2  // 本科
+    const val MASTER = 3    // 硕士
+    const val PHD = 4       // 博士
+    const val LOW = 5       // 中职及以下
 }

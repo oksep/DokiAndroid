@@ -1,5 +1,7 @@
 package com.dokiwa.dokidoki.center.plugin.profile
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.os.Parcelable
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
@@ -19,6 +21,8 @@ interface IProfilePlugin : FeaturePlugin {
     fun getLoginUserProfile(): UserProfile?
 
     fun clearUserProfile()
+
+    fun getCityPickerDialog(context: Activity): Dialog
 
     companion object {
         fun get(): IProfilePlugin {

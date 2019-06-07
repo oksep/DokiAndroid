@@ -1,11 +1,14 @@
 package com.dokiwa.dokidoki.profile
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.os.Parcelable
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.profile.create.CreateProfileActivity
 import com.dokiwa.dokidoki.profile.detail.ProfileDetailActivity
+import com.dokiwa.dokidoki.profile.dialog.CityPickerDialog
 
 /**
  * Created by Septenary on 2019/1/2.
@@ -26,5 +29,9 @@ class ProfilePlugin : IProfilePlugin {
 
     override fun clearUserProfile() {
         ProfileSP.clearUserProfile()
+    }
+
+    override fun getCityPickerDialog(context: Activity): Dialog {
+        return CityPickerDialog.create(context)
     }
 }

@@ -113,7 +113,7 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
             toolBar.leftIconView.setImageDrawable(null)
             toolBar.leftIconView.setOnClickListener(null)
         } else {
-            toolBar.leftIconView.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_back_light, null))
+            toolBar.leftIconView.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ui_ic_back_light, null))
             toolBar.leftIconView.setOnClickListener {
                 preStep()
             }

@@ -131,9 +131,9 @@ fun ImageView.loadAvatar(profile: UserProfile) {
         (profile.avatar.middleUrl ?: profile.avatar.url) ?: profile.avatar.rawUrl,
         ContextCompat.getDrawable(
             context, if (profile.gender == Gender.FEMALE) {
-                R.drawable.ic_avatar_default_female
+                R.drawable.ui_ic_avatar_default_female
             } else {
-                R.drawable.ic_avatar_default_male
+                R.drawable.ui_ic_avatar_default_male
             }
         ),
         null,

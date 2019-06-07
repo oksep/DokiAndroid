@@ -23,4 +23,10 @@
     <string name="home_me_blacklist">黑名单</string>
     <string name="home_me_feedback">问题反馈</string>
     <string name="home_me_settings">设置</string>
+
+    <!--feed-->
+    <string name="feed_empty_tags_tip">TA还未设置标签</string>
+    <string name="feed_more_filter_search">条件筛选</string>
+    <string name="feed_more_accurate_search">精确搜索</string>
+
 </resources>

@@ -30,9 +30,9 @@ internal class AvatarFragment : BaseStepFragment(), CropIwaResultReceiver.Listen
         sharedViewModel.avatar.value = null
 
         val res = if (viewModel.gender.value == Gender.MALE) {
-            R.drawable.ic_avatar_default_male
+            R.drawable.ui_ic_avatar_default_male
         } else {
-            R.drawable.ic_avatar_default_female
+            R.drawable.ui_ic_avatar_default_female
         }
         avatarImage.setImageResource(res)
         avatarImage.setOnClickListener {

@@ -11,7 +11,7 @@
     <com.dokiwa.dokidoki.home.widget.HomeToolBar
         android:id="@+id/toolBar"
         style="@style/AppToolBar.Icon"
-        app:toolbar_rightIcon="@drawable/ic_search_light"
+        app:toolbar_rightIcon="@drawable/home_ic_feed_more"
         app:toolbar_leftIconVisibility="gone"
         app:toolbar_titleText="@string/home_tab_feed"
         android:background="@drawable/bg_toolbar"
@@ -26,6 +26,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

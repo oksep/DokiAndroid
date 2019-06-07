@@ -13,12 +13,12 @@ ext.builds = builds
 def versions = [:]
 
 // android-x
-versions.axCompat='1.1.0-alpha03'
-versions.axConstraintLayout = '2.0.0-alpha3'
+versions.axCompat='1.1.0-alpha05'
+versions.axConstraintLayout = '2.0.0-beta1'
 versions.axLifecycle = '2.0.0'
-versions.axMaterial = '1.1.0-alpha03'
+versions.axMaterial = '1.1.0-alpha07'
 versions.axCardView = '1.0.0'
-versions.axKtx = '1.0.1'
+versions.axKtx = '1.0.2'
 
 // test
 versions.testJunit = '4.12'

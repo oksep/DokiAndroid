@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/tip1"
         app:layout_constraintVertical_chainStyle="packed"
-        android:src="@drawable/ic_avatar_default_male"
+        android:src="@drawable/ui_ic_avatar_default_male"
         android:layout_width="86dp"
         android:layout_height="86dp"/>
 
