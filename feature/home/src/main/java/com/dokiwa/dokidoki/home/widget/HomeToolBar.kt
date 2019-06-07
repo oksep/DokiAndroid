@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import com.dokiwa.dokidoki.ui.util.ViewUtil
 import com.dokiwa.dokidoki.ui.view.AppToolBar
 
-class HomeFragmentToolBar : AppToolBar {
+class HomeToolBar : AppToolBar {
 
     constructor(context: Context) : super(context)
 
@@ -16,5 +16,6 @@ class HomeFragmentToolBar : AppToolBar {
     init {
         val top = ViewUtil.getStatusBarHeight(context)
         setPadding(left, this.top + top, right, bottom)
+        fitsSystemWindows = false
     }
 }

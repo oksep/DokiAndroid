@@ -7,12 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="80dp">
 
-    <ImageView
+    <com.dokiwa.dokidoki.ui.view.RoundImageView
         android:id="@+id/image"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:src="@mipmap/ic_launcher"
+        app:rv_circle="true"
+        app:rv_border_width="2dp"
+        app:rv_border_color="@color/white"
+        android:scaleType="centerCrop"
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"

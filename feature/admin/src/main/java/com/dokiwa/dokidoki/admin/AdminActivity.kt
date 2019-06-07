@@ -50,6 +50,9 @@ internal class AdminActivity : BaseActivity() {
             // 12345000001 - 12345000010
             FeaturePlugin.get(ILoginPlugin::class.java).loginTestingAccount(this, "+8612345000007", "233333")
         },
+        Item("登出") {
+            Api.testUnAuth()
+        },
         Item("登出并登录") {
             FeaturePlugin.get(ILoginPlugin::class.java).logOut(this)
         },

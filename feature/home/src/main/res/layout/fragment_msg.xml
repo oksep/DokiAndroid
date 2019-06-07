@@ -8,12 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".fragment.MsgFragment">
 
-    <com.dokiwa.dokidoki.home.widget.HomeFragmentToolBar
+    <com.dokiwa.dokidoki.home.widget.HomeToolBar
         android:id="@+id/toolBar"
         style="@style/AppToolBar.Icon"
         app:toolbar_rightIconVisibility="gone"
         app:toolbar_leftIconVisibility="gone"
-        app:toolbar_titleText="@string/title_home_msg"
+        app:toolbar_titleText="@string/home_tab_msg"
         tools:layout_height="44dp"
         android:background="@drawable/bg_toolbar"
         android:layout_height="wrap_content"

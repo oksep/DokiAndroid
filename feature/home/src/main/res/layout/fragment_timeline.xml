@@ -14,6 +14,7 @@
         app:toolbar_rightIcon="@drawable/ic_search_light"
         app:toolbar_leftIconVisibility="gone"
         app:toolbar_titleText="@string/home_tab_feed"
+        tools:layout_height="44dp"
         android:background="@drawable/bg_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>

@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
+import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.home.Log
@@ -20,6 +21,7 @@ import com.dokiwa.dokidoki.home.api.HomeApi
 import com.dokiwa.dokidoki.home.api.model.Feed
 import com.dokiwa.dokidoki.home.api.model.FeedPage
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
+import com.dokiwa.dokidoki.ui.view.RoundImageView
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 
@@ -103,6 +105,10 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
         Log.d("AAAAAA", "FeedFragment onPageSelected")
     }
 
+    override fun requsetScrollContentToTop() {
+        recyclerView?.smoothScrollToPosition(0)
+    }
+
     private fun loadData() {
         Api.get(HomeApi::class.java)
             .getFeedList()
@@ -147,7 +153,8 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
 private class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.item_feed, null) {
 
     override fun convert(helper: BaseViewHolder, item: Feed) {
-        helper.getView<TextView>(R.id.title).text = item.user_profile.nickname
-        helper.getView<TextView>(R.id.subTitle).text = item.user_profile.intro
+        helper.getView<TextView>(R.id.title).text = item.userProfile.nickname
+        helper.getView<TextView>(R.id.subTitle).text = item.userProfile.intro
+        helper.getView<RoundImageView>(R.id.image).loadImgFromNetWork(item.userProfile.avatar.url)
     }
 }

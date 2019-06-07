@@ -3,7 +3,6 @@ package com.dokiwa.dokidoki.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -15,10 +14,9 @@ import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.home.fragment.FeedFragment
 import com.dokiwa.dokidoki.home.fragment.MeFragment
 import com.dokiwa.dokidoki.home.fragment.MsgFragment
+import com.dokiwa.dokidoki.home.fragment.TimelineFragment
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
-
 
 class HomeActivity : TranslucentActivity() {
 
@@ -34,50 +32,40 @@ class HomeActivity : TranslucentActivity() {
 
         setContentView(R.layout.activity_home)
 
-        navigation.setOnNavigationItemSelectedListener(getNavigationSelectListener())
+        setupViewPager()
 
-        viewPager.offscreenPageLimit = 2
-        setupViewPager(viewPager)
+        setupTabs()
 
         FeaturePlugin.get(IAdminPlugin::class.java).attachShakeAdmin(lifecycle)
         FeaturePlugin.get(ILoginPlugin::class.java).ensureLogin(this)
-
-        // TODO: 2018/12/28 @Septenary 测试未认证用户
-        // Api.testUnAuth()
     }
 
-    private fun setupViewPager(viewPager: ViewPager) {
-        val adapter = BottomAdapter(supportFragmentManager)
-        adapter.addFragment(FeedFragment.newInstance())
-        adapter.addFragment(MsgFragment.newInstance())
-        adapter.addFragment(MeFragment.newInstance())
-        viewPager.adapter = adapter
-        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+    private fun setupViewPager() {
+        homeViewPager.offscreenPageLimit = 3
+        val adapter = PageAdapter(supportFragmentManager).apply {
+            addFragment(FeedFragment.newInstance())
+            addFragment(TimelineFragment.newInstance())
+            addFragment(MsgFragment.newInstance())
+            addFragment(MeFragment.newInstance())
+        }
+        homeViewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
-                navigation.menu.getItem(position).isChecked = true
                 (adapter.getItem(position) as? OnPageSelectedListener)?.onPageSelected()
             }
         })
+        homeViewPager.adapter = adapter
     }
 
-    private fun getNavigationSelectListener(): BottomNavigationView.OnNavigationItemSelectedListener {
-        return BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home_feed -> {
-                    viewPager.setCurrentItem(0, false)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_home_msg -> {
-                    viewPager.setCurrentItem(1, false)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_home_me -> {
-                    viewPager.setCurrentItem(2, false)
-                    return@OnNavigationItemSelectedListener true
-                }
+    private fun setupTabs() {
+        homeTabs.onTabClickListener = {
+            val scrollToTop = homeViewPager.currentItem == it
+            homeViewPager.setCurrentItem(it, false)
+            if (scrollToTop) {
+                ((homeViewPager.adapter as? PageAdapter)?.getItem(it) as? OnPageSelectedListener)?.requsetScrollContentToTop()
             }
-            false
         }
+
+        homeTabs.setSelectedTab(0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -89,29 +77,15 @@ class HomeActivity : TranslucentActivity() {
         SocialGo.onNewIntent(intent)
         super.onNewIntent(intent)
     }
-
-    fun switchFeedPage(view: View) {
-
-    }
-
-    fun switchUFeedPage(view: View) {
-
-    }
-
-    fun switchMsgPage(view: View) {
-
-    }
-
-    fun switchMePage(view: View) {
-
-    }
 }
 
 interface OnPageSelectedListener {
     fun onPageSelected()
+    fun requsetScrollContentToTop() {
+    }
 }
 
-class BottomAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class PageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fragments = mutableListOf<Fragment>()
 
     override fun getItem(position: Int): Fragment {
