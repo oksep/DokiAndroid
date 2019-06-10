@@ -10,6 +10,6 @@ data class FeedPage(
     val feedList: List<Feed>,
     val next: String?
 ) : IApiModel, IApiModelPage {
-    override val nextQ: Map<String, String?>
+    override val nextQ: Map<String, String>
         get() = this.next?.toRetrofitQueryMap() ?: mapOf()
 }

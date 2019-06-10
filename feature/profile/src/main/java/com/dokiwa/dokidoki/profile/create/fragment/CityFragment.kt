@@ -46,11 +46,11 @@ internal class CityFragment : BaseStepFragment() {
     }
 
     private fun initCityPickerView(provinceList: List<Province>, viewModel: SharedViewModel) {
-        cityPickerView.initView(provinceList) { p, c ->
+        cityPickerView.initView(provinceList, { p, c ->
             province.text = p.name
             city.text = c.name
             viewModel.city.value = c.code
-        }
+        })
     }
 
     override fun reset() {

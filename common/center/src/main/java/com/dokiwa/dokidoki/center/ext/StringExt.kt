@@ -44,11 +44,11 @@ fun String.capitalize(): String {
     }
 }
 
-fun String.toRetrofitQueryMap(): Map<String, String?>? {
+fun String.toRetrofitQueryMap(): Map<String, String>? {
     return Uri.parse(this).run {
-        val map = mutableMapOf<String, String?>()
+        val map = mutableMapOf<String, String>()
         queryParameterNames.forEach { key ->
-            map[key] = getQueryParameter(key)
+            map[key] = getQueryParameter(key) ?: ""
         }
         map
     }

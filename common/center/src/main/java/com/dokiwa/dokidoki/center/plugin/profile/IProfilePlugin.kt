@@ -22,7 +22,7 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun clearUserProfile()
 
-    fun getCityPickerDialog(context: Activity): Dialog
+    fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog
 
     companion object {
         fun get(): IProfilePlugin {

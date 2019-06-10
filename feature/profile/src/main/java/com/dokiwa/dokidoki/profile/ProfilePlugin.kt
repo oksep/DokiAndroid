@@ -31,7 +31,7 @@ class ProfilePlugin : IProfilePlugin {
         ProfileSP.clearUserProfile()
     }
 
-    override fun getCityPickerDialog(context: Activity): Dialog {
-        return CityPickerDialog.create(context)
+    override fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog {
+        return CityPickerDialog.create(context, callback)
     }
 }

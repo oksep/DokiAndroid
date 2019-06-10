@@ -17,7 +17,7 @@ import com.dokiwa.dokidoki.profile.create.model.Province
  */
 class CityPickerView : ConstraintLayout {
 
-   constructor(context: Context) : super(context) {
+    constructor(context: Context) : super(context) {
         init(null, 0)
     }
 
@@ -33,7 +33,11 @@ class CityPickerView : ConstraintLayout {
         // nothing
     }
 
-    fun initView(provinceList: List<Province>, cb: (province: Province, city: City) -> Unit) {
+    fun initView(
+        provinceList: List<Province>,
+        cb: (province: Province, city: City) -> Unit,
+        topBarBtnInterceptor: () -> Boolean = { false }
+    ) {
         var pickerView: OptionsPickerView<Any>? = null
 
         OptionsPickerBuilder(
@@ -47,10 +51,14 @@ class CityPickerView : ConstraintLayout {
             .setLayoutRes(R.layout.view_city_picker) { v ->
                 v.findViewById<View>(R.id.pickerConfirmBtn).setOnClickListener {
                     pickerView?.returnData()
-                    hide()
+                    if (!topBarBtnInterceptor()) {
+                        hide()
+                    }
                 }
                 v.findViewById<View>(R.id.pickerCancelBtn).setOnClickListener {
-                    hide()
+                    if (!topBarBtnInterceptor()) {
+                        hide()
+                    }
                 }
             }
             .setOptionsSelectChangeListener { _, _, _ -> }

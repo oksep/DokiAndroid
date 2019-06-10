@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/genderTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textSize="12sp"
-        android:textColor="#666"
+        android:textColor="@color/home_selector_feed_filter_gender"
         android:gravity="center"
         android:padding="6dp"
         android:minWidth="54dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/genderTitle"
         app:layout_constraintLeft_toRightOf="@+id/genderMale"
         android:textSize="12sp"
-        android:textColor="#666"
+        android:textColor="@color/home_selector_feed_filter_gender"
         android:gravity="center"
         android:padding="6dp"
         android:minWidth="54dp"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/genderTitle"
         app:layout_constraintLeft_toRightOf="@+id/genderFemale"
         android:textSize="12sp"
-        android:textColor="#666"
+        android:textColor="@color/home_selector_feed_filter_gender"
         android:gravity="center"
         android:padding="6dp"
         android:minWidth="54dp"
@@ -89,21 +89,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/ageSeekBar"
-        style="@style/Widget.AppCompat.SeekBar"
+    <LinearLayout
+        android:id="@+id/ageSeekBarContainer"
         app:layout_constraintTop_toBottomOf="@+id/ageTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:layout_marginTop="8dp"
         android:layout_width="0dp"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp">
+
+        <com.dokiwa.dokidoki.ui.view.SeekBarPressure
+            android:id="@+id/ageSeekBar"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/areaSelector"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ageSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/ageSeekBarContainer"
         android:layout_marginTop="15dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content">
@@ -117,6 +127,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:id="@+id/areaDescription"
             android:layout_gravity="end"
             android:text="全部地区"
             android:textSize="12sp"

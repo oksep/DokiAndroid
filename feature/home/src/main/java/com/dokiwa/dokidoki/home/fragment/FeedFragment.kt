@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.home.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
-import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.Education
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
@@ -24,10 +24,11 @@ import com.dokiwa.dokidoki.center.util.birthDayToAge
 import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
+import com.dokiwa.dokidoki.home.SearchActivity
 import com.dokiwa.dokidoki.home.api.HomeApi
 import com.dokiwa.dokidoki.home.api.model.Feed
 import com.dokiwa.dokidoki.home.api.model.FeedPage
-import com.dokiwa.dokidoki.home.dialog.FeedFilterSearchDialog
+import com.dokiwa.dokidoki.home.dialog.FeedFilter
 import com.dokiwa.dokidoki.home.dialog.FeedFilterSearchPopWindow
 import com.dokiwa.dokidoki.home.widget.FeedMorePopWindow
 import com.dokiwa.dokidoki.home.widget.FeedPictureListView
@@ -38,6 +39,7 @@ import com.dokiwa.dokidoki.ui.view.RoundImageView
 import com.dokiwa.dokidoki.ui.view.TagsView
 import kotlinx.android.synthetic.main.fragment_feed.*
 
+private val TAG = "FeedFragment"
 
 class FeedFragment : BaseFragment(), OnPageSelectedListener {
 
@@ -52,6 +54,8 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
     private var data = mutableListOf<FeedPage>()
 
     private val adapter by lazy { FeedAdapter() }
+
+    private var feedFilter = FeedFilter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,8 +92,7 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
 
         refreshLayout.setColorSchemeResources(R.color.dd_red)
         refreshLayout.setOnRefreshListener {
-            data.clear()
-            loadData()
+            refresh()
         }
 
         toolBar.rightIconView.setOnClickListener {
@@ -99,7 +102,7 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
                     showFilterSearchDialog()
                 },
                 {
-                    requireContext().toast("to search page")
+                    SearchActivity.launch(requireActivity())
                 }
             ).safeShowAsDropDown(it, 0, 0)
         }
@@ -107,9 +110,18 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
         loadData()
     }
 
+    private fun refresh() {
+        this.data.clear()
+        loadData()
+    }
+
     private fun showFilterSearchDialog() {
-        // FeedFilterSearchDialog(requireContext()).show()
-        FeedFilterSearchPopWindow(requireActivity()).showAsDropDown(toolBar)
+        FeedFilterSearchPopWindow(requireActivity(), feedFilter) {
+            Handler().post {
+                this.feedFilter = it
+                refresh()
+            }
+        }.showAsDropDown(toolBar)
     }
 
     private fun setData(feedPage: FeedPage) {
@@ -151,11 +163,11 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
     }
 
     private fun loadData() {
+        showRefreshing()
         Api.get(HomeApi::class.java)
-            .getFeedList()
-            .doOnSubscribe {
-                showRefreshing()
-            }
+            .getFeedList(
+                map = feedFilter.asQueryMap()
+            )
             .subscribeApi(
                 this,
                 {
@@ -166,6 +178,7 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
                     }
                 },
                 {
+                    Log.e(TAG, "load feed error", it)
                     hideRefreshing()
                 }
             )
@@ -173,7 +186,11 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
 
     private fun loadMore() {
         Api.get(HomeApi::class.java)
-            .getFeedList(map = this.data.lastOrNull()?.nextQ ?: mapOf())
+            .getFeedList(
+                map = feedFilter.asQueryMap().also {
+                    it.putAll(this.data.lastOrNull()?.nextQ ?: mapOf())
+                }
+            )
             .subscribeApi(
                 context as? CompositeDisposableContext,
                 {
