@@ -21,6 +21,7 @@ import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.birthDayToAge
+import com.dokiwa.dokidoki.center.util.toLastActiveTime
 import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
@@ -243,6 +244,9 @@ private class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.view
                 R.drawable.ui_ic_avatar_default_female
             }
         )
+
+        // 活跃时间
+        helper.getView<TextView>(R.id.activeState).text = profile.lastActive.toLastActiveTime()
 
         // 个性标签
         val tagsView = helper.getView<TagsView>(R.id.tags)

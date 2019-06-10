@@ -34,3 +34,29 @@ fun String.birthDayToAge(): Int {
     }
     return getAgeByBirth(SimpleDateFormat("yyyyMMdd").parse(this))
 }
+
+@SuppressLint("SimpleDateFormat")
+fun Int.toLastActiveTime(): String {
+    val systemStamp = System.currentTimeMillis() / 1000L
+    val userStamp = this.toLong()
+    val distanceInteger = systemStamp - userStamp
+
+    return when {
+        distanceInteger / (60 * 60 * 24 * 7) >= 1 -> {
+            SimpleDateFormat("yy-MM-dd HH:mm:ss").format(Date(userStamp))
+        }
+        distanceInteger / (60 * 60 * 24 * 1) >= 1 -> {
+            val d = distanceInteger / (60 * 60 * 24 * 1)
+            "$d${"天前"}"
+        }
+        distanceInteger / (60 * 60) >= 1 -> {
+            val h = distanceInteger / (60 * 60)
+            "$h${"小时前"}"
+        }
+        distanceInteger / (60 * 30) >= 1 -> {
+            val m = distanceInteger / (60)
+            "$m${"分钟前"}"
+        }
+        else -> "刚刚"
+    }
+}
