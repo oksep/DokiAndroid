@@ -1,7 +1,6 @@
 package com.dokiwa.dokidoki.home.fragment
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,11 +15,8 @@ import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
-import com.dokiwa.dokidoki.center.plugin.model.Education
 import com.dokiwa.dokidoki.center.plugin.model.Gender
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
-import com.dokiwa.dokidoki.center.util.birthDayToAge
 import com.dokiwa.dokidoki.center.util.toLastActiveTime
 import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
@@ -117,10 +113,8 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
 
     private fun showFilterSearchDialog() {
         FeedFilterSearchPopWindow(requireActivity(), feedFilter) {
-            Handler().post {
-                this.feedFilter = it
-                refresh()
-            }
+            this.feedFilter = it
+            refresh()
         }.showAsDropDown(toolBar)
     }
 
@@ -229,10 +223,10 @@ private class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.view
         helper.getView<TextView>(R.id.name).text = profile.nickname
 
         // 年龄 | 身高 | 教育程度
-        helper.getView<TextView>(R.id.ageHeightEdu).text = assembleAgeHeightEdu(profile)
+        helper.getView<TextView>(R.id.ageHeightEdu).text = profile.assembleAgeHeightEdu()
 
         // 地点 | 职位
-        helper.getView<TextView>(R.id.addressPosition).text = assembleAddressPosition(profile)
+        helper.getView<TextView>(R.id.addressPosition).text = profile.assembleAddressPosition()
 
         // 头像
         helper.getView<RoundImageView>(R.id.avatar).loadImgFromNetWork(
@@ -270,28 +264,5 @@ private class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.view
 
         // pictures
         helper.getView<FeedPictureListView>(R.id.pictureListView).setPictureList(profile.pictures)
-    }
-
-    private fun assembleAgeHeightEdu(profile: UserProfile): String {
-        val age = profile.birthday.birthDayToAge()
-        val edu = profile.education.educationToString()
-        val height = if (profile.height > 9) " | ${profile.height}cm" else ""
-        val edus = if (edu.isNullOrEmpty()) "" else " | $edu"
-        return "${age}岁$height$edus"
-    }
-
-    private fun assembleAddressPosition(profile: UserProfile): String {
-        val idsty = profile.industry?.name
-        return profile.city.name + if (idsty.isNullOrEmpty()) "" else " | $idsty"
-    }
-
-    private fun Int.educationToString(): String? {
-        return when (this) {
-            Education.JUNIOR -> "大专"
-            Education.BACHELOR -> "本科"
-            Education.MASTER -> "硕士"
-            Education.PHD -> "博士"
-            else -> ""
-        }
     }
 }

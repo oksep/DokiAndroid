@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.center.plugin.model
 
 import com.dokiwa.dokidoki.center.api.model.IApiModel
+import com.dokiwa.dokidoki.center.util.birthDayToAge
 import com.google.gson.annotations.SerializedName
 
 data class UserProfileWrap(val profile: UserProfile) : IApiModel
@@ -10,7 +11,7 @@ data class UserProfile(
     val birthday: String,
     val certification: Certification,
     val verify: Verify?,
-    val city: City,
+    val city: City?,
     val industry: Industry?,
     @SerializedName("keyword_list") val tags: List<Tag>?,
     val education: Int,
@@ -86,6 +87,31 @@ data class UserProfile(
     data class Tag(
         val name: String
     ) : IApiModel
+
+    fun assembleAddressPosition(): String {
+        val profile = this
+        val idsty = profile.industry?.name
+        return profile.city?.name ?: "" + if (idsty.isNullOrEmpty()) "" else " | $idsty"
+    }
+
+    fun assembleAgeHeightEdu(): String {
+        val profile = this
+        val age = profile.birthday.birthDayToAge()
+        val edu = profile.education.educationToString()
+        val height = if (profile.height > 9) " | ${profile.height}cm" else ""
+        val edus = if (edu.isNullOrEmpty()) "" else " | $edu"
+        return "${age}岁$height$edus"
+    }
+
+    private fun Int.educationToString(): String? {
+        return when (this) {
+            com.dokiwa.dokidoki.center.plugin.model.Education.JUNIOR -> "大专"
+            com.dokiwa.dokidoki.center.plugin.model.Education.BACHELOR -> "本科"
+            com.dokiwa.dokidoki.center.plugin.model.Education.MASTER -> "硕士"
+            com.dokiwa.dokidoki.center.plugin.model.Education.PHD -> "博士"
+            else -> ""
+        }
+    }
 }
 
 object Gender {

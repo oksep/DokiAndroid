@@ -3,7 +3,11 @@ package com.dokiwa.dokidoki.profile.api
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import io.reactivex.Single
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Query
 
 /**
  * Created by Septenary on 2019/3/2.
@@ -47,4 +51,7 @@ interface ProfileApi {
 
     @GET("/api/profile/v1/user")
     fun getUserProfileByUUID(@Query("uuid") uuid: String): Single<UserProfileWrap>
+
+    @GET("/api/search/v1/user")
+    fun searchUser(@Query("kw") keyword: String): Single<SearchUserResultModel>
 }

@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dokiwa.dokidoki.ui.R
 import kotlinx.android.synthetic.main.ui_view_oops.view.*
 import kotlinx.android.synthetic.main.ui_view_refresh_layout.view.*
@@ -27,6 +28,10 @@ class RefreshRecyclerView : FrameLayout {
         this.recyclerView.visibility = View.GONE
         this.refreshLayout.isRefreshing = false
         this.refreshLayout.setColorSchemeResources(R.color.dd_red)
+    }
+
+    fun setOnRefreshListener(refreshListener: SwipeRefreshLayout.OnRefreshListener) {
+        this.refreshLayout.setOnRefreshListener(refreshListener)
     }
 
     fun showError(@DrawableRes iconResId: Int, @StringRes messageResId: Int) {

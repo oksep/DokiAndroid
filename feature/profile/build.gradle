@@ -47,6 +47,8 @@ dependencies {
     implementation "com.github.javiersantos:BottomDialogs:${versions.bottomDialog}"
     implementation "com.contrarywind:Android-PickerView:${versions.pickerView}"
     implementation "com.google.android:flexbox:${versions.flexBox}"
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
+    implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
 
     implementation project(':center')
     implementation project(':ui')
