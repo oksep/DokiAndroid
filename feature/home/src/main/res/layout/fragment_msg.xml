@@ -170,6 +170,20 @@
                     android:id="@+id/radioButton2"
                     android:layout_weight="1"/>
             </RadioGroup>
+
+            <io.apptik.widget.MultiSlider
+                app:layout_constraintTop_toBottomOf="@+id/toolBar"
+                android:layout_margin="20dp"
+                android:id="@+id/range_slider5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.SeekBar"
+                app:thumbNumber="2"
+                app:scaleMin="0"
+                app:scaleMax="100"
+                app:stepsThumbsApart="1"
+                app:drawThumbsApart="true"/>
+
         </LinearLayout>
     </ScrollView>
 

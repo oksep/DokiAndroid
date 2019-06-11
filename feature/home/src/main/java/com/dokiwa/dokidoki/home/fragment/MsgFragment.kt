@@ -70,6 +70,14 @@ class MsgFragment : BaseFragment(), OnPageSelectedListener {
         }
 
         removeImg.loadImgFromNetWork("http://assets.septenary.cn/dirty_bytes.png")
+
+        range_slider5.setOnThumbValueChangeListener { multiSlider, thumb, thumbIndex, value ->
+            if (thumbIndex == 0) {
+                // thumb1text.text = (value.toString())
+            } else {
+                // thumb2text.text = (value.toString())
+            }
+        }
     }
 
     private fun shareImage(type: SocialHelper.SocialType) {

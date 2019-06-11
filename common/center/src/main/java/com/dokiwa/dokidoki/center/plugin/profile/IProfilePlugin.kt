@@ -24,6 +24,8 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog
 
+    fun launchSearchUserActivity(context: Context)
+
     companion object {
         fun get(): IProfilePlugin {
             return FeaturePlugin.get(IProfilePlugin::class.java)

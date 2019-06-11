@@ -7,9 +7,6 @@
             android:name=".HomeActivity"
             android:launchMode="singleTask">
         </activity>
-        <activity
-            android:name=".SearchActivity"
-            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

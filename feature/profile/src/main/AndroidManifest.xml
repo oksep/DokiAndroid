@@ -15,6 +15,12 @@
             android:name=".crop.CropImageActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
+            android:name=".search.SearchUserActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

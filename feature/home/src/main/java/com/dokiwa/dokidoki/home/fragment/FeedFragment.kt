@@ -25,7 +25,6 @@ import com.dokiwa.dokidoki.center.util.toLastActiveTime
 import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.OnPageSelectedListener
 import com.dokiwa.dokidoki.home.R
-import com.dokiwa.dokidoki.home.SearchActivity
 import com.dokiwa.dokidoki.home.api.HomeApi
 import com.dokiwa.dokidoki.home.api.model.Feed
 import com.dokiwa.dokidoki.home.api.model.FeedPage
@@ -103,7 +102,7 @@ class FeedFragment : BaseFragment(), OnPageSelectedListener {
                     showFilterSearchDialog()
                 },
                 {
-                    SearchActivity.launch(requireActivity())
+                    IProfilePlugin.get().launchSearchUserActivity(requireContext())
                 }
             ).safeShowAsDropDown(it, 0, 0)
         }

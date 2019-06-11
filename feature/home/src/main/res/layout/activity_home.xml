@@ -16,7 +16,7 @@
     <com.dokiwa.dokidoki.home.widget.HomeTabs
         android:layout_gravity="bottom"
         android:id="@+id/homeTabs"
-        android:elevation="6dp"
+        android:elevation="8dp"
         android:background="#FAFAFA"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
