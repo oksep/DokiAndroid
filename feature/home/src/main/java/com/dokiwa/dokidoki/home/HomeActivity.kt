@@ -5,16 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
-import com.dokiwa.dokidoki.home.fragment.FeedFragment
-import com.dokiwa.dokidoki.home.fragment.MeFragment
-import com.dokiwa.dokidoki.home.fragment.MsgFragment
-import com.dokiwa.dokidoki.home.fragment.TimelineFragment
+import com.dokiwa.dokidoki.home.pages.feed.FeedFragment
+import com.dokiwa.dokidoki.home.pages.mine.MeFragment
+import com.dokiwa.dokidoki.home.pages.msg.MsgFragment
+import com.dokiwa.dokidoki.home.pages.timeline.TimelineFragment
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -29,42 +28,17 @@ class HomeActivity : TranslucentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_home)
-
-        setupViewPager()
-
-        setupTabs()
-
+        initView()
         FeaturePlugin.get(IAdminPlugin::class.java).attachShakeAdmin(lifecycle)
         FeaturePlugin.get(ILoginPlugin::class.java).ensureLogin(this)
     }
 
-    private fun setupViewPager() {
-        homeViewPager.offscreenPageLimit = 3
-        val adapter = PageAdapter(supportFragmentManager).apply {
-            addFragment(FeedFragment.newInstance())
-            addFragment(TimelineFragment.newInstance())
-            addFragment(MsgFragment.newInstance())
-            addFragment(MeFragment.newInstance())
-        }
-        homeViewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                (adapter.getItem(position) as? OnPageSelectedListener)?.onPageSelected()
-            }
-        })
-        homeViewPager.adapter = adapter
-    }
-
-    private fun setupTabs() {
+    private fun initView() {
+        homeViewPager.adapter = PageAdapter(supportFragmentManager)
         homeTabs.onTabClickListener = {
-            val scrollToTop = homeViewPager.currentItem == it
             homeViewPager.setCurrentItem(it, false)
-            if (scrollToTop) {
-                ((homeViewPager.adapter as? PageAdapter)?.getItem(it) as? OnPageSelectedListener)?.requsetScrollContentToTop()
-            }
         }
-
         homeTabs.setSelectedTab(0)
     }
 
@@ -77,26 +51,20 @@ class HomeActivity : TranslucentActivity() {
         SocialGo.onNewIntent(intent)
         super.onNewIntent(intent)
     }
-}
 
-interface OnPageSelectedListener {
-    fun onPageSelected()
-    fun requsetScrollContentToTop() {
-    }
-}
+    private inner class PageAdapter(fm: FragmentManager) :
+        FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-class PageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-    private val fragments = mutableListOf<Fragment>()
+        override fun getCount() = 4
 
-    override fun getItem(position: Int): Fragment {
-        return fragments[position]
-    }
-
-    override fun getCount(): Int {
-        return fragments.size
-    }
-
-    fun addFragment(fragment: Fragment) {
-        fragments.add(fragment)
+        override fun getItem(position: Int): Fragment {
+            return when (position) {
+                0 -> FeedFragment()
+                1 -> TimelineFragment()
+                2 -> MsgFragment()
+                3 -> MeFragment()
+                else -> throw IllegalStateException("out of index")
+            }
+        }
     }
 }

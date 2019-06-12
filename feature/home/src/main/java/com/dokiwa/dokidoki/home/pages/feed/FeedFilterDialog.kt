@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.home.dialog
+package com.dokiwa.dokidoki.home.pages.feed
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.dialog_feed_filter_search.view.*
 /**
  * Created by Septenary on 2019-06-07.
  */
-class FeedFilterSearchPopWindow(
+class FeedFilterDialog(
     private val context: Activity,
     feedFilter: FeedFilter,
     private val onFilterChange: (FeedFilter) -> Unit
@@ -120,6 +120,15 @@ data class FeedFilter(
     var cityName: String? = null,
     var cityCode: String? = null
 ) {
+    fun updateField(feedFilter: FeedFilter) {
+        this.gender = feedFilter.gender
+        this.ageMin = feedFilter.ageMin
+        this.ageMax = feedFilter.ageMax
+        this.provinceName = feedFilter.provinceName
+        this.cityName = feedFilter.cityName
+        this.cityCode = feedFilter.cityCode
+    }
+
     fun asQueryMap() = mutableMapOf(
         "gender" to gender.toString(),
         "age_min" to ageMin.toString(),
