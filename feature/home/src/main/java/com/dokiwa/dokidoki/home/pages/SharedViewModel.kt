@@ -1,7 +1,9 @@
 package com.dokiwa.dokidoki.home.pages
 
 import androidx.lifecycle.ViewModel
+import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.home.api.model.FeedPage
+import com.dokiwa.dokidoki.home.api.model.RelationCount
 import com.dokiwa.dokidoki.home.pages.feed.FeedFilter
 
 /**
@@ -11,9 +13,16 @@ class SharedViewModel : ViewModel() {
 
     val feedPageViewModel = FeedViewModel()
 
+    val mineViewModel = MineViewModel()
 }
 
 data class FeedViewModel(
     val feedPages: MutableList<FeedPage> = mutableListOf(),
     val feedFilter: FeedFilter = FeedFilter()
+)
+
+data class MineViewModel(
+    var profile: UserProfileWrap? = null,
+    var relationCount: RelationCount? = null,
+    var timeLineCount: Int? = null
 )

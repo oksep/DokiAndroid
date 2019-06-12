@@ -7,22 +7,23 @@ import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.home.Log
 import com.dokiwa.dokidoki.home.R
 import com.dokiwa.dokidoki.home.api.HomeApi
 import com.dokiwa.dokidoki.home.api.model.RelationCount
 import com.dokiwa.dokidoki.home.pages.BasePageFragment
 import kotlinx.android.synthetic.main.fragment_me.*
+import kotlinx.android.synthetic.main.view_me_counts.*
+
+private const val TAG = "MeFragment"
 
 class MeFragment : BasePageFragment(R.layout.fragment_me) {
 
-    private var profile: UserProfile? = null
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         entranceUserPage.setOnClickListener {
-            profile?.let {
+            sharedViewModel.mineViewModel.profile?.profile?.let {
                 FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(requireContext(), it.uuid)
             }
         }
@@ -43,52 +44,87 @@ class MeFragment : BasePageFragment(R.layout.fragment_me) {
             requireContext().toast("TODO")
         }
 
-        entranceEvaluate.setOnClickListener {
+        entranceShare.setOnClickListener {
             requireContext().toast("TODO")
         }
 
-        uFeedTitleTextView.setOnClickListener(::toUFeedListPage)
-        uFeedCountTextView.setOnClickListener(::toUFeedListPage)
+        timelineCountContainer.setOnClickListener {
+            requireContext().toast("TODO")
+        }
 
-        followCountTextView.setOnClickListener(::toFollowListPage)
-        followTitleTextView.setOnClickListener(::toFollowListPage)
+        followCountContainer.setOnClickListener {
+            requireContext().toast("TODO")
+        }
 
-        fansTitleTextView.setOnClickListener(::toFansListPage)
-        fansCountTextView.setOnClickListener(::toFansListPage)
+        fansCountContainer.setOnClickListener {
+            requireContext().toast("TODO")
+        }
 
-
+        ensureData()
     }
 
-    override fun onResume() {
-        super.onResume()
-        // loadData()
+    private fun ensureData() {
+        val profileWrap = sharedViewModel.mineViewModel.profile
+        if (profileWrap == null) {
+            Log.d(TAG, "ensure profile -> load api data")
+            loadProfile()
+        } else {
+            setProfile(profileWrap)
+            Log.d(TAG, "ensure profile -> load cache data $profileWrap")
+        }
+
+        val relationCount = sharedViewModel.mineViewModel.relationCount
+        if (relationCount == null) {
+            Log.d(TAG, "ensure relation -> load api data")
+            loadRelationCount()
+        } else {
+            setRelationCount(relationCount)
+            Log.d(TAG, "ensure relation -> load cache data $relationCount")
+        }
+
+        val timelineCount = sharedViewModel.mineViewModel.timeLineCount
+        if (timelineCount == null) {
+            Log.d(TAG, "ensure timeline -> load api data")
+            loadTimeLineCount()
+        } else {
+            setTimeLineCount(timelineCount)
+            Log.d(TAG, "ensure timeline -> load cache data $timelineCount")
+        }
     }
 
-    private fun toUFeedListPage(view: View) {
-        requireContext().toast("TODO toUFeedListPage")
-    }
-
-    private fun toFollowListPage(view: View) {
-        requireContext().toast("TODO toFollowListPage")
-    }
-
-    private fun toFansListPage(view: View) {
-        requireContext().toast("TODO toFansListPage")
-    }
-
-    private fun loadData() {
+    private fun loadProfile() {
         Api.get(HomeApi::class.java)
             .getMeProfile()
-            .subscribeApi(this, ::setProfile)
-
-        Api.get(HomeApi::class.java)
-            .getRelatinCount()
-            .subscribeApi(this, ::setRelationCount)
+            .subscribeApi(this, ::setProfile, ::loadError)
     }
 
-    private fun setProfile(user: UserProfileWrap) {
-        val profile = user.profile
-        avatar.loadAvatar(user.profile)
+    private fun loadRelationCount() {
+        Api.get(HomeApi::class.java)
+            .getRelationCount()
+            .subscribeApi(this, ::setRelationCount, ::loadError)
+    }
+
+    private fun loadTimeLineCount() {
+        Api.get(HomeApi::class.java)
+            .getTimeLineJson()
+            .subscribeApi(this, {
+                val count = try {
+                    it.asJsonObject.get("total")?.asInt ?: 0
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    0
+                }
+                setTimeLineCount(count)
+            }, ::loadError)
+    }
+
+    private fun loadError(error: Throwable) {
+        Log.e(TAG, "load data error", error)
+    }
+
+    private fun setProfile(profileWrap: UserProfileWrap) {
+        val profile = profileWrap.profile
+        avatar.loadAvatar(profileWrap.profile)
         nameTextView.text = profile.nickname
         idTextView.text = getString(R.string.home_me_id, profile.userId)
         if (profile.verify != null) {
@@ -110,12 +146,17 @@ class MeFragment : BasePageFragment(R.layout.fragment_me) {
             View.GONE
         }
 
-        this.profile = profile
+        sharedViewModel.mineViewModel.profile = profileWrap
     }
 
     private fun setRelationCount(relationCount: RelationCount) {
-        fansCountTextView.text = relationCount.followerTotal.toString()
-        followCountTextView.text = relationCount.followingTotal.toString()
-        uFeedCountTextView.text = "0"
+        fansCount.text = relationCount.followerTotal.toString()
+        followCount.text = relationCount.followingTotal.toString()
+        sharedViewModel.mineViewModel.relationCount = relationCount
+    }
+
+    private fun setTimeLineCount(count: Int) {
+        timelineCount.text = count.toString()
+        sharedViewModel.mineViewModel.timeLineCount = count
     }
 }

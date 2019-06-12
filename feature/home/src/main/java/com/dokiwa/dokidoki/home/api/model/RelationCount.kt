@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by Septenary on 2019/3/3.
  */
-class RelationCount(
+data class RelationCount(
     @SerializedName("follower_total") val followerTotal: Int,
     @SerializedName("following_total") val followingTotal: Int
 ) : IApiModel
