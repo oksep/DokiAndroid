@@ -16,6 +16,8 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun launchProfileActivity(context: Context, uuid: String)
 
+    fun launchProfileActivity(context: Context, profile: UserProfile)
+
     fun launchCreateProfileActivity(context: Context, userToken: Parcelable?)
 
     fun getLoginUserProfile(): UserProfile?

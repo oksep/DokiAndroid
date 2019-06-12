@@ -1,11 +1,16 @@
 package com.dokiwa.dokidoki.center.plugin.model
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.dokiwa.dokidoki.center.api.model.IApiModel
 import com.dokiwa.dokidoki.center.util.birthDayToAge
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class UserProfileWrap(val profile: UserProfile) : IApiModel
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class UserProfile(
     val avatar: Avatar,
     val birthday: String,
@@ -25,68 +30,77 @@ data class UserProfile(
     @SerializedName("user_id") val userId: Int,
     val uuid: String,
     @SerializedName("picture_list") val pictures: List<Picture>?
-) : IApiModel {
+) : IApiModel, Parcelable {
 
+    @Parcelize
     data class Avatar(
         @SerializedName("middle_url") val middleUrl: String?,
         @SerializedName("raw_url") val rawUrl: String,
         val url: String?
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Picture(
         @SerializedName("middle_url") val middleUrl: String?,
         @SerializedName("raw_url") val rawUrl: String,
         val url: String?
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Certification(
         // TODO: 2019/3/3 @Septenary education!
         val education: Education?,
         val identification: Identification?
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Province(
         val name: String
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
-
+    @Parcelize
     data class Setting(
         @SerializedName("allow_recommend") val allowRecommend: Boolean,
         @SerializedName("certificated_only") val certificatedOnly: Boolean
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
-
+    @Parcelize
     data class City(
         val code: String,
         val name: String,
         val province: Province
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Identification(
         val name: String,
         val number: String
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Education(
         val education: String,
         @SerializedName("graduation_year") val graduationYear: Int,
         val school: String
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Verify(
         val type: String,
         val title: String
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Industry(
         val id: Int,
         val name: String,
         @SerializedName("parent_industry") val parent: Industry? = null
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
+    @Parcelize
     data class Tag(
         val name: String
-    ) : IApiModel
+    ) : IApiModel, Parcelable
 
     fun assembleAddressPosition(): String {
         val profile = this

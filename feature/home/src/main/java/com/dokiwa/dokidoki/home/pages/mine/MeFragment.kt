@@ -24,7 +24,7 @@ class MeFragment : BasePageFragment(R.layout.fragment_me) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         entranceUserPage.setOnClickListener {
             sharedViewModel.mineViewModel.profile?.profile?.let {
-                FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(requireContext(), it.uuid)
+                FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(requireContext(), it)
             }
         }
 

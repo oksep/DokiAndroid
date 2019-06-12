@@ -73,7 +73,7 @@ class SearchUserActivity : BaseActivity() {
         refreshRecyclerView.setAdapter(adapter)
         adapter.setOnItemClickListener { adapter, _, position ->
             (adapter.getItem(position) as? UserProfile)?.let {
-                IProfilePlugin.get().launchProfileActivity(this, it.uuid)
+                IProfilePlugin.get().launchProfileActivity(this, it)
             }
         }
     }

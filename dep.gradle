@@ -38,6 +38,7 @@ versions.pinEntryEditText = '2.0.6'
 versions.pickerView = '4.1.8'
 versions.bottomDialog = '1.2.1'
 versions.flexBox = '1.1.0'
+versions.nineGridImageView = '1.1.1'
 
 // net
 versions.retrofit = '2.4.0'

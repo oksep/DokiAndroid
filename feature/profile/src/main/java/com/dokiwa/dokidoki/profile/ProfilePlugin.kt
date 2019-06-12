@@ -20,6 +20,10 @@ class ProfilePlugin : IProfilePlugin {
         ProfileDetailActivity.launch(context, uuid)
     }
 
+    override fun launchProfileActivity(context: Context, profile: UserProfile) {
+        ProfileDetailActivity.launch(context, profile)
+    }
+
     override fun launchCreateProfileActivity(context: Context, userToken: Parcelable?) {
         CreateProfileActivity.launch(context, userToken)
     }

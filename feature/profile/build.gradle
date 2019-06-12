@@ -49,6 +49,7 @@ dependencies {
     implementation "com.google.android:flexbox:${versions.flexBox}"
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
+    implementation "com.jaeger.ninegridimageview:library:${versions.nineGridImageView}"
 
     implementation project(':center')
     implementation project(':ui')

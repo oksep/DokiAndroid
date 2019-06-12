@@ -45,7 +45,7 @@ class FeedFragment : BasePageFragment(R.layout.fragment_feed) {
         adapter.setEnableLoadMore(true)
         adapter.setOnItemClickListener { adapter, view, position ->
             (adapter.getItem(position) as? Feed)?.let {
-                IProfilePlugin.get().launchProfileActivity(requireContext(), it.userProfile.uuid)
+                IProfilePlugin.get().launchProfileActivity(requireContext(), it.userProfile)
             }
         }
 
