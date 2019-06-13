@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
@@ -126,6 +126,6 @@ class SearchUserAdapter : BaseQuickAdapter<UserProfile, BaseViewHolder>(R.layout
         helper.getView<TextView>(R.id.addressPosition).text = profile.assembleAddressPosition()
 
         // 头像
-        (helper.getView<RoundImageView>(R.id.avatar) as ImageView).loadImgFromNetWork(profile.avatar.url)
+        (helper.getView<RoundImageView>(R.id.avatar) as ImageView).loadAvatar(profile)
     }
 }

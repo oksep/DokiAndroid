@@ -28,12 +28,13 @@ class TagsView : FlexboxLayout {
         if (isInEditMode) {
             setTags(
                 listOf(
-                    "王者荣耀",
+                    "元气满满",
                     "第五人格",
                     "Cosplay",
-                    "暴走漫画拉拉",
-                    "声控",
-                    "烤面筋"
+                    "女装大佬",
+                    "电影",
+                    "欧洲人",
+                    "萝莉音"
                 )
             )
         }
@@ -45,7 +46,7 @@ class TagsView : FlexboxLayout {
             LayoutInflater.from(context).inflate(R.layout.ui_view_tag, this, true)
         }
         tags.forEachIndexed { index, tag ->
-            (getChildAt(index) as? TextView)?.text = tag
+            (getChildAt(index) as? TextView)?.text = tag.trim()
         }
     }
 

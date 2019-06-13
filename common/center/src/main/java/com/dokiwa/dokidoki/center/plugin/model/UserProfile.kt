@@ -37,14 +37,22 @@ data class UserProfile(
         @SerializedName("middle_url") val middleUrl: String?,
         @SerializedName("raw_url") val rawUrl: String,
         val url: String?
-    ) : IApiModel, Parcelable
+    ) : IApiModel, Parcelable {
+        fun adaptUrl(): String {
+            return (middleUrl ?: url) ?: rawUrl
+        }
+    }
 
     @Parcelize
     data class Picture(
         @SerializedName("middle_url") val middleUrl: String?,
         @SerializedName("raw_url") val rawUrl: String,
         val url: String?
-    ) : IApiModel, Parcelable
+    ) : IApiModel, Parcelable {
+        fun adaptUrl(): String {
+            return (middleUrl ?: url) ?: rawUrl
+        }
+    }
 
     @Parcelize
     data class Certification(

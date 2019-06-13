@@ -48,4 +48,23 @@
     <string name="search_user_error">与世界线的连接中断了？\n（ 网络连接错误 ）</string>
     <string name="search_user_empty">世界线错乱啦，找不到此人～</string>
 
+    <!--profile detail-->
+    <string name="profile_detail_id">ID: %s</string>
+    <string name="profile_detail_tags_none_tip">TA还未设置标签</string>
+    <string name="profile_detail_intro_none_tip">TA太懒了，还没有填写简介</string>
+    <string name="profile_detail_official_certify">官方认证: %s</string>
+    <string name="profile_detail_identify_certify_none"><![CDATA[实名认证: (<font color=#A4AAB3>未认证</font>)]]></string>
+    <string name="profile_detail_identify_certified">实名认证: (已认证)</string>
+    <string name="profile_detail_edu_certify_none"><![CDATA[学历认证: (<font color=#A4AAB3>未认证</font>)]]></string>
+    <string name="profile_detail_edu_certified">学历认证: (已认证)</string>
+    <string name="profile_detail_pictures_title">展示墙</string>
+    <string name="profile_detail_pictures_none_tip">TA还没有展示图片</string>
+    <string name="profile_detail_timeline_title">动态(%d)</string>
+    <string name="profile_detail_timeline_title_none">动态(%d)</string>
+    <string name="profile_detail_timeline_none">TA还没有发布动态</string>
+    <string name="profile_detail_send_msg">发消息</string>
+    <string name="profile_detail_follow_eachother">互相关注</string>
+    <string name="profile_detail_follow_plus">关注 TA</string>
+    <string name="profile_detail_following">已关注</string>
+
 </resources>

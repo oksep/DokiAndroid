@@ -9,7 +9,7 @@
         <item name="android:dialogTheme">@style/AppThemeDialogStyle</item>
         <item name="android:alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
         <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
-        <item name="colorControlHighlight">@color/black_20</item>
+        <!--<item name="colorControlHighlight">@color/dd_red</item>-->
         <!--<item name="android:background">@color/white</item>-->
 
         <!--主色调 -->

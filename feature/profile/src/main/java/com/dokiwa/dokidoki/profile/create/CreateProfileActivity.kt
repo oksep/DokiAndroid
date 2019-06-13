@@ -185,7 +185,7 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
                 FeaturePlugin.get(ILoginPlugin::class.java)
                     .saveLoginUserToken(intent.getParcelableExtra(CreateProfileActivity.EXTRA_USER_TOKEN))
                 FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
-                ProfileSP.saveUserProfile(it.profile)
+                ProfileSP.saveLoginUserProfile(it.profile)
                 finishAffinity()
             },
             {

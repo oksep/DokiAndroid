@@ -47,7 +47,7 @@ class FeedPictureListView : ConstraintLayout {
 
             children.forEachIndexed { index, view ->
                 list.getOrNull(index)?.let {
-                    (view as ImageView).loadImgFromNetWork(it.middleUrl)
+                    (view as ImageView).loadImgFromNetWork(it.adaptUrl())
                 }
             }
         }

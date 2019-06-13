@@ -6,8 +6,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
-import com.dokiwa.dokidoki.center.plugin.model.Gender
+import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.util.toLastActiveTime
 import com.dokiwa.dokidoki.home.R
 import com.dokiwa.dokidoki.home.api.model.Feed
@@ -42,14 +41,7 @@ internal class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.vie
         helper.getView<TextView>(R.id.addressPosition).text = profile.assembleAddressPosition()
 
         // 头像
-        helper.getView<RoundImageView>(R.id.avatar).loadImgFromNetWork(
-            profile.avatar.url,
-            if (profile.gender == Gender.MALE) {
-                R.drawable.ui_ic_avatar_default_male
-            } else {
-                R.drawable.ui_ic_avatar_default_female
-            }
-        )
+        helper.getView<RoundImageView>(R.id.avatar).loadAvatar(profile)
 
         // 活跃时间
         helper.getView<TextView>(R.id.activeState).text = profile.lastActive.toLastActiveTime()

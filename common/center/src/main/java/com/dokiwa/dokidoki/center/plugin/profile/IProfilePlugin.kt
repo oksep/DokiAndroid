@@ -22,6 +22,8 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun getLoginUserProfile(): UserProfile?
 
+    fun saveLoginUserProfile(profile: UserProfile)
+
     fun clearUserProfile()
 
     fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog

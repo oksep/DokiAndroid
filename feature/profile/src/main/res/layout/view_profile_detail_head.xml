@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.dokiwa.dokidoki.ui.view.RoundImageView
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/avatar"
+        android:layout_marginBottom="26dp"
+        app:rv_circle="true"
+        app:rv_border_width="1dp"
+        app:rv_border_color="@color/dd_gray_light"
+        android:src="@drawable/ui_ic_avatar_default_female"
+        android:scaleType="centerCrop"
+        android:layout_width="65dp"
+        android:layout_height="65dp"/>
+
+    <TextView
+        android:id="@+id/ageHeightEdu"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:textSize="12sp"
+        android:textColor="#FF666666"
+        android:maxLines="1"
+        tools:text="21岁 | 160cm | 本科"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/addressPosition"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/ageHeightEdu"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#FF666666"
+        android:textSize="12sp"
+        tools:text="魔都 | 互联网 | 月入 25W"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        app:layout_constraintLeft_toLeftOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/avatar"
+        android:layout_marginTop="8dp"
+        tools:text="ID: 116"
+        android:id="@+id/userId"
+        android:textColor="#A4AAB3"
+        android:textSize="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="SmallSp"/>
+
+    <TextView
+        android:id="@+id/tagsEmpty"
+        android:text="@string/profile_detail_tags_none_tip"
+        app:layout_constraintTop_toBottomOf="@+id/addressPosition"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:textColor="#FFA4AAB3"
+        android:textSize="12sp"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:background="@drawable/profile_bg_tags_empty"/>
+
+    <com.dokiwa.dokidoki.ui.view.TagsView
+        android:id="@+id/tags"
+        app:layout_constraintTop_toBottomOf="@+id/tagsEmpty"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:alignContent="flex_start"
+        app:alignItems="flex_start"
+        app:flexWrap="wrap"
+        app:showDivider="middle"
+        app:dividerDrawable="@drawable/divider_8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

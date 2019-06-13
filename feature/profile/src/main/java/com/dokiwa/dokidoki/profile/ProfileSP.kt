@@ -7,15 +7,15 @@ import com.google.gson.Gson
 /**
  * Created by Septenary on 2018/12/31.
  */
-object ProfileSP : BaseSharedPreferences("login") {
+object ProfileSP : BaseSharedPreferences("login", false) {
 
     private const val KEY_USER_PROFILE = "key.user_profile"
 
-    fun saveUserProfile(userToken: UserProfile) {
+    fun saveLoginUserProfile(userToken: UserProfile) {
         save(KEY_USER_PROFILE, Gson().toJson(userToken))
     }
 
-    fun getUserProfile(): UserProfile? {
+    fun getLoginUserProfile(): UserProfile? {
         val json = getString(KEY_USER_PROFILE, "")
         return try {
             Gson().fromJson(json, UserProfile::class.java)

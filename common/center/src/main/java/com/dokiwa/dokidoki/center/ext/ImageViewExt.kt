@@ -128,7 +128,7 @@ fun ImageView.loadImgFromNetWork(url: String, @DrawableRes placeHolder: Int) {
 
 fun ImageView.loadAvatar(profile: UserProfile) {
     loadImgFromNetWork(
-        (profile.avatar.middleUrl ?: profile.avatar.url) ?: profile.avatar.rawUrl,
+        profile.avatar.adaptUrl(),
         ContextCompat.getDrawable(
             context, if (profile.gender == Gender.FEMALE) {
                 R.drawable.ui_ic_avatar_default_female

@@ -28,8 +28,12 @@ class ProfilePlugin : IProfilePlugin {
         CreateProfileActivity.launch(context, userToken)
     }
 
+    override fun saveLoginUserProfile(profile: UserProfile) {
+        ProfileSP.saveLoginUserProfile(profile)
+    }
+
     override fun getLoginUserProfile(): UserProfile? {
-        return ProfileSP.getUserProfile()
+        return ProfileSP.getLoginUserProfile()
     }
 
     override fun clearUserProfile() {
