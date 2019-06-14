@@ -50,6 +50,7 @@ dependencies {
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
     implementation "com.jaeger.ninegridimageview:library:${versions.nineGridImageView}"
+    implementation "at.blogc:expandabletextview:${versions.expandableTextView}"
 
     implementation project(':center')
     implementation project(':ui')

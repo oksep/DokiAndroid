@@ -21,6 +21,9 @@ import com.dokiwa.dokidoki.center.util.toLastActiveTime
 import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
+import com.dokiwa.dokidoki.profile.edit.ProfileEditActivity
+import com.dokiwa.dokidoki.ui.ext.onceLayoutThen
+import com.dokiwa.dokidoki.ui.ext.zoomTouchArea
 import com.dokiwa.dokidoki.ui.span.HtmlSpan
 import com.jaeger.ninegridimageview.NineGridImageView
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
@@ -28,8 +31,8 @@ import kotlinx.android.synthetic.main.activity_profile_detail.*
 import kotlinx.android.synthetic.main.view_profile_detail_bottom.*
 import kotlinx.android.synthetic.main.view_profile_detail_certify.*
 import kotlinx.android.synthetic.main.view_profile_detail_head.*
-import kotlinx.android.synthetic.main.view_profile_detail_pictrues.*
-import kotlinx.android.synthetic.main.view_profile_detail_pictrues.picturesEmpty
+import kotlinx.android.synthetic.main.view_profile_detail_pictures.*
+import kotlinx.android.synthetic.main.view_profile_detail_pictures.picturesEmpty
 import kotlinx.android.synthetic.main.view_profile_detail_timeline.*
 
 class ProfileDetailActivity : BaseActivity() {
@@ -118,14 +121,16 @@ class ProfileDetailActivity : BaseActivity() {
             HtmlSpan.fromHtml(getString(R.string.profile_detail_edu_certify_none))
         }
 
-        // TODO: 2019-06-14 @Septenary more UI support
         if (profile.intro.isNullOrEmpty()) {
             introEmpty.visibility = View.VISIBLE
             intro.visibility = View.GONE
         } else {
             introEmpty.visibility = View.GONE
             intro.visibility = View.VISIBLE
-            intro.text = profile.intro
+            intro.setText(profile.intro, introToggle)
+            introToggle.onceLayoutThen {
+                it.zoomTouchArea(introToggle.parent as View)
+            }
         }
 
         val nineGridImageView = pictures as NineGridImageView<UserProfile.Picture>
@@ -153,7 +158,7 @@ class ProfileDetailActivity : BaseActivity() {
             bottomContainer.visibility = View.GONE
             activeTime.visibility = View.GONE
             toolBar.setOnClickListener {
-                toast("编辑资料")
+                ProfileEditActivity.launch(this, profile)
             }
         } else {
             toolBar.rightIconView.visibility = View.GONE

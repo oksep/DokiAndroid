@@ -41,4 +41,5 @@ dependencies {
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
     implementation "com.google.android:flexbox:${versions.flexBox}"
+    implementation "at.blogc:expandabletextview:${versions.expandableTextView}"
 }

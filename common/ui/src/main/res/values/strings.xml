@@ -4,4 +4,7 @@
     <string name="ui_loading_no_more">没有更多了</string>
     <string name="ui_loading_loading">加载中</string>
     <string name="ui_loading_failed_and_retry">加载失败，点击重新加载</string>
+
+    <string name="ui_expandable_text_view_expand">展开</string>
+    <string name="ui_expandable_text_view_collapse">收起</string>
 </resources>

@@ -3,8 +3,11 @@ package com.dokiwa.dokidoki.ui.ext
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.Activity
+import android.graphics.Rect
+import android.view.TouchDelegate
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 
 /**
@@ -67,4 +70,21 @@ fun View.hideSoftInputWhenClick() {
     this.setOnClickListener {
         hideKeyboard(it)
     }
+}
+
+fun View.onceLayoutThen(onLayout: (View) -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            onLayout(this@onceLayoutThen)
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+        }
+    })
+
+}
+
+fun View.zoomTouchArea(area: View) {
+    val rect = Rect()
+    this.getHitRect(rect)
+    rect.inset(-rect.left, -rect.left)
+    area.touchDelegate = TouchDelegate(rect, this)
 }

@@ -6,9 +6,14 @@
         <activity
             android:name=".detail.ProfileDetailActivity"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".create.CreateProfileActivity"
             android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".edit.ProfileEditActivity"
             android:screenOrientation="portrait"/>
 
         <activity
