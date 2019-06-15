@@ -55,4 +55,5 @@ dependencies {
     implementation project(':center')
     implementation project(':ui')
     implementation project(':cropiwa')
+    implementation project(':gallery')
 }

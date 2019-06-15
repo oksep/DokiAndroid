@@ -40,6 +40,7 @@ versions.bottomDialog = '1.2.1'
 versions.flexBox = '1.1.0'
 versions.nineGridImageView = '1.1.1'
 versions.expandableTextView = '1.0.5'
+versions.scrollGalleryView = '1.2.8'
 
 // net
 versions.retrofit = '2.4.0'

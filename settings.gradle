@@ -5,13 +5,15 @@ include ':app',
         ':ui',
         ':cropiwa',
         ':admin',
-        ':social'
+        ':social',
+        ':gallery'
 
 // base
 project(':center').projectDir = new File(settingsDir, 'common/center')
 project(':ui').projectDir = new File(settingsDir, 'common/ui')
 project(':social').projectDir = new File(settingsDir, 'common/social')
 project(':cropiwa').projectDir = new File(settingsDir, 'common/cropiwa')
+project(':gallery').projectDir = new File(settingsDir, 'common/gallery')
 
 // admin
 project(':admin').projectDir = new File(settingsDir, 'feature/admin')

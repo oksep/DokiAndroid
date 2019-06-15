@@ -18,6 +18,7 @@ import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.util.toLastActiveTime
+import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
@@ -200,7 +201,9 @@ class ProfileDetailActivity : BaseActivity() {
                 index: Int,
                 list: List<UserProfile.Picture>?
             ) {
-                toast("去画廊预览 $index")
+                list?.let { l ->
+                    GalleryActivity.launchGallery(this@ProfileDetailActivity, index, l.map { it.adaptUrl() })
+                }
             }
         }
     }
