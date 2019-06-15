@@ -3,7 +3,10 @@ package com.dokiwa.dokidoki.gallery;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.veinhorn.scrollgalleryview.ScrollGalleryView;
@@ -55,12 +58,24 @@ public class GalleryActivity extends FragmentActivity {
             builder.add(image(urls.get(i)));
         }
 
-        ScrollGalleryView galleryView = builder.build();
+        final ScrollGalleryView galleryView = builder.build();
 
         galleryView.withHiddenThumbnails(false).hideThumbnailsOnClick(true).hideThumbnailsAfter(5000);
 
-        int currentIndex = getIntent().getIntExtra(EXTRA_CURRENT, 0);
+        final int currentIndex = getIntent().getIntExtra(EXTRA_CURRENT, 0);
         galleryView.setCurrentItem(currentIndex);
+
+        // fix thumbnail position
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                ViewGroup thumbnailContainer = galleryView.findViewById(R.id.thumbnails_container);
+                View thumbnailView = thumbnailContainer.getChildAt(currentIndex);
+                if (thumbnailView != null) {
+                    thumbnailView.callOnClick();
+                }
+            }
+        });
     }
 
     private ScrollGalleryView.OnImageClickListener clickListener = new ScrollGalleryView.OnImageClickListener() {
