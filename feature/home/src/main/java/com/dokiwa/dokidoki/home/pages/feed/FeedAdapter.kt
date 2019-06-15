@@ -35,7 +35,7 @@ internal class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.vie
         helper.getView<TextView>(R.id.name).text = profile.nickname
 
         // 年龄 | 身高 | 教育程度
-        helper.getView<TextView>(R.id.ageHeightEdu).text = profile.assembleAgeHeightEdu()
+        helper.getView<TextView>(R.id.ageHeightEdu).text = profile.assembleAgeHeightEdu(helper.itemView.context)
 
         // 地点 | 职位
         helper.getView<TextView>(R.id.addressPosition).text = profile.assembleAddressPosition()

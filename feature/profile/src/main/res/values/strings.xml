@@ -67,4 +67,43 @@
     <string name="profile_detail_follow_plus">关注 TA</string>
     <string name="profile_detail_following">已关注</string>
 
+    <!--profile edit-->
+
+    <string name="profile_edit">资料编辑</string>
+    <string name="profile_edit_save">保存</string>
+    <string name="profile_edit_pictures_title">展示图片 (%d/9)</string>
+    <string name="profile_edit_pictures_hint">长按图片拖动排序</string>
+    <string name="profile_edit_pictures_guide">快上传第一张图片吧</string>
+    <string name="profile_edit_pictures_guide_tutor">教程范例</string>
+    <string name="profile_edit_pictures_upload">上传</string>
+    <string name="profile_edit_avatar">头像</string>
+    <string name="profile_edit_gender">性别</string>
+    <string name="profile_edit_gender_male">男</string>
+    <string name="profile_edit_gender_female">男</string>
+    <string name="profile_edit_gender_unknown">未知</string>
+    <string name="profile_edit_gender_hint">你的性别</string>
+    <string name="profile_edit_birthday">生日</string>
+    <string name="profile_edit_birthday_hint">生日</string>
+    <string name="profile_edit_nick_name">昵称</string>
+    <string name="profile_edit_nick_name_hint">你的昵称</string>
+    <string name="profile_edit_height">身高</string>
+    <string name="profile_edit_height_value">%d cm</string>
+    <string name="profile_edit_height_hint">你的身高</string>
+    <string name="profile_edit_edu">学历</string>
+    <string name="profile_edit_edu_hint">你的学历</string>
+    <string name="profile_edit_city">所在地</string>
+    <string name="profile_edit_city_hint">常在的地区</string>
+    <string name="profile_edit_industry">行业</string>
+    <string name="profile_edit_industry_hint">工作行业</string>
+    <string name="profile_edit_income">月收入</string>
+    <string name="profile_edit_income_hint">工作收入</string>
+    <string name="profile_edit_intro">自述</string>
+    <string name="profile_edit_intro_hint">未填写</string>
+    <string name="profile_edit_tags">我的关键词</string>
+    <string name="profile_edit_tags_hint">未添加</string>
+    <string name="profile_edit_alert_message">如需修改请联系客服</string>
+
+    <!--profile intro edit-->
+    <string name="profile_intro_edit_title">自述</string>
+
 </resources>

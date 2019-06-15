@@ -14,6 +14,12 @@
 
         <activity
             android:name=".edit.ProfileEditActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".edit.IntroEditActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
             android:screenOrientation="portrait"/>
 
         <activity

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
-import com.dokiwa.dokidoki.center.base.activity.BaseActivity
+import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.view_profile_detail_pictures.*
 import kotlinx.android.synthetic.main.view_profile_detail_pictures.picturesEmpty
 import kotlinx.android.synthetic.main.view_profile_detail_timeline.*
 
-class ProfileDetailActivity : BaseActivity() {
+class ProfileDetailActivity : TranslucentActivity() {
 
     companion object {
         private const val EXTRA_UUID = "extra.user.uuid"
@@ -89,7 +89,7 @@ class ProfileDetailActivity : BaseActivity() {
 
         avatar.loadAvatar(profile)
         userId.text = getString(R.string.profile_detail_id, profile.userId.toString())
-        ageHeightEdu.text = profile.assembleAgeHeightEdu()
+        ageHeightEdu.text = profile.assembleAgeHeightEdu(this)
         addressPosition.text = profile.assembleAddressPosition()
 
         if (profile.tags.isNullOrEmpty()) {

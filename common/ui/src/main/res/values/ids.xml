@@ -7,4 +7,6 @@
     <item type="id" name="ui_toolbar_subtitle"/>
     <item type="id" name="ui_toolbar_right_text"/>
     <item type="id" name="ui_toolbar_right_icon"/>
+    <item type="id" name="ui_statusbarutil_fake_status_bar_view" />
+    <item type="id" name="ui_statusbarutil_translucent_view" />
 </resources>

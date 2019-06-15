@@ -3,9 +3,6 @@ package com.dokiwa.dokidoki.login.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
@@ -18,6 +15,7 @@ import com.dokiwa.dokidoki.login.R
 import com.dokiwa.dokidoki.login.api.LoginApi
 import com.dokiwa.dokidoki.login.model.UserToken
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
+import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -55,24 +53,12 @@ class BindPhoneActivity : TranslucentActivity() {
         countDownTip.setOnClickListener {
             requestVerifyCode()
         }
-        phoneEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
+        phoneEditText.addTextChangedListener(object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 this@BindPhoneActivity.phoneNumber = s?.toString()
             }
         })
-        codeEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
+        codeEditText.addTextChangedListener(object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 this@BindPhoneActivity.verifyCode = s?.toString()
             }

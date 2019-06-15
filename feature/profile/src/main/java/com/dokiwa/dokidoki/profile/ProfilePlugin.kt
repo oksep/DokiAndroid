@@ -9,6 +9,7 @@ import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.profile.create.CreateProfileActivity
 import com.dokiwa.dokidoki.profile.detail.ProfileDetailActivity
 import com.dokiwa.dokidoki.profile.dialog.CityPickerDialog
+import com.dokiwa.dokidoki.profile.edit.ProfileEditActivity
 import com.dokiwa.dokidoki.profile.search.SearchUserActivity
 
 /**
@@ -26,6 +27,10 @@ class ProfilePlugin : IProfilePlugin {
 
     override fun launchCreateProfileActivity(context: Context, userToken: Parcelable?) {
         CreateProfileActivity.launch(context, userToken)
+    }
+
+    override fun launchEditProfileActivity(context: Context, profile: UserProfile) {
+        ProfileEditActivity.launch(context, profile)
     }
 
     override fun saveLoginUserProfile(profile: UserProfile) {

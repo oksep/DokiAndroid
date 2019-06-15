@@ -83,4 +83,9 @@
         <attr name="wm_angle" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="UnderlinedTextView">
+        <attr name="underlineWidth" format="dimension"/>
+        <attr name="underlineColor" format="color"/>
+    </declare-styleable>
+
 </resources>

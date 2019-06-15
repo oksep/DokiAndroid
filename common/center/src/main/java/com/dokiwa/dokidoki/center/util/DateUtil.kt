@@ -2,8 +2,7 @@ package com.dokiwa.dokidoki.center.util
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 /**
  * Created by Septenary on 2019-06-07.
@@ -37,6 +36,11 @@ fun String.birthDayToAge(): Int {
     } else {
         getAgeByBirth(SimpleDateFormat("yyyyMMdd").parse(this))
     }
+}
+
+@SuppressLint("SimpleDateFormat")
+fun String.birthdayToReadableString(): String {
+    return SimpleDateFormat("yyyy-MM-dd").format(SimpleDateFormat("yyyyMMdd").parse(this))
 }
 
 @SuppressLint("SimpleDateFormat")

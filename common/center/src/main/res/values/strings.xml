@@ -8,4 +8,17 @@
 
     <string name="loading_failed_retry">加载失败，请重试</string>
 
+    <string name="save">保存</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="tip">提示</string>
+
+    <!--profile edu-->
+    <string name="profile_edu_unknown">未知</string>
+    <string name="profile_edu_low">高中及以下</string>
+    <string name="profile_edu_junior">大专</string>
+    <string name="profile_edu_bachelor">本科</string>
+    <string name="profile_edu_master">硕士</string>
+    <string name="profile_edu_phd">博士</string>
+
 </resources>

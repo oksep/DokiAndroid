@@ -20,6 +20,8 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun launchCreateProfileActivity(context: Context, userToken: Parcelable?)
 
+    fun launchEditProfileActivity(context: Context, profile: UserProfile)
+
     fun getLoginUserProfile(): UserProfile?
 
     fun saveLoginUserProfile(profile: UserProfile)

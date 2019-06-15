@@ -29,11 +29,14 @@ class MeFragment : BasePageFragment(R.layout.fragment_me) {
         }
 
         entranceEdit.setOnClickListener {
-            requireContext().toast("TODO")
+            val profile = sharedViewModel.mineViewModel.profile?.profile
+            if (profile != null) {
+                IProfilePlugin.get().launchEditProfileActivity(requireContext(), profile)
+            }
         }
 
         entranceBlackList.setOnClickListener {
-            requireContext().toast("TODO")
+            IProfilePlugin.get().launchCreateProfileActivity(requireContext(), null)
         }
 
         entranceFeedback.setOnClickListener {

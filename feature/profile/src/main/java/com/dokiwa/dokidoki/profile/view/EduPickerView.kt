@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter
+import com.contrarywind.interfaces.IPickerViewData
 import com.contrarywind.view.WheelView
+import com.dokiwa.dokidoki.center.plugin.model.Edu
 import com.dokiwa.dokidoki.profile.R
 
 /**
  * Created by Septenary on 2019/2/12.
  */
-open class NumberPickerView : ConstraintLayout {
+open class EduPickerView : ConstraintLayout {
 
     private var cb: ((Int) -> Unit)? = null
 
@@ -28,37 +30,40 @@ open class NumberPickerView : ConstraintLayout {
         init(attrs, defStyle)
     }
 
-    val list = IntRange(80, 250).toList()
+    private val list = Edu.cases.map {
+        EduEntity(it.value, it.textRes)
+    }
 
     private fun init(attrs: AttributeSet?, defStyle: Int) {
-        LayoutInflater.from(context).inflate(R.layout.view_number_picker, this)
+        LayoutInflater.from(context).inflate(R.layout.view_edu_picker, this)
 
-        val numberPicker = findViewById<WheelView>(R.id.numberPicker)
-        numberPicker.adapter = ArrayWheelAdapter(list)
+        val eduPicker = findViewById<WheelView>(R.id.eduPicker)
+        eduPicker.adapter = ArrayWheelAdapter(list)
 
         findViewById<TextView>(R.id.pickerCancelBtn).setOnClickListener {
             cancel()
         }
         findViewById<TextView>(R.id.pickerConfirmBtn).setOnClickListener {
-            cb?.invoke(currentValue)
+            this.cb?.invoke(currentValue.value)
             confirm()
         }
     }
 
-    private val currentValue: Int
-        get() = findViewById<WheelView>(R.id.numberPicker).run {
-            adapter.getItem(currentItem) as Int
+    private val currentValue: EduEntity
+        get() = findViewById<WheelView>(R.id.eduPicker).run {
+            adapter.getItem(currentItem) as EduEntity
         }
 
-    fun setCurrentNumber(number: Int) {
-        findViewById<WheelView>(R.id.numberPicker).run {
-            this.currentItem = list.indexOf(number)
+    fun setCurrent(edu: Int) {
+        findViewById<WheelView>(R.id.eduPicker).run {
+            val index = list.indexOfFirst { it.value == edu }
+            this.currentItem = index
         }
     }
 
     fun setOnNumberSelectListener(cb: (Int) -> Unit) {
         this.cb = cb
-        this.cb?.invoke(currentValue)
+        this.cb?.invoke(currentValue.value)
     }
 
     fun show() {
@@ -75,5 +80,14 @@ open class NumberPickerView : ConstraintLayout {
 
     open fun confirm() {
         hide()
+    }
+
+    private inner class EduEntity(
+        value: Int,
+        textRes: Int
+    ) : Edu(value, textRes), IPickerViewData {
+        override fun getPickerViewText(): String {
+            return resources.getString(textRes)
+        }
     }
 }

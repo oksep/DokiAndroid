@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
@@ -17,6 +15,7 @@ import com.dokiwa.dokidoki.login.model.UserToken
 import com.dokiwa.dokidoki.ui.ext.fadeInVisible
 import com.dokiwa.dokidoki.ui.ext.fadeOutGone
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
+import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -47,7 +46,7 @@ class VerifyCodeActivity : TranslucentActivity() {
 
         verifyCodeTitle.text = getString(R.string.login_verify_code_tip, phoneNumber)
 
-        pinEntryEdit.addTextChangedListener(object : TextWatcher {
+        pinEntryEdit.addTextChangedListener(object : SimpleTextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val verifyCode = s.toString()
                 if (verifyCode.length == 6) {
@@ -55,12 +54,6 @@ class VerifyCodeActivity : TranslucentActivity() {
                 } else {
                     confirmBtn.fadeOutGone()
                 }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
 

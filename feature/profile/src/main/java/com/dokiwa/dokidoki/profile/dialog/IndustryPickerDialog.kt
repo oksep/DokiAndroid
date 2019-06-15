@@ -10,38 +10,38 @@ import com.dokiwa.dokidoki.center.dialog.BottomDialog
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.api.LocalAssetApi
-import com.dokiwa.dokidoki.profile.create.model.CityData
-import com.dokiwa.dokidoki.profile.view.CityPickerView
+import com.dokiwa.dokidoki.profile.create.model.IndustryData
+import com.dokiwa.dokidoki.profile.view.IndustryPickerView
 import com.dokiwa.dokidoki.ui.util.ViewUtil
 
 /**
  * Created by Septenary on 2019-06-08.
  */
-class CityPickerDialog(
+class IndustryPickerDialog(
     context: Activity,
-    private val onCityChoose: (String, String, String) -> Unit
+    private val onIndustryChoose: (Int, String, Int, String) -> Unit
 ) : BottomDialog(context) {
 
     companion object {
-        private const val TAG = "CityPickerDialog"
+        private const val TAG = "IndustryPickerDialog"
 
-        fun create(context: Activity, callback: (String, String, String) -> Unit): Dialog {
-            return CityPickerDialog(context, callback)
+        fun create(context: Activity, callback: (Int, String, Int, String) -> Unit): Dialog {
+            return IndustryPickerDialog(context, callback)
         }
     }
 
     init {
-        val pickerView = CityPickerView(context)
+        val pickerView = IndustryPickerView(context)
         pickerView.setBackgroundColor(Color.WHITE)
         setContentView(
             pickerView,
             ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtil.dp2px(context, 260f))
         )
 
-        fun initCityPickerView(data: CityData) {
-            val provinceList = data.provinceList
-            pickerView.initView(provinceList, { province, city ->
-                onCityChoose.invoke(province.name, city.name, city.code)
+        fun initIndustryPickerView(data: IndustryData) {
+            val industryList = data.industryList
+            pickerView.initView(industryList, { industry, sub ->
+                onIndustryChoose.invoke(industry.id, industry.name, sub.id, sub.name)
             }) {
                 dismiss()
                 true
@@ -49,13 +49,12 @@ class CityPickerDialog(
         }
 
         Api.getLocalAsset(context, LocalAssetApi::class.java)
-            .getCityListData()
+            .getIndustryListData()
             .subscribeApi(
                 context as? CompositeDisposableContext,
-                ::initCityPickerView
+                ::initIndustryPickerView
             ) {
                 Log.e(TAG, "local asset api error $it")
             }
     }
 }
-

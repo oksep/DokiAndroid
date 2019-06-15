@@ -19,6 +19,9 @@ versions.axLifecycle = '2.0.0'
 versions.axMaterial = '1.1.0-alpha07'
 versions.axCardView = '1.0.0'
 versions.axKtx = '1.0.2'
+versions.coordinatorlayout = '1.1.0-beta01'
+versions.drawerlayout = '1.0.0'
+versions.annotation = '1.1.0'
 
 // test
 versions.testJunit = '4.12'

@@ -4,12 +4,10 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
-import com.dokiwa.dokidoki.profile.create.model.CityData
+import com.dokiwa.dokidoki.profile.api.LocalAssetApi
 import com.dokiwa.dokidoki.profile.create.model.Province
 import com.dokiwa.dokidoki.profile.create.model.SharedViewModel
-import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_create_profile_city.*
-import retrofit2.http.GET
 
 /**
  * Created by Septenary on 2019/1/2.
@@ -36,7 +34,7 @@ internal class CityFragment : BaseStepFragment() {
 
     private fun loadData(viewModel: SharedViewModel) {
         Api.getLocalAsset(requireContext(), LocalAssetApi::class.java)
-            .getUserConfig()
+            .getCityListData()
             .subscribeApi(this, {
                 initCityPickerView(it.provinceList, viewModel)
             }, {
@@ -54,11 +52,5 @@ internal class CityFragment : BaseStepFragment() {
     }
 
     override fun reset() {
-
-    }
-
-    interface LocalAssetApi {
-        @GET("/api/city.json")
-        fun getUserConfig(): Single<CityData>
     }
 }

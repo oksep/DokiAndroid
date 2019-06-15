@@ -11,7 +11,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi builds.renderScriptTarget
-        renderscriptSupportModeEnabled  true
+        renderscriptSupportModeEnabled true
     }
 
     buildTypes {
@@ -32,7 +32,9 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
     implementation "com.google.android.material:material:${versions.axMaterial}"
     implementation "androidx.core:core-ktx:${versions.axKtx}"
-
+    implementation "androidx.coordinatorlayout:coordinatorlayout:${versions.coordinatorlayout}"
+    implementation "androidx.drawerlayout:drawerlayout:${versions.drawerlayout}"
+    implementation "androidx.annotation:annotation:${versions.annotation}"
     // test
     testImplementation "junit:junit:${versions.testJunit}"
     androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
@@ -42,4 +44,10 @@ dependencies {
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
     implementation "com.google.android:flexbox:${versions.flexBox}"
     implementation "at.blogc:expandabletextview:${versions.expandableTextView}"
+
+    // util
+    implementation ('com.github.niorgai:StatusBarCompat:2.3.1', {
+        exclude group: 'androidx.appcompat:appcompat'
+        exclude group: 'com.google.android.material:material'
+    })
 }

@@ -1,9 +1,13 @@
 package com.dokiwa.dokidoki.center.plugin.model
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Parcelable
+import androidx.annotation.StringRes
+import com.dokiwa.dokidoki.center.R
 import com.dokiwa.dokidoki.center.api.model.IApiModel
 import com.dokiwa.dokidoki.center.util.birthDayToAge
+import com.dokiwa.dokidoki.center.util.birthdayToReadableString
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -116,23 +120,28 @@ data class UserProfile(
         return profile.city?.name ?: "" + if (idsty.isNullOrEmpty()) "" else " | $idsty"
     }
 
-    fun assembleAgeHeightEdu(): String {
+    fun assembleAgeHeightEdu(context: Context): String {
         val profile = this
         val age = profile.birthday.birthDayToAge()
-        val edu = profile.education.educationToString()
+        val edu = profile.education.educationToString(context)
         val height = if (profile.height > 9) " | ${profile.height}cm" else ""
         val edus = if (edu.isNullOrEmpty()) "" else " | $edu"
         return "${age}岁$height$edus"
     }
 
-    private fun Int.educationToString(): String? {
-        return when (this) {
-            com.dokiwa.dokidoki.center.plugin.model.Education.JUNIOR -> "大专"
-            com.dokiwa.dokidoki.center.plugin.model.Education.BACHELOR -> "本科"
-            com.dokiwa.dokidoki.center.plugin.model.Education.MASTER -> "硕士"
-            com.dokiwa.dokidoki.center.plugin.model.Education.PHD -> "博士"
-            else -> ""
+    fun getEduText(context: Context): String? {
+        return this.education.educationToString(context)
+    }
+
+    fun getReadableBirthday(): String? {
+        return this.birthday.birthdayToReadableString()
+    }
+
+    private fun Int.educationToString(context: Context): String? {
+        Edu.cases.firstOrNull { it.value == this }?.let {
+            return context.getString(it.textRes)
         }
+        return ""
     }
 }
 
@@ -142,11 +151,21 @@ object Gender {
     const val FEMALE = 2 // 女
 }
 
-object Education {
-    const val UNKOWN = 0    // 未知
-    const val JUNIOR = 1    // 大专
-    const val BACHELOR = 2  // 本科
-    const val MASTER = 3    // 硕士
-    const val PHD = 4       // 博士
-    const val LOW = 5       // 中职及以下
+open class Edu(val value: Int, @StringRes val textRes: Int) {
+    companion object {
+        const val UNKOWN = 0    // 未知
+        const val JUNIOR = 1    // 大专
+        const val BACHELOR = 2  // 本科
+        const val MASTER = 3    // 硕士
+        const val PHD = 4       // 博士
+        const val LOW = 5       // 中职及以下
+        val cases = listOf(
+            // Edu(UNKOWN, R.string.profile_edu_unknown),
+            Edu(LOW, R.string.profile_edu_low),
+            Edu(JUNIOR, R.string.profile_edu_junior),
+            Edu(BACHELOR, R.string.profile_edu_bachelor),
+            Edu(MASTER, R.string.profile_edu_master),
+            Edu(PHD, R.string.profile_edu_phd)
+        )
+    }
 }

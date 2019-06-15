@@ -3,8 +3,6 @@ package com.dokiwa.dokidoki.login.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.api.exception.UnbindMobileNumberException
@@ -21,6 +19,7 @@ import com.dokiwa.dokidoki.login.model.UserToken
 import com.dokiwa.dokidoki.social.SocialHelper
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
+import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_login.*
 
 private const val TAG = "LoginActivity"
@@ -49,13 +48,7 @@ class LoginActivity : TranslucentActivity() {
             finish()
         }
         content.hideSoftInputWhenClick()
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
+        editText.addTextChangedListener(object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (count > 0) {
                     showConfirmBtn()

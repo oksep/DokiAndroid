@@ -78,4 +78,14 @@
         <item name="android:datePickerMode">spinner</item>
     </style>
 
+    <style name="BottomDialog" parent="NormalDialog">
+        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
+    </style>
+
+    <style name="BottomInAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
+    </style>
+
 </resources>
