@@ -114,10 +114,23 @@ data class UserProfile(
         val name: String
     ) : IApiModel, Parcelable
 
-    fun assembleAddressPosition(): String {
+    fun assembleCityIndustry(): String {
         val profile = this
         val idsty = profile.industry?.name
         return profile.city?.name ?: "" + if (idsty.isNullOrEmpty()) "" else " | $idsty"
+    }
+
+    fun assembleCityIndustryIncome(): String {
+        val aci = assembleCityIndustry()
+        return if (this.income > 0) {
+            if (aci.isEmpty()) {
+                "月入 ${this.income}"
+            } else {
+                "$aci | 月入 ${this.income}"
+            }
+        } else {
+            aci
+        }
     }
 
     fun assembleAgeHeightEdu(context: Context): String {

@@ -90,7 +90,8 @@ class ProfileDetailActivity : TranslucentActivity() {
         avatar.loadAvatar(profile)
         userId.text = getString(R.string.profile_detail_id, profile.userId.toString())
         ageHeightEdu.text = profile.assembleAgeHeightEdu(this)
-        addressPosition.text = profile.assembleAddressPosition()
+        addressPosition.text = profile.assembleCityIndustryIncome()
+        incomeDogeIcon.visibility = if (profile.income > 0) View.VISIBLE else View.GONE
 
         if (profile.tags.isNullOrEmpty()) {
             tags.visibility = View.GONE
