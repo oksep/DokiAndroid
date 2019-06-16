@@ -18,6 +18,9 @@ interface AdminApi {
     @GET("/api/doki/v1/industry")
     fun getIndustryConfig(): Single<JsonElement>
 
+    @GET("/api/doki/v1/keyword-group")
+    fun getTagsConfig(): Single<JsonElement>
+
     @GET("/api/social/v1/info")
     fun getThirdPartyInfo(): Single<JsonElement>
 

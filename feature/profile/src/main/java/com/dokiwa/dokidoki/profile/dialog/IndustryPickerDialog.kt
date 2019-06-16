@@ -49,7 +49,7 @@ class IndustryPickerDialog(
         }
 
         Api.getLocalAsset(context, LocalAssetApi::class.java)
-            .getIndustryListData()
+            .getIndustryConfig()
             .subscribeApi(
                 context as? CompositeDisposableContext,
                 ::initIndustryPickerView

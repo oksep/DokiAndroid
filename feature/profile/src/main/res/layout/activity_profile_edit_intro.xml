@@ -15,7 +15,7 @@
         android:elevation="0dp"
         app:toolbar_leftIcon="@drawable/ui_ic_back_light"
         app:toolbar_titleTextColor="@color/white"
-        app:toolbar_titleText="@string/profile_intro_edit_title"
+        app:toolbar_titleText="@string/profile_edit_intro"
         app:toolbar_rightText="@string/profile_edit_save"
         app:toolbar_rightTextColor="@color/white"
         app:toolbar_rightTextVisibility="visible"

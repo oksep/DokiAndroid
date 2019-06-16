@@ -77,6 +77,11 @@ internal class AdminActivity : BaseActivity() {
                 showApiContent(text, it)
             })
         },
+        Item("API - 获取关键词数据") { text ->
+            Api.get(AdminApi::class.java).getTagsConfig().subscribeApi(this, {
+                showApiContent(text, it)
+            })
+        },
         Item("API - 第三方账号信息") { text ->
             Api.get(AdminApi::class.java).getThirdPartyInfo().subscribeApi(this, {
                 showApiContent(text, it)

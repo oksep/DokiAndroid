@@ -16,7 +16,7 @@ class IntroEditActivity : TranslucentActivity() {
 
         const val EXTRA_INTRO = "extra.user.intro"
 
-        const val REQUEST_CODE = 0x0010
+        const val REQUEST_CODE = 0x0001
 
         fun launch(context: Activity, intro: String?) {
             context.startActivityForResult(

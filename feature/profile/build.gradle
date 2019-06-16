@@ -29,7 +29,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.axLifecycle}"
     implementation "com.google.android.material:material:${versions.axMaterial}"
-    // implementation "androidx.core:core-ktx:${versions.axKtx}"
+    implementation "androidx.core:core-ktx:${versions.axKtx}"
 
     // test
     testImplementation "junit:junit:${versions.testJunit}"

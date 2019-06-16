@@ -34,7 +34,7 @@ internal class CityFragment : BaseStepFragment() {
 
     private fun loadData(viewModel: SharedViewModel) {
         Api.getLocalAsset(requireContext(), LocalAssetApi::class.java)
-            .getCityListData()
+            .getCityConfig()
             .subscribeApi(this, {
                 initCityPickerView(it.provinceList, viewModel)
             }, {

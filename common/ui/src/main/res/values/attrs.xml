@@ -88,4 +88,13 @@
         <attr name="underlineColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="TagsView">
+        <attr name="size" format="enum">
+            <enum name="small" value="0"/>
+            <enum name="large" value="1"/>
+        </attr>
+        <attr name="editable" format="boolean"/>
+        <attr name="defaultSelected" format="boolean"/>
+    </declare-styleable>
+
 </resources>

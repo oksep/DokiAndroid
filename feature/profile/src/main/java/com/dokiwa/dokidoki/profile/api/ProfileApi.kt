@@ -54,4 +54,7 @@ interface ProfileApi {
 
     @GET("/api/search/v1/user")
     fun searchUser(@Query("kw") keyword: String): Single<SearchUserResultModel>
+
+    @GET("/api/doki/v1/keyword-group")
+    fun getTagsConfig(): Single<TagsGroupModel>
 }

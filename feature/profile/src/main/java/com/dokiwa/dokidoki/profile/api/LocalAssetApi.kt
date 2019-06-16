@@ -10,8 +10,11 @@ import retrofit2.http.GET
  */
 interface LocalAssetApi {
     @GET("/api/city.json")
-    fun getCityListData(): Single<CityData>
+    fun getCityConfig(): Single<CityData>
 
     @GET("/api/industry.json")
-    fun getIndustryListData(): Single<IndustryData>
+    fun getIndustryConfig(): Single<IndustryData>
+
+    @GET("/api/tags.json")
+    fun getTagsConfig(): Single<TagsGroupModel>
 }

@@ -102,8 +102,7 @@
     <string name="profile_edit_tags">我的关键词</string>
     <string name="profile_edit_tags_hint">未添加</string>
     <string name="profile_edit_alert_message">如需修改请联系客服</string>
-
-    <!--profile intro edit-->
-    <string name="profile_intro_edit_title">自述</string>
+    <string name="profile_edit_tags_count">当前标签(%d / 6)</string>
+    <string name="profile_edit_tags_max_tip">最多只能添加 6 个关键词</string>
 
 </resources>

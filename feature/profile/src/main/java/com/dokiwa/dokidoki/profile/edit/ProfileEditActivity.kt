@@ -94,6 +94,14 @@ class ProfileEditActivity : BaseChooseImageActivity(), CropIwaResultReceiver.Lis
         industry.setText(newProfile.industry?.name)
         intro.setText(newProfile.intro)
         height.setText(getString(R.string.profile_edit_height_value, newProfile.height))
+        if (newProfile.tags.isNullOrEmpty()) {
+            tagsEmpty.setText(R.string.profile_edit_tags_hint)
+            tagsView.visibility = View.GONE
+        } else {
+            tagsEmpty.text = null
+            tagsView.visibility = View.VISIBLE
+            tagsView.setTags(newProfile.tags!!.map { it.name })
+        }
     }
 
     fun onChangeAvatarClick(view: View) {
@@ -138,13 +146,21 @@ class ProfileEditActivity : BaseChooseImageActivity(), CropIwaResultReceiver.Lis
     }
 
     fun onChangeTagsClick(view: View) {
-
+        TagsEditActivity.launch(this, newProfile.tags?.map { it.name })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IntroEditActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            setUpViews(newProfile.copy(intro = data?.getStringExtra(IntroEditActivity.EXTRA_INTRO)))
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                IntroEditActivity.REQUEST_CODE -> {
+                    setUpViews(newProfile.copy(intro = data?.getStringExtra(IntroEditActivity.EXTRA_INTRO)))
+                }
+                TagsEditActivity.REQUEST_CODE -> {
+                    val tags = data?.getStringArrayExtra(TagsEditActivity.EXTRA_TAGS)?.map { UserProfile.Tag(it) }
+                    setUpViews(newProfile.copy(tags = tags))
+                }
+            }
         }
     }
 

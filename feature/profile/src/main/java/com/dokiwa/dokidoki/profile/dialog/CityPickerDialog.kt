@@ -49,7 +49,7 @@ class CityPickerDialog(
         }
 
         Api.getLocalAsset(context, LocalAssetApi::class.java)
-            .getCityListData()
+            .getCityConfig()
             .subscribeApi(
                 context as? CompositeDisposableContext,
                 ::initCityPickerView
