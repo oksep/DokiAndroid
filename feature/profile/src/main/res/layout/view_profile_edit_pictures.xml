@@ -9,11 +9,11 @@
     tools:context=".edit.ProfileEditActivity">
 
     <TextView
-        android:id="@+id/picturesTitle"
+        android:id="@+id/picturesCounts"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="@string/profile_edit_pictures_title"
+        android:text="@string/profile_edit_pictures_counts"
         android:textSize="14sp"
         android:textColor="#333"
         android:drawablePadding="8dp"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/picturesDragHint"
-        app:layout_constraintTop_toBottomOf="@+id/picturesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/picturesCounts"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,8 @@
         tools:ignore="SmallSp"/>
 
     <Button
-        android:id="@+id/uploadBtn"
+        android:onClick="onChangePicturesClick"
+        android:id="@+id/uploadPicturesBtn"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/bg_btn_round_border_red_small"
@@ -52,5 +53,17 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         layout="@layout/view_profile_edit_pictures_empty"/>
+
+    <com.jaeger.ninegridimageview.NineGridImageView
+        app:layout_constraintTop_toBottomOf="@+id/picturesDragHint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="12dp"
+        android:id="@+id/pictures"
+        tools:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:imgGap="10dp"
+        app:showStyle="grid"
+        app:singleImgSize="120dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -97,4 +97,8 @@
         <attr name="defaultSelected" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
+
 </resources>

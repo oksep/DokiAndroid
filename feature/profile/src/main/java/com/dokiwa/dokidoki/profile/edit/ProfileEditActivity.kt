@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.ext.loadAvatar
@@ -13,6 +14,7 @@ import com.dokiwa.dokidoki.center.ext.loadUri
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
+import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.crop.CropImageActivity
@@ -21,8 +23,12 @@ import com.dokiwa.dokidoki.profile.dialog.EduPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.HeightPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.IndustryPickerDialog
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
+import com.jaeger.ninegridimageview.NineGridImageView
+import com.jaeger.ninegridimageview.NineGridImageViewAdapter
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver
 import kotlinx.android.synthetic.main.activity_profile_edit.*
+import kotlinx.android.synthetic.main.view_profile_edit_pictures.*
+import kotlinx.android.synthetic.main.view_profile_edit_pictures_empty.*
 
 private const val TAG = "ProfileEditActivity"
 
@@ -102,6 +108,49 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
             tagsView.visibility = View.VISIBLE
             tagsView.setTags(newProfile.tags!!.map { it.name })
         }
+        setUpPictures()
+    }
+
+    private fun setUpPictures() {
+        val list = newProfile.pictures
+        if (list.isNullOrEmpty()) {
+            pictures.visibility = View.GONE
+            picturesEmpty.visibility = View.VISIBLE
+            uploadPicturesBtn.visibility = View.VISIBLE
+            picturesCounts.text = getString(R.string.profile_edit_pictures_counts, 0)
+        } else {
+            picturesEmpty.visibility = View.GONE
+            (pictures as NineGridImageView<UserProfile.Picture>).apply {
+                visibility = View.VISIBLE
+                setAdapter(picturesAdapter)
+                setImagesData(list, NineGridImageView.NOSPAN)
+            }
+            uploadPicturesBtn.visibility = if (list.size >= 9) View.GONE else View.VISIBLE
+            picturesCounts.text = getString(R.string.profile_edit_pictures_counts, list.size)
+        }
+    }
+
+    private val picturesAdapter by lazy {
+        object : NineGridImageViewAdapter<UserProfile.Picture>() {
+            override fun onDisplayImage(context: Context, imageView: ImageView, item: UserProfile.Picture) {
+                imageView.loadUri(Uri.parse(item.adaptUrl()))
+            }
+
+            override fun generateImageView(context: Context): ImageView {
+                return View.inflate(context, R.layout.view_item_profile_detail_pictures, null) as ImageView
+            }
+
+            override fun onItemImageClick(
+                context: Context?,
+                imageView: ImageView?,
+                index: Int,
+                list: List<UserProfile.Picture>?
+            ) {
+                list?.let { l ->
+                    GalleryActivity.launchGallery(this@ProfileEditActivity, index, l.map { it.adaptUrl() })
+                }
+            }
+        }
     }
 
     fun onChangeAvatarClick(view: View) {
@@ -150,7 +199,8 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
     }
 
     fun onChangePicturesClick(view: View) {
-        selectImageByMatisse(9)
+        val count = 9 - (newProfile.pictures?.size ?: 0)
+        selectImageByMatisse(count)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -177,12 +227,24 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
     }
 
     override fun onSelectImageFromMatisse(list: List<Uri>) {
-        toast(list.toString())
+        val pictures = list.map {
+            val path = it.toString()
+            UserProfile.Picture(path, path, path)
+        }
+        val newPictures = if (newProfile.pictures.isNullOrEmpty()) {
+            pictures
+        } else {
+            newProfile.pictures!!.toMutableList() + pictures
+        }.run {
+            if (size > 9) subList(0, 9) else this
+        }
+        setUpViews(newProfile.copy(pictures = newPictures))
     }
 
     override fun onCropSuccess(croppedUri: Uri) {
         Log.d(TAG, "onCropSuccess uri: $croppedUri")
-        avatar.loadUri(croppedUri)
+        val path = croppedUri.toString()
+        setUpViews(newProfile.copy(avatar = UserProfile.Avatar(path, path, path)))
     }
 
     override fun onCropFailed(e: Throwable?) {

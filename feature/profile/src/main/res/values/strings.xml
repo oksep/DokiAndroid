@@ -71,7 +71,7 @@
 
     <string name="profile_edit">资料编辑</string>
     <string name="profile_edit_save">保存</string>
-    <string name="profile_edit_pictures_title">展示图片 (%d/9)</string>
+    <string name="profile_edit_pictures_counts">展示图片 (%d/9)</string>
     <string name="profile_edit_pictures_hint">长按图片拖动排序</string>
     <string name="profile_edit_pictures_guide">快上传第一张图片吧</string>
     <string name="profile_edit_pictures_guide_tutor">教程范例</string>
