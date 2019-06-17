@@ -149,6 +149,10 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         TagsEditActivity.launch(this, newProfile.tags?.map { it.name })
     }
 
+    fun onChangePicturesClick(view: View) {
+        selectImageByMatisse(9)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -170,6 +174,10 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
 
     override fun onSelectImageFromGallery(uri: Uri) {
         CropImageActivity.launch(this, uri)
+    }
+
+    override fun onSelectImageFromMatisse(list: List<Uri>) {
+        toast(list.toString())
     }
 
     override fun onCropSuccess(croppedUri: Uri) {

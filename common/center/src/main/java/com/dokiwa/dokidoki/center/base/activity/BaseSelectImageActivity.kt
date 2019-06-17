@@ -7,6 +7,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ClipData
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
@@ -17,7 +18,11 @@ import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.R
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.util.CameraUtil
+import com.dokiwa.dokidoki.center.util.Glide4Engine
 import com.dokiwa.dokidoki.center.util.now
+import com.dokiwa.dokidoki.ui.util.ViewUtil
+import com.zhihu.matisse.Matisse
+import com.zhihu.matisse.MimeType
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnNeverAskAgain
 import permissions.dispatcher.OnPermissionDenied
@@ -34,6 +39,7 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
         private const val TAG = "BaseSelectImageActivity"
         private const val REQUEST_CODE_CAMERA = 0x0005
         private const val REQUEST_CODE_GALLERY = 0x0006
+        private const val REQUEST_CODE_MATISSE = 0x0007
     }
 
     fun selectImage(@StringRes titleRes: Int) {
@@ -69,9 +75,29 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
         )
     }
 
-    abstract fun onSelectImageFromCamera(uri: Uri)
+    @NeedsPermission(value = [READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
+    fun selectImageByMatisse(max: Int = 9) {
+        Matisse.from(this)
+            .choose(MimeType.ofAll())
+            .countable(true)
+            .maxSelectable(max)
+            // .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+            .gridExpectedSize(ViewUtil.getScreenWidth() / 3)
+            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+            .thumbnailScale(0.85f)
+            .imageEngine(Glide4Engine())
+            .theme(R.style.Matisse_Zhihu)
+            .forResult(REQUEST_CODE_MATISSE)
+    }
 
-    abstract fun onSelectImageFromGallery(uri: Uri)
+    open fun onSelectImageFromCamera(uri: Uri) {
+    }
+
+    open fun onSelectImageFromGallery(uri: Uri) {
+    }
+
+    open fun onSelectImageFromMatisse(list: List<Uri>) {
+    }
 
     ///////////////////////////////////////////
     // permissions
@@ -187,6 +213,11 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
                 REQUEST_CODE_GALLERY -> {
                     data?.data?.let {
                         onSelectImageFromGallery(it)
+                    }
+                }
+                REQUEST_CODE_MATISSE -> {
+                    Matisse.obtainResult(data)?.let {
+                        onSelectImageFromMatisse(it)
                     }
                 }
             }
