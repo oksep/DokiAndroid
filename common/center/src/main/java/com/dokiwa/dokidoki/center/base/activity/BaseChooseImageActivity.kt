@@ -26,6 +26,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
+@Deprecated("use BaseSelectImageActivity")
 abstract class BaseChooseImageActivity : TranslucentActivity() {
 
     companion object {

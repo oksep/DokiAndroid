@@ -6,12 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.dokiwa.dokidoki.center.api.Api
-import com.dokiwa.dokidoki.center.base.activity.BaseChooseImageActivity
+import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.base.adapter.SimplePagerAdapter
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
@@ -38,7 +37,7 @@ import kotlinx.android.synthetic.main.activity_create_profile.*
 /**
  * Created by Septenary on 2018/12/28.
  */
-class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
+class CreateProfileActivity : BaseSelectImageActivity(), IStepFragmentInteract {
 
     companion object {
         private const val TAG = "CreateProfileActivity"
@@ -113,7 +112,7 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
             toolBar.leftIconView.setImageDrawable(null)
             toolBar.leftIconView.setOnClickListener(null)
         } else {
-            toolBar.leftIconView.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ui_ic_back_light, null))
+            toolBar.leftIconView.setImageResource(R.drawable.ui_ic_back_light)
             toolBar.leftIconView.setOnClickListener {
                 preStep()
             }
@@ -195,11 +194,11 @@ class CreateProfileActivity : BaseChooseImageActivity(), IStepFragmentInteract {
         )
     }
 
-    override fun onChooseImageFromAlbum(uri: Uri) {
-        getCurrentStepFragment()?.onChooseImageFromAlbum(uri)
+    override fun onSelectImageFromCamera(uri: Uri) {
+        getCurrentStepFragment()?.onChooseImageFromCamera(uri)
     }
 
-    override fun onChooseImageFromCamera(uri: Uri) {
-        getCurrentStepFragment()?.onChooseImageFromCamera(uri)
+    override fun onSelectImageFromGallery(uri: Uri) {
+        getCurrentStepFragment()?.onChooseImageFromAlbum(uri)
     }
 }

@@ -7,9 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import com.bumptech.glide.Glide
-import com.dokiwa.dokidoki.center.base.activity.BaseChooseImageActivity
+import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.ext.loadAvatar
+import com.dokiwa.dokidoki.center.ext.loadUri
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_profile_edit.*
 
 private const val TAG = "ProfileEditActivity"
 
-class ProfileEditActivity : BaseChooseImageActivity(), CropIwaResultReceiver.Listener {
+class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Listener {
 
     companion object {
         private const val EXTRA_PROFILE = "extra.user.newProfile"
@@ -105,7 +105,7 @@ class ProfileEditActivity : BaseChooseImageActivity(), CropIwaResultReceiver.Lis
     }
 
     fun onChangeAvatarClick(view: View) {
-        chooseImage(R.string.profile_create_profile_avatar_choose)
+        selectImage(R.string.profile_create_profile_avatar_choose)
     }
 
     fun onChangeGenderClick(view: View) {
@@ -164,17 +164,17 @@ class ProfileEditActivity : BaseChooseImageActivity(), CropIwaResultReceiver.Lis
         }
     }
 
-    override fun onChooseImageFromAlbum(uri: Uri) {
+    override fun onSelectImageFromCamera(uri: Uri) {
         CropImageActivity.launch(this, uri)
     }
 
-    override fun onChooseImageFromCamera(uri: Uri) {
+    override fun onSelectImageFromGallery(uri: Uri) {
         CropImageActivity.launch(this, uri)
     }
 
     override fun onCropSuccess(croppedUri: Uri) {
         Log.d(TAG, "onCropSuccess uri: $croppedUri")
-        Glide.with(this).load(croppedUri).into(avatar)
+        avatar.loadUri(croppedUri)
     }
 
     override fun onCropFailed(e: Throwable?) {

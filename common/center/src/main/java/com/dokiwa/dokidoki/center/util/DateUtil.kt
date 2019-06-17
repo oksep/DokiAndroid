@@ -2,7 +2,8 @@ package com.dokiwa.dokidoki.center.util
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 /**
  * Created by Septenary on 2019-06-07.
@@ -68,4 +69,9 @@ fun Int.toLastActiveTime(): String {
         }
         else -> "刚刚"
     }
+}
+
+@SuppressLint("SimpleDateFormat")
+fun now(): String {
+    return SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
 }

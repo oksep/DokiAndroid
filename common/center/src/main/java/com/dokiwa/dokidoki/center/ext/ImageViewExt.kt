@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.center.ext
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
@@ -51,6 +52,10 @@ fun ImageView.loadImgFromLocal(path: String, roundingRadius: Float = 0f, isGif: 
 
 fun loadGif(path: String, roundingRadius: Float) {
 
+}
+
+fun ImageView.loadUri(uri: Uri) {
+    Glide.with(this).load(uri).into(this)
 }
 
 fun ImageView.loadImgFromLocal(path: String, roundingRadius: Float = 0f) {

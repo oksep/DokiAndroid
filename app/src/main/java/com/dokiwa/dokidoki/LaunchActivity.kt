@@ -20,10 +20,9 @@ class LaunchActivity : BaseActivity() {
     private fun delayToHome() {
         fun toHome() {
             FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
-//            FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(this, "")
             finish()
         }
-        Single.timer(1000 * 1, TimeUnit.MILLISECONDS)
+        Single.timer(800 * 1, TimeUnit.MILLISECONDS)
             .subscribe(
                 this,
                 Consumer { toHome() },

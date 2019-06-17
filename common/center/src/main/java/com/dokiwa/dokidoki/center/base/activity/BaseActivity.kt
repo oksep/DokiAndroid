@@ -2,7 +2,6 @@ package com.dokiwa.dokidoki.center.base.activity
 
 import android.graphics.Color
 import android.os.Build
-import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -15,22 +14,38 @@ import io.reactivex.disposables.Disposable
  */
 open class BaseActivity : AppCompatActivity(), CompositeDisposableContext {
 
-    private val disposableContainer by lazy { CompositeDisposable() }
+    /////////////////////////////////////////////
+    // rx dispose
+    /////////////////////////////////////////////
+    private var disposableContainer: CompositeDisposable? = null
 
     override fun addDispose(dispose: Disposable) {
-        disposableContainer.add(dispose)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        if (disposableContainer == null) {
+            disposableContainer = CompositeDisposable()
+        }
+        disposableContainer?.add(dispose)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        disposableContainer.dispose()
+        disposableContainer?.dispose()
     }
 
+    /////////////////////////////////////////////
+    // system UI
+    /////////////////////////////////////////////
     protected fun translucentStatusBar() {
+        fun setWindowFlag(bits: Int, on: Boolean) {
+            val win = window
+            val winParams = win.attributes
+            if (on) {
+                winParams.flags = winParams.flags or bits
+            } else {
+                winParams.flags = winParams.flags and bits.inv()
+            }
+            win.attributes = winParams
+        }
+
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
         window.statusBarColor = Color.TRANSPARENT

@@ -58,6 +58,7 @@ versions.gson = '2.8.4'
 versions.rxjava2 = '2.2.0'
 versions.rxjava2Android = '2.1.0'
 versions.easyPermission = '1.0.1'
+versions.permissionDispatcher = '4.3.1'
 
 // glide
 versions.glide = '4.8.0'

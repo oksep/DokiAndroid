@@ -36,7 +36,7 @@ internal class AvatarFragment : BaseStepFragment(), CropIwaResultReceiver.Listen
         }
         avatarImage.setImageResource(res)
         avatarImage.setOnClickListener {
-            (requireContext() as? CreateProfileActivity)?.chooseImage(R.string.profile_create_profile_avatar_choose)
+            (requireContext() as? CreateProfileActivity)?.selectImage(R.string.profile_create_profile_avatar_choose)
         }
 
         confirmBtn.setOnClickListener {

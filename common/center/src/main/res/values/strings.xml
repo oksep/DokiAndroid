@@ -21,4 +21,7 @@
     <string name="profile_edu_master">硕士</string>
     <string name="profile_edu_phd">博士</string>
 
+    <!--permissions-->
+    <string name="center_permission_require">需要打开相关权限以执行操作</string>
+
 </resources>
