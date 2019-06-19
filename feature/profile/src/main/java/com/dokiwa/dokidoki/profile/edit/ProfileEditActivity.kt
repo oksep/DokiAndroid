@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.ext.loadUri
+import com.dokiwa.dokidoki.center.ext.swap
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
@@ -22,7 +23,9 @@ import com.dokiwa.dokidoki.profile.dialog.CityPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.EduPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.HeightPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.IndustryPickerDialog
+import com.dokiwa.dokidoki.ui.util.DragSortHelper
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
+import com.dokiwa.dokidoki.ui.view.DragNineGridImageView
 import com.jaeger.ninegridimageview.NineGridImageView
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver
@@ -120,8 +123,14 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
             picturesCounts.text = getString(R.string.profile_edit_pictures_counts, 0)
         } else {
             picturesEmpty.visibility = View.GONE
-            (pictures as NineGridImageView<UserProfile.Picture>).apply {
+            (pictures as DragNineGridImageView<UserProfile.Picture>).apply {
                 visibility = View.VISIBLE
+                setSwapListner(object : DragSortHelper.OnViewSwapListener {
+                    override fun onSwap(firstView: View, firstPosition: Int, secondView: View, secondPosition: Int) {
+                        val sortList = list.toMutableList().swap(firstPosition, secondPosition)
+                        newProfile = newProfile.copy(pictures = sortList)
+                    }
+                })
                 setAdapter(picturesAdapter)
                 setImagesData(list, NineGridImageView.NOSPAN)
             }
