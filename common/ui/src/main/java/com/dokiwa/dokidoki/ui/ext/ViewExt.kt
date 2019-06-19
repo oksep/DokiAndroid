@@ -79,7 +79,10 @@ fun View.onceLayoutThen(onLayout: (View) -> Unit) {
             viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
     })
+}
 
+fun View.onLayoutThen(onLayout: (View) -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener { onLayout(this@onLayoutThen) }
 }
 
 fun View.zoomTouchArea(area: View) {

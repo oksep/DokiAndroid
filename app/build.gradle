@@ -122,6 +122,7 @@ dependencies {
 
     // ui
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
+    implementation "com.jaeger.ninegridimageview:library:${versions.nineGridImageView}"
 
     // baseline
     implementation project(':center')

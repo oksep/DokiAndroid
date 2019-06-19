@@ -44,6 +44,7 @@ dependencies {
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
     implementation "com.google.android:flexbox:${versions.flexBox}"
     implementation "at.blogc:expandabletextview:${versions.expandableTextView}"
+    implementation "com.jaeger.ninegridimageview:library:${versions.nineGridImageView}"
 
     // util
     implementation ('com.github.niorgai:StatusBarCompat:2.3.1', {
