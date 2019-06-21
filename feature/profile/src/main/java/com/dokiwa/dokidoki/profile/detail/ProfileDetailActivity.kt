@@ -144,7 +144,7 @@ class ProfileDetailActivity : TranslucentActivity() {
             picturesEmpty.visibility = View.GONE
             nineGridImageView.visibility = View.VISIBLE
             nineGridImageView.setAdapter(picturesAdapter)
-            nineGridImageView.setImagesData(profile.pictures, NineGridImageView.NOSPAN)
+            nineGridImageView.setImagesData(profile.pictures)
         }
 
         timelinePictures.layoutManager = LinearLayoutManager(this).apply {

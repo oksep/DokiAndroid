@@ -91,10 +91,6 @@ fun <T> Single<T>.subscribeApi(
     )
 }
 
-
-/**
- * 封装网络接口请求订阅方法，如果是签算错误，矫正时间戳，重试一次
- */
 fun <T> Single<T>.subscribeApiWithDialog(
     activity: Activity,
     context: CompositeDisposableContext,

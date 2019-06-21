@@ -75,8 +75,12 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
         )
     }
 
-    @NeedsPermission(value = [READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
     fun selectImageByMatisse(max: Int = 9) {
+        selectImageByMatisseImplWithPermissionCheck(max)
+    }
+
+    @NeedsPermission(value = [READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
+    fun selectImageByMatisseImpl(max: Int = 9) {
         Matisse.from(this)
             .choose(MimeType.ofAll())
             .countable(true)

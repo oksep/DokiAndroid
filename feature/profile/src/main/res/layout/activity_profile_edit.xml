@@ -91,13 +91,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="end|center_vertical"
+                    android:paddingStart="100dp"
                     android:maxLines="1"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:maxEms="30"
                     android:minWidth="100dp"
+                    android:maxLength="30"
                     android:textColor="#333"
                     android:textColorHint="@color/profile_edit_text_hint"
                     android:hint="@string/profile_edit_nick_name_hint"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    tools:ignore="RtlSymmetry"/>
 
             </FrameLayout>
 
@@ -327,13 +332,18 @@
                 <com.dokiwa.dokidoki.profile.view.ProfileEditHintTextView
                     android:id="@+id/intro"
                     android:layout_gravity="end|center_vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
                     android:drawablePadding="8dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:paddingStart="100dp"
                     app:hint_text="@string/profile_edit_intro_hint"
                     android:textColor="@color/profile_edit_text_hint"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    tools:ignore="RtlSymmetry"/>
 
             </FrameLayout>
 
@@ -389,7 +399,10 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <include layout="@layout/view_profile_edit_gap"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/dd_window"/>
 
         </LinearLayout>
 

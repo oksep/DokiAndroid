@@ -48,6 +48,7 @@
     <!-- alert dialog -->
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/dd_red</item>
+        <item name="android:colorAccent">@color/dd_red</item>
         <item name="android:textColorPrimary">@color/text_dft</item>
         <item name="android:windowBackground">@drawable/bg_with_corner</item>
         <item name="android:windowMinWidthMajor">65%</item>

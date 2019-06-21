@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.profile.api
 
+import com.dokiwa.dokidoki.center.plugin.model.Edu
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import io.reactivex.Single
@@ -13,6 +14,17 @@ import retrofit2.http.Query
  * Created by Septenary on 2019/3/2.
  */
 interface ProfileApi {
+
+    @FormUrlEncoded
+    @POST("/api/profile/v1/update")
+    fun createProfile(
+        @Field("gender") gender: Int? = Gender.UNKNOWN,
+        @Field("birthday") birthday: String? = "",
+        @Field("height") height: Int? = 0,
+        @Field("city_code") cityCode: String? = "",
+        @Field("nickname") nickname: String? = "",
+        @Field("avatar") avatar: String? = ""
+    ): Single<UserProfileWrap>
 
     /**
     ### 更新自己的资料
@@ -35,15 +47,19 @@ interface ProfileApi {
      */
     @FormUrlEncoded
     @POST("/api/profile/v1/update")
-    fun createProfile(
+    fun upateProfile(
+        @Field("avatar") avatar: String? = "",
+        @Field("nickname") nickname: String? = "",
         @Field("gender") gender: Int? = Gender.UNKNOWN,
         @Field("birthday") birthday: String? = "",
         @Field("height") height: Int? = 0,
+        @Field("education") education: Int? = Edu.UNKOWN,
         @Field("city_code") cityCode: String? = "",
-        @Field("nickname") nickname: String? = "",
-
-        // TODO: 2019/3/2 @Septenary avatar url
-        @Field("avatar") avatar: String? = ""
+        @Field("industry_id") industryCode: Int? = 0,
+        @Field("income") income: Int? = 0,
+        @Field(value = "intro", encoded = false) intro: String? = "",
+        @Field("pictures") pictures: String? = "",
+        @Field("keywords") keywords: String? = ""
     ): Single<UserProfileWrap>
 
     @GET("/api/profile/v1/user")

@@ -8,27 +8,43 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.ext.loadUri
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.swap
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Avatar
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile.City
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Industry
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Picture
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Province
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Tag
+import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.center.uploader.SimpleUploader
+import com.dokiwa.dokidoki.center.uploader.SimpleUploader.ImageType
+import com.dokiwa.dokidoki.center.uploader.SimpleUploader.UploadImageResult
+import com.dokiwa.dokidoki.center.util.toUploadFileSingle
 import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
+import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.crop.CropImageActivity
 import com.dokiwa.dokidoki.profile.dialog.CityPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.EduPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.HeightPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.IndustryPickerDialog
 import com.dokiwa.dokidoki.ui.util.DragSortHelper
-import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import com.dokiwa.dokidoki.ui.view.DragNineGridImageView
-import com.jaeger.ninegridimageview.NineGridImageView
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_profile_edit.*
 import kotlinx.android.synthetic.main.view_profile_edit_pictures.*
 import kotlinx.android.synthetic.main.view_profile_edit_pictures_empty.*
@@ -59,14 +75,6 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
 
         rawProfile = intent.getParcelableExtra(EXTRA_PROFILE) ?: return finish()
 
-        nameEditText.addTextChangedListener(object : SimpleTextWatcher {
-
-        })
-
-        incomeEditText.addTextChangedListener(object : SimpleTextWatcher {
-
-        })
-
         // fix auto gain focus
         nameEditText.isFocusableInTouchMode = false
         nameEditText.post {
@@ -78,6 +86,10 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         cropResultReceiver.register(this)
 
         setUpViews(rawProfile)
+
+        toolBar.rightTextView.setOnClickListener {
+            saveProfile()
+        }
     }
 
     override fun onDestroy() {
@@ -123,7 +135,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
             picturesCounts.text = getString(R.string.profile_edit_pictures_counts, 0)
         } else {
             picturesEmpty.visibility = View.GONE
-            (pictures as DragNineGridImageView<UserProfile.Picture>).apply {
+            (pictures as DragNineGridImageView<Picture>).apply {
                 visibility = View.VISIBLE
                 setSwapListner(object : DragSortHelper.OnViewSwapListener {
                     override fun onSwap(firstView: View, firstPosition: Int, secondView: View, secondPosition: Int) {
@@ -132,7 +144,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
                     }
                 })
                 setAdapter(picturesAdapter)
-                setImagesData(list, NineGridImageView.NOSPAN)
+                setImagesData(list)
             }
             uploadPicturesBtn.visibility = if (list.size >= 9) View.GONE else View.VISIBLE
             picturesCounts.text = getString(R.string.profile_edit_pictures_counts, list.size)
@@ -140,8 +152,8 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
     }
 
     private val picturesAdapter by lazy {
-        object : NineGridImageViewAdapter<UserProfile.Picture>() {
-            override fun onDisplayImage(context: Context, imageView: ImageView, item: UserProfile.Picture) {
+        object : NineGridImageViewAdapter<Picture>() {
+            override fun onDisplayImage(context: Context, imageView: ImageView, item: Picture) {
                 imageView.loadUri(Uri.parse(item.adaptUrl()))
             }
 
@@ -153,11 +165,29 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
                 context: Context?,
                 imageView: ImageView?,
                 index: Int,
-                list: List<UserProfile.Picture>?
+                list: List<Picture>?
             ) {
                 list?.let { l ->
                     GalleryActivity.launchGallery(this@ProfileEditActivity, index, l.map { it.adaptUrl() })
                 }
+            }
+
+            override fun onItemImageLongClick(
+                context: Context?,
+                imageView: ImageView?,
+                index: Int,
+                list: MutableList<Picture>?
+            ): Boolean {
+                AlertDialog.Builder(this@ProfileEditActivity, R.style.AppCompatAlertDialogStyle)
+                    .setTitle(R.string.tip)
+                    .setMessage(R.string.profile_edit_pic_del_message)
+                    .setNegativeButton(R.string.cancel) { d, _ -> d.cancel() }
+                    .setPositiveButton(R.string.confirm) { d, _ ->
+                        d.cancel()
+                        setUpViews(newProfile.copy(pictures = list?.toMutableList()?.apply { removeAt(index) }))
+                    }
+                    .create().show()
+                return true
             }
         }
     }
@@ -188,14 +218,14 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
 
     fun onChangeCityClick(view: View) {
         CityPickerDialog.create(this) { province, name, code ->
-            val city = UserProfile.City(code, name, UserProfile.Province(province))
+            val city = City(code, name, Province(province))
             setUpViews(newProfile.copy(city = city))
         }.show()
     }
 
     fun onChangeIndustryClick(view: View) {
         IndustryPickerDialog.create(this) { id, name, subId, subName ->
-            setUpViews(newProfile.copy(industry = UserProfile.Industry(subId, subName)))
+            setUpViews(newProfile.copy(industry = Industry(subId, subName)))
         }.show()
     }
 
@@ -220,7 +250,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
                     setUpViews(newProfile.copy(intro = data?.getStringExtra(IntroEditActivity.EXTRA_INTRO)))
                 }
                 TagsEditActivity.REQUEST_CODE -> {
-                    val tags = data?.getStringArrayExtra(TagsEditActivity.EXTRA_TAGS)?.map { UserProfile.Tag(it) }
+                    val tags = data?.getStringArrayExtra(TagsEditActivity.EXTRA_TAGS)?.map { Tag(it) }
                     setUpViews(newProfile.copy(tags = tags))
                 }
             }
@@ -236,29 +266,31 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
     }
 
     override fun onSelectImageFromMatisse(list: List<Uri>) {
-        val pictures = list.map {
-            val path = it.toString()
-            UserProfile.Picture(path, path, path)
+        val copyFileTasks = list.map { it.toUploadFileSingle(this) }
+        Single.zip<String, List<Picture>>(copyFileTasks) { paths ->
+            paths.map { it as String }.filter { it.isNotEmpty() }.map { Picture(it, it, it) }
+        }.subscribe({
+            Log.d(TAG, "selectImageFromMatisse -> $it")
+            val newPictures = (newProfile.pictures?.toMutableList()?.apply { addAll(it) } ?: it).run {
+                if (size > 9) subList(0, 9) else this
+            }
+            setUpViews(newProfile.copy(pictures = newPictures))
+        }, {
+            Log.e(TAG, "selectImageFromMatisse failed", it)
+        }).also {
+            addDispose(it)
         }
-        val newPictures = if (newProfile.pictures.isNullOrEmpty()) {
-            pictures
-        } else {
-            newProfile.pictures!!.toMutableList() + pictures
-        }.run {
-            if (size > 9) subList(0, 9) else this
-        }
-        setUpViews(newProfile.copy(pictures = newPictures))
     }
 
     override fun onCropSuccess(croppedUri: Uri) {
         Log.d(TAG, "onCropSuccess uri: $croppedUri")
         val path = croppedUri.toString()
-        setUpViews(newProfile.copy(avatar = UserProfile.Avatar(path, path, path)))
+        setUpViews(newProfile.copy(avatar = Avatar(path, path, path)))
     }
 
     override fun onCropFailed(e: Throwable?) {
         Log.w(TAG, "onCropFailed", e)
-        toast(R.string.profile_create_profile_avatar_upload_failed)
+        toast(R.string.profile_edit_crop_failed)
     }
 
     private fun showConnectUsDialog() {
@@ -268,4 +300,79 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
             }.create().show()
     }
 
+    private fun saveProfile() {
+        // TODO: 2019-06-22 @Septenary intro、nickname 字段非法 问题
+        fun updateProfile(avatar: Avatar, remotePictures: List<Picture>): Single<UserProfileWrap> {
+            newProfile = newProfile.copy(pictures = remotePictures, avatar = avatar)
+            return Api.get(ProfileApi::class.java).upateProfile(
+                avatar = newProfile.avatar.rawUrl,
+                nickname = newProfile.nickname,
+                gender = newProfile.gender,
+                birthday = newProfile.birthday,
+                height = newProfile.height,
+                education = newProfile.education,
+                cityCode = newProfile.city?.code,
+                industryCode = newProfile.industry?.id,
+                income = newProfile.income,
+                intro = newProfile.intro,
+                pictures = newProfile.pictures?.map { it.rawUrl }?.joinToString(",") { it },
+                keywords = newProfile.tags?.map { it.name }?.joinToString(",") { it }
+            )
+        }
+
+        val uploadAvatar: Single<Avatar> = uploadAvatar()
+        val uploadPictures: Single<List<Picture>> = uploadPictures()
+
+        uploadAvatar.zipWith(
+            uploadPictures,
+            BiFunction<Avatar, List<Picture>, Pair<Avatar, List<Picture>>> { t1, t2 ->
+                Pair(t1, t2)
+            }
+        ).flatMap {
+            updateProfile(it.first, it.second)
+        }.subscribeApiWithDialog(this, this, {
+            Log.d(TAG, "updateProfile success -> $it")
+            toast(R.string.profile_edit_save_success)
+            finish()
+        }, {
+            Log.e(TAG, "updateProfile failed", it)
+            toast(R.string.profile_edit_save_failed)
+        })
+    }
+
+    private fun uploadPictures(): Single<List<Picture>> {
+        val uploadTasks = newProfile.pictures?.map {
+            val path = it.rawUrl
+            if (path.startsWith("http")) {
+                Single.just(UploadImageResult(SimpleUploader.UploadImageResult.Image(path, path, path)))
+            } else {
+                SimpleUploader.uploadImage(Uri.parse(path), SimpleUploader.ImageType.PICTURE)
+            }
+        }
+
+        return if (uploadTasks != null) {
+            Single.zip<UploadImageResult, List<Picture>>(uploadTasks) { results ->
+                results.map {
+                    it as UploadImageResult
+                }.map {
+                    val url = it.image.rawUrl
+                    Picture(url, url, url)
+                }
+            }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        } else {
+            Single.just(listOf())
+        }
+    }
+
+    private fun uploadAvatar(): Single<Avatar> {
+        val path = newProfile.avatar.rawUrl
+        return if (path.startsWith("http") || path.isEmpty()) {
+            Single.just(newProfile.avatar)
+        } else {
+            SimpleUploader.uploadImage(Uri.parse(path), ImageType.AVATAR).map {
+                val url = it.image.rawUrl
+                Avatar(url, url, url)
+            }
+        }
+    }
 }
