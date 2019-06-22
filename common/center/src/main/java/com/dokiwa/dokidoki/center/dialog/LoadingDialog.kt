@@ -92,9 +92,9 @@ class LoadingDialog private constructor(context: Context, style: Int) : BaseDial
 
         fun create(context: Context, fullScreen: Boolean): LoadingDialog {
             return if (fullScreen) {
-                LoadingDialog(context, R.style.FullDialog)
+                LoadingDialog(context, R.style.FullScreenDialog)
             } else {
-                LoadingDialog(context, R.style.NormalDialog)
+                LoadingDialog(context, R.style.AppThemeDialogStyle)
             }
         }
     }

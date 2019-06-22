@@ -30,63 +30,16 @@
         <!--<item name="android:colorControlHighlight">@color/dd_red</item>-->
         <!--EditText 输入框中字体的颜色-->
         <item name="android:editTextColor">@color/text_dft</item>
-        <item name="android:textColor">@color/text_dft</item>
+        <!--<item name="android:textColor">@color/text_dft</item>-->
+
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
     </style>
 
     <style name="AppTheme" parent="BaseTheme"/>
 
     <style name="AppTheme.FullScreen">
         <item name="android:windowFullscreen">true</item>
-    </style>
-
-    <!-- dialog -->
-    <style name="AppThemeDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/dd_red</item>
-        <item name="android:textColorPrimary">@color/text_dft</item>
-    </style>
-
-    <!-- alert dialog -->
-    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/dd_red</item>
-        <item name="android:colorAccent">@color/dd_red</item>
-        <item name="android:textColorPrimary">@color/text_dft</item>
-        <item name="android:windowBackground">@drawable/bg_with_corner</item>
-        <item name="android:windowMinWidthMajor">65%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-    </style>
-
-    <style name="FullDialog" parent="AppThemeDialogStyle">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
-    <style name="NormalDialog" parent="AppThemeDialogStyle">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
-    <style name="SpinnerDatePickerDialog" parent="AppCompatAlertDialogStyle">
-        <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
-    </style>
-
-    <style name="SpinnerDatePicker">
-        <item name="android:datePickerMode">spinner</item>
-    </style>
-
-    <style name="BottomDialog" parent="NormalDialog">
-        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
-        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
-    </style>
-
-    <style name="BottomInAnim" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
-        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
     </style>
 
 </resources>

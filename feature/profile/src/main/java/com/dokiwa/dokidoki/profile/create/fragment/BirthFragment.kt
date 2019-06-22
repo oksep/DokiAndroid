@@ -36,21 +36,6 @@ internal class BirthFragment : BaseStepFragment() {
         }
     }
 
-    private fun showDatePickerDialog() {
-        val ca = Calendar.getInstance()
-        val year = ca.get(Calendar.YEAR)
-        val month = ca.get(Calendar.MONTH)
-        val day = ca.get(Calendar.DAY_OF_MONTH)
-        DatePickerDialog(
-            requireContext(),
-            R.style.SpinnerDatePickerDialog,
-            DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                val data = (month + 1).toString() + "月-" + dayOfMonth + "日 "
-            },
-            year, month, day
-        ).show()
-    }
-
     override fun reset() {
     }
 }

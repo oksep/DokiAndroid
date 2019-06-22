@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- dialog -->
+    <style name="AppThemeDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/dd_red</item>
+        <item name="android:textColorPrimary">@color/text_dft</item>
+        <item name="android:windowBackground">@drawable/ui_bg_dialog</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!-- alert dialog -->
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/dd_red</item>
+        <item name="android:colorAccent">@color/dd_red</item>
+        <item name="android:textColorPrimary">@color/text_dft</item>
+        <item name="android:windowBackground">@drawable/ui_bg_dialog</item>
+        <item name="android:windowMinWidthMajor">65%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="FullScreenDialog" parent="AppThemeDialogStyle">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="BottomInAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
+    </style>
+
+</resources>
