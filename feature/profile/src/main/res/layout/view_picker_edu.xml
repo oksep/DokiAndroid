@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<merge
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:translationY="0dp"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="260dp">
+    android:layout_height="@dimen/profile_picker_view_height">
 
     <View
         app:layout_constraintLeft_toLeftOf="parent"
@@ -46,35 +46,16 @@
         android:layout_height="44dp"
         tools:ignore="UnusedAttribute"/>
 
-    <!--此部分需要完整复制过去，删减或者更改ID会导致初始化找不到内容而报空-->
-    <LinearLayout
-        android:id="@+id/optionspicker"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
+    <com.contrarywind.view.WheelView
+        android:id="@+id/eduPicker"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="44dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal">
+        app:wheelview_gravity="center"
+        app:wheelview_textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <com.contrarywind.view.WheelView
-            android:id="@+id/options1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <com.contrarywind.view.WheelView
-            android:id="@+id/options2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
-        <com.contrarywind.view.WheelView
-            android:id="@+id/options3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

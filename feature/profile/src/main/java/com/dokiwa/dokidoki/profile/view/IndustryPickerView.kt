@@ -3,7 +3,7 @@ package com.dokiwa.dokidoki.profile.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.FrameLayout
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
@@ -14,7 +14,7 @@ import com.dokiwa.dokidoki.profile.create.model.SubIndustry
 /**
  * Created by Septenary on 2019/2/12.
  */
-class IndustryPickerView : ConstraintLayout {
+class IndustryPickerView : FrameLayout {
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -47,7 +47,7 @@ class IndustryPickerView : ConstraintLayout {
                 cb(industry, sub)
             }
         )
-            .setLayoutRes(R.layout.view_city_picker) { v ->
+            .setLayoutRes(R.layout.view_picker_multiple) { v ->
                 v.findViewById<View>(R.id.pickerConfirmBtn).setOnClickListener {
                     pickerView?.returnData()
                     if (!topBarBtnInterceptor()) {
@@ -60,6 +60,7 @@ class IndustryPickerView : ConstraintLayout {
                     }
                 }
             }
+            .setOutSideCancelable(false)
             .setOptionsSelectChangeListener { _, _, _ -> }
             .isCenterLabel(false)
             .isDialog(false)
@@ -71,7 +72,7 @@ class IndustryPickerView : ConstraintLayout {
             industryList,
             industryList.map { it.subList }
         )
-
+        pickerView?.setKeyBackCancelable(false)
         pickerView?.show(false)
     }
 

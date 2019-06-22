@@ -35,7 +35,7 @@ open class EduPickerView : ConstraintLayout {
     }
 
     private fun init(attrs: AttributeSet?, defStyle: Int) {
-        LayoutInflater.from(context).inflate(R.layout.view_edu_picker, this)
+        LayoutInflater.from(context).inflate(R.layout.view_picker_edu, this)
 
         val eduPicker = findViewById<WheelView>(R.id.eduPicker)
         eduPicker.adapter = ArrayWheelAdapter(list)

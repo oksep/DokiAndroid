@@ -31,7 +31,7 @@ open class NumberPickerView : ConstraintLayout {
     val list = IntRange(80, 250).toList()
 
     private fun init(attrs: AttributeSet?, defStyle: Int) {
-        LayoutInflater.from(context).inflate(R.layout.view_number_picker, this)
+        LayoutInflater.from(context).inflate(R.layout.view_picker_number, this)
 
         val numberPicker = findViewById<WheelView>(R.id.numberPicker)
         numberPicker.adapter = ArrayWheelAdapter(list)

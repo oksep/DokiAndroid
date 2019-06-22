@@ -4,19 +4,18 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.TimePickerView
 import com.dokiwa.dokidoki.profile.R
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 /**
  * Created by Septenary on 2019/2/12.
  */
-class DatePickerView : FrameLayout {
+class DatePickerView : ConstraintLayout {
 
     constructor(context: Context) : super(context) {
         initLunarPicker()
@@ -53,7 +52,7 @@ class DatePickerView : FrameLayout {
         })
             .setDate(currentDate)
             .setRangDate(startDate, currentDate)
-            .setLayoutRes(R.layout.view_date_picker) { v ->
+            .setLayoutRes(R.layout.view_picker_date) { v ->
                 v.findViewById<View>(R.id.pickerConfirmBtn).setOnClickListener {
                     timePickerView?.returnData()
                     hide()

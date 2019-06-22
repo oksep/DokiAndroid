@@ -3,7 +3,7 @@ package com.dokiwa.dokidoki.profile.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.FrameLayout
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
 import com.bigkoo.pickerview.view.OptionsPickerView
@@ -11,11 +11,10 @@ import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.create.model.City
 import com.dokiwa.dokidoki.profile.create.model.Province
 
-
 /**
  * Created by Septenary on 2019/2/12.
  */
-class CityPickerView : ConstraintLayout {
+class CityPickerView : FrameLayout {
 
     constructor(context: Context) : super(context) {
         init(null, 0)
@@ -48,7 +47,7 @@ class CityPickerView : ConstraintLayout {
                 cb(province, city)
             }
         )
-            .setLayoutRes(R.layout.view_city_picker) { v ->
+            .setLayoutRes(R.layout.view_picker_multiple) { v ->
                 v.findViewById<View>(R.id.pickerConfirmBtn).setOnClickListener {
                     pickerView?.returnData()
                     if (!topBarBtnInterceptor()) {
@@ -61,6 +60,7 @@ class CityPickerView : ConstraintLayout {
                     }
                 }
             }
+            .setOutSideCancelable(false)
             .setOptionsSelectChangeListener { _, _, _ -> }
             .isCenterLabel(false)
             .isDialog(false)
@@ -72,7 +72,7 @@ class CityPickerView : ConstraintLayout {
             provinceList,
             provinceList.map { it.cityList }
         )
-
+        pickerView?.setKeyBackCancelable(false)
         pickerView?.show(false)
     }
 

@@ -9,6 +9,7 @@ import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.dialog.BottomDialog
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.profile.Log
+import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.LocalAssetApi
 import com.dokiwa.dokidoki.profile.create.model.IndustryData
 import com.dokiwa.dokidoki.profile.view.IndustryPickerView
@@ -35,7 +36,10 @@ class IndustryPickerDialog(
         pickerView.setBackgroundColor(Color.WHITE)
         setContentView(
             pickerView,
-            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtil.dp2px(context, 260f))
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                context.resources.getDimensionPixelSize(R.dimen.profile_picker_view_height)
+            )
         )
 
         fun initIndustryPickerView(data: IndustryData) {

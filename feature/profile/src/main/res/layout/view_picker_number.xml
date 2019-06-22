@@ -8,7 +8,7 @@
     tools:translationY="0dp"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="260dp">
+    android:layout_height="@dimen/profile_picker_view_height">
 
     <View
         app:layout_constraintLeft_toLeftOf="parent"

@@ -125,11 +125,13 @@ class ProfileDetailActivity : TranslucentActivity() {
 
         if (profile.intro.isNullOrEmpty()) {
             introEmpty.visibility = View.VISIBLE
+            introToggle.visibility = View.GONE
             intro.visibility = View.GONE
         } else {
             introEmpty.visibility = View.GONE
             intro.visibility = View.VISIBLE
             intro.setText(profile.intro, introToggle)
+            introToggle.visibility = View.VISIBLE
             introToggle.onceLayoutThen {
                 it.zoomTouchArea(introToggle.parent as View)
             }
