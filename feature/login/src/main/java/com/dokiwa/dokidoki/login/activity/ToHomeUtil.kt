@@ -4,7 +4,6 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.login.Log
@@ -28,10 +27,10 @@ object ToHomeUtil {
                 context,
                 {
                     if (it.profile.gender == 0) {  // unknown gender
-                        FeaturePlugin.get(IProfilePlugin::class.java).launchCreateProfileActivity(context, userToken)
+                        IProfilePlugin.get().launchCreateProfileActivity(context, userToken)
                     } else {
                         LoginSP.saveUserToken(userToken)
-                        FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(context)
+                        IHomePlugin.get().launchHomeActivity(context)
                     }
                     context.finishAffinity()
                 },

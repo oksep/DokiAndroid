@@ -14,7 +14,6 @@ import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.base.adapter.SimplePagerAdapter
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader
@@ -22,14 +21,7 @@ import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
-import com.dokiwa.dokidoki.profile.create.fragment.AvatarFragment
-import com.dokiwa.dokidoki.profile.create.fragment.BaseStepFragment
-import com.dokiwa.dokidoki.profile.create.fragment.BirthFragment
-import com.dokiwa.dokidoki.profile.create.fragment.CityFragment
-import com.dokiwa.dokidoki.profile.create.fragment.GenderFragment
-import com.dokiwa.dokidoki.profile.create.fragment.HeightFragment
-import com.dokiwa.dokidoki.profile.create.fragment.IStepFragmentInteract
-import com.dokiwa.dokidoki.profile.create.fragment.NickFragment
+import com.dokiwa.dokidoki.profile.create.fragment.*
 import com.dokiwa.dokidoki.profile.create.model.SharedViewModel
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_create_profile.*
@@ -181,9 +173,8 @@ class CreateProfileActivity : BaseSelectImageActivity(), IStepFragmentInteract {
         }.subscribeApiWithDialog(this, this,
             {
                 Log.d(TAG, "submit payload success")
-                FeaturePlugin.get(ILoginPlugin::class.java)
-                    .saveLoginUserToken(intent.getParcelableExtra(CreateProfileActivity.EXTRA_USER_TOKEN))
-                FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+                ILoginPlugin.get().saveLoginUserToken(intent.getParcelableExtra(CreateProfileActivity.EXTRA_USER_TOKEN))
+                IHomePlugin.get().launchHomeActivity(this)
                 ProfileSP.saveLoginUserProfile(it.profile)
                 finishAffinity()
             },

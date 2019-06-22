@@ -2,7 +2,6 @@ package com.dokiwa.dokidoki.center.sp
 
 import android.content.Context
 import com.dokiwa.dokidoki.center.AppCenter
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 
 abstract class BaseSharedPreferences(
@@ -135,7 +134,7 @@ abstract class BaseSharedPreferences(
 
     open fun wrapKey(key: String): String {
         return if (isAsUserData) {
-            "$key${FeaturePlugin.get(ILoginPlugin::class.java).getLoginUserId() ?: ""}"
+            "$key${ILoginPlugin.get().getLoginUserId() ?: ""}"
         } else {
             key
         }

@@ -3,7 +3,6 @@ package com.dokiwa.dokidoki
 import android.os.Bundle
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribe
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import io.reactivex.Single
 import io.reactivex.functions.Consumer
@@ -19,7 +18,7 @@ class LaunchActivity : BaseActivity() {
 
     private fun delayToHome() {
         fun toHome() {
-            FeaturePlugin.get(IHomePlugin::class.java).launchHomeActivity(this)
+            IHomePlugin.get().launchHomeActivity(this)
             finish()
         }
         Single.timer(800 * 1, TimeUnit.MILLISECONDS)

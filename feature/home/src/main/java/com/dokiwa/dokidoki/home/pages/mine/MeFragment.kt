@@ -6,7 +6,6 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.home.Log
@@ -24,7 +23,7 @@ class MeFragment : BasePageFragment(R.layout.fragment_me) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         entranceUserPage.setOnClickListener {
             sharedViewModel.mineViewModel.profile?.profile?.let {
-                FeaturePlugin.get(IProfilePlugin::class.java).launchProfileActivity(requireContext(), it)
+                IProfilePlugin.get().launchProfileActivity(requireContext(), it)
             }
         }
 

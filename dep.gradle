@@ -14,7 +14,7 @@ def versions = [:]
 
 // android-x
 versions.axCompat='1.1.0-beta01'
-versions.axConstraintLayout = '2.0.0-beta1'
+versions.axConstraintLayout = '2.0.0-beta2'
 versions.axLifecycle = '2.0.0'
 versions.axMaterial = '1.1.0-alpha07'
 versions.axCardView = '1.0.0'

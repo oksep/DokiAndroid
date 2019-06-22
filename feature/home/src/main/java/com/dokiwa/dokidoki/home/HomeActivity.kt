@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.home.pages.feed.FeedFragment
@@ -30,8 +29,8 @@ class HomeActivity : TranslucentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         initView()
-        FeaturePlugin.get(IAdminPlugin::class.java).attachShakeAdmin(lifecycle)
-        FeaturePlugin.get(ILoginPlugin::class.java).ensureLogin(this)
+        IAdminPlugin.get().attachShakeAdmin(lifecycle)
+        ILoginPlugin.get().ensureLogin(this)
     }
 
     private fun initView() {

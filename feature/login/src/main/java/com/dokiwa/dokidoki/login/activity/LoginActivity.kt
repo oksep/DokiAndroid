@@ -10,7 +10,6 @@ import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import com.dokiwa.dokidoki.login.Log
 import com.dokiwa.dokidoki.login.R
@@ -94,7 +93,7 @@ class LoginActivity : TranslucentActivity() {
         loginByWeibo.visibility = View.GONE
         tip.setText(R.string.login_usage_protocol)
         tip.setOnClickListener {
-            FeaturePlugin.get(IWebPlugin::class.java).launchWebActivity(this, "https://dokiwa.com/agreement/")
+            IWebPlugin.get().launchWebActivity(this, "https://dokiwa.com/agreement/")
         }
     }
 

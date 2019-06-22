@@ -12,7 +12,6 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toPrettyJson
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.google.gson.JsonElement
@@ -48,19 +47,19 @@ internal class AdminActivity : BaseActivity() {
     private val list = listOf(
         Item("测试账号登陆") {
             // 12345000001 - 12345000010
-            FeaturePlugin.get(ILoginPlugin::class.java).loginTestingAccount(this, "+8612345000007", "233333")
+            ILoginPlugin.get().loginTestingAccount(this, "+8612345000007", "233333")
         },
         Item("登出") {
             Api.testUnAuth()
         },
         Item("登出并登录") {
-            FeaturePlugin.get(ILoginPlugin::class.java).logOut(this)
+            ILoginPlugin.get().logOut(this)
         },
         Item("绑定手机号页面") {
-            FeaturePlugin.get(ILoginPlugin::class.java).launchBindPhoneActivity(this)
+            ILoginPlugin.get().launchBindPhoneActivity(this)
         },
         Item("角色创建页面") {
-            FeaturePlugin.get(IProfilePlugin::class.java).launchCreateProfileActivity(this, null)
+            IProfilePlugin.get().launchCreateProfileActivity(this, null)
         },
         Item("API - 获取自己的资料") { text ->
             Api.get(AdminApi::class.java).getProfile().subscribeApi(this, {

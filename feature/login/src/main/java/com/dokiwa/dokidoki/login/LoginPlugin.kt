@@ -7,7 +7,6 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toUriAndResolveDeepLink
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.login.activity.LoginActivity
@@ -26,7 +25,7 @@ class LoginPlugin : ILoginPlugin {
     }
 
     override fun getLoginUserId(): Int? {
-        return FeaturePlugin.get(IProfilePlugin::class.java).getLoginUserProfile()?.userId
+        return IProfilePlugin.get().getLoginUserProfile()?.userId
     }
 
     override fun launchLoginActivity(context: Context) {
@@ -51,7 +50,7 @@ class LoginPlugin : ILoginPlugin {
         Api.resetAuthenticationToken(null, null)
 
         // user profile
-        FeaturePlugin.get(IProfilePlugin::class.java).clearUserProfile()
+        IProfilePlugin.get().clearUserProfile()
 
         // to login activity
         launchLoginActivity(context)

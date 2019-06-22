@@ -9,3 +9,6 @@ project(':profile').projectDir = new File(settingsDir, 'feature/profile')
 
 include ':web'
 project(':web').projectDir = new File(settingsDir, 'feature/web')
+
+include ':timeline'
+project(':timeline').projectDir = new File(settingsDir, 'feature/timeline')

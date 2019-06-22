@@ -6,6 +6,7 @@ import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -42,15 +43,16 @@ interface FeaturePlugin {
             inMap(IHomePlugin::class.java)
             inMap(IWebPlugin::class.java)
             inMap(IProfilePlugin::class.java)
+            inMap(ITimelinePlugin::class.java)
         }
 
-        fun <T> get(clazz: Class<T>): T {
+        internal fun <T> get(clazz: Class<T>): T {
             return map[clazz] as? T ?: ShadowPlugin.newInstance(clazz)
         }
     }
 }
 
-class ShadowPlugin : InvocationHandler {
+internal class ShadowPlugin : InvocationHandler {
 
     companion object {
         fun <T> newInstance(clazz: Class<T>): T {

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 
 private const val SCHEMA_DOKI = "dokidoki"
@@ -19,7 +18,7 @@ fun Uri.resolveDeepLink(context: Context, dryRun: Boolean = false): Boolean {
     val schema = this.scheme?.toLowerCase()
     if (schema == "http" || schema == "https") {
         if (!dryRun) {
-            FeaturePlugin.get(IWebPlugin::class.java).launchWebActivity(context, this.toString())
+            IWebPlugin.get().launchWebActivity(context, this.toString())
         }
         return true
     } else if (schema == SCHEMA_DOKI) {
