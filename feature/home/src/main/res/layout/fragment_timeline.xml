@@ -15,7 +15,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/AppToolBar.Icon"
-        app:toolbar_rightIcon="@drawable/home_ic_feed_more"
+        app:toolbar_rightIcon="@drawable/heme_ic_timeline_plus"
         app:toolbar_leftIconVisibility="gone"
         app:toolbar_titleVisibility="gone"
         android:background="@drawable/bg_toolbar"

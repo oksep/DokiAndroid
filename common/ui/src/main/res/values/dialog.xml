@@ -22,6 +22,7 @@
     </style>
 
     <style name="FullScreenDialog" parent="AppThemeDialogStyle">
+        <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
