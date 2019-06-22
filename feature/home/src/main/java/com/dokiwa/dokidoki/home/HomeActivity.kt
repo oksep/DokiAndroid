@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
@@ -34,6 +34,7 @@ class HomeActivity : TranslucentActivity() {
     }
 
     private fun initView() {
+        homeViewPager.isUserInputEnabled = false
         homeViewPager.adapter = PageAdapter(supportFragmentManager)
         homeTabs.onTabClickListener = {
             homeViewPager.setCurrentItem(it, false)
@@ -51,10 +52,9 @@ class HomeActivity : TranslucentActivity() {
         super.onNewIntent(intent)
     }
 
-    private inner class PageAdapter(fm: FragmentManager) :
-        FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    private inner class PageAdapter(fm: FragmentManager) : FragmentStateAdapter(fm, lifecycle) {
 
-        override fun getCount() = 4
+        override fun getItemCount() = 4
 
         override fun getItem(position: Int): Fragment {
             return when (position) {

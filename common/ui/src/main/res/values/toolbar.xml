@@ -32,7 +32,7 @@
         <item name="toolbar_subTitleTextPaddingV">0dp</item>
         <item name="toolbar_subTitleVisibility">gone</item>
         <item name="toolbar_subTitleTextSize">5sp</item>
-        <item name="android:elevation">3dp</item>
+        <item name="android:elevation">@dimen/ui_toolbar_elevation</item>
         <item name="android:background">@drawable/bg_toolbar</item>
     </style>
 

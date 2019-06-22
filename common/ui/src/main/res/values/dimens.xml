@@ -2,4 +2,5 @@
 <resources>
     <dimen name="ui_toolbar_fit_height">48dp</dimen>
     <dimen name="ui_toolbar_default_text_size">14sp</dimen>
+    <dimen name="ui_toolbar_elevation">3dp</dimen>
 </resources>
