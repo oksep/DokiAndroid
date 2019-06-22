@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="@+id/avatar"
         app:layout_constraintLeft_toRightOf="@+id/avatar"
         app:layout_constraintRight_toLeftOf="@+id/certifyRealName"
-        app:layout_constraintWidth_default="wrap"
+        app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="15dp"
@@ -49,7 +49,7 @@
         tools:text="DokiDoki酱"
         android:maxLines="1"
         android:ellipsize="end"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <ImageView
