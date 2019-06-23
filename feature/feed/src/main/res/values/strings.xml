@@ -6,5 +6,6 @@
     <string name="feed_more_filter_search">条件筛选</string>
     <string name="feed_more_accurate_search">精确搜索</string>
     <string name="feed_home_title">首页</string>
+    <string name="feed_home_loading_failed">加载失败，请下拉重试…</string>
 
 </resources>

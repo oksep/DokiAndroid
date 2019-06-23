@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F8FA"
+    android:background="@color/dd_window"
     tools:context=".search.SearchUserActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout

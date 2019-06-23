@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Created by Septenary on 2018/9/10.
  */
-class LineDivider(
+open class LineDivider(
     resources: Resources,
     @ColorRes colorRes: Int,
     @DimenRes size: Int,

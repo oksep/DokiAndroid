@@ -81,6 +81,8 @@
     <declare-styleable name="WaterMaskView">
         <attr name="wm_text" format="reference|string"/>
         <attr name="wm_angle" format="float"/>
+        <attr name="wm_color" format="reference|color"/>
+        <attr name="wm_size" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="UnderlinedTextView">

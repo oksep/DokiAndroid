@@ -12,10 +12,10 @@ import com.dokiwa.dokidoki.feed.api.Feed
 import com.dokiwa.dokidoki.feed.api.FeedApi
 import com.dokiwa.dokidoki.feed.api.FeedPage
 import com.dokiwa.dokidoki.feed.widget.FeedMorePopWindow
-import com.dokiwa.dokidoki.ui.util.LineDivider
 import com.dokiwa.dokidoki.ui.util.safeShowAsDropDown
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_feed.*
+import java.util.concurrent.TimeUnit
 
 private const val TAG = "FeedFragment"
 
@@ -38,53 +38,60 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
         get() = ensureModel().feedPages
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recyclerView.addItemDecoration(
-            LineDivider(
-                resources,
-                R.color.dd_window,
-                R.dimen.feed_divider,
-                R.dimen.feed_divider_margin,
-                R.dimen.feed_divider_margin
-            )
-        )
-        adapter.setLoadMoreView(LoadMoreView())
-        adapter.setOnLoadMoreListener({
-            loadMore()
-        }, recyclerView)
-        adapter.disableLoadMoreIfNotFullPage(recyclerView)
-        adapter.setEnableLoadMore(true)
-        adapter.setOnItemClickListener { adapter, view, position ->
-            (adapter.getItem(position) as? Feed)?.let {
-                IProfilePlugin.get().launchProfileActivity(requireContext(), it.userProfile)
-            }
-        }
+        initToolBar()
+        initRefreshRecyclerView()
+        ensureData()
+    }
 
-        recyclerView.adapter = adapter
-
-        refreshLayout.setColorSchemeResources(R.color.dd_red)
-        refreshLayout.setOnRefreshListener {
-            refresh()
-        }
-
+    private fun initToolBar() {
         toolBar.rightIconView.setOnClickListener {
             FeedMorePopWindow(
                 requireContext(),
                 {
-                    showFilterSearchDialog()
+                    FeedFilterDialog(requireActivity(), feedFilter) { newFilter ->
+                        feedFilter.updateField(newFilter)
+                        refresh()
+                    }.showAsDropDown(toolBar)
                 },
                 {
                     IProfilePlugin.get().launchSearchUserActivity(requireContext())
                 }
             ).safeShowAsDropDown(it, 0, 0)
         }
+    }
 
-        ensureData()
+    private fun initRefreshRecyclerView() {
+        val refreshLayout = refreshRecyclerView.getRefreshLayout()
+        refreshLayout.setColorSchemeResources(R.color.dd_red)
+        refreshLayout.setOnRefreshListener {
+            refresh()
+        }
+
+        val recyclerView = refreshRecyclerView.getRecyclerView()
+        recyclerView.addItemDecoration(LineDivider(requireContext()))
+        adapter.setLoadMoreView(LoadMoreView())
+        adapter.disableLoadMoreIfNotFullPage(recyclerView)
+        adapter.setEnableLoadMore(true)
+        adapter.setOnLoadMoreListener(
+            {
+                if (!refreshLayout.isRefreshing) {
+                    loadMore()
+                }
+            },
+            recyclerView
+        )
+        adapter.setOnItemClickListener { adapter, view, position ->
+            (adapter.getItem(position) as? Feed)?.let {
+                IProfilePlugin.get().launchProfileActivity(requireContext(), it.userProfile)
+            }
+        }
+        recyclerView.adapter = adapter
     }
 
     private fun ensureData() {
         if (data.isEmpty()) {
             Log.d(TAG, "ensureData() -> load api data")
-            loadData()
+            refresh()
         } else {
             val list = mutableListOf<Feed>().also { l ->
                 data.forEach {
@@ -92,24 +99,14 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
                 }
             }
             adapter.setNewData(list)
-            Log.d(
-                TAG,
-                "ensureData() -> load cache data ${list.map { it.userProfile.nickname }}"
-            )
+            Log.d(TAG, "ensureData() -> load cache data ${list.map { it.userProfile.nickname }}")
         }
     }
 
     private fun refresh() {
         Log.d(TAG, "refresh()")
         data.clear()
-        loadData()
-    }
-
-    private fun showFilterSearchDialog() {
-        FeedFilterDialog(requireActivity(), feedFilter) {
-            feedFilter.updateField(it)
-            refresh()
-        }.showAsDropDown(toolBar)
+        loadNewData()
     }
 
     private fun setData(feedPage: FeedPage) {
@@ -135,14 +132,18 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
     }
 
     private fun showRefreshing() {
-        refreshLayout.isRefreshing = true
+        refreshRecyclerView.showLoading()
     }
 
-    private fun hideRefreshing() {
-        refreshLayout.isRefreshing = false
+    private fun showLoadingError() {
+        refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.feed_home_loading_failed)
     }
 
-    private fun loadData() {
+    private fun showLoadingSuccess() {
+        refreshRecyclerView.showSuccess()
+    }
+
+    private fun loadNewData() {
         Log.d(TAG, "loadData api data")
         showRefreshing()
         Api.get(FeedApi::class.java)
@@ -152,15 +153,18 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
             .subscribeApi(
                 this,
                 {
-                    hideRefreshing()
                     setData(it)
+                    showLoadingSuccess()
                     if (it.next == null) {
                         showLoadMoreEnd()
+                    } else {
+                        showLoadMoreComplete()
                     }
                 },
                 {
                     Log.e(TAG, "loadData failed", it)
-                    hideRefreshing()
+                    showLoadingError()
+                    showLoadMoreFailed()
                 }
             )
     }
@@ -173,6 +177,7 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
                     it.putAll(data.lastOrNull()?.nextQ ?: mapOf())
                 }
             )
+            .delay(2000, TimeUnit.MILLISECONDS)
             .subscribeApi(
                 this,
                 {

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:id="@+id/root"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/dd_yellow">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <TextView
-            android:layout_gravity="center"
-            android:textSize="80sp"
-            android:text="施工中..."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <com.dokiwa.dokidoki.ui.view.WaterMaskView
+        app:wm_text="@string/admin_developing"
+        app:wm_color="@color/black_10"
+        app:wm_size="22sp"
+        app:wm_angle="30"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

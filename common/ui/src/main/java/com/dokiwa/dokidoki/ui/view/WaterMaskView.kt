@@ -37,11 +37,16 @@ class WaterMaskView : View {
         val a = context.obtainStyledAttributes(attrs, R.styleable.WaterMaskView)
         text = a.getString(R.styleable.WaterMaskView_wm_text) ?: ""
         angle = a.getFloat(R.styleable.WaterMaskView_wm_angle, angle)
+        val color = a.getColor(
+            R.styleable.WaterMaskView_wm_color,
+            ResourcesCompat.getColor(resources, R.color.white_10, null)
+        )
+        val size = a.getDimensionPixelSize(R.styleable.WaterMaskView_wm_size, context.dp2px(32f))
         a.recycle()
 
         paint = TextPaint()
-        paint.color = ResourcesCompat.getColor(resources, R.color.white_10, null)
-        paint.textSize = context.dp2px(32F).toFloat()
+        paint.color = color
+        paint.textSize = size.toFloat()
         paint.isAntiAlias = true
         paint.textAlign = Paint.Align.CENTER
         paint.textScaleX = 1.1f
