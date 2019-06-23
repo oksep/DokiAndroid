@@ -180,7 +180,7 @@ class CreateProfileActivity : BaseSelectImageActivity(), IStepFragmentInteract {
             },
             {
                 Log.e(TAG, "submit payload failed", it)
-                toast(R.string.loading_failed_retry)
+                toast(R.string.center_toast_loading_failed_retry)
             }
         )
     }

@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#cad1d9"
-        app:nd_tips1="@string/web_loadfailed"/>
+        app:nd_tips1="@string/ui_oops_net_error"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

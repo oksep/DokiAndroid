@@ -1,8 +1,8 @@
-package com.dokiwa.dokidoki.center
+package com.dokiwa.dokidoki.ui
 
 internal object Log {
 
-    private const val MODULE = "Center"
+    private const val MODULE = "UI"
 
     fun v(tag: String, message: String) {
         android.util.Log.v("$MODULE.$tag", message)

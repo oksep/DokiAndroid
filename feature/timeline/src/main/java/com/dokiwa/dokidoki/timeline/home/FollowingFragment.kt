@@ -120,7 +120,7 @@ internal class FollowingFragment : BaseShareFragment(R.layout.fragment_timeline_
     }
 
     private fun showLoadingError() {
-        refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.timeline_home_loading_failed)
+        refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.ui_oops_net_error)
     }
 
     private fun showLoadingEmpty() {

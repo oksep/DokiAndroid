@@ -7,7 +7,7 @@
         <activity
             android:launchMode="singleTask"
             android:name=".AdminActivity"
-            android:label="@string/title_activity_admin">
+            android:label="@string/admin_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

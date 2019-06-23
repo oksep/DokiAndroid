@@ -14,7 +14,7 @@
         app:toolbar_rightTextVisibility="visible"
         app:toolbar_rightText="@string/profile_create_profile_skip"
         app:toolbar_leftIcon="@drawable/ui_ic_back_light"
-        android:background="@drawable/bg_toolbar"
+        android:background="@drawable/ui_bg_toolbar"
         tools:layout_height="44dp"
         tools:background="@color/dd_green"
         android:layout_width="match_parent"

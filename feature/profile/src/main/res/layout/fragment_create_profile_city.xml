@@ -61,7 +61,7 @@
         android:id="@+id/confirmBtn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/bg_btn_round_border_red"
+        android:background="@drawable/ui_bg_btn_round_border_red"
         android:text="@string/profile_create_confirm"
         android:textColor="@color/dd_red"
         android:layout_marginTop="120dp"

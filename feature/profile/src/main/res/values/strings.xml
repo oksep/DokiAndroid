@@ -1,51 +1,42 @@
 <resources>
     <string name="app_name">profile</string>
+
+    <!--创建角色-->
     <string name="profile_create_profile_skip">跳过</string>
     <string name="profile_create_profile_tip">角色创建中，请如实填写资料喔～</string>
-
     <string name="profile_create_profile_gender_tip">我的性别是</string>
     <string name="profile_create_profile_gender_tip2">*性别确认后无法修改</string>
     <string name="profile_create_profile_gender_male">男</string>
     <string name="profile_create_profile_gender_female">女</string>
-
     <string name="profile_create_profile_avatar_tip">上传头像</string>
     <string name="profile_create_profile_avatar_tip2">*建议使用真实头像</string>
     <string name="profile_create_profile_avatar_choose">选择头像</string>
-
     <string name="profile_create_profile_nick_tip">我的昵称是</string>
     <string name="profile_create_profile_nick_tip2">*注册后昵称可随时修改</string>
     <string name="profile_create_profile_nick_hint">我的昵称</string>
     <string name="profile_create_profile_nick_error">请填写合法的昵称 </string>
-
     <string name="profile_create_profile_birth_tip">我的生日是</string>
     <string name="profile_create_profile_birth_tip2">*生日确认后无法修改</string>
-
     <string name="profile_create_profile_height_tip">我的身高是</string>
-
     <string name="profile_create_profile_city_tip">我常在的地点是</string>
-
     <string name="profile_create_confirm">确认</string>
-
     <string name="profile_create_profile_avatar_upload_title">提示</string>
     <string name="profile_create_profile_avatar_upload_message">正在上传头像</string>
     <string name="profile_create_profile_avatar_upload_failed">上传头像失败</string>
-
     <string name="profile_avatar_crop_title">剪裁头像</string>
     <string name="profile_avatar_crop_cancel">取消</string>
     <string name="profile_avatar_crop_ok">确认</string>
-
     <string name="profile_calendar_day">日</string>
     <string name="profile_calendar_month">月</string>
     <string name="profile_calendar_year">年</string>
     <string name="profile_height_cm">cm</string>
 
-    <!--search-->
+    <!--用户搜索-->
     <string name="search_cancel">取消</string>
     <string name="search_hint">输入用户ID</string>
-    <string name="search_user_error">与世界线的连接中断了？\n（ 网络连接错误 ）</string>
     <string name="search_user_empty">世界线错乱啦，找不到此人～</string>
 
-    <!--profile detail-->
+    <!--个人详情-->
     <string name="profile_detail_id">ID: %s</string>
     <string name="profile_detail_tags_none_tip">TA还未设置标签</string>
     <string name="profile_detail_intro_none_tip">TA太懒了，还没有填写简介</string>
@@ -64,8 +55,7 @@
     <string name="profile_detail_follow_plus">关注 TA</string>
     <string name="profile_detail_following">已关注</string>
 
-    <!--profile edit-->
-
+    <!--详情编辑-->
     <string name="profile_edit">资料编辑</string>
     <string name="profile_edit_save">保存</string>
     <string name="profile_edit_pictures_counts">展示图片 (%d/9)</string>
@@ -106,7 +96,7 @@
     <string name="profile_edit_save_success">资料修改成功</string>
     <string name="profile_edit_save_failed">资料修改失败</string>
 
-    <!--我的-->
+    <!--首页'我的'-->
     <string name="profile_home_mine_title">我的主页</string>
     <string name="profile_home_mine_official_certify">官方认证: %s</string>
     <string name="profile_home_mine_not_certify">( 未认证 )</string>

@@ -9,8 +9,7 @@
 
     <View
         android:layout_width="162dp"
-        android:layout_height="162dp"
-        android:background="@drawable/test"/>
+        android:layout_height="162dp"/>
 
     <TextView
         android:id="@+id/tips1_text"

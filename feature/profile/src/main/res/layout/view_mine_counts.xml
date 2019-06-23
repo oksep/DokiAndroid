@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:id="@+id/countsContainer"
-    android:background="@drawable/bg_white_border_10dp"
+    android:background="@drawable/ui_bg_white_border_10dp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:elevation="4dp"

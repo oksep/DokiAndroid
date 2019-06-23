@@ -11,7 +11,7 @@
     <com.dokiwa.dokidoki.ui.view.AppToolBar
         android:id="@+id/toolBar"
         style="@style/AppToolBar.Dark.Icon.Left"
-        android:background="@drawable/bg_toolbar"
+        android:background="@drawable/ui_bg_toolbar"
         android:elevation="0dp"
         app:toolbar_leftIcon="@drawable/ui_ic_back_light"
         app:toolbar_titleTextColor="@color/white"

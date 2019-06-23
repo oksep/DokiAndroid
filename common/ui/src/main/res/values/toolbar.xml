@@ -33,7 +33,7 @@
         <item name="toolbar_subTitleVisibility">gone</item>
         <item name="toolbar_subTitleTextSize">5sp</item>
         <item name="android:elevation">@dimen/ui_toolbar_elevation</item>
-        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="android:background">@drawable/ui_bg_toolbar</item>
     </style>
 
     <style name="AppToolBar.Text" parent="AppToolBar">

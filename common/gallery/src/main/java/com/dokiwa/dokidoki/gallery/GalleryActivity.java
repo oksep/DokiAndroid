@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.FragmentActivity;
@@ -38,7 +37,7 @@ public class GalleryActivity extends FragmentActivity {
         context.startActivity(intent);
     }
 
-    private static final String TAG = GalleryActivity.class.getName();
+    private static final String TAG = "GalleryActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,21 +80,21 @@ public class GalleryActivity extends FragmentActivity {
     private ScrollGalleryView.OnImageClickListener clickListener = new ScrollGalleryView.OnImageClickListener() {
         @Override
         public void onClick(int position) {
-            Log.i(TAG, "lick image position = " + position);
+            Log.INSTANCE.i(TAG, "lick image position = " + position);
         }
     };
 
     private ScrollGalleryView.OnImageLongClickListener longClickListener = new ScrollGalleryView.OnImageLongClickListener() {
         @Override
         public void onClick(int position) {
-            Log.i(TAG, "long click image position = " + position);
+            Log.INSTANCE.i(TAG, "long click image position = " + position);
         }
     };
 
     private class CustomOnPageListener extends ViewPager.SimpleOnPageChangeListener {
         @Override
         public void onPageSelected(int position) {
-            Log.i(TAG, "page selected #" + position);
+            Log.INSTANCE.i(TAG, "page selected #" + position);
         }
     }
 }

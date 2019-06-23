@@ -77,7 +77,7 @@ class ProfileDetailActivity : TranslucentActivity() {
             Api.get(ProfileApi::class.java)
                 .getUserProfileByUUID(uuid)
                 .subscribeApi(this, ::setData) {
-                    toastApiException(it, R.string.loading_failed_retry)
+                    toastApiException(it, R.string.center_toast_loading_failed_retry)
                 }
         }
     }

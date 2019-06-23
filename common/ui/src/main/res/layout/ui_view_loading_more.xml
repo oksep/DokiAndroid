@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/ui_loading_no_more"
+        android:text="@string/ui_load_more_no_more"
         tools:visibility="gone"/>
 
     <LinearLayout
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:text="@string/ui_loading_loading"/>
+            android:text="@string/ui_load_more_loading"/>
 
     </LinearLayout>
 
@@ -54,6 +54,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/ui_loading_failed_and_retry"/>
+        android:text="@string/ui_load_more_failed_and_retry"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

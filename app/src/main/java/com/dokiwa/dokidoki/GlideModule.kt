@@ -7,7 +7,6 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.executor.GlideExecutor
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.request.RequestOptions
-import com.dokiwa.dokidoki.center.Log
 
 private const val TAG = "GlideModule"
 

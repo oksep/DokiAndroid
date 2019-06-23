@@ -6,7 +6,7 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_water_mask"
+    android:background="@drawable/ui_bg_water_mask"
     tools:context=".activity.LoginActivity">
 
     <com.dokiwa.dokidoki.ui.view.WaterMaskView
@@ -48,7 +48,7 @@
         android:layout_marginRight="53dp"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"
-        android:background="@drawable/bg_edit_round_corner"
+        android:background="@drawable/login_bg_edit_round_corner"
         android:lines="1"
         android:hint="@string/login_phone_number_hint"
         android:maxLength="11"
@@ -86,7 +86,7 @@
         android:layout_marginRight="53dp"
         android:paddingStart="20dp"
         android:paddingEnd="70dp"
-        android:background="@drawable/bg_edit_round_corner"
+        android:background="@drawable/login_bg_edit_round_corner"
         android:lines="1"
         android:hint="@string/login_verify_input"
         android:maxLength="6"
@@ -108,7 +108,7 @@
         android:elevation="10dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:text="@string/log_verify_fetch"
+        android:text="@string/login_verify_fetch"
         android:textColor="@color/dd_red"
         android:textSize="12sp"/>
 
@@ -117,7 +117,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/codeEditText"
         app:layout_constraintRight_toLeftOf="@+id/countDownTip"
         android:elevation="20dp"
-        android:background="@drawable/bg_line_vertical"
+        android:background="@drawable/login_bg_line_vertical"
         android:layout_width="4dp"
         android:layout_height="0dp"/>
 
@@ -137,7 +137,7 @@
 
     <Button
         android:id="@+id/confirmBtn"
-        android:background="@drawable/bg_btn_round_border_white"
+        android:background="@drawable/ui_bg_btn_round_border_white"
         app:layout_constraintLeft_toLeftOf="@+id/tip"
         app:layout_constraintRight_toRightOf="@+id/tip"
         app:layout_constraintTop_toBottomOf="@+id/tip"

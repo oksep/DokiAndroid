@@ -1,27 +1,30 @@
 <resources>
     <string name="app_name">Center</string>
 
-    <string name="image_choose_no_camera_hint">未在您的设备上找到可用的拍照应用</string>
-    <string name="image_choose_from_album">从相册选择</string>
-    <string name="image_choose_from_camera">拍照</string>
-    <string name="image_choose_title">选择图片</string>
+    <!--image select-->
+    <string name="center_toast_image_choose_no_camera_hint">未在您的设备上找到可用的拍照应用</string>
+    <string name="center_image_choose_from_album">从相册选择</string>
+    <string name="center_image_choose_from_camera">拍照</string>
+    <string name="center_image_choose_title">选择图片</string>
 
-    <string name="loading_failed_retry">加载失败，请重试</string>
+    <!--profile edu-->
+    <string name="center_profile_edu_unknown">未知</string>
+    <string name="center_profile_edu_low">高中及以下</string>
+    <string name="center_profile_edu_junior">大专</string>
+    <string name="center_profile_edu_bachelor">本科</string>
+    <string name="center_profile_edu_master">硕士</string>
+    <string name="center_profile_edu_phd">博士</string>
 
+    <!--permissions-->
+    <string name="center_permission_require">需要打开相关权限以执行操作</string>
+
+    <!--common-->
     <string name="save">保存</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="tip">提示</string>
 
-    <!--profile edu-->
-    <string name="profile_edu_unknown">未知</string>
-    <string name="profile_edu_low">高中及以下</string>
-    <string name="profile_edu_junior">大专</string>
-    <string name="profile_edu_bachelor">本科</string>
-    <string name="profile_edu_master">硕士</string>
-    <string name="profile_edu_phd">博士</string>
-
-    <!--permissions-->
-    <string name="center_permission_require">需要打开相关权限以执行操作</string>
+    <!--error toast-->
+    <string name="center_toast_loading_failed_retry">加载失败，请重试</string>
 
 </resources>

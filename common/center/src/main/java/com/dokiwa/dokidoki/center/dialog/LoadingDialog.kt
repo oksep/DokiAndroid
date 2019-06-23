@@ -47,7 +47,7 @@ class LoadingDialog private constructor(context: Context, style: Int) : BaseDial
     }
 
     override fun show() {
-        setDialogAnim(this, R.anim.anim_fade_in)
+        setDialogAnim(this, R.anim.ui_anim_fade_in)
         super.show()
         if (isFirstShow) {
             val dm = context.applicationContext.resources.displayMetrics
@@ -60,7 +60,7 @@ class LoadingDialog private constructor(context: Context, style: Int) : BaseDial
     }
 
     override fun dismiss() {
-        setDialogAnim(this, R.anim.anim_fade_out)
+        setDialogAnim(this, R.anim.ui_anim_fade_out)
         super.dismiss()
     }
 

@@ -31,7 +31,7 @@
         app:alignItems="flex_start"
         app:flexWrap="wrap"
         app:showDivider="middle"
-        app:dividerDrawable="@drawable/divider_16dp"
+        app:dividerDrawable="@drawable/ui_divider_16dp"
         app:size="large"
         app:defaultSelected="false"
         app:editable="false"

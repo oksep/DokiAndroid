@@ -143,7 +143,7 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
     }
 
     private fun showLoadingError() {
-        refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.feed_home_loading_failed)
+        refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.ui_oops_net_error)
     }
 
     private fun showLoadingSuccess(anim: Boolean = true) {

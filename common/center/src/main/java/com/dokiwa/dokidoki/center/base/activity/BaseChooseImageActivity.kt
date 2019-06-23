@@ -172,7 +172,7 @@ open class ImageChooseHelper(
         if (intent.resolveActivity(mContext.packageManager) != null) {
             startActivityForResult(intent, REQUEST_CAMERA)
         } else {
-            mContext.toast(R.string.image_choose_no_camera_hint)
+            mContext.toast(R.string.center_toast_image_choose_no_camera_hint)
         }
     }
 
@@ -183,7 +183,7 @@ open class ImageChooseHelper(
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(
-            Intent.createChooser(intent, mContext.getString(R.string.image_choose_title)),
+            Intent.createChooser(intent, mContext.getString(R.string.center_image_choose_title)),
             REQUEST_CALENDAR
         )
     }
@@ -193,8 +193,8 @@ open class ImageChooseHelper(
 
         portraitPath = ""
         val items = arrayOf<CharSequence>(
-            mContext.getString(R.string.image_choose_from_camera),
-            mContext.getString(R.string.image_choose_from_album)
+            mContext.getString(R.string.center_image_choose_from_camera),
+            mContext.getString(R.string.center_image_choose_from_album)
         )
         val builder = AlertDialog.Builder(mContext)
         if (!TextUtils.isEmpty(title)) builder.setTitle(title)

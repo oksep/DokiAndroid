@@ -93,7 +93,7 @@
         app:alignItems="flex_start"
         app:flexWrap="wrap"
         app:showDivider="middle"
-        app:dividerDrawable="@drawable/divider_8dp"
+        app:dividerDrawable="@drawable/ui_divider_8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"

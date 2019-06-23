@@ -90,7 +90,7 @@ class SearchUserActivity : TranslucentActivity() {
                 }
             }, {
                 Log.e(TAG, "search failed", it)
-                refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.search_user_error)
+                refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.ui_oops_net_error)
             })
         }
     }

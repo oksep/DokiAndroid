@@ -47,8 +47,8 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
             .setTitle(titleRes)
             .setItems(
                 arrayOf(
-                    getString(R.string.image_choose_from_camera),
-                    getString(R.string.image_choose_from_album)
+                    getString(R.string.center_image_choose_from_camera),
+                    getString(R.string.center_image_choose_from_album)
                 )
             ) { _, item ->
                 if (item == 0) {
@@ -70,7 +70,7 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(
-            Intent.createChooser(intent, getString(R.string.image_choose_title)),
+            Intent.createChooser(intent, getString(R.string.center_image_choose_title)),
             REQUEST_CODE_GALLERY
         )
     }
@@ -186,7 +186,7 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
                     startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA)
                 }
             } ?: run {
-                toast(R.string.image_choose_no_camera_hint)
+                toast(R.string.center_toast_image_choose_no_camera_hint)
             }
         }
     }

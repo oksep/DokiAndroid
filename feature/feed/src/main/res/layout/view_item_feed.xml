@@ -114,7 +114,7 @@
         app:alignItems="flex_start"
         app:flexWrap="wrap"
         app:showDivider="middle"
-        app:dividerDrawable="@drawable/divider_8dp"
+        app:dividerDrawable="@drawable/ui_divider_8dp"
         android:visibility="gone"
         android:layout_marginTop="6dp"
         android:orientation="horizontal"

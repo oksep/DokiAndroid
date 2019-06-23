@@ -174,11 +174,11 @@ open class Edu(val value: Int, @StringRes val textRes: Int) {
         const val LOW = 5       // 中职及以下
         val cases = listOf(
             // Edu(UNKOWN, R.string.profile_edu_unknown),
-            Edu(LOW, R.string.profile_edu_low),
-            Edu(JUNIOR, R.string.profile_edu_junior),
-            Edu(BACHELOR, R.string.profile_edu_bachelor),
-            Edu(MASTER, R.string.profile_edu_master),
-            Edu(PHD, R.string.profile_edu_phd)
+            Edu(LOW, R.string.center_profile_edu_low),
+            Edu(JUNIOR, R.string.center_profile_edu_junior),
+            Edu(BACHELOR, R.string.center_profile_edu_bachelor),
+            Edu(MASTER, R.string.center_profile_edu_master),
+            Edu(PHD, R.string.center_profile_edu_phd)
         )
     }
 }

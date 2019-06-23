@@ -6,7 +6,7 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_water_mask"
+    android:background="@drawable/ui_bg_water_mask"
     tools:context=".activity.LoginActivity">
 
     <com.dokiwa.dokidoki.ui.view.WaterMaskView
@@ -70,14 +70,14 @@
         android:layout_marginTop="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_verify_count_down"
+        android:text="@string/login_verify_count_down"
         android:textColor="@color/white_90"
         android:textSize="12sp"
         />
 
     <Button
         android:id="@+id/confirmBtn"
-        android:background="@drawable/bg_btn_round_border_white"
+        android:background="@drawable/ui_bg_btn_round_border_white"
         app:layout_constraintLeft_toLeftOf="@+id/pinEntryEdit"
         app:layout_constraintRight_toRightOf="@+id/pinEntryEdit"
         app:layout_constraintTop_toBottomOf="@+id/pinEntryEdit"

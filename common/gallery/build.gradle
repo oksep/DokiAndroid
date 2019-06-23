@@ -1,4 +1,6 @@
 apply plugin: "com.android.library"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion builds.compileSdkVersion
@@ -16,6 +18,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:${versions.axCompat}"
     implementation "com.veinhorn.scrollgalleryview:library:${versions.scrollGalleryView}"
     implementation "com.veinhorn.scrollgalleryview:glide-loader:${versions.scrollGalleryView}"

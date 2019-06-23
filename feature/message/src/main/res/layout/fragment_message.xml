@@ -14,7 +14,7 @@
         app:toolbar_rightIconVisibility="gone"
         app:toolbar_leftIconVisibility="gone"
         app:toolbar_titleText="@string/app_name"
-        android:background="@drawable/bg_toolbar"
+        android:background="@drawable/ui_bg_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 

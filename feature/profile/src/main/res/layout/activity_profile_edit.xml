@@ -12,7 +12,7 @@
     <com.dokiwa.dokidoki.ui.view.AppToolBar
         android:id="@+id/toolBar"
         style="@style/AppToolBar.Dark.Icon.Left"
-        android:background="@drawable/bg_toolbar"
+        android:background="@drawable/ui_bg_toolbar"
         android:elevation="0dp"
         app:toolbar_leftIcon="@drawable/ui_ic_back_light"
         app:toolbar_titleTextColor="@color/white"
@@ -392,7 +392,7 @@
                     app:alignItems="flex_end"
                     app:flexWrap="wrap"
                     app:showDivider="middle"
-                    app:dividerDrawable="@drawable/divider_8dp"
+                    app:dividerDrawable="@drawable/ui_divider_8dp"
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>

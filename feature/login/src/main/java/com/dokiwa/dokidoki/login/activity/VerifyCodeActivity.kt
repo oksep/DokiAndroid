@@ -84,7 +84,7 @@ class VerifyCodeActivity : TranslucentActivity() {
                 {},
                 {
                     countDown?.dispose()
-                    toastApiException(it, R.string.log_request_verify_failed)
+                    toastApiException(it, R.string.login_toast_request_verify_failed)
                 }
             )
         countDownTip()
@@ -93,7 +93,7 @@ class VerifyCodeActivity : TranslucentActivity() {
     // 验证码倒计时
     private fun countDownTip(): Disposable {
         fun countDownComplete() {
-            countDownTip.text = getString(R.string.log_verify_retry)
+            countDownTip.text = getString(R.string.login_verify_retry)
             countDownTip.setOnClickListener {
                 requestVerifyCode()
             }
@@ -103,7 +103,7 @@ class VerifyCodeActivity : TranslucentActivity() {
 
         return Observable.interval(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                countDownTip.text = getString(R.string.log_verify_count_down, times)
+                countDownTip.text = getString(R.string.login_verify_count_down, times)
                 countDownTip.setOnClickListener(null)
             }
             .doOnDispose {
@@ -112,7 +112,7 @@ class VerifyCodeActivity : TranslucentActivity() {
             .take(times - 1)
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { countDownTip.text = getString(R.string.log_verify_count_down, times - it - 1) },
+                { countDownTip.text = getString(R.string.login_verify_count_down, times - it - 1) },
                 { countDownComplete() },
                 { countDownComplete() }
             )

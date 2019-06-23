@@ -29,8 +29,8 @@
     </style>
 
     <style name="BottomInAnim" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/anim_bottom_in</item>
-        <item name="android:windowExitAnimation">@anim/anim_bottom_out</item>
+        <item name="android:windowEnterAnimation">@anim/ui_anim_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/ui_anim_bottom_out</item>
     </style>
 
 </resources>
