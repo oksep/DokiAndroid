@@ -12,6 +12,8 @@ import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 @PluginImplMeta("com.dokiwa.dokidoki.admin.AdminPlugin")
 interface IAdminPlugin : FeaturePlugin {
 
+    fun launchDevelopingPage(context: Context): Boolean
+
     fun launchAdmin(context: Context)
 
     fun attachShakeAdmin(lifecycle: Lifecycle)

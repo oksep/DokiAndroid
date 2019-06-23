@@ -17,4 +17,9 @@ class AdminPlugin : IAdminPlugin {
     override fun attachShakeAdmin(lifecycle: Lifecycle) {
         ShakeHelper.attach(lifecycle)
     }
+
+    override fun launchDevelopingPage(context: Context): Boolean {
+        DevelopingActivity.launch(context)
+        return true
+    }
 }
