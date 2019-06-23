@@ -68,6 +68,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:${versions.axCompat}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
     implementation "com.google.android.material:material:${versions.axMaterial}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${versions.axLifecycle}"
+    implementation "androidx.core:core-ktx:${versions.axKtx}"
 
     // test
     testImplementation "junit:junit:${versions.testJunit}"

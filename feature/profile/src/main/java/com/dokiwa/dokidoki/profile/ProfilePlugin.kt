@@ -4,18 +4,24 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Parcelable
+import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.profile.create.CreateProfileActivity
 import com.dokiwa.dokidoki.profile.detail.ProfileDetailActivity
 import com.dokiwa.dokidoki.profile.dialog.CityPickerDialog
 import com.dokiwa.dokidoki.profile.edit.ProfileEditActivity
+import com.dokiwa.dokidoki.profile.home.MineFragment
 import com.dokiwa.dokidoki.profile.search.SearchUserActivity
 
 /**
  * Created by Septenary on 2019/1/2.
  */
 class ProfilePlugin : IProfilePlugin {
+
+    override fun obtainHomeMineFragment(): Fragment {
+        return MineFragment()
+    }
 
     override fun launchProfileActivity(context: Context, uuid: String) {
         ProfileDetailActivity.launch(context, uuid)

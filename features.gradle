@@ -12,3 +12,9 @@ project(':web').projectDir = new File(settingsDir, 'feature/web')
 
 include ':timeline'
 project(':timeline').projectDir = new File(settingsDir, 'feature/timeline')
+
+include ':feed'
+project(':feed').projectDir = new File(settingsDir, 'feature/feed')
+
+include ':message'
+project(':message').projectDir = new File(settingsDir, 'feature/message')

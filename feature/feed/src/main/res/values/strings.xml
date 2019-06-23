@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">feed</string>
+
+    <!--feed-->
+    <string name="feed_empty_tags_tip">TA还未设置标签</string>
+    <string name="feed_more_filter_search">条件筛选</string>
+    <string name="feed_more_accurate_search">精确搜索</string>
+    <string name="feed_home_title">首页</string>
+
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">message</string>
+
+    <string name="message_home_page_title">消息</string>
+</resources>

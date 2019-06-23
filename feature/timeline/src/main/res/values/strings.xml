@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">timeline</string>
+
+    <string name="timeline_home_tab_recommend">推荐</string>
+    <string name="timeline_home_tab_follow">关注</string>
+
 </resources>

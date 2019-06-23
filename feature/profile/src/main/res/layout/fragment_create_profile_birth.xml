@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="@string/calendar_year"
+            android:text="@string/profile_calendar_year"
             android:gravity="center"
             android:textColor="#FFA4AAB3"
             android:textSize="14sp"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="@string/calendar_month"
+            android:text="@string/profile_calendar_month"
             android:gravity="center"
             android:textColor="#FFA4AAB3"
             android:textSize="14sp"
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="@string/calendar_day"
+            android:text="@string/profile_calendar_day"
             android:textColor="#FFA4AAB3"
             android:textSize="14sp"
             android:gravity="center"

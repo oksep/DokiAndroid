@@ -29,7 +29,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.axLifecycle}"
     implementation "com.google.android.material:material:${versions.axMaterial}"
-    implementation "androidx.cardview:cardview:${versions.axCardView}"
     implementation "androidx.core:core-ktx:${versions.axKtx}"
 
     // test
@@ -37,18 +36,13 @@ dependencies {
     androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
 
-    // network
-//    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-//    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
-//    implementation "com.google.code.gson:gson:${versions.gson}"
-//    implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
-//    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
+    implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
 
     // ui
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
-    implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
 
-    // modules
     implementation project(':center')
     implementation project(':ui')
 }

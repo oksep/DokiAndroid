@@ -42,7 +42,7 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="40dp"
-        android:src="@drawable/selector_gender_male"
+        android:src="@drawable/profile_selector_gender_male"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -63,7 +63,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/maleImage"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="30dp"
-        android:src="@drawable/selector_gender_female"
+        android:src="@drawable/profile_selector_gender_female"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

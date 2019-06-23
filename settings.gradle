@@ -1,6 +1,6 @@
 rootProject.name = 'DokiDoki'
 
-include ':app', ':timeline',
+include ':app',
         ':center',
         ':ui',
         ':cropiwa',

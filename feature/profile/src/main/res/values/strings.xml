@@ -34,13 +34,10 @@
     <string name="profile_avatar_crop_cancel">取消</string>
     <string name="profile_avatar_crop_ok">确认</string>
 
-    <string name="cancel">取消</string>
-    <string name="confirm">确认</string>
-
-    <string name="calendar_day">日</string>
-    <string name="calendar_month">月</string>
-    <string name="calendar_year">年</string>
-    <string name="cm">cm</string>
+    <string name="profile_calendar_day">日</string>
+    <string name="profile_calendar_month">月</string>
+    <string name="profile_calendar_year">年</string>
+    <string name="profile_height_cm">cm</string>
 
     <!--search-->
     <string name="search_cancel">取消</string>
@@ -108,5 +105,23 @@
     <string name="profile_edit_crop_failed">图片剪裁失败</string>
     <string name="profile_edit_save_success">资料修改成功</string>
     <string name="profile_edit_save_failed">资料修改失败</string>
+
+    <!--我的-->
+    <string name="profile_home_mine_title">我的主页</string>
+    <string name="profile_home_mine_official_certify">官方认证: %s</string>
+    <string name="profile_home_mine_not_certify">( 未认证 )</string>
+    <string name="profile_home_mine_certify_with">(%s)</string>
+    <string name="profile_home_mine_id">ID: %d</string>
+    <string name="profile_home_mine_name_certify">实名认证</string>
+    <string name="profile_home_mine_edu_certify">学历认证</string>
+    <string name="profile_home_mine_timeline_title">动态</string>
+    <string name="profile_home_mine_follow_title">我关注的</string>
+    <string name="profile_home_mine_fans_count">关注我的</string>
+    <string name="profile_home_mine_edit">资料编辑</string>
+    <string name="profile_home_mine_evaluate">评价</string>
+    <string name="profile_home_mine_share">去安利</string>
+    <string name="profile_home_mine_blacklist">黑名单</string>
+    <string name="profile_home_mine_feedback">问题反馈</string>
+    <string name="profile_home_mine_settings">设置</string>
 
 </resources>

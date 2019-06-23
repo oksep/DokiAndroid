@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.MineFragment">
+
+    <View
+        android:id="@+id/topSolidColorView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/bg_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"/>
+
+    <include
+        android:id="@+id/countsContainer"
+        layout="@layout/view_mine_counts"
+        android:background="@drawable/bg_white_border_10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/topSolidColorView"
+        app:layout_constraintBottom_toBottomOf="@+id/topSolidColorView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+
+    <com.dokiwa.dokidoki.ui.view.RoundImageView
+        android:id="@+id/avatar"
+        app:layout_constraintLeft_toLeftOf="@+id/countsContainer"
+        app:layout_constraintBottom_toTopOf="@+id/countsContainer"
+        android:layout_marginBottom="26dp"
+        app:rv_circle="true"
+        app:rv_border_width="2dp"
+        app:rv_border_color="@color/white"
+        android:src="@drawable/ui_ic_avatar_default_female"
+        android:scaleType="centerCrop"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
+    <ImageView
+        android:id="@+id/certifyIconView"
+        app:layout_constraintRight_toRightOf="@+id/avatar"
+        app:layout_constraintBottom_toBottomOf="@id/avatar"
+        android:src="@drawable/ui_ic_certify"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
+    <TextView
+        android:id="@+id/nameTextView"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toTopOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="@+id/countsContainer"
+        app:layout_constraintBottom_toTopOf="@+id/idTextView"
+        app:layout_constraintVertical_chainStyle="spread"
+        android:layout_marginStart="16dp"
+        tools:text="嗷嗷牛"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/idTextView"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintRight_toRightOf="@+id/countsContainer"
+        app:layout_constraintBottom_toTopOf="@+id/officialCertifyTextView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        tools:text="ID: 10086"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/officialCertifyTextView"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/idTextView"
+        app:layout_constraintRight_toRightOf="@+id/countsContainer"
+        app:layout_constraintBottom_toTopOf="@+id/realNameCertifyTextView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        tools:text="官方认证：我真的是官方啊"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/realNameCertifyTextView"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintTop_toBottomOf="@+id/officialCertifyTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/profile_home_mine_name_certify"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/realNameCertifyStatusTextView"
+        app:layout_constraintLeft_toRightOf="@+id/realNameCertifyTextView"
+        app:layout_constraintTop_toTopOf="@+id/realNameCertifyTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/realNameCertifyTextView"
+        android:layout_marginStart="8dp"
+        android:text="@string/profile_home_mine_not_certify"
+        android:textColor="@color/white_70"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <View
+        app:layout_constraintLeft_toRightOf="@+id/realNameCertifyStatusTextView"
+        app:layout_constraintTop_toTopOf="@+id/realNameCertifyStatusTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/realNameCertifyStatusTextView"
+        android:layout_marginStart="8dp"
+        android:id="@+id/certifyLine"
+        android:background="@color/white_70"
+        android:layout_width="1dp"
+        android:layout_height="10dp"/>
+
+    <TextView
+        android:id="@+id/eduCertifyTextView"
+        app:layout_constraintLeft_toRightOf="@+id/certifyLine"
+        app:layout_constraintTop_toTopOf="@+id/realNameCertifyStatusTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/realNameCertifyStatusTextView"
+        android:layout_marginStart="8dp"
+        android:text="@string/profile_home_mine_edu_certify"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/eduCertifyStatusTextView"
+        app:layout_constraintLeft_toRightOf="@+id/eduCertifyTextView"
+        app:layout_constraintTop_toTopOf="@+id/eduCertifyTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/eduCertifyTextView"
+        android:layout_marginStart="8dp"
+        android:text="@string/profile_home_mine_not_certify"
+        android:textColor="@color/white_70"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/entranceUserPage"
+        app:layout_constraintTop_toTopOf="@+id/avatar"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        android:text="@string/profile_home_mine_title"
+        android:textColor="#FF3264"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:background="@drawable/bg_white_border_left_15dp"
+        android:layout_width="80dp"
+        android:layout_height="30dp"/>
+
+    <View
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topSolidColorView"
+        app:layout_constraintBottom_toBottomOf="@+id/entranceSettings"
+        android:background="@color/white"
+        android:id="@+id/whiteSpace"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <TextView
+        android:id="@+id/entranceEdit"
+        android:paddingStart="22dp"
+        android:paddingEnd="22dp"
+        android:drawablePadding="10dp"
+        android:text="@string/profile_home_mine_edit"
+        android:drawableStart="@drawable/profime_ic_mine_edit"
+        android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+        android:gravity="center_vertical"
+        android:background="?selectableItemBackground"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/countsContainer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="60dp"/>
+
+    <TextView
+        android:id="@+id/entranceBlackList"
+        android:paddingStart="22dp"
+        android:paddingEnd="22dp"
+        android:drawablePadding="10dp"
+        android:text="@string/profile_home_mine_blacklist"
+        android:drawableStart="@drawable/profime_ic_mine_blacklist"
+        android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+        android:gravity="center_vertical"
+        android:background="?selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@+id/entranceEdit"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="60dp"/>
+
+    <TextView
+        android:id="@+id/entranceFeedback"
+        android:paddingStart="22dp"
+        android:paddingEnd="22dp"
+        android:drawablePadding="10dp"
+        android:text="@string/profile_home_mine_feedback"
+        android:drawableStart="@drawable/profime_ic_mine_feedback"
+        android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+        android:gravity="center_vertical"
+        android:background="?selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@+id/entranceBlackList"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="60dp"/>
+
+    <TextView
+        android:id="@+id/entranceShare"
+        android:paddingStart="22dp"
+        android:paddingEnd="22dp"
+        android:drawablePadding="10dp"
+        android:text="@string/profile_home_mine_share"
+        android:drawableStart="@drawable/profime_ic_mine_share"
+        android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+        android:gravity="center_vertical"
+        android:background="?selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@+id/entranceFeedback"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="60dp"/>
+
+    <TextView
+        android:id="@+id/entranceSettings"
+        android:paddingStart="22dp"
+        android:paddingEnd="22dp"
+        android:drawablePadding="10dp"
+        android:text="@string/profile_home_mine_settings"
+        android:drawableStart="@drawable/profime_ic_mine_settings"
+        android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+        android:gravity="center_vertical"
+        android:background="?selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@+id/entranceShare"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="60dp"/>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/entranceEdit"
+        app:layout_constraintLeft_toLeftOf="@id/countsContainer"
+        app:layout_constraintRight_toRightOf="@id/countsContainer"
+        android:background="#F0F0F0"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"/>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/entranceBlackList"
+        app:layout_constraintLeft_toLeftOf="@id/countsContainer"
+        app:layout_constraintRight_toRightOf="@id/countsContainer"
+        android:background="#F0F0F0"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"/>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/entranceFeedback"
+        app:layout_constraintLeft_toLeftOf="@id/countsContainer"
+        app:layout_constraintRight_toRightOf="@id/countsContainer"
+        android:background="#F0F0F0"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"/>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/entranceShare"
+        app:layout_constraintLeft_toLeftOf="@id/countsContainer"
+        app:layout_constraintRight_toRightOf="@id/countsContainer"
+        android:background="#F0F0F0"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"/>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@+id/entranceSettings"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="#F0F0F0"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

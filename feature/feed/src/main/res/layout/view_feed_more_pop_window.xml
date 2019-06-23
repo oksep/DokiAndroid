@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/feed_bg_dropdown_inset"
+    android:layout_margin="10dp"
+    android:elevation="4dp"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/filterSearch"
+        android:background="?selectableItemBackground"
+        android:drawablePadding="6dp"
+        android:padding="8dp"
+        android:layout_gravity="center_horizontal"
+        android:drawableStart="@drawable/feed_ic_sift"
+        android:text="@string/feed_more_filter_search"
+        android:textSize="12sp"
+        android:textColor="#666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:background="@color/dd_gray_middle"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+    <TextView
+        android:id="@+id/accurateSearch"
+        android:background="?selectableItemBackground"
+        android:padding="8dp"
+        android:drawablePadding="6dp"
+        android:layout_gravity="center_horizontal"
+        android:drawableStart="@drawable/feed_ic_search"
+        android:textSize="12sp"
+        android:textColor="#666"
+        android:text="@string/feed_more_accurate_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

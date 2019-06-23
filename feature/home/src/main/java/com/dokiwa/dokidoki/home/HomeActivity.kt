@@ -8,11 +8,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
+import com.dokiwa.dokidoki.center.plugin.feed.IFeedPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
-import com.dokiwa.dokidoki.home.pages.feed.FeedFragment
-import com.dokiwa.dokidoki.home.pages.mine.MeFragment
-import com.dokiwa.dokidoki.home.pages.msg.MsgFragment
-import com.dokiwa.dokidoki.home.pages.timeline.TimelineFragment
+import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -58,10 +58,10 @@ class HomeActivity : TranslucentActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> FeedFragment()
-                1 -> TimelineFragment()
-                2 -> MsgFragment()
-                3 -> MeFragment()
+                0 -> IFeedPlugin.get().obtainHomeFeedFragment()
+                1 -> ITimelinePlugin.get().obtainHomeTimelineFragment()
+                2 -> IMessagePlugin.get().obtainHomeMessageFragment()
+                3 -> IProfilePlugin.get().obtainHomeMineFragment()
                 else -> throw IllegalStateException("out of index")
             }
         }

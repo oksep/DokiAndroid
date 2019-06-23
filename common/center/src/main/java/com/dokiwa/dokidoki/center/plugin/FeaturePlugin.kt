@@ -3,8 +3,10 @@ package com.dokiwa.dokidoki.center.plugin
 import android.content.Context
 import android.util.Log
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
+import com.dokiwa.dokidoki.center.plugin.feed.IFeedPlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
@@ -44,6 +46,8 @@ interface FeaturePlugin {
             inMap(IWebPlugin::class.java)
             inMap(IProfilePlugin::class.java)
             inMap(ITimelinePlugin::class.java)
+            inMap(IFeedPlugin::class.java)
+            inMap(IMessagePlugin::class.java)
         }
 
         internal fun <T> get(clazz: Class<T>): T {

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Parcelable
+import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
@@ -13,6 +14,8 @@ import com.dokiwa.dokidoki.center.plugin.model.UserProfile
  */
 @PluginImplMeta("com.dokiwa.dokidoki.profile.ProfilePlugin")
 interface IProfilePlugin : FeaturePlugin {
+
+    fun obtainHomeMineFragment(): Fragment
 
     fun launchProfileActivity(context: Context, uuid: String)
 
