@@ -46,7 +46,7 @@ dependencies {
     // ui
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
-    implementation 'io.apptik.widget:multislider:1.3'
+    implementation "io.apptik.widget:multislider:${versions.multislider}"
 
     // modules
     implementation project(':center')

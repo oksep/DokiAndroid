@@ -18,13 +18,13 @@ import kotlinx.android.synthetic.main.view_mine_counts.*
 
 private const val TAG = "MineFragment"
 
-private const val KEY_MINE_VIEW_MODEL = 0x0004
+private const val KEY_VIEW_MODEL = 0x0004
 
 class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
 
     private fun ensureModel(): MineViewModel {
-        return (getModel<MineViewModel>(KEY_MINE_VIEW_MODEL) ?: MineViewModel()).also {
-            putModel(KEY_MINE_VIEW_MODEL, it)
+        return (getModel<MineViewModel>(KEY_VIEW_MODEL) ?: MineViewModel()).also {
+            putModel(KEY_VIEW_MODEL, it)
         }
     }
 

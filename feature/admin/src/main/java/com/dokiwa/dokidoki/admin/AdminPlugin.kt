@@ -19,7 +19,6 @@ class AdminPlugin : IAdminPlugin {
     }
 
     override fun launchDevelopingPage(context: Context): Boolean {
-        DevelopingActivity.launch(context)
-        return true
+        return DevelopingActivity.launch(context)
     }
 }

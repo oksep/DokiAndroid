@@ -36,13 +36,19 @@ dependencies {
     androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
 
+    // util
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
     implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.google.code.gson:gson:${versions.gson}"
 
     // ui
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
+    implementation "com.jaeger.ninegridimageview:library:${versions.nineGridImageView}"
+    implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
+    implementation "at.blogc:expandabletextview:${versions.expandableTextView}"
 
+    // dep modules
     implementation project(':center')
     implementation project(':ui')
 }

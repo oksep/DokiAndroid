@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
@@ -23,10 +24,13 @@ class RefreshRecyclerView : FrameLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
+    private val fadeInAnim: Animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+    private val fadeOutAnim: Animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out)
+
     init {
         View.inflate(context, R.layout.ui_view_refresh_layout, this)
-        this.oopsContainer.gone()
-        this.recyclerView.gone()
+        this.oopsContainer.gone(false)
+        this.recyclerView.gone(false)
         this.refreshLayout.isRefreshing = false
         this.refreshLayout.setColorSchemeResources(R.color.dd_red)
     }
@@ -56,10 +60,10 @@ class RefreshRecyclerView : FrameLayout {
         this.oopsContainer.gone()
     }
 
-    fun showSuccess() {
+    fun showSuccess(anim: Boolean = true) {
         this.refreshLayout.isRefreshing = false
-        this.recyclerView.visible()
-        this.oopsContainer.gone()
+        this.recyclerView.visible(anim)
+        this.oopsContainer.gone(anim)
     }
 
     fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
@@ -82,16 +86,16 @@ class RefreshRecyclerView : FrameLayout {
         return this.refreshLayout
     }
 
-    private fun View.gone() {
+    private fun View.gone(anim: Boolean = true) {
         if (visibility != View.GONE) {
-            animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out)
+            animation = if (anim) fadeOutAnim else null
             visibility = View.GONE
         }
     }
 
-    private fun View.visible() {
+    private fun View.visible(anim: Boolean = true) {
         if (visibility != View.VISIBLE) {
-            animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+            animation = if (anim) fadeInAnim else null
             visibility = View.VISIBLE
         }
     }

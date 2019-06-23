@@ -4,13 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
-import com.dokiwa.dokidoki.center.plugin.feed.IFeedPlugin
+import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 
 class DevelopingActivity : TranslucentActivity() {
 
     companion object {
-        fun launch(context: Context) {
+        fun launch(context: Context): Boolean {
             context.startActivity(Intent(context, DevelopingActivity::class.java))
+            return true
         }
     }
 
@@ -19,7 +20,7 @@ class DevelopingActivity : TranslucentActivity() {
         setContentView(R.layout.activity_developing)
         supportFragmentManager.beginTransaction().add(
             R.id.root,
-            IFeedPlugin.get().obtainHomeFeedFragment()
+            ITimelinePlugin.get().obtainHomeTimelineFragment()
         ).commit()
     }
 }

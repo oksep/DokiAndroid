@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.feed.home
+package com.dokiwa.dokidoki.timeline.home
 
 import android.graphics.Color
 import android.os.Bundle
@@ -6,58 +6,34 @@ import android.view.View
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
-import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
-import com.dokiwa.dokidoki.feed.Log
-import com.dokiwa.dokidoki.feed.R
-import com.dokiwa.dokidoki.feed.api.Feed
-import com.dokiwa.dokidoki.feed.api.FeedApi
-import com.dokiwa.dokidoki.feed.api.FeedPage
-import com.dokiwa.dokidoki.feed.widget.FeedMorePopWindow
-import com.dokiwa.dokidoki.ui.util.safeShowAsDropDown
+import com.dokiwa.dokidoki.timeline.Log
+import com.dokiwa.dokidoki.timeline.R
+import com.dokiwa.dokidoki.timeline.api.Timeline
+import com.dokiwa.dokidoki.timeline.api.TimelineApi
+import com.dokiwa.dokidoki.timeline.api.TimelinePage
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
-import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.fragment_timeline_recommend.*
 
-private const val TAG = "FeedFragment"
+private const val TAG = "FollowingFragment"
 
-private const val KEY_VIEW_MODEL = 0x0001
+private const val KEY_VIEW_MODEL = 0x0006
 
-class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
+internal class FollowingFragment : BaseShareFragment(R.layout.fragment_timeline_follow) {
 
-    private val adapter by lazy { FeedAdapter() }
+    private val adapter by lazy { TimelineAdapter() }
 
-    private fun ensureModel(): FeedViewModel {
-        return (getModel<FeedViewModel>(KEY_VIEW_MODEL) ?: FeedViewModel()).also {
+    private fun ensureModel(): TimelineViewModel {
+        return (getModel<TimelineViewModel>(KEY_VIEW_MODEL) ?: TimelineViewModel()).also {
             putModel(KEY_VIEW_MODEL, it)
         }
     }
 
-    private val feedFilter: FeedFilter
-        get() = ensureModel().feedFilter
-
-    private val data: MutableList<FeedPage>
-        get() = ensureModel().feedPages
+    private val data: MutableList<TimelinePage>
+        get() = ensureModel().timelinePages
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initToolBar()
         initRefreshRecyclerView()
         ensureData()
-    }
-
-    private fun initToolBar() {
-        toolBar.rightIconView.setOnClickListener {
-            FeedMorePopWindow(
-                requireContext(),
-                {
-                    FeedFilterDialog(requireActivity(), feedFilter) { newFilter ->
-                        feedFilter.updateField(newFilter)
-                        refresh()
-                    }.showAsDropDown(toolBar)
-                },
-                {
-                    IProfilePlugin.get().launchSearchUserActivity(requireContext())
-                }
-            ).safeShowAsDropDown(it, 0, 0)
-        }
     }
 
     private fun initRefreshRecyclerView() {
@@ -82,21 +58,22 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
             recyclerView
         )
         adapter.setOnItemClickListener { adapter, _, position ->
-            (adapter.getItem(position) as? Feed)?.let {
-                IProfilePlugin.get().launchProfileActivity(requireContext(), it.userProfile)
+            (adapter.getItem(position) as? Timeline)?.let {
+                // TODO: 2019-06-23 @Septenary to detail page
             }
         }
         recyclerView.adapter = adapter
     }
+
 
     private fun ensureData() {
         if (data.isEmpty()) {
             Log.d(TAG, "ensureData() -> load api data")
             refresh()
         } else {
-            val list = mutableListOf<Feed>().also { l ->
+            val list = mutableListOf<Timeline>().also { l ->
                 data.forEach {
-                    l.addAll(it.feedList)
+                    l.addAll(it.timelineList)
                 }
             }
             adapter.setNewData(list)
@@ -106,7 +83,7 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
             } else {
                 showLoadMoreComplete()
             }
-            Log.d(TAG, "ensureData() -> load cache data ${list.map { it.userProfile.nickname }}")
+            Log.d(TAG, "ensureData() -> load cache data ${list.map { it.user.nickname }}")
         }
     }
 
@@ -116,14 +93,14 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
         loadNewData()
     }
 
-    private fun setData(page: FeedPage) {
+    private fun setData(page: TimelinePage) {
         data.add(page)
-        adapter.setNewData(page.feedList)
+        adapter.setNewData(page.timelineList)
     }
 
-    private fun addData(page: FeedPage) {
+    private fun addData(page: TimelinePage) {
         data.add(page)
-        adapter.addData(page.feedList)
+        adapter.addData(page.timelineList)
     }
 
     private fun showLoadMoreEnd() {
@@ -143,7 +120,11 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
     }
 
     private fun showLoadingError() {
-        refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.feed_home_loading_failed)
+        refreshRecyclerView.showError(R.drawable.ui_ic_oops_network, R.string.timeline_home_loading_failed)
+    }
+
+    private fun showLoadingEmpty() {
+        refreshRecyclerView.showError(R.drawable.ui_ic_oops_paper, R.string.timeline_home_following_empty)
     }
 
     private fun showLoadingSuccess(anim: Boolean = true) {
@@ -153,19 +134,24 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
     private fun loadNewData() {
         Log.d(TAG, "loadData api data")
         showRefreshing()
-        Api.get(FeedApi::class.java)
-            .getFeedList(
-                map = feedFilter.asQueryMap()
-            )
+        Api.get(TimelineApi::class.java)
+            .getFollowingTimeline()
             .subscribeApi(
                 this,
                 {
-                    setData(it)
-                    showLoadingSuccess()
-                    if (it.next == null) {
-                        showLoadMoreEnd()
+                    if (it.timelineList.isEmpty()) {
+                        setData(it)
+                        showLoadingSuccess()
+                        if (it.next == null) {
+                            showLoadMoreEnd()
+                        } else {
+                            showLoadMoreComplete()
+                        }
                     } else {
-                        showLoadMoreComplete()
+//                        showLoadingEmpty()
+//                        showLoadMoreFailed()
+                        showLoadingError()
+                        showLoadMoreFailed()
                     }
                 },
                 {
@@ -178,11 +164,9 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
 
     private fun loadMore() {
         Log.d(TAG, "loadMore api data")
-        Api.get(FeedApi::class.java)
-            .getFeedList(
-                map = feedFilter.asQueryMap().also {
-                    it.putAll(data.lastOrNull()?.nextQ ?: mapOf())
-                }
+        Api.get(TimelineApi::class.java)
+            .getFollowingTimeline(
+                map = data.lastOrNull()?.nextQ ?: mapOf()
             )
             .subscribeApi(
                 this,

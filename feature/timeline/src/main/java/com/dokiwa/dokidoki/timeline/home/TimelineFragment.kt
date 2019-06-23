@@ -2,7 +2,6 @@ package com.dokiwa.dokidoki.timeline.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.base.adapter.SimplePager2Adapter
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.toast
@@ -21,7 +20,7 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
         val pagerAdapter = SimplePager2Adapter(requireFragmentManager(), lifecycle)
 
         pagerAdapter.addFragment(RecommendFragment())
-        pagerAdapter.addFragment(FollowFragment())
+        pagerAdapter.addFragment(FollowingFragment())
 
         viewPager.adapter = pagerAdapter
 
@@ -52,12 +51,4 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
             requireContext().toast("TODO")
         }
     }
-}
-
-internal class RecommendFragment : Fragment(R.layout.fragment_timeline_recommend) {
-
-}
-
-internal class FollowFragment : Fragment(R.layout.fragment_timeline_follow) {
-
 }

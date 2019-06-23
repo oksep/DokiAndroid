@@ -5,13 +5,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dd_yellow">
+    tools:context=".home.FollowingFragment">
 
-    <TextView
-        android:layout_gravity="center"
-        android:textSize="80sp"
-        android:text="B"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <com.dokiwa.dokidoki.ui.view.RefreshRecyclerView
+        android:id="@+id/refreshRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

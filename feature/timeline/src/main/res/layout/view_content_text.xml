@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="android.widget.LinearLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.dokiwa.dokidoki.ui.view.ExpandableTextView
+        android:id="@+id/expandableTextView"
+        android:lineSpacingMultiplier="1.1"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:textSize="14sp"
+        android:textColor="#666"
+        app:animation_duration="150"
+        tools:text="无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:background="?selectableItemBackgroundBorderless"
+        android:id="@+id/toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textSize="14sp"
+        android:textColor="@color/dd_red"
+        tools:text="全文"/>
+</merge>

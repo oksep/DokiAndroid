@@ -3,5 +3,7 @@
 
     <string name="timeline_home_tab_recommend">推荐</string>
     <string name="timeline_home_tab_follow">关注</string>
+    <string name="timeline_home_loading_failed">加载失败，请下拉重试…</string>
+    <string name="timeline_home_following_empty">此处还什么都没有\n快去关注更多人吧</string>
 
 </resources>
