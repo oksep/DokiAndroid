@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.ui.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -14,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dokiwa.dokidoki.ui.R
 import kotlinx.android.synthetic.main.ui_view_oops.view.*
 import kotlinx.android.synthetic.main.ui_view_refresh_layout.view.*
+import kotlin.math.abs
 
 /**
  * Created by Septenary on 2019-06-11.
@@ -98,5 +100,36 @@ class RefreshRecyclerView : FrameLayout {
             animation = if (anim) fadeInAnim else null
             visibility = View.VISIBLE
         }
+    }
+
+    private var lastX = -1
+    private var lastY = -1
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val x = ev.rawX.toInt()
+        val y = ev.rawY.toInt()
+        var dealtX = 0
+        var dealtY = 0
+
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> parent.requestDisallowInterceptTouchEvent(true)
+            MotionEvent.ACTION_MOVE -> {
+                dealtX += abs(x - lastX)
+                dealtY += abs(y - lastY)
+                lastX = x
+                lastY = y
+                if (dealtX <= dealtY) {
+                    parent.requestDisallowInterceptTouchEvent(true)
+                } else {
+                    parent.requestDisallowInterceptTouchEvent(false)
+                    return false
+                }
+            }
+            MotionEvent.ACTION_CANCEL -> {
+            }
+            MotionEvent.ACTION_UP -> {
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
