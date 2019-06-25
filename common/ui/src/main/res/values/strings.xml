@@ -10,5 +10,6 @@
 
     <!--oops-->
     <string name="ui_oops_net_error">与世界的链接中断了?\n(网络连接中断)</string>
+    <string name="ui_oops_label">Oops!</string>
 
 </resources>

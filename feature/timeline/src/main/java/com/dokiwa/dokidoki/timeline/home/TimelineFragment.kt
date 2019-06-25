@@ -2,15 +2,21 @@ package com.dokiwa.dokidoki.timeline.home
 
 import android.os.Bundle
 import android.view.View
+import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.adapter.SimplePager2Adapter
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.timeline.R
+import com.dokiwa.dokidoki.timeline.api.TimelineApi
+import com.dokiwa.dokidoki.timeline.api.TimelinePage
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_timeline.*
 
 private const val KEY_VIEW_MODEL = 0x0002
+private const val KEY_VIEW_MODEL_RECOMMEND = 0x0005
+private const val KEY_VIEW_MODEL_FOLLOWING = 0x0006
 
 class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
 
@@ -19,8 +25,20 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
 
         val pagerAdapter = SimplePager2Adapter(requireFragmentManager(), lifecycle)
 
-        pagerAdapter.addFragment(RecommendFragment())
-        pagerAdapter.addFragment(FollowingFragment())
+        pagerAdapter.addFragment(
+            RecommendFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(EXTRA_KEY, KEY_VIEW_MODEL_RECOMMEND)
+                }
+            }
+        )
+        pagerAdapter.addFragment(
+            FollowingFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(EXTRA_KEY, KEY_VIEW_MODEL_FOLLOWING)
+                }
+            }
+        )
 
         viewPager.adapter = pagerAdapter
 
@@ -50,5 +68,17 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
         toolBar.rightIconView.setOnClickListener {
             requireContext().toast("TODO")
         }
+    }
+}
+
+internal class RecommendFragment : InnerPageFragment() {
+    override fun onGetApiSingle(map: Map<String, String?>): Single<TimelinePage> {
+        return Api.get(TimelineApi::class.java).getRecommendTimeline(map = map)
+    }
+}
+
+internal class FollowingFragment : InnerPageFragment() {
+    override fun onGetApiSingle(map: Map<String, String?>): Single<TimelinePage> {
+        return Api.get(TimelineApi::class.java).getFollowingTimeline(map = map)
     }
 }

@@ -16,7 +16,7 @@ interface TimelineApi {
         @QueryMap(encoded = true) map: Map<String, String?> = mapOf()
     ): Single<TimelinePage>
 
-    @GET("112{path}")
+    @GET("{path}")
     fun getFollowingTimeline(
         @Path(value = "path", encoded = true) path: String = "/api/ufeed/v1/following",
         @QueryMap(encoded = true) map: Map<String, String?> = mapOf()

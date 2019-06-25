@@ -27,7 +27,6 @@ class ContentTextView @JvmOverloads constructor(
     }
 
     fun setText(text: String?) {
-        val text = "无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。"
         if (text.isNullOrEmpty()) {
             this.visibility = View.GONE
         } else {

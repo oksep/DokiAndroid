@@ -3,28 +3,28 @@ package com.dokiwa.dokidoki.timeline.home
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.timeline.Log
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
-import com.dokiwa.dokidoki.timeline.api.TimelineApi
 import com.dokiwa.dokidoki.timeline.api.TimelinePage
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
-import kotlinx.android.synthetic.main.fragment_timeline_recommend.*
+import io.reactivex.Single
+import kotlinx.android.synthetic.main.fragment_timeline_inner.*
 
-private const val TAG = "RecommendFragment"
+private const val TAG = "InnerPageFragment"
 
-private const val KEY_VIEW_MODEL = 0x0005
+const val EXTRA_KEY = "extra.view_model.key"
 
-internal class RecommendFragment : BaseShareFragment(R.layout.fragment_timeline_recommend) {
+internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_timeline_inner) {
 
     private val adapter by lazy { TimelineAdapter() }
 
     private fun ensureModel(): TimelineViewModel {
-        return (getModel<TimelineViewModel>(KEY_VIEW_MODEL) ?: TimelineViewModel()).also {
-            putModel(KEY_VIEW_MODEL, it)
+        val key = arguments?.getInt(EXTRA_KEY) ?: 0
+        return (getModel<TimelineViewModel>(key) ?: TimelineViewModel()).also {
+            putModel(key, it)
         }
     }
 
@@ -127,50 +127,54 @@ internal class RecommendFragment : BaseShareFragment(R.layout.fragment_timeline_
         refreshRecyclerView.showSuccess(anim)
     }
 
+    private fun showLoadingEmpty() {
+        refreshRecyclerView.showError(R.drawable.ui_ic_opps_box, R.string.timeline_home_following_empty)
+    }
+
+    abstract fun onGetApiSingle(map: Map<String, String?> = mapOf()): Single<TimelinePage>
+
     private fun loadNewData() {
         Log.d(TAG, "loadData api data")
         showRefreshing()
-        Api.get(TimelineApi::class.java)
-            .getRecommendTimeline()
-            .subscribeApi(
-                this,
-                {
-                    setData(it)
+        onGetApiSingle().subscribeApi(
+            this,
+            {
+                setData(it)
+                if (it.timelineList.isEmpty()) {
+                    showLoadingEmpty()
+                } else {
                     showLoadingSuccess()
-                    if (it.next == null) {
-                        showLoadMoreEnd()
-                    } else {
-                        showLoadMoreComplete()
-                    }
-                },
-                {
-                    Log.e(TAG, "loadData failed", it)
-                    showLoadingError()
-                    showLoadMoreFailed()
                 }
-            )
+                if (it.next == null) {
+                    showLoadMoreEnd()
+                } else {
+                    showLoadMoreComplete()
+                }
+            },
+            {
+                Log.e(TAG, "loadData failed", it)
+                showLoadingError()
+                showLoadMoreFailed()
+            }
+        )
     }
 
     private fun loadMore() {
         Log.d(TAG, "loadMore api data")
-        Api.get(TimelineApi::class.java)
-            .getRecommendTimeline(
-                map = data.lastOrNull()?.nextQ ?: mapOf()
-            )
-            .subscribeApi(
-                this,
-                {
-                    addData(it)
-                    if (it.next == null) {
-                        showLoadMoreEnd()
-                    } else {
-                        showLoadMoreComplete()
-                    }
-                },
-                {
-                    Log.e(TAG, "loadMore failed", it)
-                    showLoadMoreFailed()
+        onGetApiSingle(data.lastOrNull()?.nextQ ?: mapOf()).subscribeApi(
+            this,
+            {
+                addData(it)
+                if (it.next == null) {
+                    showLoadMoreEnd()
+                } else {
+                    showLoadMoreComplete()
                 }
-            )
+            },
+            {
+                Log.e(TAG, "loadMore failed", it)
+                showLoadMoreFailed()
+            }
+        )
     }
 }
