@@ -21,8 +21,8 @@ data class Timeline(
     @SerializedName("comment_count") val commentCount: Int = 0,
     @SerializedName("create_time") val createTime: Int = 0,
     @SerializedName("picture_list") val pictureList: List<TimelinePicture>? = null,
-    @SerializedName("up_count") val upCount: Int = 0,
-    @SerializedName("is_up") val isUp: Boolean? = false,
+    @SerializedName("up_count") var upCount: Int = 0,
+    @SerializedName("is_up") var isUp: Boolean? = false,
     val position: Position? = null,
     val user: TimelineUser
 ) : IApiModel

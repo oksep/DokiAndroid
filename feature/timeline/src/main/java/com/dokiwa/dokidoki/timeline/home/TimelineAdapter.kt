@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.timeline.home
 
+import android.view.View
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -9,7 +10,10 @@ import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
 import kotlinx.android.synthetic.main.view_item_timeline.view.*
 
-internal class TimelineAdapter : BaseMultiItemQuickAdapter<TimelineAdapter.TimelineEntity, BaseViewHolder>(listOf()) {
+internal class TimelineAdapter(
+    private val onUpBtnClick: (View, TimelineEntity, Int) -> Unit,
+    private val onMoreBtnClick: (TimelineEntity) -> Unit
+) : BaseMultiItemQuickAdapter<TimelineAdapter.TimelineEntity, BaseViewHolder>(listOf()) {
 
     init {
         (0..9).forEach {
@@ -36,6 +40,34 @@ internal class TimelineAdapter : BaseMultiItemQuickAdapter<TimelineAdapter.Timel
 
         // pictures
         helper.itemView.picturesContainer.setPictures(timeline.pictureList)
+
+        // position
+        if (timeline.position?.name.isNullOrEmpty()) {
+            helper.itemView.position.text = null
+            helper.itemView.position.visibility = View.GONE
+        } else {
+            helper.itemView.position.text = timeline.position?.name
+            helper.itemView.position.visibility = View.VISIBLE
+        }
+
+        // ups
+        helper.itemView.upCount.text = timeline.upCount.toString()
+        helper.itemView.upBtn.setImageResource(
+            if (timeline.isUp == true) R.drawable.timeline_ic_like else R.drawable.timeline_ic_unlike
+        )
+        helper.itemView.upBtn.setOnClickListener {
+            onUpBtnClick(it, item, helper.adapterPosition)
+            convert(helper, item)
+        }
+
+        // more
+        helper.itemView.moreBtn.setOnClickListener {
+            onMoreBtnClick(item)
+        }
+
+        // TODO: 2019-06-27 @Septenary 关注字段?
+        // follow
+        helper.itemView.followBtn.visibility = View.GONE
     }
 
     fun setNewRawData(data: List<Timeline>?) {

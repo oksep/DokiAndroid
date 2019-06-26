@@ -1,8 +1,10 @@
 package com.dokiwa.dokidoki.timeline.home
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.timeline.Log
@@ -19,7 +21,7 @@ const val EXTRA_KEY = "extra.view_model.key"
 
 internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_timeline_inner) {
 
-    private val adapter by lazy { TimelineAdapter() }
+    private val adapter by lazy { TimelineAdapter(::onUpClick, ::onMoreClick) }
 
     private fun ensureModel(): TimelineViewModel {
         val key = arguments?.getInt(EXTRA_KEY) ?: 0
@@ -176,5 +178,23 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
                 showLoadMoreFailed()
             }
         )
+    }
+
+    private fun onUpClick(view: View, entity: TimelineAdapter.TimelineEntity, position: Int) {
+        val isUp = entity.timeline.isUp == true
+        if (isUp) {
+            entity.timeline.upCount -= 1
+        } else {
+            entity.timeline.upCount += 1
+            view.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.timeline_heart))
+        }
+        entity.timeline.isUp = !isUp
+
+        // TODO: 2019-06-27 @Septenary notify not work?
+        adapter.notifyItemChanged(position, entity)
+    }
+
+    private fun onMoreClick(entity: TimelineAdapter.TimelineEntity) {
+        AlertDialog.Builder(requireContext()).setMessage("todo").create().show()
     }
 }
