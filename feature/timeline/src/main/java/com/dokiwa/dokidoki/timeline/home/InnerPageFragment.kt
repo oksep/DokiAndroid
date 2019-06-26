@@ -76,7 +76,7 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
                     l.addAll(it.timelineList)
                 }
             }
-            adapter.setNewData(list)
+            adapter.setNewRawData(list)
             showLoadingSuccess(false)
             if (data.lastOrNull()?.next == null) {
                 showLoadMoreEnd()
@@ -95,12 +95,12 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
 
     private fun setData(page: TimelinePage) {
         data.add(page)
-        adapter.setNewData(page.timelineList)
+        adapter.setNewRawData(page.timelineList)
     }
 
     private fun addData(page: TimelinePage) {
         data.add(page)
-        adapter.addData(page.timelineList)
+        adapter.addRawData(page.timelineList)
     }
 
     private fun showLoadMoreEnd() {

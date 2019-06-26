@@ -47,6 +47,7 @@ dependencies {
     implementation "com.jaeger.ninegridimageview:library:${versions.nineGridImageView}"
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
     implementation "at.blogc:expandabletextview:${versions.expandableTextView}"
+    implementation "com.google.android:flexbox:${versions.flexBox}"
 
     // dep modules
     implementation project(':center')

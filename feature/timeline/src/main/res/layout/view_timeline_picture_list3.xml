@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dd_green">
+
+    <include
+        android:id="@+id/picture1"
+        layout="@layout/view_timeline_picture_list1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/picture2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintDimensionRatio="W,1:1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <include
+        android:id="@+id/picture2"
+        layout="@layout/view_timeline_picture_list1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/picture1"
+        app:layout_constraintRight_toLeftOf="@+id/picture3"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintDimensionRatio="W,1:1"
+        android:layout_marginStart="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <include
+        android:id="@+id/picture3"
+        layout="@layout/view_timeline_picture_list1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/picture2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintDimensionRatio="W,1:1"
+        android:layout_marginStart="6dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+</merge>

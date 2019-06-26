@@ -52,8 +52,7 @@ fun Int.toLastActiveTime(): String {
 
     return when {
         distanceInteger / (60 * 60 * 24 * 7) >= 1 -> {
-            // SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(userStamp))
-            ""
+            SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(userStamp * 1000))
         }
         distanceInteger / (60 * 60 * 24 * 1) >= 1 -> {
             val d = distanceInteger / (60 * 60 * 24 * 1)

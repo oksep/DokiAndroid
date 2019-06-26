@@ -28,15 +28,20 @@ class ExpandableTextView : ExpandableTextView {
         requestOnceLayout(onceLayout)
     }
 
-    fun setText(@StringRes resId: Int, toggleView: TextView) {
+    fun setText(@StringRes resId: Int, toggleView: TextView?) {
         setText(resId) {
-            setUpToggleView(it, toggleView)
+            if (toggleView != null) {
+                setUpToggleView(it, toggleView)
+            }
         }
     }
 
-    fun setText(text: CharSequence?, toggleView: TextView) {
+    fun setText(text: CharSequence?, toggleView: TextView?) {
+        toggleView?.visibility = View.GONE
         setText(text) {
-            setUpToggleView(it, toggleView)
+            if (toggleView != null) {
+                setUpToggleView(it, toggleView)
+            }
         }
     }
 
@@ -62,7 +67,7 @@ class ExpandableTextView : ExpandableTextView {
         this.onceLayoutThen {
             if (maxLines > 0) {
                 val isEllipsize = try {
-                    layout.getEllipsisCount(maxLines - 1) > 0
+                    layout.getEllipsisCount(layout.lineCount - 1) > 0
                 } catch (e: Exception) {
                     if (BuildConfig.DEBUG) {
                         throw e

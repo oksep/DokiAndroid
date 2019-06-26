@@ -41,7 +41,11 @@ data class TimelinePicture(
     val width: Int = 0,
     val height: Int = 0,
     @SerializedName("average_color") val averageColor: Long = 0
-) : IApiModel
+) : IApiModel {
+    fun adaptUrl(): String {
+        return (middleUrl ?: url) ?: rawUrl
+    }
+}
 
 data class Position(
     val latitude: String?,
