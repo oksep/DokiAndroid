@@ -1,6 +1,6 @@
 package com.dokiwa.dokidoki.center
 
-internal object Log {
+object Log {
 
     private const val MODULE = "Center"
 

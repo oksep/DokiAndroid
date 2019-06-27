@@ -19,6 +19,7 @@ package com.dokiwa.dokidoki.center.ext
 import android.content.Context
 import android.widget.Toast
 import androidx.annotation.StringRes
+import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.exception.ApiException
 
 /**
@@ -26,7 +27,7 @@ import com.dokiwa.dokidoki.center.api.exception.ApiException
  *
  * @param duration Toast duration, defaults to [Toast.LENGTH_SHORT]
  */
-inline fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT): Toast {
+fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT): Toast {
     return Toast.makeText(this, text, duration).apply { show() }
 }
 
@@ -36,14 +37,15 @@ inline fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT)
  * @param resId Resource id of the string resource to use
  * @param duration Toast duration, defaults to [Toast.LENGTH_SHORT]
  */
-inline fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT): Toast {
+fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT): Toast {
     return Toast.makeText(this, resId, duration).apply { show() }
 }
 
-inline fun Context.toastApiException(throwable: Throwable, @StringRes resId: Int): Toast {
+fun Context.toastApiException(throwable: Throwable, @StringRes resId: Int): Toast {
+    Log.e("API", "request error", throwable)
     return if (throwable is ApiException && throwable.message != null) {
-        Toast.makeText(this, throwable.message, Toast.LENGTH_SHORT)
+        toast(throwable.message!!)
     } else {
-        Toast.makeText(this, resId, Toast.LENGTH_SHORT)
-    }.apply { show() }
+        toast(resId)
+    }
 }

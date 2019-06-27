@@ -2,6 +2,7 @@ package com.dokiwa.dokidoki.center.api.convert
 
 import com.dokiwa.dokidoki.center.api.model.ApiData
 import com.google.gson.Gson
+import okhttp3.MediaType
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -14,7 +15,7 @@ import java.lang.reflect.Type
 /**
  * ref: https://hackernoon.com/retrofit-converter-for-wrapped-responses-8919298a549c
  */
-class CustomConverterFactory private constructor(gson: Gson) : Converter.Factory() {
+class CustomConverterFactory private constructor(private val gson: Gson) : Converter.Factory() {
 
     companion object {
         fun create(): CustomConverterFactory {
@@ -36,7 +37,7 @@ class CustomConverterFactory private constructor(gson: Gson) : Converter.Factory
         }
         val gsonConverter: Converter<ResponseBody, *>? =
             gsonConverterFactory.responseBodyConverter(wrappedType, annotations, retrofit)
-        return ResponseBodyConverter(gsonConverter as Converter<ResponseBody, ApiData<Any>>)
+        return ResponseBodyConverter(gsonConverter as Converter<ResponseBody, ApiData<Any>>, gson = gson)
     }
 
     override fun requestBodyConverter(
@@ -49,15 +50,19 @@ class CustomConverterFactory private constructor(gson: Gson) : Converter.Factory
 }
 
 class ResponseBodyConverter<T>(
-    private val converter: Converter<ResponseBody, ApiData<T>>
+    private val converter: Converter<ResponseBody, ApiData<T>>,
+    val gson: Gson
 ) : Converter<ResponseBody, T> {
 
     @Throws(IOException::class)
     override fun convert(responseBody: ResponseBody): T {
         val response = converter.convert(responseBody)
-        // return if (response.status.code == 400001) {
-        //      throw ApiException(response.statusCode, response.message?)
-        // }
-        return response.data
+        return if (response.data != null) {
+            response.data
+        } else {
+            val json = gson.toJson(ApiData<Any>(response.status, response.time, "", response.action))
+            val rb = ResponseBody.create(MediaType.get("application/x-www-form-urlencoded"), json)
+            converter.convert(rb).data
+        }
     }
 }
