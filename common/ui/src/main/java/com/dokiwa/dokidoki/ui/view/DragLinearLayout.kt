@@ -31,7 +31,7 @@ class DragLinearLayout @JvmOverloads constructor(
         dragSortHelper.computeScroll()
     }
 
-    fun setSwapListner(swapListener: DragSortHelper.OnViewSwapListener) {
+    fun setSwapListener(swapListener: DragSortHelper.OnViewSwapListener) {
         dragSortHelper.swapListener = swapListener
     }
 }

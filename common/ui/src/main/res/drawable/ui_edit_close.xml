@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <solid android:color="@color/dd_green"/>
+            <corners android:topRightRadius="5dp" android:bottomLeftRadius="5dp"/>
+        </shape>
+
+    </item>
+    <item>
+        <inset android:inset="5dp">
+            <bitmap android:src="@drawable/ui_icon_close_white"/>
+        </inset>
+    </item>
+</layer-list>

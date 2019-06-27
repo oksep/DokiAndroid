@@ -103,4 +103,10 @@
         <attr name="ratio" format="float"/>
     </declare-styleable>
 
+    <declare-styleable name="EditableRoundImage">
+        <attr name="editIcon" format="reference"/>
+        <attr name="editIconWidth" format="dimension"/>
+        <attr name="editIconHeight" format="dimension"/>
+    </declare-styleable>
+
 </resources>
