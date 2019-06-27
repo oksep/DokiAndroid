@@ -5,6 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:elevation="10dp"
     android:padding="16dp"
     tools:context=".edit.ProfileEditActivity">
 
@@ -57,11 +60,14 @@
     <com.dokiwa.dokidoki.ui.view.DragNineGridImageView
         app:layout_constraintTop_toBottomOf="@+id/picturesDragHint"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:layout_marginTop="12dp"
         android:id="@+id/pictures"
         tools:layout_height="150dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:background="@color/dd_gray_light"
         app:imgGap="10dp"
         app:showStyle="grid"
         app:singleImgSize="120dp"/>

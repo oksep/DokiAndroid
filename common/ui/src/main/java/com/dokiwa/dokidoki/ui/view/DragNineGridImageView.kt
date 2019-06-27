@@ -29,7 +29,12 @@ class DragNineGridImageView<T> @JvmOverloads constructor(
         dragSortHelper.computeScroll()
     }
 
-    fun setSwapListner(swapListener: DragSortHelper.OnViewSwapListener) {
+    fun setSwapListener(swapListener: DragSortHelper.OnViewSwapListener) {
         dragSortHelper.swapListener = swapListener
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        parent.requestDisallowInterceptTouchEvent(true)
+        return super.dispatchTouchEvent(ev)
     }
 }

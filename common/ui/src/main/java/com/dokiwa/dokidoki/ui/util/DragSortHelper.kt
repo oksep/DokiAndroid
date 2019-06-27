@@ -41,8 +41,7 @@ class DragSortHelper private constructor(private val parentView: ViewGroup) : Vi
     override fun tryCaptureView(child: View, pointerId: Int): Boolean {
         dragViewRawLeft = child.left
         dragViewRawTop = child.top
-        child.elevation = 10f
-        child.alpha = 0.85f
+        child.fly()
         parentView.requestDisallowInterceptTouchEvent(true)
         return true
     }
@@ -79,13 +78,12 @@ class DragSortHelper private constructor(private val parentView: ViewGroup) : Vi
             }
             ViewDragHelper.STATE_SETTLING -> {
                 parentView.children.forEach {
-                    it.alpha = 1f
+                    it.ground()
                 }
             }
             ViewDragHelper.STATE_IDLE -> {
                 parentView.children.forEach {
-                    it.alpha = 1f
-                    it.elevation = 0f
+                    it.ground()
                 }
             }
         }
@@ -156,5 +154,15 @@ class DragSortHelper private constructor(private val parentView: ViewGroup) : Vi
 
     interface OnViewSwapListener {
         fun onSwap(firstView: View, firstPosition: Int, secondView: View, secondPosition: Int)
+    }
+
+    private fun View.fly() {
+        elevation = 10f
+        animate().scaleX(1.15f).scaleY(1.15f).alpha(0.7f).start()
+    }
+
+    private fun View.ground() {
+        elevation = 0f
+        animate().scaleX(1f).scaleY(1f).alpha(1f).start()
     }
 }

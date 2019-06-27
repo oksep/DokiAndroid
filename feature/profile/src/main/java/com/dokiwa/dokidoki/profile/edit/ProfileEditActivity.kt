@@ -137,7 +137,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
             picturesEmpty.visibility = View.GONE
             (pictures as DragNineGridImageView<Picture>).apply {
                 visibility = View.VISIBLE
-                setSwapListner(object : DragSortHelper.OnViewSwapListener {
+                setSwapListener(object : DragSortHelper.OnViewSwapListener {
                     override fun onSwap(firstView: View, firstPosition: Int, secondView: View, secondPosition: Int) {
                         val sortList = list.toMutableList().swap(firstPosition, secondPosition)
                         newProfile = newProfile.copy(pictures = sortList)
@@ -178,16 +178,16 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
                 index: Int,
                 list: MutableList<Picture>?
             ): Boolean {
-                AlertDialog.Builder(this@ProfileEditActivity, R.style.AppCompatAlertDialogStyle)
-                    .setTitle(R.string.tip)
-                    .setMessage(R.string.profile_edit_pic_del_message)
-                    .setNegativeButton(R.string.cancel) { d, _ -> d.cancel() }
-                    .setPositiveButton(R.string.confirm) { d, _ ->
-                        d.cancel()
-                        setUpViews(newProfile.copy(pictures = list?.toMutableList()?.apply { removeAt(index) }))
-                    }
-                    .create().show()
-                return true
+//                AlertDialog.Builder(this@ProfileEditActivity, R.style.AppCompatAlertDialogStyle)
+//                    .setTitle(R.string.tip)
+//                    .setMessage(R.string.profile_edit_pic_del_message)
+//                    .setNegativeButton(R.string.cancel) { d, _ -> d.cancel() }
+//                    .setPositiveButton(R.string.confirm) { d, _ ->
+//                        d.cancel()
+//                        setUpViews(newProfile.copy(pictures = list?.toMutableList()?.apply { removeAt(index) }))
+//                    }
+//                    .create().show()
+                return false
             }
         }
     }

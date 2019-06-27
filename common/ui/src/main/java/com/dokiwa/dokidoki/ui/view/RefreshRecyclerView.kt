@@ -112,7 +112,11 @@ class RefreshRecyclerView : FrameLayout {
         var dealtY = 0
 
         when (ev.action) {
-            MotionEvent.ACTION_DOWN -> parent.requestDisallowInterceptTouchEvent(true)
+            MotionEvent.ACTION_DOWN -> {
+                lastX = -1
+                lastY = -1
+                parent.requestDisallowInterceptTouchEvent(true)
+            }
             MotionEvent.ACTION_MOVE -> {
                 dealtX += abs(x - lastX)
                 dealtY += abs(y - lastY)
