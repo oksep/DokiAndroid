@@ -13,24 +13,23 @@ import com.dokiwa.dokidoki.center.R
 /**
  * Created by Septenary on 2019/3/2.
  */
-class LoadingDialog private constructor(context: Context, style: Int) : BaseDialog(context, style) {
+class LoadingDialog private constructor(context: Context, full: Boolean, style: Int) : BaseDialog(context, style) {
     private var msgTextView: TextView? = null
 
     private var isFirstShow = true
 
     init {
-        initView()
-    }
-
-    private fun initView() {
         val inflater = LayoutInflater.from(context)
         val contentView = inflater.inflate(R.layout.ui_view_loading_dialog, null)
         msgTextView = contentView.findViewById<View>(R.id.message) as TextView
         msgTextView?.visibility = View.GONE
 
-        val dm = context.applicationContext.resources.displayMetrics
-
-        setContentView(contentView, ViewGroup.LayoutParams(dm.widthPixels, dm.heightPixels))
+        if (full) {
+            val dm = context.applicationContext.resources.displayMetrics
+            setContentView(contentView, ViewGroup.LayoutParams(dm.widthPixels, dm.heightPixels))
+        } else {
+            setContentView(contentView)
+        }
     }
 
     fun setText(text: String) {
@@ -92,9 +91,9 @@ class LoadingDialog private constructor(context: Context, style: Int) : BaseDial
 
         fun create(context: Context, fullScreen: Boolean): LoadingDialog {
             return if (fullScreen) {
-                LoadingDialog(context, R.style.FullScreenDialog)
+                LoadingDialog(context, fullScreen, R.style.FullLoadingDialog)
             } else {
-                LoadingDialog(context, R.style.AppThemeDialogStyle)
+                LoadingDialog(context, fullScreen, R.style.NormalLoadingDialog)
             }
         }
     }

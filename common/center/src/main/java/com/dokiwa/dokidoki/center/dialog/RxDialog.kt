@@ -11,7 +11,7 @@ class RxDialog {
 
         fun progressDialog(context: Context): Observable<Dialog> {
             return Observable.create { subscriber ->
-                LoadingDialog.create(context)
+                LoadingDialog.create(context, true)
                     .also {
                         subscriber.onNext(it)
                         it.setOnDismissListener {
