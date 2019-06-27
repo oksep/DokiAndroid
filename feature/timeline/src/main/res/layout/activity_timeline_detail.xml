@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.dokiwa.dokidoki.ui.view.HomeToolBar
+        android:id="@+id/toolBar"
+        style="@style/AppToolBar.Dark.Icon"
+        android:background="@color/white"
+        android:elevation="@dimen/ui_toolbar_elevation"
+        app:toolbar_titleText="@string/timeline_detail_title"
+        app:toolbar_rightIcon="@drawable/timeline_ic_more"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <com.dokiwa.dokidoki.ui.view.RefreshRecyclerView
+        app:layout_constraintTop_toBottomOf="@+id/toolBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editBgView"
+        android:background="@color/dd_green"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <View
+        android:id="@+id/editBgView"
+        app:layout_constraintLeft_toLeftOf="@+id/editText"
+        app:layout_constraintRight_toRightOf="@+id/editText"
+        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/editText"
+        android:background="@color/dd_window"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <EditText
+        android:id="@+id/editText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/timeline_bg_detail_edit"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:textSize="14sp"
+        android:hint="@string/timeline_detail_say_something"
+        android:inputType="text"
+        android:textColor="#333"
+        android:imeOptions="actionSend"
+        android:maxLines="1"
+        android:lineSpacingMultiplier="1.1"
+        android:layout_width="0dp"
+        android:layout_height="100dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,8 +58,8 @@ class HomeActivity : TranslucentActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> IFeedPlugin.get().obtainHomeFeedFragment()
-                1 -> ITimelinePlugin.get().obtainHomeTimelineFragment()
+                1 -> IFeedPlugin.get().obtainHomeFeedFragment()
+                0 -> ITimelinePlugin.get().obtainHomeTimelineFragment()
                 2 -> IMessagePlugin.get().obtainHomeMessageFragment()
                 3 -> IProfilePlugin.get().obtainHomeMineFragment()
                 else -> throw IllegalStateException("out of index")

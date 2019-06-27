@@ -11,6 +11,7 @@ import com.dokiwa.dokidoki.timeline.Log
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
 import com.dokiwa.dokidoki.timeline.api.TimelinePage
+import com.dokiwa.dokidoki.timeline.detail.TimelineDetailActivity
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_timeline_inner.*
@@ -60,8 +61,8 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
             recyclerView
         )
         adapter.setOnItemClickListener { adapter, _, position ->
-            (adapter.getItem(position) as? Timeline)?.let {
-                // TODO: 2019-06-23 @Septenary to detail page
+            (adapter.getItem(position) as? TimelineAdapter.TimelineEntity)?.let {
+                TimelineDetailActivity.launch(requireContext(), it.timeline)
             }
         }
         recyclerView.adapter = adapter

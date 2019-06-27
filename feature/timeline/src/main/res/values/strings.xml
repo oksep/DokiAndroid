@@ -8,4 +8,7 @@
     <string name="timeline_follow">关注</string>
     <string name="timeline_following">已关注</string>
 
+    <string name="timeline_detail_title">动态</string>
+    <string name="timeline_detail_say_something">和TA说点什么吧…</string>
+
 </resources>
