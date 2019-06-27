@@ -39,6 +39,7 @@ import com.dokiwa.dokidoki.profile.dialog.HeightPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.IndustryPickerDialog
 import com.dokiwa.dokidoki.ui.util.DragSortHelper
 import com.dokiwa.dokidoki.ui.view.DragNineGridImageView
+import com.dokiwa.dokidoki.ui.view.EditableRoundImage
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver
 import io.reactivex.Single
@@ -151,14 +152,37 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         }
     }
 
+    private fun showEnsureRemovePictureDialog(tag: Picture?) {
+        AlertDialog.Builder(this@ProfileEditActivity, R.style.AppCompatAlertDialogStyle)
+            .setTitle(R.string.tip)
+            .setMessage(R.string.profile_edit_pic_del_message)
+            .setNegativeButton(R.string.cancel) { d, _ -> d.cancel() }
+            .setPositiveButton(R.string.confirm) { d, _ ->
+                d.cancel()
+                val list = newProfile.pictures?.toMutableList()
+                list?.remove(tag)
+                setUpViews(newProfile.copy(pictures = list))
+            }
+            .create().show()
+    }
+
     private val picturesAdapter by lazy {
         object : NineGridImageViewAdapter<Picture>() {
             override fun onDisplayImage(context: Context, imageView: ImageView, item: Picture) {
                 imageView.loadUri(Uri.parse(item.adaptUrl()))
+                (imageView as? EditableRoundImage)?.editTag = item
             }
 
             override fun generateImageView(context: Context): ImageView {
-                return View.inflate(context, R.layout.view_item_profile_detail_pictures, null) as ImageView
+                return (View.inflate(
+                    context,
+                    R.layout.view_item_profile_detail_pictures,
+                    null
+                ) as EditableRoundImage).apply {
+                    onCloseListener = {
+                        showEnsureRemovePictureDialog(editTag as? Picture)
+                    }
+                }
             }
 
             override fun onItemImageClick(
@@ -178,15 +202,6 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
                 index: Int,
                 list: MutableList<Picture>?
             ): Boolean {
-//                AlertDialog.Builder(this@ProfileEditActivity, R.style.AppCompatAlertDialogStyle)
-//                    .setTitle(R.string.tip)
-//                    .setMessage(R.string.profile_edit_pic_del_message)
-//                    .setNegativeButton(R.string.cancel) { d, _ -> d.cancel() }
-//                    .setPositiveButton(R.string.confirm) { d, _ ->
-//                        d.cancel()
-//                        setUpViews(newProfile.copy(pictures = list?.toMutableList()?.apply { removeAt(index) }))
-//                    }
-//                    .create().show()
                 return false
             }
         }

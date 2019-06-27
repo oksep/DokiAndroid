@@ -2,10 +2,11 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/dd_green"/>
-            <corners android:topRightRadius="5dp" android:bottomLeftRadius="5dp"/>
+            <solid android:color="@color/black_30"/>
+            <corners
+                android:topRightRadius="6dp"
+                android:bottomLeftRadius="6dp"/>
         </shape>
-
     </item>
     <item>
         <inset android:inset="5dp">

@@ -156,13 +156,18 @@ class DragSortHelper private constructor(private val parentView: ViewGroup) : Vi
         fun onSwap(firstView: View, firstPosition: Int, secondView: View, secondPosition: Int)
     }
 
+    interface IDragSortView {
+        fun onFly()
+        fun onGround()
+    }
+
     private fun View.fly() {
         elevation = 10f
-        animate().scaleX(1.15f).scaleY(1.15f).alpha(0.7f).start()
+        (this as? IDragSortView)?.onFly()
     }
 
     private fun View.ground() {
         elevation = 0f
-        animate().scaleX(1f).scaleY(1f).alpha(1f).start()
+        (this as? IDragSortView)?.onGround()
     }
 }
