@@ -26,12 +26,8 @@ class RefreshRecyclerView : FrameLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    private val fadeInAnim: Animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in).apply {
-        duration = 2000
-    }
-    private val fadeOutAnim: Animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out).apply {
-        duration = 2000
-    }
+    private val fadeInAnim: Animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+    private val fadeOutAnim: Animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out)
 
     init {
         View.inflate(context, R.layout.ui_view_refresh_layout, this)
