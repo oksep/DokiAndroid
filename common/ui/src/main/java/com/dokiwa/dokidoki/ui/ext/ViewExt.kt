@@ -4,11 +4,9 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.Activity
 import android.graphics.Rect
-import android.view.TouchDelegate
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
 import android.view.inputmethod.InputMethodManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 /**
  * Created by Septenary on 2018/11/4.
@@ -90,4 +88,11 @@ fun View.zoomTouchArea(area: View) {
     this.getHitRect(rect)
     rect.inset(-rect.left, -rect.left)
     area.touchDelegate = TouchDelegate(rect, this)
+}
+
+fun SwipeRefreshLayout.setRefreshListenerHaptic(onRefresh: () -> Unit) {
+    this.setOnRefreshListener {
+        performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+        onRefresh.invoke()
+    }
 }

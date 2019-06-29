@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
@@ -18,6 +17,7 @@ import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
+import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import com.dokiwa.dokidoki.ui.view.RoundImageView
 import io.reactivex.Observable
@@ -46,9 +46,9 @@ class SearchUserActivity : TranslucentActivity() {
 
     private fun initView() {
         Observable.create<String> { source ->
-            refreshRecyclerView.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            refreshRecyclerView.getRefreshLayout().setRefreshListenerHaptic {
                 source.onNext(editText.text.toString())
-            })
+            }
             editText.addTextChangedListener(object : SimpleTextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     source.onNext(s.toString())

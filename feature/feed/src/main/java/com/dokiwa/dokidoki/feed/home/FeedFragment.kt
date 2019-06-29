@@ -13,6 +13,7 @@ import com.dokiwa.dokidoki.feed.api.Feed
 import com.dokiwa.dokidoki.feed.api.FeedApi
 import com.dokiwa.dokidoki.feed.api.FeedPage
 import com.dokiwa.dokidoki.feed.widget.FeedMorePopWindow
+import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.util.safeShowAsDropDown
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import kotlinx.android.synthetic.main.fragment_feed.*
@@ -63,7 +64,7 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
     private fun initRefreshRecyclerView() {
         val refreshLayout = refreshRecyclerView.getRefreshLayout()
         refreshLayout.setColorSchemeResources(R.color.dd_red)
-        refreshLayout.setOnRefreshListener {
+        refreshLayout.setRefreshListenerHaptic {
             refresh()
         }
 

@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.SoundEffectConstants
 import androidx.core.graphics.toRectF
 import androidx.core.view.GestureDetectorCompat
 import com.dokiwa.dokidoki.ui.R
@@ -37,6 +38,7 @@ class EditableRoundImage @JvmOverloads constructor(
             GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                     onCloseListener?.invoke()
+                    playSoundEffect(SoundEffectConstants.CLICK)
                     return true
                 }
             })

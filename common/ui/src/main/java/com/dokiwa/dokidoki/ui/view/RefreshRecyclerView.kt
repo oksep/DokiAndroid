@@ -13,6 +13,7 @@ import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dokiwa.dokidoki.ui.R
+import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import kotlinx.android.synthetic.main.ui_view_oops.view.*
 import kotlinx.android.synthetic.main.ui_view_refresh_layout.view.*
 import kotlin.math.abs
@@ -38,7 +39,9 @@ class RefreshRecyclerView : FrameLayout {
     }
 
     fun setOnRefreshListener(refreshListener: SwipeRefreshLayout.OnRefreshListener) {
-        this.refreshLayout.setOnRefreshListener(refreshListener)
+        this.refreshLayout.setRefreshListenerHaptic {
+            refreshListener.onRefresh()
+        }
     }
 
     fun showError(@DrawableRes iconResId: Int, @StringRes messageResId: Int) {

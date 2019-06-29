@@ -12,6 +12,7 @@ import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
 import com.dokiwa.dokidoki.timeline.api.TimelinePage
 import com.dokiwa.dokidoki.timeline.detail.TimelineDetailActivity
+import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.fragment_timeline_inner.*
@@ -42,7 +43,7 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
     private fun initRefreshRecyclerView() {
         val refreshLayout = refreshRecyclerView.getRefreshLayout()
         refreshLayout.setColorSchemeResources(R.color.dd_red)
-        refreshLayout.setOnRefreshListener {
+        refreshLayout.setRefreshListenerHaptic {
             refresh()
         }
 
