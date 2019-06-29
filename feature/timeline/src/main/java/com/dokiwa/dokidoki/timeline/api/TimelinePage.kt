@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.dokiwa.dokidoki.center.api.model.IApiModel
 import com.dokiwa.dokidoki.center.api.model.IApiModelPage
 import com.dokiwa.dokidoki.center.ext.toRetrofitQueryMap
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -19,7 +18,7 @@ data class TimelinePage(
 
 @Parcelize
 data class Timeline(
-    val id: Int,
+    val id: String,
     val content: String? = null,
     @SerializedName("comment_count") val commentCount: Int = 0,
     @SerializedName("create_time") val createTime: Int = 0,
@@ -28,14 +27,6 @@ data class Timeline(
     @SerializedName("is_up") var isUp: Boolean? = false,
     val position: Position? = null,
     val user: TimelineUser
-) : IApiModel, Parcelable
-
-@Parcelize
-data class TimelineUser(
-    val id: Int,
-    val uuid: String,
-    val nickname: String,
-    val avatar: UserProfile.Avatar
 ) : IApiModel, Parcelable
 
 @Parcelize

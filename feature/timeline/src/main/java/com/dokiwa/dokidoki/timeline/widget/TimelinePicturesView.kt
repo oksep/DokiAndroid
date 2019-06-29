@@ -30,7 +30,7 @@ class TimelinePicturesView @JvmOverloads constructor(
         R.layout.view_timeline_picture_list9
     )
 
-    fun setPictures(rawList: List<TimelinePicture>?) {
+    fun setPictures(rawList: List<TimelinePicture>?, onPictureClick: (List<TimelinePicture>, Int) -> Unit) {
         if (rawList.isNullOrEmpty()) {
             removeAllViews()
             visibility = View.GONE
@@ -49,6 +49,9 @@ class TimelinePicturesView @JvmOverloads constructor(
                 if (picture != null) {
                     ensureLayoutParams(list.size == 1, child, picture)
                     child.loadImgFromNetWork(picture.adaptUrl())
+                    child.setOnClickListener {
+                        onPictureClick.invoke(list, index)
+                    }
                 }
             }
         }

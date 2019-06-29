@@ -23,7 +23,7 @@ class FeedPictureListView : ConstraintLayout {
         LayoutInflater.from(context).inflate(R.layout.view_feed_picture_list, this)
     }
 
-    fun setPictureList(list: List<UserProfile.Picture>?) {
+    fun setPictureList(list: List<UserProfile.Picture>?, onPictureClick: (List<UserProfile.Picture>, Int) -> Unit) {
         if (list.isNullOrEmpty()) {
             visibility = View.GONE
         } else {
@@ -48,6 +48,9 @@ class FeedPictureListView : ConstraintLayout {
             children.forEachIndexed { index, view ->
                 list.getOrNull(index)?.let {
                     (view as ImageView).loadImgFromNetWork(it.adaptUrl())
+                    view.setOnClickListener {
+                        onPictureClick.invoke(list, index)
+                    }
                 }
             }
         }

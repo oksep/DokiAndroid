@@ -4,6 +4,7 @@ import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * Created by Septenary on 2019/1/9.
@@ -40,4 +41,13 @@ interface AdminApi {
     @GET("/api/setting/v1/me")
     fun getUserConfig(): Single<JsonElement>
 
+    @GET("/api/ufeed/v1/get")
+    fun getTimeline(@Query("ufeed_id") id: String): Single<JsonElement>
+
+    @GET("/api/ufeed-comment/v1/list")
+    fun getTimelineComment(
+        @Query("ufeed_id") id: String,
+        @Query("sort") sort: String = "desc",
+        @Query("reply_comment_id") replyCommentId: String? = null
+    ): Single<JsonElement>
 }

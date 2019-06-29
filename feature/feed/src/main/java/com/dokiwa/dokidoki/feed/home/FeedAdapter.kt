@@ -7,10 +7,11 @@ import androidx.constraintlayout.widget.Group
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.ext.loadAvatar
-import com.dokiwa.dokidoki.center.util.toLastActiveTime
+import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.feed.R
 import com.dokiwa.dokidoki.feed.api.Feed
 import com.dokiwa.dokidoki.feed.widget.FeedPictureListView
+import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.ui.view.RoundImageView
 import com.dokiwa.dokidoki.ui.view.TagsView
 
@@ -44,7 +45,7 @@ internal class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.vie
         helper.getView<RoundImageView>(R.id.avatar).loadAvatar(profile)
 
         // 活跃时间
-        helper.getView<TextView>(R.id.activeState).text = profile.lastActive.toLastActiveTime()
+        helper.getView<TextView>(R.id.activeState).text = profile.lastActive.toReadable()
 
         // 个性标签
         val tagsView = helper.getView<TagsView>(R.id.tags)
@@ -68,6 +69,8 @@ internal class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.vie
         }
 
         // pictures
-        helper.getView<FeedPictureListView>(R.id.pictureListView).setPictureList(profile.pictures)
+        helper.getView<FeedPictureListView>(R.id.pictureListView).setPictureList(profile.pictures) { l, index ->
+            GalleryActivity.launchGallery(helper.itemView.context, index, l.map { it.adaptUrl() })
+        }
     }
 }

@@ -78,7 +78,7 @@ public class AppUtil {
 
     public static void restartApp(Context context) {
         try {
-            Class mainClass = Class.forName("com.liulishuo.app.activity.MainActivity");
+            Class mainClass = Class.forName(context.getPackageName() + ".LaunchActivity");
             Intent dataIntent = new Intent(context, mainClass);
             dataIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent intent;

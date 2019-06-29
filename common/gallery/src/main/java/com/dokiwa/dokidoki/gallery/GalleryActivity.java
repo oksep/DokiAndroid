@@ -59,7 +59,11 @@ public class GalleryActivity extends FragmentActivity {
 
         final ScrollGalleryView galleryView = builder.build();
 
-        galleryView.withHiddenThumbnails(false).hideThumbnailsOnClick(true).hideThumbnailsAfter(5000);
+        if (urls.size() > 1) {
+            galleryView.withHiddenThumbnails(false).hideThumbnailsOnClick(true).hideThumbnailsAfter(5000);
+        } else {
+            galleryView.hideThumbnails();
+        }
 
         final int currentIndex = getIntent().getIntExtra(EXTRA_CURRENT, 0);
         galleryView.setCurrentItem(currentIndex);

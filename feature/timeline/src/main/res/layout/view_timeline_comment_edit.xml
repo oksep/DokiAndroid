@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".comment.TimelineCommentActivity"
+    android:paddingStart="16dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="@color/dd_window"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/editText"
+        tools:text="无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。"
+        android:background="@drawable/timeline_bg_comment_edit"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:layout_marginEnd="54dp"
+        android:textSize="14sp"
+        android:hint="@string/timeline_comment_say_something"
+        android:inputType="textMultiLine"
+        android:textColor="#333"
+        android:textColorHint="@color/text_tip"
+        android:imeOptions="actionSend"
+        android:lineSpacingMultiplier="1.1"
+        android:maxLength="200"
+        android:scrollbars="vertical"
+        android:maxHeight="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/sendBtn"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/timeline_bg_comment_send"
+        android:text="@string/timeline_comment_send"
+        android:enabled="false"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="12dp"
+        android:layout_width="46dp"
+        android:layout_height="30dp"
+        tools:ignore="SpUsage"/>
+
+</FrameLayout>

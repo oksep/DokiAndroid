@@ -2,7 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".comment.TimelineCommentActivity"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,7 +13,7 @@
         style="@style/AppToolBar.Dark.Icon"
         android:background="@color/white"
         android:elevation="@dimen/ui_toolbar_elevation"
-        app:toolbar_titleText="@string/timeline_detail_title"
+        app:toolbar_titleText="@string/timeline_comment_title"
         app:toolbar_rightIcon="@drawable/timeline_ic_more"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,42 +22,31 @@
         android:layout_height="wrap_content"/>
 
     <com.dokiwa.dokidoki.ui.view.RefreshRecyclerView
+        android:id="@+id/refreshRecyclerView"
         app:layout_constraintTop_toBottomOf="@+id/toolBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/editBgView"
-        android:background="@color/dd_green"
+        app:layout_constraintBottom_toTopOf="@+id/editContainer"
+        tools:background="@color/dd_green"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 
-    <View
-        android:id="@+id/editBgView"
-        app:layout_constraintLeft_toLeftOf="@+id/editText"
-        app:layout_constraintRight_toRightOf="@+id/editText"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="@+id/editText"
-        android:background="@color/dd_window"
-        android:layout_width="0dp"
-        android:layout_height="0dp"/>
+    <include
+        android:id="@+id/editContainer"
+        layout="@layout/view_timeline_comment_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editBottomSpace"/>
 
-    <EditText
-        android:id="@+id/editText"
+    <Space
+        android:id="@+id/editBottomSpace"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/timeline_bg_detail_edit"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        android:textSize="14sp"
-        android:hint="@string/timeline_detail_say_something"
-        android:inputType="text"
-        android:textColor="#333"
-        android:imeOptions="actionSend"
-        android:maxLines="1"
-        android:lineSpacingMultiplier="1.1"
         android:layout_width="0dp"
-        android:layout_height="100dp"/>
+        android:layout_height="0dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

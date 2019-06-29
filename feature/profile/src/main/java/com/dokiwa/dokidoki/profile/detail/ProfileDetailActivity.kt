@@ -12,12 +12,12 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.loadAvatar
 import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
-import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
-import com.dokiwa.dokidoki.center.util.toLastActiveTime
+import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
@@ -76,7 +76,7 @@ class ProfileDetailActivity : TranslucentActivity() {
         } else {
             Api.get(ProfileApi::class.java)
                 .getUserProfileByUUID(uuid)
-                .subscribeApi(this, ::setData) {
+                .subscribeApiWithDialog(this, this, ::setData) {
                     toastApiException(it, R.string.center_toast_loading_failed_retry)
                 }
         }
@@ -168,7 +168,7 @@ class ProfileDetailActivity : TranslucentActivity() {
             toolBar.rightIconView.visibility = View.GONE
             bottomContainer.visibility = View.VISIBLE
             activeTime.visibility = View.VISIBLE
-            activeTime.text = profile.lastActive.toLastActiveTime()
+            activeTime.text = profile.lastActive.toReadable()
             sendMsgBtn.setOnClickListener {
                 toast("发送消息")
             }

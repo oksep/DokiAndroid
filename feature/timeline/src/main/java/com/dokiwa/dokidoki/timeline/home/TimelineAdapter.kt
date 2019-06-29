@@ -5,41 +5,54 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
-import com.dokiwa.dokidoki.center.util.toLastActiveTime
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.util.toReadable
+import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
 import kotlinx.android.synthetic.main.view_item_timeline.view.*
 
-internal class TimelineAdapter(
+open class TimelineAdapter(
     private val onUpBtnClick: (View, TimelineEntity, Int) -> Unit,
-    private val onMoreBtnClick: (TimelineEntity) -> Unit
-) : BaseMultiItemQuickAdapter<TimelineAdapter.TimelineEntity, BaseViewHolder>(listOf()) {
+    private val onMoreBtnClick: ((TimelineEntity) -> Unit)? = null
+) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(listOf()) {
 
     init {
+        // nine grid style
         (0..9).forEach {
             addItemType(it, R.layout.view_item_timeline)
         }
     }
 
-    override fun convert(helper: BaseViewHolder, item: TimelineEntity) {
+    override fun convert(helper: BaseViewHolder, item: MultiItemEntity) {
+
+        if (item !is TimelineEntity) return
 
         val timeline = item.timeline
         val user = timeline.user
 
         // 头像
         helper.itemView.avatar.loadImgFromNetWork(user.avatar.adaptUrl())
+        helper.itemView.avatar.setOnClickListener {
+            IProfilePlugin.get().launchProfileActivity(helper.itemView.context, user.uuid)
+        }
 
         // 昵称
         helper.itemView.name.text = user.nickname
+        helper.itemView.name.setOnClickListener {
+            IProfilePlugin.get().launchProfileActivity(helper.itemView.context, user.uuid)
+        }
 
         // 发表时间
-        helper.itemView.time.text = timeline.createTime.toLastActiveTime()
+        helper.itemView.time.text = timeline.createTime.toReadable()
 
         // 正文
         helper.itemView.content.setText(timeline.content)
 
         // pictures
-        helper.itemView.picturesContainer.setPictures(timeline.pictureList)
+        helper.itemView.picturesContainer.setPictures(timeline.pictureList) { l, index ->
+            GalleryActivity.launchGallery(helper.itemView.context, index, l.map { it.adaptUrl() })
+        }
 
         // position
         if (timeline.position?.name.isNullOrEmpty()) {
@@ -60,9 +73,12 @@ internal class TimelineAdapter(
             convert(helper, item)
         }
 
+        // comments
+        helper.itemView.commentCount.text = timeline.commentCount.toString()
+
         // more
         helper.itemView.moreBtn.setOnClickListener {
-            onMoreBtnClick(item)
+            onMoreBtnClick?.invoke(item)
         }
 
         // TODO: 2019-06-27 @Septenary 关注字段?
@@ -82,7 +98,7 @@ internal class TimelineAdapter(
         })
     }
 
-    class TimelineEntity(
+    open class TimelineEntity(
         val timeline: Timeline
     ) : MultiItemEntity {
         override fun getItemType(): Int {

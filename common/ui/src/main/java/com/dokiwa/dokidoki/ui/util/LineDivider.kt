@@ -31,16 +31,25 @@ open class LineDivider(
         val right = parent.width - parent.paddingRight - rightPadding
         val childCount = parent.childCount
         for (i in 0 until childCount - 1) {
-            val child = parent.getChildAt(i)
-            val params = child.layoutParams as RecyclerView.LayoutParams
-            val top = child.bottom + params.bottomMargin
-            val bottom = top + size
-            dividerDrawable.setBounds(left, top, right, bottom)
-            dividerDrawable.draw(c)
+            if (ensureDraw(i)) {
+                val child = parent.getChildAt(i)
+                val params = child.layoutParams as RecyclerView.LayoutParams
+                val top = child.bottom + params.bottomMargin
+                val bottom = top + size
+                dividerDrawable.setBounds(left, top, right, bottom)
+                dividerDrawable.draw(c)
+            }
         }
     }
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        outRect.set(0, 0, 0, size)
+        val position = parent.getChildAdapterPosition(view)
+        if (ensureDraw(position)) {
+            outRect.set(0, 0, 0, size)
+        }
+    }
+
+    open fun ensureDraw(position: Int): Boolean {
+        return true
     }
 }

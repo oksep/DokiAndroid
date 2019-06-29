@@ -105,6 +105,16 @@ internal class AdminActivity : BaseActivity() {
             Api.get(AdminApi::class.java).getUserConfig().subscribeApi(this, {
                 showApiContent(text, it)
             })
+        },
+        Item("API - 获取动态") { text ->
+            Api.get(AdminApi::class.java).getTimeline("909").subscribeApi(this, {
+                showApiContent(text, it)
+            })
+        },
+        Item("API - 获取动态评论") { text ->
+            Api.get(AdminApi::class.java).getTimelineComment("909").subscribeApi(this, {
+                showApiContent(text, it)
+            })
         }
     )
 

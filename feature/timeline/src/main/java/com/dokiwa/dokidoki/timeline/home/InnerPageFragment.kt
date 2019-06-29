@@ -11,7 +11,7 @@ import com.dokiwa.dokidoki.timeline.Log
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
 import com.dokiwa.dokidoki.timeline.api.TimelinePage
-import com.dokiwa.dokidoki.timeline.detail.TimelineDetailActivity
+import com.dokiwa.dokidoki.timeline.comment.TimelineCommentActivity
 import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.view.LoadMoreView
 import io.reactivex.Single
@@ -63,7 +63,7 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
         )
         adapter.setOnItemClickListener { adapter, _, position ->
             (adapter.getItem(position) as? TimelineAdapter.TimelineEntity)?.let {
-                TimelineDetailActivity.launch(requireContext(), it.timeline)
+                TimelineCommentActivity.launch(requireContext(), it.timeline)
             }
         }
         recyclerView.adapter = adapter
@@ -132,7 +132,7 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
     }
 
     private fun showLoadingEmpty() {
-        refreshRecyclerView.showError(R.drawable.ui_ic_opps_box, R.string.timeline_home_following_empty)
+        refreshRecyclerView.showError(R.drawable.ui_ic_oops_box, R.string.timeline_home_following_empty)
     }
 
     abstract fun onGetApiSingle(map: Map<String, String?> = mapOf()): Single<TimelinePage>

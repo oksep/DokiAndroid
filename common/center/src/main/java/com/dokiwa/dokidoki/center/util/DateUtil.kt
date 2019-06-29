@@ -2,8 +2,7 @@ package com.dokiwa.dokidoki.center.util
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 /**
  * Created by Septenary on 2019-06-07.
@@ -45,7 +44,7 @@ fun String.birthdayToReadableString(): String {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun Int.toLastActiveTime(): String {
+fun Int.toReadable(): String {
     val systemStamp = System.currentTimeMillis() / 1000L
     val userStamp = this.toLong()
     val distanceInteger = systemStamp - userStamp

@@ -57,4 +57,5 @@ dependencies {
     // dep modules
     implementation project(':center')
     implementation project(':ui')
+    implementation project(':gallery')
 }

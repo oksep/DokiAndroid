@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.ui.ext
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.Activity
+import android.content.Context
 import android.graphics.Rect
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -61,12 +62,8 @@ fun View.fadeInVisible() {
 }
 
 fun View.hideSoftInputWhenClick() {
-    fun hideKeyboard(view: View) {
-        val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
-    }
     this.setOnClickListener {
-        hideKeyboard(it)
+        it.hideKeyboard()
     }
 }
 
@@ -95,4 +92,19 @@ fun SwipeRefreshLayout.setRefreshListenerHaptic(onRefresh: () -> Unit) {
         performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
         onRefresh.invoke()
     }
+}
+
+fun View.hideKeyboard() {
+    val view = this
+    val inputMethodManager = view.context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+    inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun View.showKeyboard() {
+    val view = this
+    view.requestFocus()
+    (view.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.showSoftInput(
+        view,
+        InputMethodManager.SHOW_IMPLICIT
+    )
 }

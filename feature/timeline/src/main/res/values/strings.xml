@@ -8,7 +8,14 @@
     <string name="timeline_follow">关注</string>
     <string name="timeline_following">已关注</string>
 
-    <string name="timeline_detail_title">动态</string>
-    <string name="timeline_detail_say_something">和TA说点什么吧…</string>
+    <string name="timeline_comment_title">动态</string>
+    <string name="timeline_comment_say_something">和TA说点什么吧…</string>
+    <string name="timeline_comment_all_comment">所有评论</string>
+    <string name="timeline_comment_all_comment_with_count">所有评论（%d）条</string>
+    <string name="timeline_comment_empty">暂无评论</string>
+    <string name="timeline_comment_content_reply"><![CDATA[回复 <font color=#FF3264>%s</font>：%s]]></string>
+    <string name="timeline_comment_send">发送</string>
+    <string name="timeline_comment_hint_reply">回复 %s：</string>
+    <string name="timeline_comment_reply_failed">回复失败</string>
 
 </resources>

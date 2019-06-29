@@ -3,9 +3,8 @@
 
     <application>
         <activity
-            android:name=".detail.TimelineDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="adjustPan"/>
+            android:name=".comment.TimelineCommentActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

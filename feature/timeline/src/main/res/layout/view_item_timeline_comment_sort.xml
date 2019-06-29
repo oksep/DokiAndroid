@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/dd_window"
+    android:layout_width="match_parent"
+    android:layout_height="36dp">
+
+    <TextView
+        android:id="@+id/commentCount"
+        android:layout_marginStart="16dp"
+        android:layout_gravity="center_vertical"
+        android:text="@string/timeline_comment_all_comment_with_count"
+        android:textColor="#666"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/sortByBtn"
+        android:src="@drawable/timeline_selector_sort_by"
+        android:layout_gravity="center_vertical|end"
+        android:background="?selectableItemBackgroundBorderless"
+        android:layout_marginEnd="4dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        tools:ignore="ContentDescription"/>
+
+</FrameLayout>
