@@ -10,8 +10,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
-import com.dokiwa.dokidoki.center.ext.loadAvatar
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.glideAvatar
+import com.dokiwa.dokidoki.center.ext.glideUrl
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
@@ -87,7 +87,7 @@ class ProfileDetailActivity : TranslucentActivity() {
 
         name.text = profile.nickname
 
-        avatar.loadAvatar(profile)
+        avatar.glideAvatar(profile)
         userId.text = getString(R.string.profile_detail_id, profile.userId.toString())
         ageHeightEdu.text = profile.assembleAgeHeightEdu(this)
         addressPosition.text = profile.assembleCityIndustryIncome()
@@ -183,7 +183,7 @@ class ProfileDetailActivity : TranslucentActivity() {
             R.layout.view_item_profile_detail_timeline, null
         ) {
             override fun convert(helper: BaseViewHolder?, item: UserProfile.Picture) {
-                (helper?.itemView as? ImageView)?.loadImgFromNetWork(item.adaptUrl())
+                (helper?.itemView as? ImageView)?.glideUrl(item.adaptUrl(), 5f, R.drawable.ui_placeholder_radius_5dp)
             }
         }
     }
@@ -191,7 +191,7 @@ class ProfileDetailActivity : TranslucentActivity() {
     private val picturesAdapter by lazy {
         object : NineGridImageViewAdapter<UserProfile.Picture>() {
             override fun onDisplayImage(context: Context, imageView: ImageView, item: UserProfile.Picture) {
-                imageView.loadImgFromNetWork(item.adaptUrl(), 0, ImageView.ScaleType.CENTER_CROP)
+                imageView.glideUrl(item.adaptUrl(), 8f, R.drawable.ui_placeholder_radius_8dp)
             }
 
             override fun generateImageView(context: Context): ImageView {

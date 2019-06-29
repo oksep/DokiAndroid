@@ -2,7 +2,7 @@ package com.dokiwa.dokidoki.message.home
 
 import android.graphics.drawable.BitmapDrawable
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.glideUrl
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
@@ -45,7 +45,7 @@ class MessageFragment : BaseShareFragment(R.layout.fragment_message) {
             }
         }
 
-        removeImg.loadImgFromNetWork("http://assets.septenary.cn/dirty_bytes.png")
+        removeImg.glideUrl("http://assets.septenary.cn/dirty_bytes.png", 10f)
 
         range_slider5.setOnThumbValueChangeListener { multiSlider, thumb, thumbIndex, value ->
             if (thumbIndex == 0) {

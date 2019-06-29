@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dokiwa.dokidoki.ui.view.RoundImageView
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:foreground="@drawable/ui_fg_ripple_border_10dp"
     android:layout_marginEnd="6dp"
-    app:riv_corner_radius="5dp"
     android:scaleType="centerCrop"
     android:layout_width="70dp"
     android:layout_height="70dp"

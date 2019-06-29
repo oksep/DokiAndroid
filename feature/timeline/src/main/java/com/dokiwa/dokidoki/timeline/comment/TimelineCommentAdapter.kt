@@ -3,7 +3,7 @@ package com.dokiwa.dokidoki.timeline.comment
 import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.timeline.R
@@ -59,7 +59,7 @@ internal class TimelineCommentAdapter(
             }
             is CommentEntity -> {
                 val user = item.comment.user
-                helper.itemView.avatar.loadImgFromNetWork(user.avatar.adaptUrl())
+                helper.itemView.avatar.glideAvatar(user.avatar)
                 helper.itemView.name.text = user.nickname
                 helper.itemView.time.text = item.comment.createTime.toReadable()
                 if (item.comment.replyToUser != null) {

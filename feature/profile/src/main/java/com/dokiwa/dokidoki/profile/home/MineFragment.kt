@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
-import com.dokiwa.dokidoki.center.ext.loadAvatar
+import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
@@ -142,7 +142,7 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
 
     private fun setProfile(profileWrap: UserProfileWrap) {
         val profile = profileWrap.profile
-        avatar.loadAvatar(profileWrap.profile)
+        avatar.glideAvatar(profileWrap.profile)
         nameTextView.text = profile.nickname
         idTextView.text = getString(R.string.profile_home_mine_id, profile.userId)
         if (profile.verify != null) {

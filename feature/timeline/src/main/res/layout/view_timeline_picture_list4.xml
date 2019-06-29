@@ -6,7 +6,7 @@
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dd_green">
+    tools:background="@color/dd_green">
 
     <include
         android:id="@+id/picture1"

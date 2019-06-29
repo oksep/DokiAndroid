@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.glideUrl
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.TimelinePicture
 import com.dokiwa.dokidoki.ui.ext.getScreenWidth
@@ -48,7 +48,7 @@ class TimelinePicturesView @JvmOverloads constructor(
                 val picture = list.getOrNull(index)
                 if (picture != null) {
                     ensureLayoutParams(list.size == 1, child, picture)
-                    child.loadImgFromNetWork(picture.adaptUrl())
+                    child.glideUrl(picture.adaptUrl(), 5f, R.drawable.ui_placeholder_radius_5dp)
                     child.setOnClickListener {
                         onPictureClick.invoke(list, index)
                     }

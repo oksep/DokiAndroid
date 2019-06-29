@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
-import com.dokiwa.dokidoki.center.ext.loadAvatar
+import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
@@ -19,7 +19,6 @@ import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
-import com.dokiwa.dokidoki.ui.view.RoundImageView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_search_user.*
@@ -120,6 +119,6 @@ class SearchUserAdapter : BaseQuickAdapter<UserProfile, BaseViewHolder>(R.layout
         helper.getView<TextView>(R.id.addressPosition).text = profile.assembleCityIndustry()
 
         // 头像
-        (helper.getView<RoundImageView>(R.id.avatar) as ImageView).loadAvatar(profile)
+        helper.getView<ImageView>(R.id.avatar).glideAvatar(profile)
     }
 }

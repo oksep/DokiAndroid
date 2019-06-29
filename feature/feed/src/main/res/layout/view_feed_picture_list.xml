@@ -7,56 +7,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.dokiwa.dokidoki.ui.view.RoundImageView
+    <ImageView
         android:id="@+id/picture1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/picture2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
-        app:riv_corner_radius_top_right="@dimen/dp_4"
-        app:rv_radius="4dp"
         tools:src="@tools:sample/backgrounds/scenic"
         app:layout_constraintDimensionRatio="W,1:1"
         android:scaleType="centerCrop"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 
-    <com.dokiwa.dokidoki.ui.view.RoundImageView
+    <ImageView
         android:id="@+id/picture2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/picture1"
         app:layout_constraintRight_toLeftOf="@+id/picture3"
         android:layout_marginStart="10dp"
-        app:riv_corner_radius_top_right="@dimen/dp_4"
-        app:rv_radius="4dp"
         tools:src="@tools:sample/backgrounds/scenic"
         app:layout_constraintDimensionRatio="W,1:1"
         android:scaleType="centerCrop"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 
-    <com.dokiwa.dokidoki.ui.view.RoundImageView
+    <ImageView
         android:id="@+id/picture3"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/picture2"
         app:layout_constraintRight_toLeftOf="@+id/picture4"
         android:layout_marginStart="10dp"
-        app:riv_corner_radius_top_right="@dimen/dp_4"
-        app:rv_radius="4dp"
         tools:src="@tools:sample/backgrounds/scenic"
         app:layout_constraintDimensionRatio="W,1:1"
         android:scaleType="centerCrop"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 
-    <com.dokiwa.dokidoki.ui.view.RoundImageView
+    <ImageView
         android:id="@+id/picture4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/picture3"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="10dp"
-        app:riv_corner_radius_top_right="@dimen/dp_4"
-        app:rv_radius="4dp"
         app:layout_constraintDimensionRatio="W,1:1"
         tools:src="@tools:sample/backgrounds/scenic"
         android:scaleType="centerCrop"

@@ -53,13 +53,14 @@
                     android:textColor="#333"
                     android:textSize="14sp"/>
 
-                <com.dokiwa.dokidoki.ui.view.RoundImageView
+                <com.dokiwa.dokidoki.ui.view.RoundBorderImageView
                     android:id="@+id/avatar"
                     android:layout_margin="16dp"
                     android:layout_gravity="end|center_vertical"
                     app:rv_circle="true"
-                    app:rv_border_width="1dp"
-                    app:rv_border_color="@color/dd_gray_light"
+                    app:borderColor="@color/dd_gray_light"
+                    app:borderWidth="1dp"
+                    tools:borderColor="@color/dd_green"
                     android:src="@drawable/ui_ic_avatar_default_female"
                     android:scaleType="centerCrop"
                     android:layout_width="50dp"

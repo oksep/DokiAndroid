@@ -109,4 +109,9 @@
         <attr name="editIconHeight" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="RoundBorderImageView">
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="borderColor" format="color"/>
+    </declare-styleable>
+
 </resources>

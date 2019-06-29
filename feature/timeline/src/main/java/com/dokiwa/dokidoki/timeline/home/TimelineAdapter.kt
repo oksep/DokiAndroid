@@ -4,7 +4,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.gallery.GalleryActivity
@@ -32,7 +32,7 @@ open class TimelineAdapter(
         val user = timeline.user
 
         // 头像
-        helper.itemView.avatar.loadImgFromNetWork(user.avatar.adaptUrl())
+        helper.itemView.avatar.glideAvatar(user.avatar)
         helper.itemView.avatar.setOnClickListener {
             IProfilePlugin.get().launchProfileActivity(helper.itemView.context, user.uuid)
         }

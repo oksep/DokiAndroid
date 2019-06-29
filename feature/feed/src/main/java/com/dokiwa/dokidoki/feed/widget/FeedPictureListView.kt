@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
-import com.dokiwa.dokidoki.center.ext.loadImgFromNetWork
+import com.dokiwa.dokidoki.center.ext.glideUrl
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.feed.R
 
@@ -47,7 +47,7 @@ class FeedPictureListView : ConstraintLayout {
 
             children.forEachIndexed { index, view ->
                 list.getOrNull(index)?.let {
-                    (view as ImageView).loadImgFromNetWork(it.adaptUrl())
+                    (view as ImageView).glideUrl(it.adaptUrl(), 5f, R.drawable.ui_placeholder_radius_5dp)
                     view.setOnClickListener {
                         onPictureClick.invoke(list, index)
                     }

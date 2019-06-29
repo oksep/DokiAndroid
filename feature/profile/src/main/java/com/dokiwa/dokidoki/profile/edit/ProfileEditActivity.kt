@@ -10,8 +10,8 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
-import com.dokiwa.dokidoki.center.ext.loadAvatar
-import com.dokiwa.dokidoki.center.ext.loadUri
+import com.dokiwa.dokidoki.center.ext.glideUri
+import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.swap
 import com.dokiwa.dokidoki.center.ext.toast
@@ -100,7 +100,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
 
     private fun setUpViews(newProfile: UserProfile) {
         this.newProfile = newProfile.copy()
-        avatar.loadAvatar(newProfile)
+        avatar.glideAvatar(newProfile)
         nameEditText.setText(newProfile.nickname)
         incomeEditText.setText(if (newProfile.income > 0) newProfile.income.toString() else null)
         gender.setText(
@@ -169,7 +169,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
     private val picturesAdapter by lazy {
         object : NineGridImageViewAdapter<Picture>() {
             override fun onDisplayImage(context: Context, imageView: ImageView, item: Picture) {
-                imageView.loadUri(Uri.parse(item.adaptUrl()))
+                imageView.glideUri(Uri.parse(item.adaptUrl()), 6f)
                 (imageView as? EditableRoundImage)?.editTag = item
             }
 
