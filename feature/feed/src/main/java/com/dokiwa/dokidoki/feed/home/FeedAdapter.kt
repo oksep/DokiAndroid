@@ -4,8 +4,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
-import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.feed.R
@@ -14,10 +15,20 @@ import com.dokiwa.dokidoki.feed.widget.FeedPictureListView
 import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.ui.view.TagsView
 
-internal class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.view_item_feed, null) {
+internal class FeedAdapter : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(listOf()) {
 
-    override fun convert(helper: BaseViewHolder, item: Feed) {
-        val profile = item.userProfile
+    init {
+        (0..4).forEachIndexed { index, _ ->
+            addItemType(index, R.layout.view_item_feed)
+        }
+    }
+
+    override fun convert(helper: BaseViewHolder, item: MultiItemEntity) {
+        if (item !is FeedEntity) return
+
+        val feed = item.feed
+
+        val profile = feed.userProfile
 
         // 官方认证
         helper.getView<ImageView>(R.id.officialVerify).visibility =
@@ -68,8 +79,33 @@ internal class FeedAdapter : BaseQuickAdapter<Feed, BaseViewHolder>(R.layout.vie
         }
 
         // pictures
-        helper.getView<FeedPictureListView>(R.id.pictureListView).setPictureList(profile.pictures) { l, index ->
+        helper.getView<FeedPictureListView>(R.id.pictureListView).setPictures(profile.pictures) { l, index ->
             GalleryActivity.launchGallery(helper.itemView.context, index, l.map { it.adaptUrl() })
+        }
+    }
+
+    fun setNewRawData(data: List<Feed>?) {
+        data?.toMutableList()?.map {
+            FeedEntity(it)
+        }.also {
+            super.setNewData(it)
+        }
+    }
+
+    fun addRawData(data: List<Feed>?) {
+        data?.map {
+            FeedEntity(it)
+        }?.also {
+            super.addData(it)
+        }
+    }
+
+    class FeedEntity(
+        val feed: Feed
+    ) : MultiItemEntity {
+        override fun getItemType(): Int {
+            val rawSize = feed.userProfile.pictures?.size ?: 0
+            return if (rawSize > 4) 4 else rawSize
         }
     }
 }

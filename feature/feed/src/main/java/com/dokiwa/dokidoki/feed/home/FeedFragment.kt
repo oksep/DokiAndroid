@@ -83,8 +83,8 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
             recyclerView
         )
         adapter.setOnItemClickListener { adapter, _, position ->
-            (adapter.getItem(position) as? Feed)?.let {
-                IProfilePlugin.get().launchProfileActivity(requireContext(), it.userProfile)
+            (adapter.getItem(position) as? FeedAdapter.FeedEntity)?.let {
+                IProfilePlugin.get().launchProfileActivity(requireContext(), it.feed.userProfile)
             }
         }
         recyclerView.adapter = adapter
@@ -100,7 +100,7 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
                     l.addAll(it.feedList)
                 }
             }
-            adapter.setNewData(list)
+            adapter.setNewRawData(list)
             showLoadingSuccess(false)
             if (data.lastOrNull()?.next == null) {
                 showLoadMoreEnd()
@@ -119,12 +119,12 @@ class FeedFragment : BaseShareFragment(R.layout.fragment_feed) {
 
     private fun setData(page: FeedPage) {
         data.add(page)
-        adapter.setNewData(page.feedList)
+        adapter.setNewRawData(page.feedList)
     }
 
     private fun addData(page: FeedPage) {
         data.add(page)
-        adapter.addData(page.feedList)
+        adapter.addRawData(page.feedList)
     }
 
     private fun showLoadMoreEnd() {
