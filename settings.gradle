@@ -3,10 +3,10 @@ rootProject.name = 'DokiDoki'
 include ':app',
         ':center',
         ':ui',
-        ':cropiwa',
-        ':admin',
         ':social',
-        ':gallery'
+        ':cropiwa',
+        ':gallery',
+        ':admin'
 
 // base
 project(':center').projectDir = new File(settingsDir, 'common/center')

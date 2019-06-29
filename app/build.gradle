@@ -138,6 +138,7 @@ dependencies {
     implementationFeature(':timeline')
     implementationFeature(':feed')
     implementationFeature(':message')
+    implementationFeature(':update')
 
     // admin feature for debug
     debugImplementation project(':admin')

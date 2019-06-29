@@ -9,6 +9,7 @@ import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
+import com.dokiwa.dokidoki.center.plugin.update.IUpdatePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
@@ -34,9 +35,10 @@ interface FeaturePlugin {
                     map[clazz] = (Class.forName(implClassName).newInstance() as? FeaturePlugin)?.apply {
                         onInit(context)
                     }
+                    Log.d(TAG, "plugin loaded -> [$clazz].")
                 } catch (ex: Throwable) {
                     ex.printStackTrace()
-                    Log.e(TAG, "plugin $clazz not found.")
+                    Log.e(TAG, "plugin not found -> [$clazz].")
                 }
             }
 
@@ -48,6 +50,7 @@ interface FeaturePlugin {
             inMap(ITimelinePlugin::class.java)
             inMap(IFeedPlugin::class.java)
             inMap(IMessagePlugin::class.java)
+            inMap(IUpdatePlugin::class.java)
         }
 
         internal fun <T> get(clazz: Class<T>): T {
