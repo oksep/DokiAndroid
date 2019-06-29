@@ -176,7 +176,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
             override fun generateImageView(context: Context): ImageView {
                 return (View.inflate(
                     context,
-                    R.layout.view_item_profile_detail_pictures,
+                    R.layout.view_item_profile_edit_pictures,
                     null
                 ) as EditableRoundImage).apply {
                     onCloseListener = {

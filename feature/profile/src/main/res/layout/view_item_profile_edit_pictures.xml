@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.dokiwa.dokidoki.ui.view.RoundImageView
+<com.dokiwa.dokidoki.ui.view.EditableRoundImage
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    app:editIcon="@drawable/ui_edit_close"
+    app:editIconWidth="20dp"
+    app:editIconHeight="20dp"
     android:foreground="@drawable/ui_fg_ripple_border_10dp"
+    app:riv_corner_radius="6dp"
     android:scaleType="centerCrop"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

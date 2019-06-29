@@ -122,7 +122,7 @@ class RefreshRecyclerView : FrameLayout {
                 dealtY += abs(y - lastY)
                 lastX = x
                 lastY = y
-                if (dealtX <= dealtY) {
+                if (dealtX / 2 <= dealtY) {
                     parent.requestDisallowInterceptTouchEvent(true)
                 } else {
                     parent.requestDisallowInterceptTouchEvent(false)
