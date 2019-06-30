@@ -75,7 +75,7 @@ android {
                 def outputFileName = "${buildType}_${version}_${versionCode}_${formattedDate}.apk"
                 // def rootDir = output.packageApplication.outputDirectory.toPath().relativize(rootDir.toPath()).toFile()
                 // output.outputFileName = new File("$rootDir/release", outputFileName)
-                output.outputFileName = new File("../../../../../release/", outputFileName)
+                output.outputFileName = new File("../../../../../apks/${buildType}/", outputFileName)
             }
         }
     }
