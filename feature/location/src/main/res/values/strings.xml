@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">location</string>
+
+    <string name="location_cancel">取消</string>
+    <string name="location_refresh">刷新</string>
+    <string name="location_title">我的位置</string>
+    <string name="location_search_nearby">搜索附近的地址</string>
+</resources>

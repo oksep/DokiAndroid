@@ -6,6 +6,7 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.adapter.SimplePager2Adapter
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.plugin.location.ILocationPlugin
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.TimelineApi
 import com.dokiwa.dokidoki.timeline.api.TimelinePage
@@ -67,6 +68,7 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
 
         toolBar.rightIconView.setOnClickListener {
             requireContext().toast("TODO")
+            ILocationPlugin.get().launchLocationActivity(requireActivity())
         }
     }
 }

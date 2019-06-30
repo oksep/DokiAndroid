@@ -139,6 +139,7 @@ dependencies {
     implementationFeature(':feed')
     implementationFeature(':message')
     implementationFeature(':update')
+    implementationFeature(':location')
 
     // admin feature for debug
     debugImplementation project(':admin')

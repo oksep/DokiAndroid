@@ -19,7 +19,7 @@
 
         <EditText
             android:id="@+id/editText"
-            android:drawableStart="@drawable/profile_ic_search_edit"
+            android:drawableStart="@drawable/ui_ic_edit_search"
             android:drawablePadding="7dp"
             android:padding="7dp"
             android:textSize="14sp"

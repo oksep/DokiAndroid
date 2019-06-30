@@ -5,6 +5,7 @@ import android.util.Log
 import com.dokiwa.dokidoki.center.plugin.admin.IAdminPlugin
 import com.dokiwa.dokidoki.center.plugin.feed.IFeedPlugin
 import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
+import com.dokiwa.dokidoki.center.plugin.location.ILocationPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
@@ -51,6 +52,7 @@ interface FeaturePlugin {
             inMap(IFeedPlugin::class.java)
             inMap(IMessagePlugin::class.java)
             inMap(IUpdatePlugin::class.java)
+            inMap(ILocationPlugin::class.java)
         }
 
         internal fun <T> get(clazz: Class<T>): T {

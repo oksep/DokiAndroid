@@ -21,3 +21,6 @@ project(':message').projectDir = new File(settingsDir, 'feature/message')
 
 include ':update'
 project(':update').projectDir = new File(settingsDir, 'feature/update')
+
+include ':location'
+project(':location').projectDir = new File(settingsDir, 'feature/location')

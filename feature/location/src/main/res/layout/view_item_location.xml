@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/locationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="同济大学实验学校"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="#151515"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/locationSubTitle"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上海市杨浦武东路295号"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/text_tip"
+        android:textSize="12sp"/>
+
+    <View
+        android:layout_marginTop="16dp"
+        android:background="@color/dd_gray_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"/>
+
+</LinearLayout>
