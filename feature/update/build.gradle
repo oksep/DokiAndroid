@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion builds.compileSdkVersion
@@ -17,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -26,10 +31,6 @@ dependencies {
 
     // android-x
     implementation "androidx.appcompat:appcompat:${versions.axCompat}"
-    implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
-    implementation "androidx.lifecycle:lifecycle-extensions:${versions.axLifecycle}"
-    implementation "com.google.android.material:material:${versions.axMaterial}"
-    implementation "androidx.cardview:cardview:${versions.axCardView}"
     implementation "androidx.core:core-ktx:${versions.axKtx}"
 
     // test
@@ -42,15 +43,14 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation "com.google.code.gson:gson:${versions.gson}"
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava2}"
-    implementation "io.reactivex.rxjava2:rxandroid:${versions.rxjava2Android}"
-
-    // ui
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
-    implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
-    implementation "com.google.android:flexbox:${versions.flexBox}"
 
     // modules
     implementation project(':center')
     implementation project(':ui')
-    implementation project(':gallery')
+
+    // util
+    dependencies {
+        implementation "org.permissionsdispatcher:permissionsdispatcher:${versions.permissionDispatcher}"
+        kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${versions.permissionDispatcher}"
+    }
 }

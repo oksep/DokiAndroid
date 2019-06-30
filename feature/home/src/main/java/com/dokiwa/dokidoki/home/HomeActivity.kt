@@ -13,6 +13,7 @@ import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
+import com.dokiwa.dokidoki.center.plugin.update.IUpdatePlugin
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -31,6 +32,7 @@ class HomeActivity : TranslucentActivity() {
         initView()
         IAdminPlugin.get().attachShakeAdmin(lifecycle)
         ILoginPlugin.get().ensureLogin(this)
+        IUpdatePlugin.get().checkUpdate(this)
     }
 
     private fun initView() {

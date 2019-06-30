@@ -1,2 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.dokiwa.dokidoki.update"/>
+          package="com.dokiwa.dokidoki.update">
+    <application>
+        <activity
+            android:name=".dialog.UpdateDialog"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Translucent.DimDisable"/>
+
+        <service
+            android:name=".download.UpdateService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+    </application>
+</manifest>

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">update</string>
+
+    <string name="update_dialog_tip">有新的版本可以体验了</string>
+    <string name="update_dialog_message">将要升级到 %s 版本，确认更新</string>
+    <string name="update_latest_version">当前已是最新版本</string>
+    <string name="update_download_failed">下载失败，请重试</string>
+    <string name="update_downloading_file">正在下载 DokiDoki %1$d%%</string>
+    <string name="update_force_tip">当前版本过低</string>
+    <string name="update_force_message">此版本过低导致应用程序无法正常使用，请升级至最新版本体验完整功能</string>
+    <string name="update_force_go">去升级</string>
+    <string name="update_force_quit">退出</string>
+    <string name="update_downloading">正在下载…</string>
+    <string name="update_download_complete">下载完成</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.center.plugin.update
 
+import android.app.Activity
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 
@@ -14,4 +15,6 @@ interface IUpdatePlugin : FeaturePlugin {
             return FeaturePlugin.get(IUpdatePlugin::class.java)
         }
     }
+
+    fun checkUpdate(context: Activity)
 }

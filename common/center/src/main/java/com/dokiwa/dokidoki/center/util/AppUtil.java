@@ -140,4 +140,22 @@ public class AppUtil {
         }
         return null;
     }
+
+    private static int sVerCode = 0;
+
+    public static int getVerCode(Context context) {
+        if (sVerCode != 0) {
+            return sVerCode;
+        }
+
+        try {
+            final String packageName = context.getPackageName();
+            sVerCode = context.getPackageManager()
+                    .getPackageInfo(packageName, 0)
+                    .versionCode;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sVerCode;
+    }
 }
