@@ -10,6 +10,9 @@ android {
         minSdkVersion builds.minSdkVersion
         targetSdkVersion builds.targetSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 高德地图
+        manifestPlaceholders.amapKey = "55c3815ab282eaa9d2aa7f5d78ebf97d"
     }
 
     buildTypes {
@@ -63,4 +66,9 @@ dependencies {
 
     // ui
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
+
+    //搜索功能
+    compile 'com.amap.api:search:6.9.0'
+    //定位功能
+    compile 'com.amap.api:location:4.6.0'
 }

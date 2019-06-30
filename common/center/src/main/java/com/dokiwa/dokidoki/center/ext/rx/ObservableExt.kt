@@ -60,3 +60,15 @@ fun <T> Observable<T>.composeIoMain(): Observable<T> {
         upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 }
+
+fun <T> Observable<T>.mainMain(): Observable<T> {
+    return this.subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> Observable<T>.ioMain(): Observable<T> {
+    return this.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> Observable<T>.mainIo(): Observable<T> {
+    return this.observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
+}

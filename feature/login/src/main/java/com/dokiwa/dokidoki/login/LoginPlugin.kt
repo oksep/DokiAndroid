@@ -3,7 +3,6 @@ package com.dokiwa.dokidoki.login
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Parcelable
-import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
@@ -73,6 +72,7 @@ class LoginPlugin : ILoginPlugin {
             Api.resetAuthenticationToken(userToken.macKey, userToken.accessToken)
         }
 
+        // TODO: 2019-07-01 @Septenary remove delay!!!
         // 用户认证失败重新登录
         Api.unAuthenticationSubject.delay(2, TimeUnit.SECONDS).subscribe {
             Api.resetAuthenticationToken(null, null)

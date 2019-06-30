@@ -3,19 +3,17 @@ package com.dokiwa.dokidoki.location
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
-import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
+import com.amap.api.location.AMapLocation
+import com.dokiwa.dokidoki.center.ext.rx.mainMain
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_location.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by Septenary on 2019-06-30.
  */
-class LocationActivity : TranslucentActivity() {
+class LocationActivity : BaseLocationActivity() {
 
     companion object {
         private const val TAG = "LocationActivity"
@@ -26,7 +24,7 @@ class LocationActivity : TranslucentActivity() {
         }
     }
 
-    private val adapter by lazy { Adapter() }
+    private val adapter by lazy { PoiAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,25 +45,26 @@ class LocationActivity : TranslucentActivity() {
             finish()
         }
 
+        toolBar.rightTextView.setOnClickListener {
+            requsetLocation()
+        }
+
         Observable.create<String> { source ->
-            toolBar.rightTextView.setOnClickListener {
-                source.onNext(editText.text.toString())
-            }
+            //            toolBar.rightTextView.setOnClickListener {
+//                source.onNext(editText.text.toString())
+//            }
             editText.addTextChangedListener(object : SimpleTextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     source.onNext(s.toString())
                 }
             })
-        }.debounce(500, TimeUnit.MILLISECONDS)
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                loadData(it)
-            }, {
-                Log.e(TAG, "edit text observer error", it)
-            }).also {
-                addDispose(it)
-            }
+        }.debounce(500, TimeUnit.MILLISECONDS).mainMain().subscribe({
+            loadPoiData(it)
+        }, {
+            Log.e(TAG, "edit text observer error", it)
+        }).also {
+            addDispose(it)
+        }
 
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener { adapter, _, position ->
@@ -73,7 +72,15 @@ class LocationActivity : TranslucentActivity() {
         }
     }
 
-    private fun loadData(keyword: String?) {
+    override fun onGetLocation(location: AMapLocation) {
+        Log.d(TAG, "get location -> $location")
+    }
+
+    private fun loadPoiData(keyword: String?) {
+        PoiHelper.t(this, "", "", 0)
+    }
+
+    private fun onLoadPoiSucess(keyword: String?) {
         if (keyword.isNullOrEmpty()) {
             adapter.setNewData(mutableListOf())
         } else {
@@ -83,13 +90,5 @@ class LocationActivity : TranslucentActivity() {
             }
             adapter.setNewData(list)
         }
-    }
-}
-
-class Location(val title: String, val subTitle: String)
-
-class Adapter : BaseQuickAdapter<Location, BaseViewHolder>(R.layout.view_item_location, null) {
-    override fun convert(helper: BaseViewHolder, profile: Location) {
-
     }
 }
