@@ -1,6 +1,6 @@
 package com.dokiwa.dokidoki.center.plugin.location
 
-import android.app.Activity
+import androidx.fragment.app.FragmentActivity
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 
@@ -13,5 +13,5 @@ interface ILocationPlugin : FeaturePlugin {
         }
     }
 
-    fun launchLocationActivity(context: Activity)
+    fun launchPoiActivity(context: FragmentActivity, onGetPoi: (String, Double, Double) -> Unit)
 }

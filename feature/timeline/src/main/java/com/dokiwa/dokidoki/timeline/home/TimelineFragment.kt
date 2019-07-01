@@ -68,7 +68,9 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
 
         toolBar.rightIconView.setOnClickListener {
             requireContext().toast("TODO")
-            ILocationPlugin.get().launchLocationActivity(requireActivity())
+            ILocationPlugin.get().launchPoiActivity(requireActivity()) { name, latitude, longitude ->
+                requireContext().toast("$name, $latitude, $longitude")
+            }
         }
     }
 }

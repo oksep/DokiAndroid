@@ -1,9 +1,14 @@
-package com.dokiwa.dokidoki.location
+package com.dokiwa.dokidoki.location.activity
 
 import androidx.appcompat.app.AlertDialog
 import com.amap.api.location.AMapLocation
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.location.Log
+import com.dokiwa.dokidoki.location.R
+import com.dokiwa.dokidoki.location.helper.LocationHelper
+import io.reactivex.Single
+import io.reactivex.subjects.SingleSubject
 import permissions.dispatcher.*
 import android.Manifest.permission.ACCESS_COARSE_LOCATION as ACL
 import android.Manifest.permission.ACCESS_FINE_LOCATION as AFL
@@ -21,8 +26,21 @@ abstract class BaseLocationActivity : TranslucentActivity() {
         private const val TAG = "BaseLocationActivity"
     }
 
-    fun requsetLocation() {
-        loadLocationImplWithPermissionCheck()
+    private var cacheAMapLocation: AMapLocation? = null
+
+    private val holder = hashSetOf<SingleSubject<AMapLocation>>()
+
+    fun requestLocation(): Single<AMapLocation> {
+        return if (cacheAMapLocation != null) {
+            Single.just(cacheAMapLocation)
+        } else {
+            SingleSubject.create<AMapLocation>().run {
+                doOnSubscribe {
+                    holder.add(this)
+                    loadLocationImplWithPermissionCheck()
+                }
+            }
+        }
     }
 
     @NeedsPermission(ACL, AFL, WES, RES, RPS)
@@ -30,7 +48,22 @@ abstract class BaseLocationActivity : TranslucentActivity() {
         LocationHelper.getLocation(this, lifecycle, ::onGetLocation)
     }
 
-    abstract fun onGetLocation(location: AMapLocation)
+    private fun onGetLocation(location: AMapLocation?) {
+
+        cacheAMapLocation = if (location?.errorCode == 0) location else null
+
+        val closure = { emitter: SingleSubject<AMapLocation> ->
+            if (location?.errorCode == 0) {
+                emitter.onSuccess(location)
+            } else {
+                emitter.onError(
+                    LocationHelper.LocationException(LocationHelper.toMessage(location))
+                )
+            }
+        }
+        holder.forEach { closure(it) }
+        holder.clear()
+    }
 
     ///////////////////////////////////////////
     // permissions

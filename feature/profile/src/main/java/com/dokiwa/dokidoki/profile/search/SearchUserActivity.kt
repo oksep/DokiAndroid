@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
+import com.dokiwa.dokidoki.center.ext.rx.mainMain
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
@@ -20,7 +21,6 @@ import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_search_user.*
 import java.util.concurrent.TimeUnit
 
@@ -53,16 +53,13 @@ class SearchUserActivity : TranslucentActivity() {
                     source.onNext(s.toString())
                 }
             })
-        }.debounce(500, TimeUnit.MILLISECONDS)
-            .subscribeOn(AndroidSchedulers.mainThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                loadData(it)
-            }, {
-                Log.e(TAG, "edit text observer error", it)
-            }).also {
-                addDispose(it)
-            }
+        }.debounce(500, TimeUnit.MILLISECONDS).mainMain().subscribe({
+            loadData(it)
+        }, {
+            Log.e(TAG, "edit text observer error", it)
+        }).also {
+            addDispose(it)
+        }
         refreshRecyclerView.setAdapter(adapter)
         adapter.setOnItemClickListener { adapter, _, position ->
             (adapter.getItem(position) as? UserProfile)?.let {

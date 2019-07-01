@@ -12,7 +12,7 @@
     android:background="@color/white">
 
     <TextView
-        android:id="@+id/locationTitle"
+        android:id="@+id/poiTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="同济大学实验学校"
@@ -22,7 +22,7 @@
         android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/locationSubTitle"
+        android:id="@+id/poiSubTitle"
         android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

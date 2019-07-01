@@ -45,7 +45,7 @@
 
         <activity
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:name=".LocationActivity"
+            android:name=".activity.PoiActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"/>
     </application>
