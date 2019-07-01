@@ -39,11 +39,15 @@ class DragSortHelper private constructor(private val parentView: ViewGroup) : Vi
     }
 
     override fun tryCaptureView(child: View, pointerId: Int): Boolean {
-        dragViewRawLeft = child.left
-        dragViewRawTop = child.top
-        child.fly()
-        parentView.requestDisallowInterceptTouchEvent(true)
-        return true
+        return if ((child as? IDragSortView)?.isDragAble() == true) {
+            dragViewRawLeft = child.left
+            dragViewRawTop = child.top
+            child.fly()
+            parentView.requestDisallowInterceptTouchEvent(true)
+            true
+        } else {
+            false
+        }
     }
 
     override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
@@ -97,7 +101,9 @@ class DragSortHelper private constructor(private val parentView: ViewGroup) : Vi
                 if (swapView != dragedView) {
                     val centX = left + swapView.width / 2
                     val centY = top + swapView.height / 2
-                    if (mViewDragHelper.isCapturedViewUnder(centX, centY)) {
+                    if (mViewDragHelper.isCapturedViewUnder(centX, centY) &&
+                        (swapView as? IDragSortView)?.isDragAble() == true
+                    ) {
                         val dx = dragViewRawLeft - left
                         val dy = dragViewRawTop - top
                         ViewCompat.offsetLeftAndRight(swapView, dx)
@@ -159,6 +165,8 @@ class DragSortHelper private constructor(private val parentView: ViewGroup) : Vi
     interface IDragSortView {
         fun onFly()
         fun onGround()
+        fun isDragAble(): Boolean
+        fun setDragAble(drabAble: Boolean)
     }
 
     private fun View.fly() {

@@ -10,19 +10,14 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
-import com.dokiwa.dokidoki.center.ext.glideUri
 import com.dokiwa.dokidoki.center.ext.glideAvatar
+import com.dokiwa.dokidoki.center.ext.glideUri
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.swap
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Avatar
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile.City
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Industry
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Picture
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Province
-import com.dokiwa.dokidoki.center.plugin.model.UserProfile.Tag
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile.*
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader.ImageType
@@ -239,7 +234,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
     }
 
     fun onChangeIndustryClick(view: View) {
-        IndustryPickerDialog.create(this) { id, name, subId, subName ->
+        IndustryPickerDialog.create(this) { _, _, subId, subName ->
             setUpViews(newProfile.copy(industry = Industry(subId, subName)))
         }.show()
     }

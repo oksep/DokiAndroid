@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.timeline.api
 
+import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -37,4 +38,14 @@ interface TimelineApi {
         @Field("reply_to_user_id") replyUserId: String? = null,
         @Field("content") content: String
     ): Single<CreateCommentResult>
+
+    @FormUrlEncoded
+    @POST("/api/ufeed/v1/create")
+    fun createTimeline(
+        @Field("pictures") pictures: String? = null, // 图片，可多张，用英文逗号分隔，最多 9 张
+        @Field("content") content: String?, // 限制 500 字符
+        @Field("position_longitude") positionLongitude: Double? = 0.0, // 经度
+        @Field("position_latitude") positionLatitude: Double? = 0.0, // 纬度
+        @Field("position_name") positionName: String? = "" // 位置名
+    ): Single<JsonElement>
 }

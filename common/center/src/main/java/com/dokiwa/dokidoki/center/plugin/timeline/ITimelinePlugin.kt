@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.center.plugin.timeline
 
+import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
@@ -12,6 +13,8 @@ import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 interface ITimelinePlugin : FeaturePlugin {
 
     fun obtainHomeTimelineFragment(): Fragment
+
+    fun launchCreateTimelineActivity(context: Activity)
 
     companion object {
         fun get(): ITimelinePlugin {

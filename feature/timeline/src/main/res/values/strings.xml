@@ -18,4 +18,10 @@
     <string name="timeline_comment_hint_reply">回复 %s：</string>
     <string name="timeline_comment_reply_failed">回复失败</string>
 
+    <string name="timeline_create_publish">发表</string>
+    <string name="timeline_create_edit_hint">分享生活，一起心动</string>
+    <string name="timeline_create_where_r_u">你在哪里？</string>
+    <string name="timeline_create_publish_failed">发布失败</string>
+    <string name="timeline_create_publish_success">发布成功</string>
+
 </resources>

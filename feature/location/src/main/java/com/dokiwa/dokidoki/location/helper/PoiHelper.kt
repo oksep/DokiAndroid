@@ -19,6 +19,10 @@ object PoiHelper {
 
     private val shPoint = LatLonPoint(31.22222, 121.45806)
 
+    private fun isEmulator(): Boolean {
+        return android.os.Build.DEVICE == "generic_x86"
+    }
+
     fun getPoiData(
         context: Context,
         location: AMapLocation,
@@ -27,9 +31,8 @@ object PoiHelper {
         pageSize: Int = 100
     ): Single<List<PoiItem>> {
         return Single.create { emitter ->
-            // TODO: 2019-07-02 @Septenary
-            // val cityCode = location.cityCode ?: ""
-            val cityCode = ""
+
+            val cityCode = if (isEmulator()) "" else location.cityCode ?: ""
 
             val query = PoiSearch.Query(keyWord ?: "", "", cityCode).apply {
                 setPageSize(pageSize)
@@ -38,9 +41,7 @@ object PoiHelper {
 
             val poiSearch = PoiSearch(context, query)
 
-            // TODO: 2019-07-02 @Septenary
-            // val point = LatLonPoint(location.latitude, location.longitude)
-            val point = shPoint
+            val point = if (isEmulator()) shPoint else LatLonPoint(location.latitude, location.longitude)
 
             poiSearch.bound = PoiSearch.SearchBound(point, 1000)
 

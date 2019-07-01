@@ -8,21 +8,23 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.SoundEffectConstants
+import android.widget.ImageView
 import androidx.core.graphics.toRectF
 import androidx.core.view.GestureDetectorCompat
 import com.dokiwa.dokidoki.ui.R
 import com.dokiwa.dokidoki.ui.util.DragSortHelper
-import com.makeramen.roundedimageview.RoundedImageView
 
 class EditableRoundImage @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : RoundedImageView(context, attrs, defStyleAttr), DragSortHelper.IDragSortView {
+) : ImageView(context, attrs, defStyleAttr), DragSortHelper.IDragSortView {
 
     private val h: Int
     private val w: Int
     private val icon: Drawable?
     private val detector: GestureDetectorCompat?
     private var isFLy = false
+    private var dragAble = true
+    private var showEditIcon = true
 
     var onCloseListener: (() -> Unit)? = null
     var editTag: Any? = null
@@ -37,9 +39,11 @@ class EditableRoundImage @JvmOverloads constructor(
         detector = if (icon != null) {
             GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                    onCloseListener?.invoke()
-                    playSoundEffect(SoundEffectConstants.CLICK)
-                    return true
+                    if (showEditIcon) {
+                        onCloseListener?.invoke()
+                        playSoundEffect(SoundEffectConstants.CLICK)
+                    }
+                    return showEditIcon
                 }
             })
         } else {
@@ -53,7 +57,7 @@ class EditableRoundImage @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return if (isTouchInIconArea(event)) {
+        return if (isTouchInIconArea(event) && showEditIcon) {
             detector?.onTouchEvent(event)
             true
         } else {
@@ -68,9 +72,22 @@ class EditableRoundImage @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        if (!isFLy) {
+        if (!isFLy && showEditIcon) {
             icon?.draw(canvas)
         }
+    }
+
+    fun showEditIcon(show: Boolean) {
+        this.showEditIcon = show
+        invalidate()
+    }
+
+    override fun setDragAble(dragAble: Boolean) {
+        this.dragAble = dragAble
+    }
+
+    override fun isDragAble(): Boolean {
+        return this.dragAble
     }
 
     override fun onFly() {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="android.widget.LinearLayout"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@drawable/timeline_bg_create_location"
+    android:layout_width="wrap_content"
+    android:layout_height="26dp">
+
+    <TextView
+        android:id="@+id/locationTitle"
+        android:drawableStart="@drawable/timeline_selector_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:drawablePadding="5dp"
+        android:textSize="12dp"
+        android:textColor="@color/timeline_selector_location"
+        android:text="@string/timeline_create_where_r_u"
+        tools:ignore="SpUsage"/>
+
+    <ImageView
+        android:id="@+id/locationClose"
+        android:background="@drawable/timeline_ic_location_close"
+        android:src="@drawable/timeline_ic_close_dark"
+        android:scaleType="centerInside"
+        android:layout_width="26dp"
+        android:layout_height="26dp"/>
+
+</LinearLayout>

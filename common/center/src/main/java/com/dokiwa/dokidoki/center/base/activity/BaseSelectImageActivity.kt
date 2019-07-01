@@ -1,8 +1,6 @@
 package com.dokiwa.dokidoki.center.base.activity
 
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ClipData
@@ -23,12 +21,7 @@ import com.dokiwa.dokidoki.center.util.now
 import com.dokiwa.dokidoki.ui.util.ViewUtil
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
-import permissions.dispatcher.NeedsPermission
-import permissions.dispatcher.OnNeverAskAgain
-import permissions.dispatcher.OnPermissionDenied
-import permissions.dispatcher.OnShowRationale
-import permissions.dispatcher.PermissionRequest
-import permissions.dispatcher.RuntimePermissions
+import permissions.dispatcher.*
 import java.io.File
 import java.io.IOException
 

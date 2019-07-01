@@ -5,11 +5,10 @@ import android.view.View
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.adapter.SimplePager2Adapter
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
-import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.center.plugin.location.ILocationPlugin
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.TimelineApi
 import com.dokiwa.dokidoki.timeline.api.TimelinePage
+import com.dokiwa.dokidoki.timeline.create.CreateTimelineActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import io.reactivex.Single
@@ -67,10 +66,7 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
         ).attach()
 
         toolBar.rightIconView.setOnClickListener {
-            requireContext().toast("TODO")
-            ILocationPlugin.get().launchPoiActivity(requireActivity()) { name, latitude, longitude ->
-                requireContext().toast("$name, $latitude, $longitude")
-            }
+            CreateTimelineActivity.launch(requireActivity())
         }
     }
 }

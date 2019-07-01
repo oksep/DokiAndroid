@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:background="@color/white"
+    tools:context=".create.CreateTimelineActivity">
+
+    <com.dokiwa.dokidoki.ui.view.HomeToolBar
+        android:id="@+id/toolBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/AppToolBar.Dark.Text"
+        app:toolbar_titleVisibility="gone"
+        app:toolbar_leftText="@string/cancel"
+        app:toolbar_rightText="@string/timeline_create_publish"
+        app:toolbar_rightTextColor="@color/dd_red"
+        android:elevation="@dimen/ui_toolbar_elevation"
+        android:background="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_margin="16dp"
+        android:textSize="16sp"
+        android:gravity="top"
+        android:lineSpacingMultiplier="1.2"
+        android:hint="@string/timeline_create_edit_hint"
+        android:inputType="textMultiLine"
+        android:maxLength="500"
+        android:textColor="@color/text_dft"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar"
+        tools:background="@color/dd_gray_light"
+        android:scrollbars="vertical"
+        android:background="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="120dp"
+        android:maxHeight="150dp"
+        tools:ignore="Autofill"/>
+
+    <include
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pictures"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        layout="@layout/view_location"/>
+
+    <com.dokiwa.dokidoki.ui.view.DragNineGridImageView
+        android:id="@+id/pictures"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:layout_marginTop="12dp"
+        android:layout_margin="16dp"
+        tools:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="@color/dd_gray_light"
+        app:imgGap="10dp"
+        app:showStyle="grid"
+        app:singleImgSize="120dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

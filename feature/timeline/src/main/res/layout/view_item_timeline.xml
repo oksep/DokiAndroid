@@ -98,7 +98,7 @@
         app:layout_constraintTop_toBottomOf="@+id/content"
         app:layout_constraintLeft_toLeftOf="parent"
         tools:text="上海·同济大学"
-        android:drawableStart="@drawable/timeline_ic_location"
+        android:drawableStart="@drawable/timeline_ic_location_gray"
         android:drawablePadding="5dp"
         android:textColor="#A4AAB3"
         android:textSize="12sp"
