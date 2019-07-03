@@ -16,6 +16,8 @@ interface ITimelinePlugin : FeaturePlugin {
 
     fun launchCreateTimelineActivity(context: Activity)
 
+    fun launchUserTimelineActivity(context: Activity, userId: String, userName: String)
+
     companion object {
         fun get(): ITimelinePlugin {
             return FeaturePlugin.get(ITimelinePlugin::class.java)

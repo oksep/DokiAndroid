@@ -13,7 +13,7 @@ import com.dokiwa.dokidoki.timeline.api.Timeline
 import kotlinx.android.synthetic.main.view_item_timeline.view.*
 
 open class TimelineAdapter(
-    private val onUpBtnClick: (View, TimelineEntity, Int) -> Unit,
+    private val onUpBtnClick: ((View, TimelineEntity, Int) -> Unit)? = null,
     private val onMoreBtnClick: ((TimelineEntity) -> Unit)? = null
 ) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(listOf()) {
 
@@ -69,7 +69,7 @@ open class TimelineAdapter(
             if (timeline.isUp == true) R.drawable.timeline_ic_like else R.drawable.timeline_ic_unlike
         )
         helper.itemView.upBtn.setOnClickListener {
-            onUpBtnClick(it, item, helper.adapterPosition)
+            onUpBtnClick?.invoke(it, item, helper.adapterPosition)
             convert(helper, item)
         }
 

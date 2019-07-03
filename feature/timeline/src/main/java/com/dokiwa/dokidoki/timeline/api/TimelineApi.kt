@@ -21,6 +21,12 @@ interface TimelineApi {
         @QueryMap(encoded = true) map: Map<String, String?> = mapOf()
     ): Single<TimelinePage>
 
+    @GET("{path}")
+    fun getUserTimeline(
+        @Path(value = "path", encoded = true) path: String = "/api/ufeed/v1/user",
+        @QueryMap(encoded = true) map: Map<String, String?> = mapOf()
+    ): Single<TimelinePage>
+
     @GET("/api/ufeed/v1/get")
     fun getTimeline(@Query("ufeed_id") id: String): Single<Timeline>
 

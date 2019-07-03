@@ -17,6 +17,7 @@ import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.profile.ProfileSP
@@ -154,6 +155,10 @@ class ProfileDetailActivity : TranslucentActivity() {
         }
         timelinePictures.adapter = timelineAdapter.apply {
             setNewData(profile.pictures)
+        }
+
+        timelineAdapter.setOnItemClickListener { _, _, _ ->
+            ITimelinePlugin.get().launchUserTimelineActivity(this, profile.userId.toString(), profile.nickname)
         }
 
         val editable = ensureEditAble(profile.userId)
