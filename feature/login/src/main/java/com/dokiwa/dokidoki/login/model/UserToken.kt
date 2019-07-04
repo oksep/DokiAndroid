@@ -1,9 +1,9 @@
 package com.dokiwa.dokidoki.login.model
 
-import android.os.Parcel
 import android.os.Parcelable
 import com.dokiwa.dokidoki.center.api.model.IApiModel
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Septenary on 2018/12/29.
@@ -19,6 +19,7 @@ import com.google.gson.annotations.SerializedName
  * }
  * ```
  */
+@Parcelize
 data class UserToken(
     @SerializedName("access_token")
     val accessToken: String,
@@ -40,39 +41,4 @@ data class UserToken(
 
     @SerializedName("token_type")
     val tokenType: String
-) : IApiModel, Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readInt(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(accessToken)
-        parcel.writeInt(expiresIn)
-        parcel.writeString(macAlgorithm)
-        parcel.writeString(macKey)
-        parcel.writeString(nimToken)
-        parcel.writeString(refreshToken)
-        parcel.writeString(tokenType)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<UserToken> {
-        override fun createFromParcel(parcel: Parcel): UserToken {
-            return UserToken(parcel)
-        }
-
-        override fun newArray(size: Int): Array<UserToken?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+) : IApiModel, Parcelable
