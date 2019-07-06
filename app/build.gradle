@@ -143,9 +143,10 @@ dependencies {
     implementationFeature(':login')
     implementationFeature(':timeline')
     implementationFeature(':feed')
-    implementationFeature(':message')
     implementationFeature(':update')
     implementationFeature(':location')
+    implementationFeature(':message')
+    implementationFeature(':uikit')
 
     // admin feature for debug
     debugImplementation project(':admin')

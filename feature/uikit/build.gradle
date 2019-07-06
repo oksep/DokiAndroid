@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion builds.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion builds.minSdkVersion
+        targetSdkVersion builds.targetSdkVersion
+
+        renderscriptTargetApi builds.compileSdkVersion
+        renderscriptSupportModeEnabled true
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res', 'res-ptr2', 'res-chatroom']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.7
+        targetCompatibility 1.7
+    }
+
+    packagingOptions {
+        doNotStrip '*/mips/*.so'
+        doNotStrip '*/mips64/*.so'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: '*.jar')
+
+    implementation "androidx.appcompat:appcompat:${versions.axCompat}"
+    implementation "com.google.android.material:material:${versions.axMaterial}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
+
+    // ui
+    implementation 'me.everything:overscroll-decor-android:1.0.4'
+    implementation "me.leolin:ShortcutBadger:1.1.17@aar"
+    implementation "com.github.bumptech.glide:glide:${versions.glide}"
+    implementation "jp.wasabeef:glide-transformations:${versions.glideTransformations}"
+    implementation "com.github.chrisbanes.photoview:library:${versions.photoView}"
+    // if you want to use the Glide GPU Filters
+    //implementation 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+
+    // 网易云信相关依赖 注意，版本号必须一致。
+    // 基础功能 (必需)
+    implementation "com.netease.nimlib:basesdk:${versions.nim}"
+    // 超大群
+    implementation "com.netease.nimlib:superteam:${versions.nim}"
+    // 音视频和互动白板服务需要
+    implementation "com.netease.nimlib:nrtc:${versions.nim}"
+    // 音视频需要
+    implementation "com.netease.nimlib:avchat:${versions.nim}"
+    // 聊天室需要
+    implementation "com.netease.nimlib:chatroom:${versions.nim}"
+    // 互动白板服务需要
+    implementation "com.netease.nimlib:rts:${versions.nim}"
+    // 全文检索服务需要
+    implementation "com.netease.nimlib:lucene:${versions.nim}"
+    // 小米、华为、魅族、fcm 推送
+    implementation "com.netease.nimlib:push:${versions.nim}"
+}

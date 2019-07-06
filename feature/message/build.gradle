@@ -33,6 +33,8 @@ dependencies {
     implementation "androidx.core:core-ktx:${versions.axKtx}"
 
     // test
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation "junit:junit:${versions.testJunit}"
     androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
@@ -52,4 +54,22 @@ dependencies {
     implementation project(':center')
     implementation project(':ui')
     implementation project(':social')
+
+    // 网易云信相关依赖 注意，版本号必须一致。
+    // 基础功能 (必需)
+    implementation "com.netease.nimlib:basesdk:${versions.nim}"
+    // 超大群
+    implementation "com.netease.nimlib:superteam:${versions.nim}"
+    // 音视频和互动白板服务需要
+    implementation "com.netease.nimlib:nrtc:${versions.nim}"
+    // 音视频需要
+    implementation "com.netease.nimlib:avchat:${versions.nim}"
+    // 聊天室需要
+    implementation "com.netease.nimlib:chatroom:${versions.nim}"
+    // 互动白板服务需要
+    implementation "com.netease.nimlib:rts:${versions.nim}"
+    // 全文检索服务需要
+    implementation "com.netease.nimlib:lucene:${versions.nim}"
+    // 小米、华为、魅族、fcm 推送
+    implementation "com.netease.nimlib:push:${versions.nim}"
 }
