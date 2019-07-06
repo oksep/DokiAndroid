@@ -24,9 +24,10 @@ class GlideModule : AppGlideModule() {
             GlideExecutor.newAnimationExecutor(GlideExecutor.calculateBestThreadCount(), uncaughtThrowableStrategy)
         )
 
-        builder.setDefaultRequestOptions(RequestOptions().format(DecodeFormat.PREFER_RGB_565).disallowHardwareConfig())
         if (BuildConfig.DEBUG) {
             builder.setLogLevel(android.util.Log.DEBUG)
+        } else {
+            builder.setLogLevel(android.util.Log.WARN)
         }
     }
 
