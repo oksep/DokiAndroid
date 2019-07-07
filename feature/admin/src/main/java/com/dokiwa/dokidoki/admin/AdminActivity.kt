@@ -13,6 +13,7 @@ import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toPrettyJson
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.google.gson.JsonElement
 import kotlinx.android.synthetic.main.activity_admin.*
@@ -54,6 +55,12 @@ internal class AdminActivity : BaseActivity() {
         },
         Item("登出并登录") {
             ILoginPlugin.get().logOut(this)
+        },
+        Item("NIM 登录") {
+            IMessagePlugin.get().loginNIM()
+        },
+        Item("NIM 登出") {
+            IMessagePlugin.get().logoutNIM()
         },
         Item("绑定手机号页面") {
             ILoginPlugin.get().launchBindPhoneActivity(this)

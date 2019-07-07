@@ -13,9 +13,13 @@ import com.dokiwa.dokidoki.social.SocialHelper
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        AppCenter.init(this)
-        FeaturePlugin.init(this)
+        init()
+    }
+
+    private fun init() {
         if (AppUtil.isMainProcess(this)) {
+            AppCenter.init(this)
+            FeaturePlugin.initMainProcessPlugin(this)
             SocialHelper.initSocial(
                 context = this,
                 qqAppId = BuildConfig.QQ_ID,
@@ -25,5 +29,6 @@ class App : Application() {
                 wbRedirectUrl = BuildConfig.WEIBO_REDIRECT_URL
             )
         }
+        FeaturePlugin.initMultiProcessPlugin(this)
     }
 }

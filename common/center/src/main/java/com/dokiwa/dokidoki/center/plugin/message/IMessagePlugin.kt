@@ -10,11 +10,15 @@ import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 @PluginImplMeta("com.dokiwa.dokidoki.message.MessagePlugin")
 interface IMessagePlugin : FeaturePlugin {
 
-    fun obtainHomeMessageFragment(): Fragment
-
     companion object {
         fun get(): IMessagePlugin {
             return FeaturePlugin.get(IMessagePlugin::class.java)
         }
     }
+
+    fun obtainHomeMessageFragment(): Fragment
+
+    fun loginNIM()
+
+    fun logoutNIM()
 }

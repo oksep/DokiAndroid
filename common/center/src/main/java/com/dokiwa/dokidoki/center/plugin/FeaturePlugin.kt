@@ -12,6 +12,7 @@ import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.center.plugin.update.IUpdatePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
+import com.dokiwa.dokidoki.center.util.AppUtil
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
@@ -29,30 +30,34 @@ interface FeaturePlugin {
     companion object {
         val map = HashMap<Class<*>, FeaturePlugin?>()
 
-        fun init(context: Context) {
-            fun <T : FeaturePlugin> inMap(clazz: Class<T>) {
-                val implClassName = clazz.getAnnotation(PluginImplMeta::class.java).implClassName
-                try {
-                    map[clazz] = (Class.forName(implClassName).newInstance() as? FeaturePlugin)?.apply {
-                        onInit(context)
-                    }
-                    Log.d(TAG, "plugin loaded -> [$clazz].")
-                } catch (ex: Throwable) {
-                    ex.printStackTrace()
-                    Log.e(TAG, "plugin not found -> [$clazz].")
+        private fun <T : FeaturePlugin> inMap(context: Context, clazz: Class<T>) {
+            val processName = AppUtil.getProcessName(context)
+            val implClassName = clazz.getAnnotation(PluginImplMeta::class.java).implClassName
+            try {
+                map[clazz] = (Class.forName(implClassName).newInstance() as? FeaturePlugin)?.apply {
+                    onInit(context)
                 }
+                Log.d(TAG, "$processName plugin loaded -> [$clazz].")
+            } catch (ex: Throwable) {
+                ex.printStackTrace()
+                Log.e(TAG, "$processName plugin not found -> [$clazz].")
             }
+        }
 
-            inMap(IAdminPlugin::class.java)
-            inMap(ILoginPlugin::class.java)
-            inMap(IHomePlugin::class.java)
-            inMap(IWebPlugin::class.java)
-            inMap(IProfilePlugin::class.java)
-            inMap(ITimelinePlugin::class.java)
-            inMap(IFeedPlugin::class.java)
-            inMap(IMessagePlugin::class.java)
-            inMap(IUpdatePlugin::class.java)
-            inMap(ILocationPlugin::class.java)
+        fun initMainProcessPlugin(context: Context) {
+            inMap(context, IAdminPlugin::class.java)
+            inMap(context, ILoginPlugin::class.java)
+            inMap(context, IHomePlugin::class.java)
+            inMap(context, IWebPlugin::class.java)
+            inMap(context, IProfilePlugin::class.java)
+            inMap(context, ITimelinePlugin::class.java)
+            inMap(context, IFeedPlugin::class.java)
+            inMap(context, IUpdatePlugin::class.java)
+            inMap(context, ILocationPlugin::class.java)
+        }
+
+        fun initMultiProcessPlugin(context: Context) {
+            inMap(context, IMessagePlugin::class.java)
         }
 
         internal fun <T> get(clazz: Class<T>): T {
