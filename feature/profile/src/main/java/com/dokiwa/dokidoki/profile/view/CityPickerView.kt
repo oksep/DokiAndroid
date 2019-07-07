@@ -14,23 +14,9 @@ import com.dokiwa.dokidoki.profile.create.model.Province
 /**
  * Created by Septenary on 2019/2/12.
  */
-class CityPickerView : FrameLayout {
-
-    constructor(context: Context) : super(context) {
-        init(null, 0)
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(attrs, 0)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
-        init(attrs, defStyle)
-    }
-
-    private fun init(attrs: AttributeSet?, defStyle: Int) {
-        // nothing
-    }
+class CityPickerView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     fun initView(
         provinceList: List<Province>,

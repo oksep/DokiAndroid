@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.FrameLayout
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.TimePickerView
@@ -15,19 +15,9 @@ import java.util.*
 /**
  * Created by Septenary on 2019/2/12.
  */
-class DatePickerView : ConstraintLayout {
-
-    constructor(context: Context) : super(context) {
-        initLunarPicker()
-    }
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        initLunarPicker()
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initLunarPicker()
-    }
+class DatePickerView @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     private fun getTime(date: Date): String {
         Log.d("getTime()", "choice date millis: " + date.time)
@@ -35,7 +25,7 @@ class DatePickerView : ConstraintLayout {
         return format.format(date)
     }
 
-    private fun initLunarPicker() {
+    fun initView() {
         val currentDate = Calendar.getInstance()
 
         selectDate.time = currentDate.time
@@ -61,13 +51,17 @@ class DatePickerView : ConstraintLayout {
                     hide()
                 }
             }
+            .setOutSideCancelable(false)
             .setType(booleanArrayOf(true, true, true, false, false, false))
             .isCenterLabel(false) // 是否只显示中间选中项的label文字，false 则每项item全部都带有label。
             .isDialog(false)
             .setDecorView(this)
+            .isCenterLabel(false)
             .build()
             .also { timePickerView = it }
-            .show(false)
+
+        timePickerView?.setKeyBackCancelable(false)
+        timePickerView?.show(false)
     }
 
     private var cb: ((Calendar) -> Unit)? = null

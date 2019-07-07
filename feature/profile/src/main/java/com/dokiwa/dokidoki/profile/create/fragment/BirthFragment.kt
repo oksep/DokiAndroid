@@ -1,12 +1,10 @@
 package com.dokiwa.dokidoki.profile.create.fragment
 
-import android.app.DatePickerDialog
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.create.model.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_create_profile_birth.*
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 /**
  * Created by Septenary on 2019/1/2.
@@ -18,10 +16,11 @@ internal class BirthFragment : BaseStepFragment() {
     override val skipable: Boolean = false
 
     override fun updateContent(viewModel: SharedViewModel) {
-
         dateContainerView.setOnClickListener {
             datePickerView.show()
         }
+
+        datePickerView.initView()
 
         datePickerView.setOnDateSelectListener { date ->
             yearTextView.text = date.get(Calendar.YEAR).toString()

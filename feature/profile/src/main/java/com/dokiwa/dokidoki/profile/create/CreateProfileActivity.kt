@@ -88,6 +88,7 @@ class CreateProfileActivity : BaseSelectImageActivity(), IStepFragmentInteract {
             addFragment(NickFragment())
             addFragment(AvatarFragment())
         }
+        viewPager.offscreenPageLimit = 5
         viewPager.adapter = adapter
         val pagerListener = object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {

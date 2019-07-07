@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_marginTop="@dimen/profile_create_tip_margin_top"
         android:id="@+id/tip1"
         android:text="@string/profile_create_profile_nick_tip"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -37,10 +38,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tip2"
-        app:layout_constraintBottom_toTopOf="@+id/confirmBtn"
         android:layout_marginEnd="85dp"
         android:layout_marginTop="40dp"
         android:layout_marginStart="85dp"
+        android:maxLines="1"
+        android:maxLength="30"
+        android:maxEms="30"
+        android:textSize="16sp"
+        android:textColor="@color/text_dft"
         android:hint="@string/profile_create_profile_nick_hint"
         android:paddingBottom="10dp"
         android:gravity="center"
@@ -57,7 +62,8 @@
         android:layout_marginTop="120dp"
         android:layout_width="200dp"
         android:layout_height="44dp"
-        android:layout_marginBottom="150dp"
+        android:elevation="0dp"
+        android:layout_marginBottom="@dimen/profile_create_btn_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
