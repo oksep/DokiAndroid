@@ -33,6 +33,7 @@ import com.dokiwa.dokidoki.profile.dialog.EduPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.HeightPickerDialog
 import com.dokiwa.dokidoki.profile.dialog.IndustryPickerDialog
 import com.dokiwa.dokidoki.ui.util.DragSortHelper
+import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import com.dokiwa.dokidoki.ui.view.DragNineGridImageView
 import com.dokiwa.dokidoki.ui.view.EditableRoundImage
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
@@ -76,6 +77,18 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         nameEditText.post {
             nameEditText.isFocusableInTouchMode = true
         }
+
+        nameEditText.addTextChangedListener(object : SimpleTextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                newProfile = newProfile.copy(nickname = s.toString())
+            }
+        })
+
+        incomeEditText.addTextChangedListener(object : SimpleTextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                newProfile = newProfile.copy(income = s?.toString()?.toInt() ?: 0)
+            }
+        })
 
         // crop result
         cropResultReceiver.setListener(this)
@@ -314,7 +327,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         // TODO: 2019-06-22 @Septenary intro、nickname 字段非法 问题
         fun updateProfile(avatar: Avatar, remotePictures: List<Picture>): Single<UserProfileWrap> {
             newProfile = newProfile.copy(pictures = remotePictures, avatar = avatar)
-            return Api.get(ProfileApi::class.java).upateProfile(
+            return Api.get(ProfileApi::class.java).updateProfile(
                 avatar = newProfile.avatar.rawUrl,
                 nickname = newProfile.nickname,
                 gender = newProfile.gender,

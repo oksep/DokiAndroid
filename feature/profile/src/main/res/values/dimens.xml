@@ -2,5 +2,5 @@
 <resources>
     <dimen name="profile_picker_view_height">250dp</dimen>
     <dimen name="profile_create_tip_margin_top">80dp</dimen>
-    <dimen name="profile_create_btn_margin_bottom">80dp</dimen>
+    <dimen name="profile_create_btn_margin_bottom">100dp</dimen>
 </resources>

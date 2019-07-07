@@ -44,7 +44,7 @@ interface ProfileApi {
      */
     @FormUrlEncoded
     @POST("/api/profile/v1/update")
-    fun upateProfile(
+    fun updateProfile(
         @Field("avatar") avatar: String? = "",
         @Field("nickname") nickname: String? = "",
         @Field("gender") gender: Int? = Gender.UNKNOWN,
