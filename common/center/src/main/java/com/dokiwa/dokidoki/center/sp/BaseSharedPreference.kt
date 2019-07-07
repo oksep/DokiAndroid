@@ -48,7 +48,7 @@ abstract class BaseSharedPreferences(
         return editor.commit()
     }
 
-    fun getString(key: String): String {
+    fun getString(key: String): String? {
         val settings = context.getSharedPreferences(fileName, mode)
         return settings.getString(wrapKey(key), "")
     }

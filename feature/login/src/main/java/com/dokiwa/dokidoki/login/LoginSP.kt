@@ -19,11 +19,15 @@ object LoginSP : BaseSharedPreferences("login", asUserData = false) {
 
     fun getUserToken(): UserToken? {
         val json = getString(KEY_USER_TOKEN, "")
-        return try {
-            Gson().fromJson(json, UserToken::class.java)
-        } catch (ex: Exception) {
-            ex.printStackTrace()
+        return if (json.isNullOrEmpty()) {
             null
+        } else {
+            try {
+                Gson().fromJson(json, UserToken::class.java)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+                null
+            }
         }
     }
 

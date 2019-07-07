@@ -172,7 +172,7 @@ class CreateProfileActivity : BaseSelectImageActivity(), IStepFragmentInteract {
         }.subscribeApiWithDialog(this, this,
             {
                 Log.d(TAG, "submit payload success")
-                ILoginPlugin.get().saveLoginUser(it.profile, intent.getParcelableExtra(EXTRA_USER_TOKEN))
+                ILoginPlugin.get().onLoginDokiComplete(it.profile, intent.getParcelableExtra(EXTRA_USER_TOKEN))
                 IHomePlugin.get().launchHomeActivity(this)
                 finishAffinity()
             },

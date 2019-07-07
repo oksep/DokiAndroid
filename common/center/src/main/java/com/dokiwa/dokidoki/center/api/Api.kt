@@ -5,7 +5,7 @@ import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.convert.CustomConverterFactory
 import com.dokiwa.dokidoki.center.api.interceptor.*
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -60,7 +60,7 @@ object Api {
         }
     )
 
-    val unAuthenticationSubject by lazy { BehaviorSubject.create<Unit>() }
+    val unAuthenticationSubject by lazy { PublishSubject.create<Unit>() }
 
     fun resetAuthenticationToken(macKey: String?, accessToken: String?) {
         tokenInterceptor.resetAuthenticationToken(macKey, accessToken)

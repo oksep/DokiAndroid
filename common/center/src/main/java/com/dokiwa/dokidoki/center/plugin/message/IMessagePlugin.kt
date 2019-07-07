@@ -16,9 +16,12 @@ interface IMessagePlugin : FeaturePlugin {
         }
     }
 
+    // 首页 -> 消息页
     fun obtainHomeMessageFragment(): Fragment
 
+    // 登录 NIM 账号
     fun loginNIM()
 
+    // 登出 NIM 账号
     fun logoutNIM()
 }

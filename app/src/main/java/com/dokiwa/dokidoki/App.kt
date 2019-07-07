@@ -17,8 +17,8 @@ class App : Application() {
     }
 
     private fun init() {
+        AppCenter.init(this)
         if (AppUtil.isMainProcess(this)) {
-            AppCenter.init(this)
             FeaturePlugin.initMainProcessPlugin(this)
             SocialHelper.initSocial(
                 context = this,
