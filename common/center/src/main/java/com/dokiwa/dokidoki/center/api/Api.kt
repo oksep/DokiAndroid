@@ -4,12 +4,7 @@ import android.content.Context
 import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.convert.CustomConverterFactory
-import com.dokiwa.dokidoki.center.api.interceptor.CURLInterceptor
-import com.dokiwa.dokidoki.center.api.interceptor.GZipInterceptor
-import com.dokiwa.dokidoki.center.api.interceptor.HeaderInterceptor
-import com.dokiwa.dokidoki.center.api.interceptor.LocalAssetsInterceptor
-import com.dokiwa.dokidoki.center.api.interceptor.QueryInterceptor
-import com.dokiwa.dokidoki.center.api.interceptor.TokenInterceptor
+import com.dokiwa.dokidoki.center.api.interceptor.*
 import io.reactivex.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

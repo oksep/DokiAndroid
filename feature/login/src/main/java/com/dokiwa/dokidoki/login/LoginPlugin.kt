@@ -1,6 +1,5 @@
 package com.dokiwa.dokidoki.login
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Parcelable
 import com.dokiwa.dokidoki.center.api.Api
@@ -8,12 +7,12 @@ import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toUriAndResolveDeepLink
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
-import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.login.activity.LoginActivity
 import com.dokiwa.dokidoki.login.activity.ToHomeUtil
 import com.dokiwa.dokidoki.login.api.LoginApi
 import com.dokiwa.dokidoki.login.model.UserToken
-import java.util.concurrent.TimeUnit
+import io.reactivex.disposables.Disposable
 
 /**
  * Created by Septenary on 2018/10/24.
@@ -24,10 +23,6 @@ class LoginPlugin : ILoginPlugin {
         registerAuthentication(context)
     }
 
-    override fun getLoginUserId(): Int? {
-        return IProfilePlugin.get().getLoginUserProfile()?.userId
-    }
-
     override fun launchLoginActivity(context: Context) {
         LoginActivity.launch(context)
     }
@@ -36,50 +31,70 @@ class LoginPlugin : ILoginPlugin {
         "dokidoki://dokiwa.com/me/bind_phone".toUriAndResolveDeepLink(context, false)
     }
 
-    override fun saveLoginUserToken(userToken: Parcelable?) {
+    override fun getLoginUserId(): Int? {
+        return LoginSP.getUserProfile()?.userId
+    }
+
+    override fun getLoginUserUUID(): String? {
+        return LoginSP.getUserProfile()?.uuid
+    }
+
+    override fun getLoginUserNimToken(): String? {
+        return LoginSP.getUserToken()?.nimToken
+    }
+
+    override fun saveLoginUser(profile: UserProfile, userToken: Parcelable?) {
         if (userToken is UserToken) {
             LoginSP.saveUserToken(userToken)
         }
+
+        LoginSP.saveUserProfile(profile)
+    }
+
+    override fun updateUserProfile(profile: UserProfile) {
+        LoginSP.saveUserProfile(profile)
     }
 
     override fun logOut(context: Context) {
         // token
-        LoginSP.clearUserToken()
+        LoginSP.clearLoginUser()
 
         // api
         Api.resetAuthenticationToken(null, null)
-
-        // user profile
-        IProfilePlugin.get().clearUserProfile()
 
         // to login activity
         launchLoginActivity(context)
     }
 
     override fun ensureLogin(context: Context) {
-        // 没有 token，跳转到 登录页
-        if (LoginSP.getUserToken() == null) {
+        // 没有 token 或者 用户信息，跳转到 登录页
+        if (LoginSP.getUserToken() == null || LoginSP.getUserProfile() == null) {
             launchLoginActivity(context)
         }
     }
 
-    @SuppressLint("CheckResult")
     private fun registerAuthentication(context: Context) {
-
         // 初始化认证 token
         val userToken = LoginSP.getUserToken()
         if (userToken != null) {
             Api.resetAuthenticationToken(userToken.macKey, userToken.accessToken)
         }
 
-        // TODO: 2019-07-01 @Septenary remove delay!!!
         // 用户认证失败重新登录
-        Api.unAuthenticationSubject.delay(2, TimeUnit.SECONDS).subscribe {
-            Api.resetAuthenticationToken(null, null)
-            if (LoginSP.getUserToken() != null) {
-                LoginSP.clearUserToken()
-                launchLoginActivity(context)
+        var dispose: Disposable? = null
+        dispose = Api.unAuthenticationSubject.subscribe {
+            // 取消订阅
+            if (dispose?.isDisposed == false) {
+                dispose?.dispose()
+                dispose = null
             }
+
+            // 重置 api token
+            Api.resetAuthenticationToken(null, null)
+
+            // 跳转到登录页
+            LoginSP.clearLoginUser()
+            launchLoginActivity(context)
         }
     }
 

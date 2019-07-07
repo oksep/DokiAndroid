@@ -14,9 +14,6 @@ interface AdminApi {
     @GET("/api/profile/v1/me")
     fun getProfile(): Single<JsonElement>
 
-    @GET("/api/profile/v1/me")
-    fun getMineProfile(): Single<UserProfileWrap>
-
     @GET("/api/doki/v1/city")
     fun getCityConfig(): Single<JsonElement>
 

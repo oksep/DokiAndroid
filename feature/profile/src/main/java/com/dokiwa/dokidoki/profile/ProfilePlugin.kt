@@ -39,18 +39,6 @@ class ProfilePlugin : IProfilePlugin {
         ProfileEditActivity.launch(context, profile)
     }
 
-    override fun saveLoginUserProfile(profile: UserProfile) {
-        ProfileSP.saveLoginUserProfile(profile)
-    }
-
-    override fun getLoginUserProfile(): UserProfile? {
-        return ProfileSP.getLoginUserProfile()
-    }
-
-    override fun clearUserProfile() {
-        ProfileSP.clearUserProfile()
-    }
-
     override fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog {
         return CityPickerDialog.create(context, callback)
     }

@@ -14,7 +14,7 @@ import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
-import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.timeline.Log
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
@@ -103,7 +103,7 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
     }
 
     private fun ensureEditAble(userId: Int): Boolean {
-        return IProfilePlugin.get().getLoginUserProfile()?.userId == userId
+        return ILoginPlugin.get().getLoginUserId() == userId
     }
 
     private fun refresh() {

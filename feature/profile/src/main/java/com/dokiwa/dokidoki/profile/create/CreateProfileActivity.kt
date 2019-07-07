@@ -18,7 +18,6 @@ import com.dokiwa.dokidoki.center.plugin.home.IHomePlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader
 import com.dokiwa.dokidoki.profile.Log
-import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.create.fragment.*
@@ -173,9 +172,8 @@ class CreateProfileActivity : BaseSelectImageActivity(), IStepFragmentInteract {
         }.subscribeApiWithDialog(this, this,
             {
                 Log.d(TAG, "submit payload success")
-                ILoginPlugin.get().saveLoginUserToken(intent.getParcelableExtra(EXTRA_USER_TOKEN))
+                ILoginPlugin.get().saveLoginUser(it.profile, intent.getParcelableExtra(EXTRA_USER_TOKEN))
                 IHomePlugin.get().launchHomeActivity(this)
-                ProfileSP.saveLoginUserProfile(it.profile)
                 finishAffinity()
             },
             {

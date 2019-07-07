@@ -29,6 +29,7 @@ object ToHomeUtil {
                     if (it.profile.gender == 0) {  // unknown gender
                         IProfilePlugin.get().launchCreateProfileActivity(context, userToken)
                     } else {
+                        LoginSP.saveUserProfile(it.profile)
                         LoginSP.saveUserToken(userToken)
                         IHomePlugin.get().launchHomeActivity(context)
                     }

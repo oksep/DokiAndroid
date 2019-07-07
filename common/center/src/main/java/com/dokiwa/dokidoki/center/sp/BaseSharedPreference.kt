@@ -6,7 +6,7 @@ import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 
 abstract class BaseSharedPreferences(
     val name: String,
-    private val isAsUserData: Boolean = false,
+    private val asUserData: Boolean = false,
     private var mode: Int = Context.MODE_PRIVATE
 ) {
 
@@ -133,7 +133,7 @@ abstract class BaseSharedPreferences(
     }
 
     open fun wrapKey(key: String): String {
-        return if (isAsUserData) {
+        return if (asUserData) {
             "$key${ILoginPlugin.get().getLoginUserId() ?: ""}"
         } else {
             key

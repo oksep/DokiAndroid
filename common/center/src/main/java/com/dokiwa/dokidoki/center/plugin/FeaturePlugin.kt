@@ -80,7 +80,7 @@ internal class ShadowPlugin : InvocationHandler {
             Float::class.javaPrimitiveType -> 0f
             Double::class.javaPrimitiveType -> 0.0
             String::class.java -> ""
-            else -> Unit
+            else -> method?.returnType?.newInstance() ?: Unit
         }
     }
 

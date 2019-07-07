@@ -7,6 +7,7 @@ import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.profile.Log
@@ -164,6 +165,8 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
             View.GONE
         }
         this.profileWrap = profileWrap
+
+        ILoginPlugin.get().updateUserProfile(profile)
     }
 
     private fun setRelationCount(relationCount: RelationCount) {
