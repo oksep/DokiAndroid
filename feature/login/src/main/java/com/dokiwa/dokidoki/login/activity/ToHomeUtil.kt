@@ -26,19 +26,18 @@ object ToHomeUtil {
                 context,
                 context,
                 {
+                    context.finishAffinity()
                     if (it.profile.gender == 0) {  // unknown gender
                         IProfilePlugin.get().launchCreateProfileActivity(context, userToken)
                     } else {
                         ILoginPlugin.get().onLoginDokiComplete(it.profile, userToken)
                         IHomePlugin.get().launchHomeActivity(context)
                     }
-                    context.finishAffinity()
                 },
                 {
                     Log.e(TAG, "get user profile failed.", it)
                     context.toast(R.string.login_failed)
                     Api.resetAuthenticationToken(null, null)
-                    context.finishAffinity()
                 }
             )
     }
