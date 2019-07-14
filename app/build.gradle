@@ -19,11 +19,6 @@ android {
 
         renderscriptTargetApi builds.renderScriptTarget
         renderscriptSupportModeEnabled true
-
-        // todo ndk arm only
-        // ndk {
-        //     abiFilters "armeabi-v7a"
-        // }
     }
 
     dataBinding {
@@ -97,6 +92,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // android-x
+    implementation "androidx.multidex:multidex:${versions.multiDex}"
     implementation "androidx.appcompat:appcompat:${versions.axCompat}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.axLifecycle}"

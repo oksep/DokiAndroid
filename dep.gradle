@@ -22,6 +22,7 @@ versions.axKtx = '1.0.2'
 versions.coordinatorlayout = '1.1.0-beta01'
 versions.drawerlayout = '1.0.0'
 versions.annotation = '1.1.0'
+versions.multiDex = '2.0.1'
 
 // test
 versions.testJunit = '4.12'
@@ -72,5 +73,9 @@ versions.wechatSdk = '5.1.4'
 
 // nim
 versions.nim = '6.6.0'
+
+// amap
+versions.amapSearch = '6.9.0'
+versions.amapLocation = '4.6.0'
 
 ext.versions = versions

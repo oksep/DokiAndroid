@@ -68,7 +68,7 @@ dependencies {
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
 
     //搜索功能
-    compile 'com.amap.api:search:6.9.0'
+    implementation "com.amap.api:search:${versions.amapSearch}"
     //定位功能
-    compile 'com.amap.api:location:4.6.0'
+    implementation "com.amap.api:location:${versions.amapLocation}"
 }

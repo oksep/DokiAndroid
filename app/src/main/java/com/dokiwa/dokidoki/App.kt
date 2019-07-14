@@ -1,6 +1,6 @@
 package com.dokiwa.dokidoki
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
@@ -10,7 +10,7 @@ import com.dokiwa.dokidoki.social.SocialHelper
 /**
  * Created by Septenary on 2018/10/24.
  */
-class App : Application() {
+class App : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         init()

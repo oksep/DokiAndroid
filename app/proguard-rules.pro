@@ -240,7 +240,7 @@
 # plugin
 -keep class * implements com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 
-#glide
+# glide
 -dontwarn com.bumptech.glide.**
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
@@ -250,3 +250,15 @@
 }
 -dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
 -keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
+
+# NIM
+-dontwarn com.netease.**
+-keep class com.netease.** {*;}
+#如果你使用全文检索插件，需要加入
+-dontwarn org.apache.lucene.**
+-keep class org.apache.lucene.** {*;}
+
+-keepclassmembers class ** {
+    public void onEvent*(**);
+    void onEvent*(**);
+}
