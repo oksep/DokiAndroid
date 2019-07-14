@@ -65,6 +65,16 @@ fun ImageView.glideAvatar(profile: UserProfile) {
     )
 }
 
+fun ImageView.glideAvatar(url: String, gender: Int) {
+    glideUri(
+        Uri.parse(url), -1f, if (gender == Gender.FEMALE) {
+            R.drawable.ui_ic_avatar_default_female
+        } else {
+            R.drawable.ui_ic_avatar_default_male
+        }
+    )
+}
+
 fun ImageView.glideAvatar(avatar: UserProfile.Avatar) {
     val url = avatar.adaptUrl()
     glideUri(Uri.parse(url), -1f, R.drawable.ui_ic_avatar_default_female)

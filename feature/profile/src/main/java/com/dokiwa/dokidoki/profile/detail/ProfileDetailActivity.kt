@@ -16,6 +16,7 @@ import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
@@ -175,7 +176,7 @@ class ProfileDetailActivity : TranslucentActivity() {
             activeTime.visibility = View.VISIBLE
             activeTime.text = profile.lastActive.toReadable()
             sendMsgBtn.setOnClickListener {
-                toast("发送消息")
+                IMessagePlugin.get().launchChatRoom(this@ProfileDetailActivity, profile)
             }
             followBtn.setOnClickListener {
                 toast("关注")

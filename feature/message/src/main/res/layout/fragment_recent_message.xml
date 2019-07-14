@@ -13,21 +13,15 @@
         style="@style/AppToolBar.Icon"
         app:toolbar_rightIconVisibility="gone"
         app:toolbar_leftIconVisibility="gone"
-        app:toolbar_titleText="@string/app_name"
+        app:toolbar_titleText="@string/message_home_page_title"
         android:background="@drawable/ui_bg_toolbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 
-    <Button
-        android:text="登录 NIM"
-        android:id="@+id/loginBtn"
+    <com.dokiwa.dokidoki.ui.view.RefreshRecyclerView
+        android:id="@+id/refreshRecyclerView"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:text="登出 NIM"
-        android:id="@+id/logoutBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

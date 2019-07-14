@@ -1,8 +1,10 @@
 package com.dokiwa.dokidoki.center.ext.rx
 
+import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -71,4 +73,12 @@ fun <T> Observable<T>.ioMain(): Observable<T> {
 
 fun <T> Observable<T>.mainIo(): Observable<T> {
     return this.observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> Observable<T>.subscribeLog(tag: String, message: String = "subscribeLog"): Disposable {
+    return this.subscribe({
+        Log.d(tag, "$message $it")
+    }, {
+        Log.e(tag, "$message error", it)
+    })
 }

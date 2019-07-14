@@ -49,6 +49,7 @@ dependencies {
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${versions.quickAdapter}"
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
     implementation "io.apptik.widget:multislider:${versions.multislider}"
+    implementation "com.google.android:flexbox:${versions.flexBox}"
 
     // modules
     implementation project(':center')

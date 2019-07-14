@@ -2,4 +2,9 @@
     <string name="app_name">message</string>
 
     <string name="message_home_page_title">消息</string>
+    <string name="message_home_page_title_broken">消息(未连接)</string>
+    <string name="message_home_page_recent_message_empty">暂无消息</string>
+
+    <string name="message_chat_room_send">发送</string>
+    <string name="message_chat_room_edit_hint">打个招呼吧…</string>
 </resources>

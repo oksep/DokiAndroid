@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_message2.*
 
 private const val KEY_VIEW_MODEL = 0x0003
 
-class MessageFragment2 : BaseShareFragment(R.layout.fragment_message) {
+class MessageFragment2 : BaseShareFragment(R.layout.fragment_recent_message) {
 
     override fun onResume() {
         super.onResume()

@@ -57,10 +57,10 @@ internal class AdminActivity : BaseActivity() {
             ILoginPlugin.get().logOut(this)
         },
         Item("NIM 登录") {
-            IMessagePlugin.get().loginNIM()
+            IMessagePlugin.get().loginIM()
         },
         Item("NIM 登出") {
-            IMessagePlugin.get().logoutNIM()
+            IMessagePlugin.get().logoutIM()
         },
         Item("绑定手机号页面") {
             ILoginPlugin.get().launchBindPhoneActivity(this)

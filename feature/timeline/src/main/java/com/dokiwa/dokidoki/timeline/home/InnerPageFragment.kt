@@ -41,6 +41,7 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
     }
 
     private fun initRefreshRecyclerView() {
+        refreshRecyclerView.enhancedSlidingSensitivity(true)
         val refreshLayout = refreshRecyclerView.getRefreshLayout()
         refreshLayout.setColorSchemeResources(R.color.dd_red)
         refreshLayout.setRefreshListenerHaptic {

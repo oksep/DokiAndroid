@@ -60,7 +60,7 @@ class LoginPlugin : ILoginPlugin {
         LoginSP.saveUserProfile(profile)
 
         // 登录 NIM
-        IMessagePlugin.get().loginNIM()
+        IMessagePlugin.get().loginIM()
 
         // 注册 auth 监听
         registerAuthentication(AppCenter.get().context)
@@ -75,7 +75,7 @@ class LoginPlugin : ILoginPlugin {
         Log.w(TAG, "logOut...")
 
         // nim
-        IMessagePlugin.get().logoutNIM()
+        IMessagePlugin.get().logoutIM()
 
         // token
         LoginSP.clearLoginUser()

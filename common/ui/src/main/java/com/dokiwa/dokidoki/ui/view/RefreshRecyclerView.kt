@@ -105,10 +105,18 @@ class RefreshRecyclerView : FrameLayout {
         }
     }
 
+    fun enhancedSlidingSensitivity(enhance: Boolean) {
+        this.enhancedSlidingSensitivity = enhance
+    }
+
+    private var enhancedSlidingSensitivity = false
     private var lastX = -1
     private var lastY = -1
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (!enhancedSlidingSensitivity) {
+            return super.dispatchTouchEvent(ev)
+        }
         val x = ev.rawX.toInt()
         val y = ev.rawY.toInt()
         var dealtX = 0
@@ -132,8 +140,7 @@ class RefreshRecyclerView : FrameLayout {
                     return false
                 }
             }
-            MotionEvent.ACTION_CANCEL -> {
-            }
+            MotionEvent.ACTION_CANCEL,
             MotionEvent.ACTION_UP -> {
             }
         }

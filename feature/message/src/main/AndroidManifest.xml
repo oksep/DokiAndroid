@@ -93,7 +93,8 @@
             android:process=":core"/>
 
         <activity
-            android:name=".chatroom.ChatRootActivity"
+            android:name=".chatroom.ChatRoomActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait"/>
 
     </application>

@@ -44,7 +44,7 @@ fun String.birthdayToReadableString(): String {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun Int.toReadable(): String {
+fun Number.toReadable(): String {
     val systemStamp = System.currentTimeMillis() / 1000L
     val userStamp = this.toLong()
     val distanceInteger = systemStamp - userStamp

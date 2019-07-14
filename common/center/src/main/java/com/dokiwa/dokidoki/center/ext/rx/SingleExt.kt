@@ -10,6 +10,7 @@ import com.dokiwa.dokidoki.center.dialog.RxDialog
 import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
@@ -110,5 +111,13 @@ fun <T> Single<T>.subscribeApiWithDialog(
                 onError?.invoke(it)
             }
         )
+    })
+}
+
+fun <T> Single<T>.subscribeLog(tag: String, message: String = "subscribeLog"): Disposable {
+    return this.subscribe({
+        Log.d(tag, "$message $it")
+    }, {
+        Log.e(tag, "$message error", it)
     })
 }

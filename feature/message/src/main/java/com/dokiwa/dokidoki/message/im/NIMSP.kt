@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.message
+package com.dokiwa.dokidoki.message.im
 
 import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin

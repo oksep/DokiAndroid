@@ -1,8 +1,10 @@
 package com.dokiwa.dokidoki.center.plugin.message
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 
 /**
  * Created by Septenary on 2018/10/24.
@@ -19,9 +21,12 @@ interface IMessagePlugin : FeaturePlugin {
     // 首页 -> 消息页
     fun obtainHomeMessageFragment(): Fragment
 
-    // 登录 NIM 账号
-    fun loginNIM()
+    // 登录 IM 账号
+    fun loginIM()
 
-    // 登出 NIM 账号
-    fun logoutNIM()
+    // 登出 IM 账号
+    fun logoutIM()
+
+    // 进入一对一聊天室
+    fun launchChatRoom(context: Context, userProfile: UserProfile)
 }
