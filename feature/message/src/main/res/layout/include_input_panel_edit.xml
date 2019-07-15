@@ -6,7 +6,6 @@
     android:paddingEnd="8dp"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:ignore="RtlSymmetry">
@@ -14,7 +13,7 @@
     <EditText
         android:id="@+id/editText"
         tools:text="无论环游洱海还是泸沽湖，包车都是比较省时又省力的方式，旺季记得要提前预定车辆。"
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:paddingLeft="14dp"

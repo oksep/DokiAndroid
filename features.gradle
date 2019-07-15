@@ -10,8 +10,8 @@ project(':home').projectDir = new File(settingsDir, 'feature/home')
 include ':profile'
 project(':profile').projectDir = new File(settingsDir, 'feature/profile')
 
-include ':web'
-project(':web').projectDir = new File(settingsDir, 'feature/web')
+//include ':web'
+//project(':web').projectDir = new File(settingsDir, 'feature/web')
 
 include ':timeline'
 project(':timeline').projectDir = new File(settingsDir, 'feature/timeline')
@@ -19,11 +19,11 @@ project(':timeline').projectDir = new File(settingsDir, 'feature/timeline')
 include ':feed'
 project(':feed').projectDir = new File(settingsDir, 'feature/feed')
 
-include ':update'
-project(':update').projectDir = new File(settingsDir, 'feature/update')
+//include ':update'
+//project(':update').projectDir = new File(settingsDir, 'feature/update')
 
-include ':location'
-project(':location').projectDir = new File(settingsDir, 'feature/location')
+//include ':location'
+//project(':location').projectDir = new File(settingsDir, 'feature/location')
 
 include ':message'
 project(':message').projectDir = new File(settingsDir, 'feature/message')

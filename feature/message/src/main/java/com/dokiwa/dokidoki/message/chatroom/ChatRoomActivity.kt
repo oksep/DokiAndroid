@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.ChangeBounds
-import androidx.transition.TransitionManager
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
@@ -15,10 +13,8 @@ import com.dokiwa.dokidoki.message.im.IMService
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightObserver
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightProvider
-import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
 import kotlinx.android.synthetic.main.activity_chat_room.*
-import kotlinx.android.synthetic.main.view_chat_room_edit.*
 
 class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
 
@@ -64,13 +60,8 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
     private fun initView() {
         KeyboardHeightProvider(this).attach(this)
         toolBar.title.text = intent.getStringExtra(EXTRA_NAME)
-        editText.addTextChangedListener(object : SimpleTextWatcher {
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                sendBtn.isEnabled = s?.length ?: 0 > 0
-            }
-        })
-        sendBtn.setOnClickListener {
-            sendMessage(editText.text.toString())
+        inputPanel.setInputPannelCallback {
+            sendMessage(it)
         }
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
             stackFromEnd = true
@@ -79,16 +70,11 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
     }
 
     override fun onKeyboardHeightChanged(height: Int, orientation: Int) {
-        val params = editBottomSpace.layoutParams
-        if (params.height != height) {
-            params.height = height
-            TransitionManager.beginDelayedTransition(root, ChangeBounds().setStartDelay(0).setDuration(80))
-            editBottomSpace.layoutParams = params
-        }
+        inputPanel.ensureKeyboardSpace(height)
     }
 
     private fun clearEditText() {
-        editText.text = null
+        inputPanel.clearText()
     }
 
     private fun registerListeners() {

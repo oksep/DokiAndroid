@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="android.widget.LinearLayout"
+    tools:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include layout="@layout/include_input_panel_edit"/>
+
+    <include
+        android:id="@+id/optionsContainer"
+        layout="@layout/include_input_panel_options"/>
+
+    <FrameLayout
+        android:id="@+id/subPanelContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.dokiwa.dokidoki.message.widget.InputRecordView
+            android:visibility="gone"
+            android:id="@+id/subPanelRecordView"
+            android:layout_height="100dp"
+            android:layout_width="match_parent"/>
+
+        <com.dokiwa.dokidoki.message.widget.InputEmoticonView
+            android:visibility="gone"
+            android:id="@+id/subPanelEmoticon"
+            android:layout_height="230dp"
+            android:layout_width="match_parent"/>
+
+        <Space
+            android:id="@+id/subPanelSpace"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"/>
+
+    </FrameLayout>
+
+</merge>

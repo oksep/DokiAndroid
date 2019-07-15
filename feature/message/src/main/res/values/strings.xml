@@ -7,4 +7,6 @@
 
     <string name="message_chat_room_send">发送</string>
     <string name="message_chat_room_edit_hint">打个招呼吧…</string>
+    <string name="message_input_panel_record_cancel1">手指上滑，取消发送</string>
+    <string name="message_input_panel_record_cancel2">松开手指，取消发送</string>
 </resources>
