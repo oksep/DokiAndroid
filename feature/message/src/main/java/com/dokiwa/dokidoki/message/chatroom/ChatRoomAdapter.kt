@@ -81,11 +81,15 @@ internal class ChatRoomAdapter(
         setNewData(list.map { it.toEntity() })
     }
 
-    fun addRawData(msg: IMSessionMessage) {
+    fun addNewRawData(msg: IMSessionMessage) {
         addData(msg.toEntity())
     }
 
-    fun addRawData(list: List<IMSessionMessage>) {
+    fun addOldRawData(list: List<IMSessionMessage>) {
+        addData(0, list.map { it.toEntity() })
+    }
+
+    fun addNewRawData(list: List<IMSessionMessage>) {
         addData(list.map { it.toEntity() })
     }
 

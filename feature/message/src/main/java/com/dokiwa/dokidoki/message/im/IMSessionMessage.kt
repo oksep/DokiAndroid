@@ -11,7 +11,7 @@ data class IMSessionMessage(
     var contactUserInfo: NimUserInfo? // 联系人信息
 ) {
     override fun toString(): String {
-        return "${rawMsg.fromAccount}(${rawMsg.fromNick}): ${rawMsg.content} [${rawMsg.status}]"
+        return "\n${rawMsg.fromAccount}(${rawMsg.fromNick}): ${rawMsg.content} [${rawMsg.status}]"
     }
 }
 

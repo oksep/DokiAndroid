@@ -179,7 +179,11 @@ object IMService {
         })
     }
 
-    fun getChatRoomLocalSessionMessages(anchor: IMMessage? = null, sessionId: String): Single<List<IMSessionMessage>> {
+    fun getChatRoomLocalSessionMessages(
+        anchor: IMMessage? = null,
+        sessionId: String,
+        count: Int = 20
+    ): Single<List<IMSessionMessage>> {
         val queryAnchor = anchor ?: MessageBuilder.createEmptyMessage(sessionId, SessionTypeEnum.P2P, 0)
         return Single.create { emitter ->
             val callback = EmitterAdaptRequestCallback<List<IMMessage>, List<IMSessionMessage>>(
@@ -189,7 +193,7 @@ object IMService {
                 list?.map { it.toSessionMessage() } ?: listOf()
             }
             NIMSDK.getMsgService()
-                .queryMessageListEx(queryAnchor, QueryDirectionEnum.QUERY_OLD, 20, true)
+                .queryMessageListEx(queryAnchor, QueryDirectionEnum.QUERY_OLD, count, true)
                 .setCallback(callback)
         }
     }

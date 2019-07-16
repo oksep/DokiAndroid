@@ -48,6 +48,12 @@ fun <T> Single<T>.composeIoMain(): Single<T> {
     }
 }
 
+fun <T> Single<T>.composeMainMain(): Single<T> {
+    return this.compose { upstream ->
+        upstream.subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
+    }
+}
+
 /**
  * 封装网络接口请求订阅方法，如果是签算错误，矫正时间戳，重试一次
  */
