@@ -27,6 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/inputPanel"
         app:layout_constrainedHeight="true"
         app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/view_item_chat_room_message_right_txt"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 

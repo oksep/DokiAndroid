@@ -132,7 +132,7 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
     private fun onReceiveNewMessage(list: List<IMSessionMessage>) {
         Log.d(TAG, "receive new messages -> $list")
         adapter.addNewRawData(list)
-        recyclerView.scrollToPosition(adapter.data.size - 1)
+        recyclerView.scrollToPosition(adapter.itemCount - 1)
     }
 
     private fun onUpdateMsgStatus(msg: IMSessionMessage) {
@@ -143,7 +143,7 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
     private fun onSendMessage(msg: IMSessionMessage) {
         Log.d(TAG, "on send message -> $msg")
         adapter.addNewRawData(msg)
-        recyclerView.scrollToPosition(adapter.data.size - 1)
+        recyclerView.scrollToPosition(adapter.itemCount - 1)
         clearEditText()
     }
 

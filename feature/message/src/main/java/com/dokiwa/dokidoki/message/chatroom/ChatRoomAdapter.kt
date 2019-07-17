@@ -8,14 +8,26 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
+import com.dokiwa.dokidoki.message.widget.AttachmentImageView
+import com.netease.nimlib.sdk.msg.attachment.ImageAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
+import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 
 /**
  * Created by Septenary on 2019-07-13.
  */
 
-private const val TYPE_MESSAGE_LEFT = 0
-private const val TYPE_MESSAGE_RIGHT = 1
+private const val TYPE_MESSAGE_UNKNOWN = -1
+
+private const val TYPE_MESSAGE_LEFT_TXT = 0
+private const val TYPE_MESSAGE_LEFT_IMG = 1
+private const val TYPE_MESSAGE_LEFT_AUDIO = 2
+private const val TYPE_MESSAGE_LEFT_VIDEO = 3
+
+private const val TYPE_MESSAGE_RIGHT_TXT = 4
+private const val TYPE_MESSAGE_RIGHT_IMG = 5
+private const val TYPE_MESSAGE_RIGHT_AUDIO = 6
+private const val TYPE_MESSAGE_RIGHT_VIDEO = 7
 
 internal class ChatRoomAdapter(
     private val contractId: String,
@@ -23,33 +35,33 @@ internal class ChatRoomAdapter(
 ) : BaseMultiItemQuickAdapter<AbsMessageEntity, BaseViewHolder>(null) {
 
     init {
-        addItemType(TYPE_MESSAGE_LEFT, R.layout.view_item_chat_room_message_left)
-        addItemType(TYPE_MESSAGE_RIGHT, R.layout.view_item_chat_room_message_right)
+        addItemType(TYPE_MESSAGE_UNKNOWN, R.layout.view_item_chat_room_message_unknown)
+
+        addItemType(TYPE_MESSAGE_LEFT_TXT, R.layout.view_item_chat_room_message_left_txt)
+        addItemType(TYPE_MESSAGE_LEFT_IMG, R.layout.view_item_chat_room_message_left_img)
+        addItemType(TYPE_MESSAGE_LEFT_AUDIO, R.layout.view_item_chat_room_message_left_audio)
+        addItemType(TYPE_MESSAGE_LEFT_VIDEO, R.layout.view_item_chat_room_message_left_video)
+
+        addItemType(TYPE_MESSAGE_RIGHT_TXT, R.layout.view_item_chat_room_message_right_txt)
+        addItemType(TYPE_MESSAGE_RIGHT_IMG, R.layout.view_item_chat_room_message_right_img)
+        addItemType(TYPE_MESSAGE_RIGHT_AUDIO, R.layout.view_item_chat_room_message_right_audio)
+        addItemType(TYPE_MESSAGE_RIGHT_VIDEO, R.layout.view_item_chat_room_message_right_video)
     }
 
     override fun convert(helper: BaseViewHolder, item: AbsMessageEntity) {
         when (item) {
-            is LeftMessageEntity -> {
-                setUpMessageEntity(helper, item.sessionMsg)
+            is LeftMessageTxtEntity, is RightMessageTxtEntity -> {
+                setUpMessageTxtEntity(helper, item.sessionMsg)
             }
-            is RightMessageEntity -> {
-                setUpMessageEntity(helper, item.sessionMsg)
+            is LeftImgMessageEntity, is RightImgMessageEntity -> {
+                setUpMessageImgEntity(helper, item.sessionMsg)
             }
         }
+        setUpStatus(helper, item.sessionMsg)
+        setUpAvatar(helper, item.sessionMsg)
     }
 
-    private fun setUpMessageEntity(helper: BaseViewHolder, item: IMSessionMessage) {
-
-        val userInfo = item.contactUserInfo
-
-        val avatar = userInfo?.avatar
-        val avatarView = helper.getView<ImageView>(R.id.avatar)
-        if (avatar.isNullOrEmpty()) {
-            avatarView.setImageResource(R.drawable.ui_ic_avatar_default_female)
-        } else {
-            avatarView.glideAvatar(avatar, userInfo.genderEnum.value)
-        }
-
+    private fun setUpStatus(helper: BaseViewHolder, item: IMSessionMessage) {
         val status = item.rawMsg.status
         val statusView = helper.getView<ImageView>(R.id.status)
         statusView.setOnClickListener(null)
@@ -73,8 +85,28 @@ internal class ChatRoomAdapter(
                 statusView.visibility = View.GONE
             }
         }
+    }
 
+    private fun setUpAvatar(helper: BaseViewHolder, item: IMSessionMessage) {
+        val userInfo = item.contactUserInfo
+
+        val avatar = userInfo?.avatar
+        val avatarView = helper.getView<ImageView>(R.id.avatar)
+        if (avatar.isNullOrEmpty()) {
+            avatarView.setImageResource(R.drawable.ui_ic_avatar_default_female)
+        } else {
+            avatarView.glideAvatar(avatar, userInfo.genderEnum.value)
+        }
+    }
+
+    private fun setUpMessageTxtEntity(helper: BaseViewHolder, item: IMSessionMessage) {
         helper.setText(R.id.content, item.rawMsg.content)
+    }
+
+    private fun setUpMessageImgEntity(helper: BaseViewHolder, item: IMSessionMessage) {
+        (item.rawMsg.attachment as? ImageAttachment)?.let {
+            helper.getView<AttachmentImageView>(R.id.content).setAttachment(it)
+        }
     }
 
     fun setRawData(list: List<IMSessionMessage>) {
@@ -95,29 +127,75 @@ internal class ChatRoomAdapter(
 
     private fun IMSessionMessage.toEntity(): AbsMessageEntity {
         return if (rawMsg.fromAccount == contractId)
-            LeftMessageEntity(this)
+            when (rawMsg.msgType) {
+                MsgTypeEnum.text -> LeftMessageTxtEntity(this)
+                MsgTypeEnum.image -> LeftImgMessageEntity(this)
+                MsgTypeEnum.audio -> LeftAudioMessageEntity(this)
+                MsgTypeEnum.video -> LeftVideoMessageEntity(this)
+                else -> UnknownEntity(this)
+            }
         else
-            RightMessageEntity(this)
+            when (rawMsg.msgType) {
+                MsgTypeEnum.text -> RightMessageTxtEntity(this)
+                MsgTypeEnum.image -> RightImgMessageEntity(this)
+                MsgTypeEnum.audio -> RightAudioMessageEntity(this)
+                MsgTypeEnum.video -> RightVideoMessageEntity(this)
+                else -> UnknownEntity(this)
+            }
     }
 
     fun updateRawData(msg: IMSessionMessage) {
         this.data.indexOfFirst {
             it.sessionMsg.rawMsg.uuid == msg.rawMsg.uuid
         }.let {
-            if (it > -1) {
-                notifyItemChanged(it)
-            }
+            getItem(it)?.sessionMsg?.rawMsg?.status = msg.rawMsg.status
+            notifyItemChanged(it + headerLayoutCount)
         }
     }
 }
 
 internal abstract class AbsMessageEntity(val sessionMsg: IMSessionMessage) : MultiItemEntity
 
-private class LeftMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
-    override fun getItemType() = TYPE_MESSAGE_LEFT
+private class UnknownEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_UNKNOWN
 }
 
-private class RightMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
-    override fun getItemType() = TYPE_MESSAGE_RIGHT
+// 文本消息
+private class LeftMessageTxtEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_LEFT_TXT
 }
 
+// 图片消息
+private class LeftImgMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_LEFT_IMG
+}
+
+// 音频消息
+private class LeftAudioMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_LEFT_AUDIO
+}
+
+// 视频消息
+private class LeftVideoMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_LEFT_VIDEO
+}
+
+// 文本消息
+private class RightMessageTxtEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_RIGHT_TXT
+}
+
+// 图片消息
+private class RightImgMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_RIGHT_IMG
+}
+
+// 音频消息
+private class RightAudioMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_RIGHT_AUDIO
+}
+
+// 视频消息
+private class RightVideoMessageEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
+    override fun getItemType() = TYPE_MESSAGE_RIGHT_VIDEO
+}
