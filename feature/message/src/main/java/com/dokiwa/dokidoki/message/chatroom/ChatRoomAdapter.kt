@@ -30,7 +30,7 @@ private const val TYPE_MESSAGE_RIGHT_AUDIO = 6
 private const val TYPE_MESSAGE_RIGHT_VIDEO = 7
 
 internal class ChatRoomAdapter(
-    private val contractId: String,
+    private val contactAccount: String,
     private val onResendClick: (IMSessionMessage) -> Unit
 ) : BaseMultiItemQuickAdapter<AbsMessageEntity, BaseViewHolder>(null) {
 
@@ -73,7 +73,7 @@ internal class ChatRoomAdapter(
             MsgStatusEnum.fail -> {
                 statusView.visibility = View.VISIBLE
                 statusView.setImageResource(R.drawable.msg_ic_status_failed)
-                if (item.rawMsg.fromAccount != contractId) {
+                if (item.rawMsg.fromAccount != contactAccount) {
                     statusView.setOnClickListener {
                         onResendClick(item)
                     }
@@ -126,7 +126,7 @@ internal class ChatRoomAdapter(
     }
 
     private fun IMSessionMessage.toEntity(): AbsMessageEntity {
-        return if (rawMsg.fromAccount == contractId)
+        return if (rawMsg.fromAccount == contactAccount)
             when (rawMsg.msgType) {
                 MsgTypeEnum.text -> LeftMessageTxtEntity(this)
                 MsgTypeEnum.image -> LeftImgMessageEntity(this)

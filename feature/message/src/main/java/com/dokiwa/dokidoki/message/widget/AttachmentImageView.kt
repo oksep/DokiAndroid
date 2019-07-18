@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.message.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
+import com.dokiwa.dokidoki.center.ext.glideFile
 import com.dokiwa.dokidoki.center.ext.glideUrl
 import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.ui.ext.getScreenWidth
@@ -36,6 +37,17 @@ class AttachmentImageView @JvmOverloads constructor(
                 lp.height = maxSize
             }
         }
-        glideUrl(attachment.thumbUrl, 5f, R.drawable.ui_placeholder_radius_5dp)
+
+        when {
+            !attachment.path.isNullOrEmpty() -> {
+                glideFile(attachment.path, 5f, R.drawable.ui_placeholder_radius_5dp)
+            }
+            !attachment.thumbUrl.isNullOrEmpty() -> {
+                glideUrl(attachment.thumbUrl, 5f, R.drawable.ui_placeholder_radius_5dp)
+            }
+            else -> {
+                setImageResource(R.color.dd_gray_middle)
+            }
+        }
     }
 }

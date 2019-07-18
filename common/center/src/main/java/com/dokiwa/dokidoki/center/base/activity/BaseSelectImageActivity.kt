@@ -26,7 +26,7 @@ import java.io.File
 import java.io.IOException
 
 @RuntimePermissions
-abstract class BaseSelectImageActivity : TranslucentActivity() {
+abstract class BaseSelectImageActivity : TranslucentActivity(), SelectImageDelegate {
 
     companion object {
         private const val TAG = "BaseSelectImageActivity"
@@ -34,6 +34,8 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
         private const val REQUEST_CODE_GALLERY = 0x0006
         private const val REQUEST_CODE_MATISSE = 0x0007
     }
+
+    override var selectImageDelegate: SelectImageDelegate? = null
 
     fun selectImage(@StringRes titleRes: Int) {
         AlertDialog.Builder(this)
@@ -53,12 +55,12 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
     }
 
     @NeedsPermission(value = [CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
-    fun selectImageByCamera() {
+    override fun selectImageByCamera() {
         takePhoto()
     }
 
     @NeedsPermission(value = [READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
-    fun selectImageByGallery() {
+    override fun selectImageByGallery() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
@@ -68,7 +70,7 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
         )
     }
 
-    fun selectImageByMatisse(max: Int = 9) {
+    override fun selectImageByMatisse(max: Int) {
         selectImageByMatisseImplWithPermissionCheck(max)
     }
 
@@ -87,13 +89,16 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
             .forResult(REQUEST_CODE_MATISSE)
     }
 
-    open fun onSelectImageFromCamera(uri: Uri) {
+    override fun onSelectImageFromCamera(uri: Uri) {
+        selectImageDelegate?.onSelectImageFromCamera(uri)
     }
 
-    open fun onSelectImageFromGallery(uri: Uri) {
+    override fun onSelectImageFromGallery(uri: Uri) {
+        selectImageDelegate?.onSelectImageFromGallery(uri)
     }
 
-    open fun onSelectImageFromMatisse(list: List<Uri>) {
+    override fun onSelectImageFromMatisse(list: List<Uri>) {
+        selectImageDelegate?.onSelectImageFromMatisse(list)
     }
 
     ///////////////////////////////////////////
@@ -220,4 +225,18 @@ abstract class BaseSelectImageActivity : TranslucentActivity() {
             }
         }
     }
+}
+
+interface SelectImageDelegate {
+
+    var selectImageDelegate: SelectImageDelegate?
+
+    fun selectImageByGallery() {}
+    fun onSelectImageFromGallery(uri: Uri) {}
+
+    fun selectImageByMatisse(max: Int = 9)
+    fun onSelectImageFromMatisse(list: List<Uri>)
+
+    fun selectImageByCamera()
+    fun onSelectImageFromCamera(uri: Uri)
 }

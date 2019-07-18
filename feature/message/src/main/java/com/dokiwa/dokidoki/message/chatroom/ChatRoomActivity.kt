@@ -2,10 +2,11 @@ package com.dokiwa.dokidoki.message.chatroom
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
+import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
 import com.dokiwa.dokidoki.center.ext.rx.composeMainMain
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
@@ -19,14 +20,14 @@ import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import java.util.concurrent.TimeUnit
 
-class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
+class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
 
     companion object {
         private const val TAG = "ChatRoomActivity"
 
         private const val COUNT_PER_PAGE = 20
 
-        private const val EXTRA_UUID = "extra.user.uuid"
+        private const val EXTRA_CONTACT_ACCOUNT = "extra.user.contact_account"
         private const val EXTRA_NAME = "extra.user.name"
 
         fun launch(context: Context, profile: UserProfile) {
@@ -36,7 +37,7 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
         fun launch(context: Context, uuid: String, name: String) {
             context.startActivity(
                 Intent(context, ChatRoomActivity::class.java)
-                    .putExtra(EXTRA_UUID, uuid)
+                    .putExtra(EXTRA_CONTACT_ACCOUNT, uuid)
                     .putExtra(EXTRA_NAME, name)
                     .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -44,9 +45,9 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
         }
     }
 
-    private val uuid by lazy { intent.getStringExtra(EXTRA_UUID) }
+    private val contactAccount by lazy { intent.getStringExtra(EXTRA_CONTACT_ACCOUNT) }
 
-    private val adapter by lazy { ChatRoomAdapter(uuid, ::onResendMsgClick) }
+    private val adapter by lazy { ChatRoomAdapter(contactAccount, ::onResendMsgClick) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,9 +66,7 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
     private fun initView() {
         KeyboardHeightProvider(this).attach(this)
         toolBar.title.text = intent.getStringExtra(EXTRA_NAME)
-        inputPanel.setInputPannelCallback {
-            sendMessage(it)
-        }
+        inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg)
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
             stackFromEnd = true
         }
@@ -99,7 +98,7 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
     }
 
     private fun registerListeners() {
-        IMService.attachChatRoomSession(this.lifecycle, uuid)
+        IMService.attachChatRoomSession(this.lifecycle, contactAccount)
 
         IMService.subscribeChatRoomIncomingMessage().subscribe(::onReceiveNewMessage) {
             Log.e(TAG, "subscribeNimUserInfoList error", it)
@@ -153,7 +152,7 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
     }
 
     private fun loadData() {
-        IMService.getChatRoomLocalSessionMessages(null, uuid, COUNT_PER_PAGE).subscribe({
+        IMService.getChatRoomLocalSessionMessages(null, contactAccount, COUNT_PER_PAGE).subscribe({
             Log.d(TAG, "get session messages -> ${it.size}, $it")
             adapter.setRawData(it)
             ensureHeaderFetchMoreView(it.size >= COUNT_PER_PAGE)
@@ -165,7 +164,8 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
 
     private fun loadMoreData() {
         adapter.isUpFetching = true
-        IMService.getChatRoomLocalSessionMessages(adapter.data.first()?.sessionMsg?.rawMsg, uuid, COUNT_PER_PAGE)
+        val anchor = adapter.data.first()?.sessionMsg?.rawMsg
+        IMService.getChatRoomLocalSessionMessages(anchor, contactAccount, COUNT_PER_PAGE)
             .delay(150, TimeUnit.MILLISECONDS)
             .composeMainMain()
             .subscribe({
@@ -182,13 +182,19 @@ class ChatRoomActivity : TranslucentActivity(), KeyboardHeightObserver {
 
     private fun onResendMsgClick(msg: IMSessionMessage) {
         IMService.resendTextMessage(msg).subscribe(::onResendMessage) {
-            Log.e(TAG, "resend text msg error -> $it")
+            Log.e(TAG, "resend msg error -> $it")
         }.bind(this)
     }
 
-    private fun sendMessage(message: String) {
-        IMService.sendTextMessage(uuid, message).subscribe(::onSendMessage) {
+    private fun sendMessageTxt(message: String) {
+        IMService.sendMessageTxt(contactAccount, message).subscribe(::onSendMessage) {
             Log.e(TAG, "send text msg error -> $it")
+        }.bind(this)
+    }
+
+    private fun sendMessageImg(imgList: List<Uri>) {
+        IMService.sendMessageImg(this, contactAccount, imgList).subscribe(::onSendMessage) {
+            Log.e(TAG, "send img msg error -> $it")
         }.bind(this)
     }
 }

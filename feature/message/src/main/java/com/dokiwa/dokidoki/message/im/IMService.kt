@@ -1,9 +1,12 @@
 package com.dokiwa.dokidoki.message.im
 
 import android.content.Context
+import android.net.Uri
+import androidx.core.net.toFile
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.dokiwa.dokidoki.center.util.toUploadFileObservable
 import com.dokiwa.dokidoki.message.Log
 import com.netease.nimlib.sdk.*
 import com.netease.nimlib.sdk.auth.ClientType
@@ -213,15 +216,29 @@ object IMService {
         }
     }
 
-    fun sendTextMessage(account: String, message: String): Single<IMSessionMessage> {
+    fun sendMessageTxt(account: String, message: String): Single<IMSessionMessage> {
         return Single.create { emitter ->
             val payload = MessageBuilder.createTextMessage(account, SessionTypeEnum.P2P, message)
-            payload.status = MsgStatusEnum.sending
             emitter.onSuccess(payload.toSessionMessage())
             NIMSDK.getMsgService()
                 .sendMessage(payload, false)
                 .setCallback(DummyAdaptRequestCallback("send text message"))
         }
+    }
+
+    fun sendMessageImg(context: Context, account: String, list: List<Uri>): Observable<IMSessionMessage> {
+        val copyFileTasks = list.map { it.toUploadFileObservable(context) }
+        return Observable.merge<String>(copyFileTasks)
+            .filter { it.isNotEmpty() }
+            .map { Uri.parse(it) }
+            .flatMap { uri: Uri ->
+                Observable.create<IMSessionMessage> { emitter ->
+                    val payload = MessageBuilder.createImageMessage(account, SessionTypeEnum.P2P, uri.toFile())
+                    emitter.onNext(payload.toSessionMessage())
+                    NIMSDK.getMsgService().sendMessage(payload, false)
+                        .setCallback(DummyAdaptRequestCallback("send img message"))
+                }
+            }
     }
 
     fun resendTextMessage(message: IMSessionMessage): Single<IMSessionMessage> {

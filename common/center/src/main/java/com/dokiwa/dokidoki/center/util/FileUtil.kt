@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.center.util
 import android.content.Context
 import android.net.Uri
 import com.dokiwa.dokidoki.center.Log
+import io.reactivex.Observable
 import io.reactivex.Single
 import java.io.File
 import java.io.InputStream
@@ -22,6 +23,10 @@ fun Uri.toUploadFileSingle(context: Context): Single<String> {
             throw e
         }
     }.onErrorReturn { "" }
+}
+
+fun Uri.toUploadFileObservable(context: Context): Observable<String> {
+    return toUploadFileSingle(context).toObservable()
 }
 
 fun Uri.toUploadFile(context: Context): String {

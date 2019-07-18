@@ -2,12 +2,14 @@ package com.dokiwa.dokidoki.message.widget
 
 import android.content.Context
 import android.graphics.Color
+import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
+import com.dokiwa.dokidoki.center.base.activity.SelectImageDelegate
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.ui.ext.hideKeyboard
@@ -23,7 +25,7 @@ import kotlinx.android.synthetic.main.merge_input_panel.view.*
  */
 class InputPanelView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : LinearLayout(context, attrs, defStyleAttr), SelectImageDelegate {
 
     private var keyboardHeight = 0
 
@@ -38,10 +40,11 @@ class InputPanelView @JvmOverloads constructor(
             showSubPanelEmoticon()
         }
         picBtn.setOnClickListener {
-            showPicGalleryPicker()
+            selectImageByMatisse()
         }
         cameraBtn.setOnClickListener {
-            showPicCameraPicker()
+            // TODO: 2019-07-18 @Septenary 
+            context.toast("TODO")
         }
         editText.addTextChangedListener(object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -49,14 +52,19 @@ class InputPanelView @JvmOverloads constructor(
             }
         })
         sendBtn.setOnClickListener {
-            onSendMessageClick?.invoke(editText.text.toString())
+            onRequestSendTxt?.invoke(editText.text.toString())
         }
     }
 
-    private var onSendMessageClick: ((String) -> Unit)? = null
+    private var onRequestSendTxt: ((String) -> Unit)? = null
+    private var onRequestSendImage: ((List<Uri>) -> Unit)? = null
 
-    fun setInputPannelCallback(onSendMessageClick: (String) -> Unit) {
-        this.onSendMessageClick = onSendMessageClick
+    fun setInputPanelCallback(
+        onRequestSendTxt: (String) -> Unit,
+        onRequestSendImage: (List<Uri>) -> Unit
+    ) {
+        this.onRequestSendTxt = onRequestSendTxt
+        this.onRequestSendImage = onRequestSendImage
     }
 
     private fun hideAllSubPanels() {
@@ -142,4 +150,28 @@ class InputPanelView @JvmOverloads constructor(
     fun clearText() {
         editText.text = null
     }
+
+    //region 图片选择
+    override var selectImageDelegate = context as? SelectImageDelegate
+
+    init {
+        selectImageDelegate?.selectImageDelegate = this
+    }
+
+    override fun selectImageByMatisse(max: Int) {
+        selectImageDelegate?.selectImageByMatisse(max)
+    }
+
+    override fun selectImageByCamera() {
+        selectImageDelegate?.selectImageByCamera()
+    }
+
+    override fun onSelectImageFromMatisse(list: List<Uri>) {
+        onRequestSendImage?.invoke(list)
+    }
+
+    override fun onSelectImageFromCamera(uri: Uri) {
+        onRequestSendImage?.invoke(listOf(uri))
+    }
+    //endregion
 }
