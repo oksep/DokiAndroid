@@ -9,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.contains
-import com.dokiwa.dokidoki.message.Log
 import com.dokiwa.dokidoki.message.R
-import com.dokiwa.dokidoki.ui.ext.onceLayoutThen
 import kotlinx.android.synthetic.main.merge_input_panel_record.view.*
 
 /**
@@ -22,7 +20,7 @@ class InputRecordView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private var recordListener: RecordViewListener? = null
+    internal var recordControlListener: RecordViewListener? = null
 
     private val countDownInterval = 1_000L
     private val millisInFuture = 60 * countDownInterval
@@ -34,20 +32,6 @@ class InputRecordView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.merge_input_panel_record, this)
-        recordListener = object : RecordViewListener {
-            override fun onRecordStart() {
-                Log.d("InputRecordView", "Start")
-            }
-
-            override fun onRecordCancel() {
-                Log.d("InputRecordView", "Cancel")
-            }
-
-            override fun onRecordFinish() {
-                Log.d("InputRecordView", "Finish")
-            }
-
-        }
         initView()
     }
 
@@ -72,19 +56,17 @@ class InputRecordView @JvmOverloads constructor(
     private fun onMotionDown(event: MotionEvent) {
         downY = event.y
         showCountDownView()
-        startCountDown()
-        recordListener?.onRecordStart()
+        recordControlListener?.onRequestStartRecorder()
         willCancel = false
         showCancelTip(false)
     }
 
     private fun onMotionCancel() {
         hideCountDownView()
-        stopCountDown()
         if (willCancel) {
-            recordListener?.onRecordCancel()
+            recordControlListener?.onRequestCancelRecorder()
         } else {
-            recordListener?.onRecordFinish()
+            recordControlListener?.onRequestFinishRecorder()
         }
         willCancel = false
         showCancelTip(false)
@@ -111,12 +93,12 @@ class InputRecordView @JvmOverloads constructor(
         }
     }
 
-    private fun stopCountDown() {
+    internal fun stopCountDown() {
         countDownTimer?.cancel()
         countDownTimer = null
     }
 
-    private fun startCountDown() {
+    internal fun startCountDown() {
         countDownTimer = object : CountDownTimer(millisInFuture, countDownInterval) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
@@ -146,8 +128,8 @@ class InputRecordView @JvmOverloads constructor(
     }
 
     interface RecordViewListener {
-        fun onRecordStart()
-        fun onRecordCancel()
-        fun onRecordFinish()
+        fun onRequestStartRecorder()
+        fun onRequestCancelRecorder()
+        fun onRequestFinishRecorder()
     }
 }

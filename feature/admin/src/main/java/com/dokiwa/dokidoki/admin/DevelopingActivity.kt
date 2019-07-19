@@ -11,7 +11,7 @@ class DevelopingActivity : TranslucentActivity() {
     companion object {
         fun launch(context: Context): Boolean {
             context.startActivity(Intent(context, DevelopingActivity::class.java))
-            return true
+            return false
         }
     }
 
