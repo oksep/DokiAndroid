@@ -25,27 +25,27 @@ internal open class EmitterAdaptRequestCallback<T, A>(
 
     override fun onFailed(code: Int) {
         val e = Exception("request callback code -> $code")
-        Log.e(IMService.TAG, "$logMessage onFailed", e)
+        Log.e(IMService.TAG, "$[im] logMessage onFailed", e)
         emitter.onError(e)
     }
 
     override fun onException(exception: Throwable) {
-        Log.e(IMService.TAG, "$logMessage onException", exception)
+        Log.e(IMService.TAG, "[im] $logMessage onException", exception)
         emitter.onError(exception)
     }
 }
 
 internal class DummyAdaptRequestCallback<T>(private val logMessage: String) : RequestCallback<T> {
     override fun onSuccess(t: T) {
-        Log.d(IMService.TAG, "$logMessage success $t")
+        Log.d(IMService.TAG, "[im] $logMessage success $t")
     }
 
     override fun onFailed(code: Int) {
         val e = Exception("request callback code -> $code")
-        Log.e(IMService.TAG, "$logMessage onFailed", e)
+        Log.e(IMService.TAG, "[im] $logMessage onFailed", e)
     }
 
     override fun onException(exception: Throwable) {
-        Log.e(IMService.TAG, "$logMessage onException", exception)
+        Log.e(IMService.TAG, "[im] $logMessage onException", exception)
     }
 }

@@ -18,6 +18,7 @@ import com.dokiwa.dokidoki.ui.util.KeyboardHeightObserver
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightProvider
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
 import kotlinx.android.synthetic.main.activity_chat_room.*
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
@@ -66,7 +67,7 @@ class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
     private fun initView() {
         KeyboardHeightProvider(this).attach(this)
         toolBar.title.text = intent.getStringExtra(EXTRA_NAME)
-        inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg)
+        inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg, ::sendMessageAudio)
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
             stackFromEnd = true
         }
@@ -195,6 +196,12 @@ class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
     private fun sendMessageImg(imgList: List<Uri>) {
         IMService.sendMessageImg(this, contactAccount, imgList).subscribe(::onSendMessage) {
             Log.e(TAG, "send img msg error -> $it")
+        }.bind(this)
+    }
+
+    private fun sendMessageAudio(audioFile: File, audioLength: Long) {
+        IMService.sendMessageAudio(contactAccount, audioFile, audioLength).subscribe(::onSendMessage) {
+            Log.e(TAG, "send audio msg error -> $it")
         }.bind(this)
     }
 }

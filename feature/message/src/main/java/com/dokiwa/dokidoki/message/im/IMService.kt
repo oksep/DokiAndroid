@@ -24,6 +24,7 @@ import com.netease.nimlib.sdk.util.NIMUtil
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
+import java.io.File
 
 /**
  * Created by Septenary on 2019-07-10.
@@ -239,6 +240,16 @@ object IMService {
                         .setCallback(DummyAdaptRequestCallback("send img message"))
                 }
             }
+    }
+
+    fun sendMessageAudio(account: String, audioFile: File, audioLength: Long): Single<IMSessionMessage> {
+        return Single.create { emitter ->
+            val payload = MessageBuilder.createAudioMessage(account, SessionTypeEnum.P2P, audioFile, audioLength)
+            emitter.onSuccess(payload.toSessionMessage())
+            NIMSDK.getMsgService()
+                .sendMessage(payload, false)
+                .setCallback(DummyAdaptRequestCallback("send audio message"))
+        }
     }
 
     fun resendTextMessage(message: IMSessionMessage): Single<IMSessionMessage> {

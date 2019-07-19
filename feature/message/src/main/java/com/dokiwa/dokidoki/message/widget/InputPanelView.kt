@@ -65,13 +65,16 @@ class InputPanelView @JvmOverloads constructor(
 
     private var onRequestSendTxt: ((String) -> Unit)? = null
     private var onRequestSendImage: ((List<Uri>) -> Unit)? = null
+    private var onRequestSendAudio: ((File, Long) -> Unit)? = null
 
     fun setInputPanelCallback(
         onRequestSendTxt: (String) -> Unit,
-        onRequestSendImage: (List<Uri>) -> Unit
+        onRequestSendImage: (List<Uri>) -> Unit,
+        onRequestSendAudio: (File, Long) -> Unit
     ) {
         this.onRequestSendTxt = onRequestSendTxt
         this.onRequestSendImage = onRequestSendImage
+        this.onRequestSendAudio = onRequestSendAudio
     }
 
     private fun hideAllSubPanels() {
@@ -208,9 +211,10 @@ class InputPanelView @JvmOverloads constructor(
 
     fun startRecord() {
         val callback = object : IAudioRecordCallback {
-            override fun onRecordSuccess(audioFile: File?, audioLength: Long, recordType: RecordType?) {
-                // TODO: 2019-07-20 @Septenary send audio msg
+            override fun onRecordSuccess(audioFile: File, audioLength: Long, recordType: RecordType) {
                 Log.d(TAG, "IAudioRecordCallback onRecordSuccess $audioFile, $audioLength, $recordType")
+                onRequestSendAudio?.invoke(audioFile, audioLength)
+                subPanelRecordView.stopCountDown()
             }
 
             override fun onRecordReady() {
