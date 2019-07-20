@@ -35,7 +35,7 @@ internal open class EmitterAdaptRequestCallback<T, A>(
     }
 }
 
-internal class DummyAdaptRequestCallback<T>(private val logMessage: String) : RequestCallback<T> {
+internal open class DummyAdaptRequestCallback<T>(private val logMessage: String) : RequestCallback<T> {
     override fun onSuccess(t: T) {
         Log.d(IMService.TAG, "[im] $logMessage success $t")
     }

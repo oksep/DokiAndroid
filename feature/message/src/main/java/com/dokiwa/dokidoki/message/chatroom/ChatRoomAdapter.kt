@@ -7,8 +7,11 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.message.R
+import com.dokiwa.dokidoki.message.im.IMAudioController
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
+import com.dokiwa.dokidoki.message.widget.AttachmentAudioView
 import com.dokiwa.dokidoki.message.widget.AttachmentImageView
+import com.netease.nimlib.sdk.msg.attachment.AudioAttachment
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
@@ -55,6 +58,9 @@ internal class ChatRoomAdapter(
             }
             is LeftImgMessageEntity, is RightImgMessageEntity -> {
                 setUpMessageImgEntity(helper, item.sessionMsg)
+            }
+            is LeftAudioMessageEntity, is RightAudioMessageEntity -> {
+                setUpMessageAudioEntity(helper, item.sessionMsg)
             }
         }
         setUpStatus(helper, item.sessionMsg)
@@ -106,6 +112,26 @@ internal class ChatRoomAdapter(
     private fun setUpMessageImgEntity(helper: BaseViewHolder, item: IMSessionMessage) {
         (item.rawMsg.attachment as? ImageAttachment)?.let {
             helper.getView<AttachmentImageView>(R.id.content).setAttachment(it)
+        }
+    }
+
+    private fun setUpMessageAudioEntity(helper: BaseViewHolder, item: IMSessionMessage) {
+        (item.rawMsg.attachment as? AudioAttachment)?.let {
+            val attachmentView = helper.getView<AttachmentAudioView>(R.id.content)
+            attachmentView.setAttachment(it, View.OnClickListener { v ->
+                IMAudioController.playAudio(v.context, item)
+                notifyItemChanged(helper.adapterPosition)
+            })
+            if (item.audioState == IMAudioController.AudioState.Playing) {
+                attachmentView.play()
+            } else {
+                attachmentView.stop()
+            }
+            helper.getView<View>(R.id.redDotView)?.visibility = if (item.rawMsg.status != MsgStatusEnum.read) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
     }
 

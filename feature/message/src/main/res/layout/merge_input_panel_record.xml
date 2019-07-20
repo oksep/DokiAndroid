@@ -39,6 +39,12 @@
 
     </FrameLayout>
 
+    <com.dokiwa.dokidoki.message.widget.RecordWaveView
+        android:id="@+id/recordWaveView"
+        android:layout_gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+
     <ImageView
         android:id="@+id/recordMicView"
         android:layout_margin="20dp"

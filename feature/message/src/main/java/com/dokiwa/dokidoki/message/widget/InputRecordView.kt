@@ -32,17 +32,16 @@ class InputRecordView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.merge_input_panel_record, this)
-        initView()
-    }
 
-    private fun initView() {
         recordMicView.setOnTouchListener { _, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     onMotionDown(event)
+                    recordWaveView.wave()
                 }
                 MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
                     onMotionCancel()
+                    recordWaveView.reset()
                 }
                 MotionEvent.ACTION_MOVE -> {
                     onMotionMove(event)
@@ -51,6 +50,8 @@ class InputRecordView @JvmOverloads constructor(
             true
         }
         recordCountDownView.alpha = 0f
+        clipChildren = false
+        clipToPadding = false
     }
 
     private fun onMotionDown(event: MotionEvent) {

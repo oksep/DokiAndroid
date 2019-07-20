@@ -83,7 +83,7 @@ class InputPanelView @JvmOverloads constructor(
     }
 
     private fun maybeAnim() {
-        TransitionManager.beginDelayedTransition(rootView as ViewGroup, ChangeBounds().setStartDelay(0).setDuration(80))
+        // TransitionManager.beginDelayedTransition(rootView as ViewGroup, ChangeBounds().setStartDelay(0).setDuration(80))
     }
 
     private fun showPicGalleryPicker() {

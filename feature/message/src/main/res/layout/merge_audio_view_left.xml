@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="android.widget.FrameLayout"
+    android:background="@drawable/msg_selector_bubble_left"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <ImageView
+        android:id="@+id/audioIcon"
+        android:layout_gravity="center_vertical|start"
+        android:src="@drawable/msg_ic_audio_play_0"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:id="@+id/audioDuration"
+        tools:text="@string/message_chat_room_audio_duration"
+        android:textSize="12sp"
+        android:textColor="@color/text_dft"
+        android:layout_gravity="center_vertical|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</merge>

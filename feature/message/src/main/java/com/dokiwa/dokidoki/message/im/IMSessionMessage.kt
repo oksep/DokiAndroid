@@ -8,10 +8,11 @@ import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
  */
 data class IMSessionMessage(
     val rawMsg: IMMessage,
-    var contactUserInfo: NimUserInfo? // 联系人信息
+    var contactUserInfo: NimUserInfo?, // 联系人信息
+    var audioState: IMAudioController.AudioState? = null
 ) {
     override fun toString(): String {
-        return "\n${rawMsg.fromAccount}(${rawMsg.fromNick}): ${rawMsg.content} [${rawMsg.status}]"
+        return "\n${rawMsg.fromNick}(${rawMsg.fromAccount}): ${rawMsg.msgType} [${rawMsg.status}]"
     }
 }
 

@@ -12,6 +12,7 @@ import com.dokiwa.dokidoki.center.ext.rx.composeMainMain
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.message.Log
 import com.dokiwa.dokidoki.message.R
+import com.dokiwa.dokidoki.message.im.IMAudioController
 import com.dokiwa.dokidoki.message.im.IMService
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightObserver
@@ -62,16 +63,21 @@ class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
         registerListeners()
 
         loadData()
+
+        IMAudioController.attach(this) {
+            adapter.updateRawData(it)
+        }
     }
 
     private fun initView() {
-        KeyboardHeightProvider(this).attach(this)
         toolBar.title.text = intent.getStringExtra(EXTRA_NAME)
         inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg, ::sendMessageAudio)
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
             stackFromEnd = true
         }
         recyclerView.adapter = adapter
+
+        KeyboardHeightProvider(this).attach(this)
     }
 
     private fun ensureHeaderFetchMoreView(showHeaderMoreView: Boolean) {
