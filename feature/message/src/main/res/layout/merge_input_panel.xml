@@ -7,6 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dd_gray_middle"/>
+
     <include layout="@layout/include_input_panel_edit"/>
 
     <include
@@ -19,20 +24,15 @@
         android:layout_height="wrap_content">
 
         <com.dokiwa.dokidoki.message.widget.InputRecordView
-            android:visibility="gone"
             android:id="@+id/subPanelRecordView"
+            android:visibility="gone"
             android:layout_height="100dp"
             android:layout_width="match_parent"/>
 
         <com.dokiwa.dokidoki.message.widget.InputEmoticonView
-            android:visibility="gone"
             android:id="@+id/subPanelEmoticon"
-            android:layout_height="230dp"
-            android:layout_width="match_parent"/>
-
-        <Space
-            android:id="@+id/subPanelSpace"
-            android:layout_height="0dp"
+            android:visibility="gone"
+            android:layout_height="200dp"
             android:layout_width="match_parent"/>
 
     </FrameLayout>

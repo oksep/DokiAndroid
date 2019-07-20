@@ -90,6 +90,11 @@ object IMAudioController {
 
     fun playAudio(context: Context, msg: IMSessionMessage, downloadFile: Boolean = true) {
 
+        if (msg.audioState == AudioState.Playing) {
+            stopAudio()
+            return
+        }
+
         Log.d(TAG, "[im] play audio, $msg")
 
         stopAudio()

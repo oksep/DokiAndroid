@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.children
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import com.dokiwa.dokidoki.center.base.activity.SelectImageDelegate
@@ -14,7 +15,9 @@ import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.message.Log
 import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.ui.ext.hideKeyboard
+import com.dokiwa.dokidoki.ui.ext.onceLayoutThen
 import com.dokiwa.dokidoki.ui.ext.showKeyboard
+import com.dokiwa.dokidoki.ui.util.KeyboardHeightObserver
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
 import com.netease.nimlib.sdk.media.record.AudioRecorder
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback
@@ -32,7 +35,7 @@ private const val TAG = "InputPanelView"
 
 class InputPanelView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr), SelectImageDelegate {
+) : LinearLayout(context, attrs, defStyleAttr), SelectImageDelegate, KeyboardHeightObserver {
 
     private var keyboardHeight = 0
 
@@ -41,17 +44,18 @@ class InputPanelView @JvmOverloads constructor(
         setBackgroundColor(Color.WHITE)
         View.inflate(context, R.layout.merge_input_panel, this)
         micBtn.setOnClickListener {
-            showSubPanelRecord()
+            toggleSubPanel(micBtn, subPanelRecordView)
         }
         emojiBtn.setOnClickListener {
-            showSubPanelEmoticon()
+            toggleSubPanel(emojiBtn, subPanelEmoticon)
         }
         picBtn.setOnClickListener {
+            toggleSubPanel(picBtn, null)
             selectImageByMatisse()
         }
         cameraBtn.setOnClickListener {
-            // TODO: 2019-07-18 @Septenary
-            context.toast("TODO")
+            toggleSubPanel(cameraBtn, null)
+            selectImageByMatisse()
         }
         editText.addTextChangedListener(object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -60,6 +64,10 @@ class InputPanelView @JvmOverloads constructor(
         })
         sendBtn.setOnClickListener {
             onRequestSendTxt?.invoke(editText.text.toString())
+        }
+
+        subPanelContainer.onceLayoutThen {
+            //            translationY = subPanelContainer.height.toFloat()
         }
     }
 
@@ -77,84 +85,56 @@ class InputPanelView @JvmOverloads constructor(
         this.onRequestSendAudio = onRequestSendAudio
     }
 
-    private fun hideAllSubPanels() {
-        subPanelRecordView.visibility = View.GONE
-        subPanelEmoticon.visibility = View.GONE
-    }
-
-    private fun maybeAnim() {
-        // TransitionManager.beginDelayedTransition(rootView as ViewGroup, ChangeBounds().setStartDelay(0).setDuration(80))
-    }
-
-    private fun showPicGalleryPicker() {
-        hideAllSubPanels()
-        emojiBtn.isSelected = false
+    private fun unSelectAll() {
         micBtn.isSelected = false
-        editText.clearFocus()
-        editText.hideKeyboard()
-        context.toast("TODO")
-        maybeAnim()
+        picBtn.isSelected = false
+        cameraBtn.isSelected = false
+        emojiBtn.isSelected = false
+
+        subPanelContainer.children.forEach {
+            it.visibility = View.GONE
+        }
     }
 
-    private fun showPicCameraPicker() {
-        hideAllSubPanels()
-        emojiBtn.isSelected = false
-        micBtn.isSelected = false
-        editText.clearFocus()
-        editText.hideKeyboard()
-        context.toast("TODO")
-        maybeAnim()
-    }
-
-    private fun showSubPanelRecord() {
-        hideAllSubPanels()
-        emojiBtn.isSelected = false
-        if (micBtn.isSelected) {
-            subPanelRecordView.visibility = View.GONE
-            micBtn.isSelected = false
+    private fun toggleSubPanel(btn: View, subPanel: View?) {
+        val keyboardResolved: Boolean
+        if (btn.isSelected) {
+            keyboardResolved = changeKeyboardSpace(keyboardHeight)
+            editText.requestFocus()
             editText.showKeyboard()
-            ensureKeyboardSpace(keyboardHeight)
         } else {
-            subPanelRecordView.visibility = View.VISIBLE
-            micBtn.isSelected = true
-            ensureKeyboardSpace(0)
+            unSelectAll()
+            keyboardResolved = changeKeyboardSpace(0)
+            subPanel?.visibility = View.VISIBLE
+            btn.isSelected = true
             editText.clearFocus()
             editText.hideKeyboard()
         }
-        maybeAnim()
-    }
-
-    private fun showSubPanelEmoticon() {
-        hideAllSubPanels()
-        micBtn.isSelected = false
-        if (emojiBtn.isSelected) {
-            subPanelEmoticon.visibility = View.GONE
-            emojiBtn.isSelected = false
-            editText.showKeyboard()
-            ensureKeyboardSpace(keyboardHeight)
-        } else {
-            subPanelEmoticon.visibility = View.VISIBLE
-            emojiBtn.isSelected = true
-            ensureKeyboardSpace(0)
-            editText.clearFocus()
-            editText.hideKeyboard()
+        if (!keyboardResolved) {
+            animTransition()
         }
-        maybeAnim()
     }
 
-    fun ensureKeyboardSpace(height: Int) {
-        val params = subPanelSpace.layoutParams
-        if (height > 0) {
-            hideAllSubPanels()
-            emojiBtn.isSelected = false
-            micBtn.isSelected = false
+    override fun onKeyboardHeightChanged(height: Int, orientation: Int) {
+        changeKeyboardSpace(height)
+    }
+
+    private fun changeKeyboardSpace(height: Int): Boolean {
+        val p = layoutParams as LayoutParams
+        if (p.bottomMargin == height) return false
+        Log.d(TAG, "changeKeyboardHeight -> $height")
+        if (height != 0) {
+            unSelectAll()
             keyboardHeight = height
         }
-        if (params.height != height) {
-            params.height = height
-            subPanelSpace.layoutParams = params
-            maybeAnim()
-        }
+        p.bottomMargin = height
+        animTransition()
+        requestLayout()
+        return true
+    }
+
+    private fun animTransition() {
+        TransitionManager.beginDelayedTransition(parent as ViewGroup, ChangeBounds().setDuration(85))
     }
 
     fun clearText() {
@@ -183,7 +163,7 @@ class InputPanelView @JvmOverloads constructor(
     override fun onSelectImageFromCamera(uri: Uri) {
         onRequestSendImage?.invoke(listOf(uri))
     }
-    //endregion
+//endregion
 
 
     //region recorder
@@ -263,5 +243,5 @@ class InputPanelView @JvmOverloads constructor(
         recorder?.destroyAudioRecorder()
         recorder = null
     }
-    //endregion
+//endregion
 }

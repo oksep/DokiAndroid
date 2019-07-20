@@ -15,14 +15,13 @@ import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.message.im.IMAudioController
 import com.dokiwa.dokidoki.message.im.IMService
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
-import com.dokiwa.dokidoki.ui.util.KeyboardHeightObserver
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightProvider
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
 import kotlinx.android.synthetic.main.activity_chat_room.*
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
+class ChatRoomActivity : BaseSelectImageActivity() {
 
     companion object {
         private const val TAG = "ChatRoomActivity"
@@ -76,8 +75,9 @@ class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
             stackFromEnd = true
         }
         recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
 
-        KeyboardHeightProvider(this).attach(this)
+        KeyboardHeightProvider(this).attach(inputPanel)
     }
 
     private fun ensureHeaderFetchMoreView(showHeaderMoreView: Boolean) {
@@ -94,10 +94,6 @@ class ChatRoomActivity : BaseSelectImageActivity(), KeyboardHeightObserver {
             adapter.setUpFetchListener(null)
             adapter.removeAllHeaderView()
         }
-    }
-
-    override fun onKeyboardHeightChanged(height: Int, orientation: Int) {
-        inputPanel.ensureKeyboardSpace(height)
     }
 
     private fun clearEditText() {
