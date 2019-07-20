@@ -28,5 +28,5 @@ project(':feed').projectDir = new File(settingsDir, 'feature/feed')
 include ':message'
 project(':message').projectDir = new File(settingsDir, 'feature/message')
 
-include ':uikit'
-project(':uikit').projectDir = new File(settingsDir, 'feature/uikit')
+//include ':uikit'
+//project(':uikit').projectDir = new File(settingsDir, 'feature/uikit')
