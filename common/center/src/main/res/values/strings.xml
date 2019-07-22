@@ -8,7 +8,6 @@
     <string name="center_image_choose_title">选择图片</string>
 
     <!--profile edu-->
-    <string name="center_profile_edu_unknown">未知</string>
     <string name="center_profile_edu_low">高中及以下</string>
     <string name="center_profile_edu_junior">大专</string>
     <string name="center_profile_edu_bachelor">本科</string>
@@ -19,7 +18,6 @@
     <string name="center_permission_require">需要打开相关权限以执行操作</string>
 
     <!--common-->
-    <string name="save">保存</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="tip">提示</string>

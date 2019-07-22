@@ -43,9 +43,9 @@
 
     <color name="line_light">@color/dd_gray_light</color>
     <color name="line_middle">@color/dd_gray_middle</color>
-    <color name="ling_dark">@color/dd_gray_dark</color>
+    <color name="line_dark">@color/dd_gray_dark</color>
 
-    <color name="bg_gradient_start">#FFB941</color>
-    <color name="bg_gradient_end">#FF3264</color>
+    <color name="bg_gradient_start">@color/dd_yellow</color>
+    <color name="bg_gradient_end">@color/dd_red</color>
 
 </resources>

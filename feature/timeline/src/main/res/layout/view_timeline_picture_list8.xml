@@ -77,7 +77,6 @@
         android:layout_height="0dp"/>
 
     <include
-        android:id="@+id/picture7"
         layout="@layout/view_timeline_picture_list1"
         app:layout_constraintTop_toBottomOf="@+id/picture4"
         app:layout_constraintLeft_toLeftOf="@+id/picture4"
@@ -88,7 +87,6 @@
         android:layout_height="0dp"/>
 
     <include
-        android:id="@+id/picture8"
         layout="@layout/view_timeline_picture_list1"
         app:layout_constraintTop_toBottomOf="@+id/picture5"
         app:layout_constraintLeft_toLeftOf="@+id/picture5"

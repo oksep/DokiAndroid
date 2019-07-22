@@ -15,7 +15,6 @@
     <include layout="@layout/include_input_panel_edit"/>
 
     <include
-        android:id="@+id/optionsContainer"
         layout="@layout/include_input_panel_options"/>
 
     <FrameLayout

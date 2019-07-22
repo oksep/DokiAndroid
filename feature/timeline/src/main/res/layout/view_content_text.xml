@@ -9,7 +9,6 @@
     android:layout_height="wrap_content">
 
     <com.dokiwa.dokidoki.ui.view.ExpandableTextView
-        android:id="@+id/expandableTextView"
         android:lineSpacingMultiplier="1.1"
         android:maxLines="2"
         android:ellipsize="end"
@@ -22,7 +21,6 @@
 
     <TextView
         android:background="?selectableItemBackgroundBorderless"
-        android:id="@+id/toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"

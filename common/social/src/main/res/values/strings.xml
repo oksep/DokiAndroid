@@ -5,7 +5,6 @@
     <string name="share_empty_origin_id">小程序原始Id为空</string>
 
     <string name="social_uninstall_wx">未安装微信</string>
-    <string name="social_uninstall_wb">未安装微博</string>
     <string name="social_uninstall_dd">未安装钉钉</string>
     <string name="social_uninstall_qq">未安装QQ</string>
 </resources>

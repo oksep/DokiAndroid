@@ -8,7 +8,6 @@
     tools:context=".LaunchActivity">
 
     <ImageView
-        android:id="@+id/bottomIcon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

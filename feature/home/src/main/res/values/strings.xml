@@ -2,9 +2,5 @@
     <string name="app_name">Home</string>
 
     <!--首页-->
-    <string name="home_tab_feed">首页</string>
-    <string name="home_tab_timeline">动态</string>
-    <string name="home_tab_msg">消息</string>
-    <string name="home_tab_mine">我的</string>
 
 </resources>

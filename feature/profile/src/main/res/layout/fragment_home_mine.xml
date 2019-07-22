@@ -176,7 +176,6 @@
         app:layout_constraintTop_toBottomOf="@+id/topSolidColorView"
         app:layout_constraintBottom_toBottomOf="@+id/entranceSettings"
         android:background="@color/white"
-        android:id="@+id/whiteSpace"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
 

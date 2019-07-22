@@ -20,5 +20,4 @@
     <string name="login_plus_86">+86</string>
     <string name="login_failed">登录失败</string>
 
-    <string name="login_activity_affinity">activity.affinity.login</string>
 </resources>

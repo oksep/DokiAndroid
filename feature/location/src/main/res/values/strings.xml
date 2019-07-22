@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">location</string>
 
-    <string name="location_cancel">取消</string>
     <string name="location_title">我的位置</string>
     <string name="location_search_nearby">搜索附近的地址</string>
     <string name="location_failed">定位失败</string>
-    <string name="location_poi_no_result">没有搜索到相关数据!</string>
 </resources>
