@@ -26,15 +26,11 @@
         android:id="@+id/content"
         app:layout_constraintLeft_toRightOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        tools:layout_constraintWidth_percent="0.1"
         android:background="@drawable/msg_selector_bubble_left"
         android:layout_marginStart="6dp"
-        android:layout_marginEnd="110dp"
         android:layout_marginTop="2dp"
         android:minHeight="40dp"
-        app:layout_constraintWidth_min="80dp"
+        android:minWidth="80dp"
         android:layout_width="0dp"
         android:layout_height="match_parent"/>
 
