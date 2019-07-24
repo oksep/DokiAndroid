@@ -30,8 +30,9 @@
 
         <com.dokiwa.dokidoki.message.widget.InputEmoticonView
             android:id="@+id/subPanelEmoticon"
-            android:visibility="gone"
-            android:layout_height="200dp"
+            tools:visibility="visible"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
 
     </FrameLayout>

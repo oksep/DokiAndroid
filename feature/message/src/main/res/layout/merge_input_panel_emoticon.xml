@@ -2,15 +2,45 @@
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:parentTag="android.widget.FrameLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:parentTag="android.widget.LinearLayout"
+    tools:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="Emoticon"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        tools:background="@color/dd_green"
         android:layout_width="match_parent"
-        android:layout_height="230dp"/>
+        android:layout_height="150dp"/>
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        app:ci_width="5dp"
+        app:ci_height="5dp"
+        app:ci_margin="5dp"
+        app:ci_drawable="@drawable/msg_bg_emoticon_indicator"
+        tools:background="@color/dd_yellow"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"/>
+
+    <View
+        android:background="@color/line_dark"
+        android:layout_height="1px"
+        android:layout_width="match_parent"/>
+
+    <HorizontalScrollView
+        tools:background="@color/dd_window"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
 </merge>

@@ -6,6 +6,6 @@ import com.dokiwa.dokidoki.message.R
 /**
  * Created by Septenary on 2019-07-15.
  */
-class ChatRoomFragment : BaseShareFragment(R.layout.activity_chat_room) {
+class ChatRoomFragment : BaseShareFragment(R.layout.fragment_test) {
 
 }

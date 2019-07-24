@@ -50,6 +50,8 @@ dependencies {
     implementation "com.makeramen:roundedimageview:${versions.roundImageView}"
     implementation "io.apptik.widget:multislider:${versions.multislider}"
     implementation "com.google.android:flexbox:${versions.flexBox}"
+    implementation "com.github.bumptech.glide:glide:${versions.glide}"
+    implementation 'me.relex:circleindicator:2.1.2'
 
     // modules
     implementation project(':center')

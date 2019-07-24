@@ -8,7 +8,7 @@ import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.message.chatroom.ChatRoomActivity
-import com.dokiwa.dokidoki.message.home.MessageFragment
+import com.dokiwa.dokidoki.message.chatroom.ChatRoomFragment
 import com.dokiwa.dokidoki.message.im.IMLoginStatus
 import com.dokiwa.dokidoki.message.im.IMService
 import com.netease.nimlib.sdk.util.NIMUtil
@@ -40,7 +40,7 @@ class MessagePlugin : IMessagePlugin {
     }
 
     override fun obtainHomeMessageFragment(): Fragment {
-        return MessageFragment()
+        return ChatRoomFragment()
     }
 
     override fun loginIM() {
