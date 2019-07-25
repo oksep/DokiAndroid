@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:rows="3"
     app:columns="8"
-    app:inset="2dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
+    app:inset="3dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>

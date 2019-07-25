@@ -12,6 +12,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.ui.util.ViewUtil
+import kotlin.math.roundToInt
 
 /**
  * Created by Septenary on 2019-06-23.
@@ -83,7 +84,7 @@ class GridDrawableView @JvmOverloads constructor(
 
     private class GridItem(val drawable: ItemDrawable) {
         fun setBounds(l: Float, t: Float, r: Float, b: Float) {
-            drawable.setBounds(Math.round(l), Math.round(t), Math.round(r), Math.round(b))
+            drawable.setBounds(l.roundToInt(), t.roundToInt(), r.roundToInt(), b.roundToInt())
         }
     }
 
@@ -93,18 +94,18 @@ class GridDrawableView @JvmOverloads constructor(
     ) : Drawable() {
 
         private val mPaint: Paint = Paint().apply {
-            color = Color.GREEN
+            color = Color.RED
             style = Paint.Style.STROKE
             strokeWidth = 1f
             isAntiAlias = true
         }
 
-        private var mBoundsF = Rect()
+        private var boundsF = Rect()
 
         override fun draw(canvas: Canvas) {
-            wrapDrawable?.bounds = mBoundsF
+            wrapDrawable?.bounds = boundsF
             wrapDrawable?.draw(canvas)
-            canvas.drawRect(mBoundsF, mPaint)
+            // canvas.drawRect(boundsF, mPaint)
         }
 
         override fun setBounds(left: Int, top: Int, right: Int, bottom: Int) {
@@ -113,21 +114,21 @@ class GridDrawableView @JvmOverloads constructor(
 
         override fun onBoundsChange(bounds: Rect) {
             if (bounds.width() < bounds.height()) {
-                mBoundsF.set(
+                boundsF.set(
                     bounds.left,
                     bounds.centerY() - bounds.width() / 2,
                     bounds.right,
                     bounds.centerY() + bounds.width() / 2
                 )
             } else {
-                mBoundsF.set(
+                boundsF.set(
                     bounds.centerX() - bounds.height() / 2,
                     bounds.top,
                     bounds.centerX() + bounds.height() / 2,
                     bounds.bottom
                 )
             }
-            wrapDrawable?.bounds = mBoundsF
+            wrapDrawable?.bounds = boundsF
         }
 
         override fun setAlpha(alpha: Int) {

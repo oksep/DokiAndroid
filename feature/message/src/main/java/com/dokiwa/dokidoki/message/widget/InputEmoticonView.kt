@@ -4,6 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.view.children
+import androidx.core.view.forEachIndexed
+import androidx.viewpager2.widget.ViewPager2
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -23,14 +26,29 @@ class InputEmoticonView @JvmOverloads constructor(
         setUp()
     }
 
-    override fun setVisibility(visibility: Int) {
-        super.setVisibility(visibility)
-        if (isShown && viewPager.adapter == null) {
-            setUp()
-        }
-    }
-
     private fun setUp() {
+        if (viewPager.adapter != null) return
+
+        emoticonTabContainer.children.forEachIndexed { index, view ->
+            view.setOnClickListener {
+                when (index) {
+                    0 -> viewPager.setCurrentItem(0, false)
+                    1 -> viewPager.setCurrentItem(emoji.items.size, false)
+                    2 -> viewPager.setCurrentItem(emoji.items.size + guaiqiao.items.size, false)
+                }
+            }
+        }
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when {
+                    position < emoji.items.size -> highlightTab(0)
+                    position < emoji.items.size + guaiqiao.items.size -> highlightTab(1)
+                    else -> highlightTab(2)
+                }
+            }
+        })
+
         viewPager.adapter = EmoticonAdapter().apply {
             addData(emoji.items.map { EmojiEntity(it.value) })
             addData(guaiqiao.items.map { StickerEntity(it.value) })
@@ -38,6 +56,12 @@ class InputEmoticonView @JvmOverloads constructor(
             registerAdapterDataObserver(indicator.adapterDataObserver)
         }
         indicator.setViewPager(viewPager)
+    }
+
+    private fun highlightTab(position: Int) {
+        emoticonTabContainer.forEachIndexed { index, view ->
+            view.isSelected = index == position
+        }
     }
 }
 

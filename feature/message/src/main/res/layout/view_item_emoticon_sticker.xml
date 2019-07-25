@@ -5,5 +5,7 @@
     app:rows="2"
     app:columns="5"
     app:inset="0dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>

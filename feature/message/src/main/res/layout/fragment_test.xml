@@ -10,9 +10,8 @@
     android:gravity="bottom"
     tools:context=".chatroom.ChatRoomActivity">
 
-    <com.dokiwa.dokidoki.message.widget.InputEmoticonView
-        android:id="@+id/subPanelEmoticon"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+    <com.dokiwa.dokidoki.message.widget.InputPanelView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

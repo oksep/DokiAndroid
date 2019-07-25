@@ -38,18 +38,5 @@ class ExampleUnitTest {
 
     @Test
     fun testGridItemData() {
-        val data = EmoticonData(
-            "guaiqiao/icon/guaiqiao_s_normal@2x.png",
-            "guaiqiao/icon/guaiqiao_s_highlighted@2x.png",
-            18
-        ) { index ->
-            Pair(index, "guaiqiao/content/guaiqiaogif0${String.format("%02d", index)}@2x.gif")
-        }
-        val b = Array(data.count) {
-            data.pathGen(it)
-        }
-        println(b.size)
-        val group = b.groupBy { it.first / 10 }
-        println(group)
     }
 }

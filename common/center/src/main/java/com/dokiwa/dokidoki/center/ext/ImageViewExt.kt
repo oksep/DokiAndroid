@@ -50,6 +50,10 @@ fun ImageView.glideUrl(url: String, radius: Float = 0f, @DrawableRes default: In
     glideUri(Uri.parse(url), radius, default)
 }
 
+fun ImageView.glideAsset(path: String, radius: Float = 0f, @DrawableRes default: Int? = null) {
+    glideUrl("file:///android_asset/$path", radius, default)
+}
+
 fun ImageView.glideFile(path: String, radius: Float = 0f, @DrawableRes default: Int? = null) {
     glideUri(Uri.fromFile(File(path)), radius, default)
 }

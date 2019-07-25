@@ -9,8 +9,6 @@ import com.google.gson.reflect.TypeToken
  * Created by Septenary on 2019-07-25.
  */
 data class EmoticonData(
-    val normalIcon: String,
-    val highlightIcon: String,
     val items: Map<Int, List<String>>
 )
 
@@ -27,8 +25,6 @@ val emojiMetaList by lazy {
 }
 
 val emoji = EmoticonData(
-    "emoji/icon/emoji_normal.png",
-    "emoji/icon/emoji_highlight.png",
     emojiMetaList.run {
         var i = 0
         groupBy { i++ / 23 }
@@ -36,8 +32,6 @@ val emoji = EmoticonData(
 )
 
 val guaiqiao = EmoticonData(
-    "guaiqiao/icon/normal.png",
-    "guaiqiao/icon/highlight.png",
     Array(18) {
         "guaiqiao/content/guaiqiao_${String.format("%02d", it + 1)}.gif"
     }.run {
@@ -47,8 +41,6 @@ val guaiqiao = EmoticonData(
 )
 
 val moni = EmoticonData(
-    "moni/icon/normal.png",
-    "moni/icon/highlight.png",
     Array(18) {
         "moni/content/moni_${String.format("%02d", it + 1)}.gif"
     }.run {

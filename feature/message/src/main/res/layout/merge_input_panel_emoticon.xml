@@ -8,9 +8,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <View
+        android:background="@color/line_dark"
+        android:layout_height="1px"
+        android:layout_width="match_parent"/>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        tools:background="@color/dd_green"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="120dp"/>
 
@@ -20,7 +25,7 @@
         app:ci_height="5dp"
         app:ci_margin="5dp"
         app:ci_drawable="@drawable/msg_bg_emoticon_indicator"
-        tools:background="@color/dd_yellow"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="24dp"/>
 
@@ -32,12 +37,43 @@
     <HorizontalScrollView
         tools:background="@color/dd_window"
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="38dp">
 
         <LinearLayout
+            android:id="@+id/emoticonTabContainer"
+            android:divider="@drawable/msg_divider_emoticon_tab"
+            android:showDividers="middle"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/msg_ic_emoticon_tab_emoji"
+                android:background="@drawable/msg_bg_emoticon_tab"
+                android:scaleType="centerInside"
+                android:padding="2dp"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:src="@drawable/msg_ic_emoticon_tab_guaiqiao"
+                android:background="@drawable/msg_bg_emoticon_tab"
+                android:scaleType="centerInside"
+                android:padding="2dp"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:src="@drawable/msg_ic_emoticon_tab_moni"
+                android:background="@drawable/msg_bg_emoticon_tab"
+                android:scaleType="centerInside"
+                android:padding="2dp"
+                android:layout_width="56dp"
+                android:layout_height="match_parent"/>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
