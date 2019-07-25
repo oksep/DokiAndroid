@@ -2,7 +2,7 @@ package com.dokiwa.dokidoki.message
 
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import com.dokiwa.dokidoki.message.widget.TabData
+import com.dokiwa.dokidoki.message.widget.EmoticonData
 import org.junit.Test
 
 /**
@@ -38,12 +38,12 @@ class ExampleUnitTest {
 
     @Test
     fun testGridItemData() {
-        val data = TabData(
-            "guaiqiaogif/icon/guaiqiao_s_normal@2x.png",
-            "guaiqiaogif/icon/guaiqiao_s_highlighted@2x.png",
+        val data = EmoticonData(
+            "guaiqiao/icon/guaiqiao_s_normal@2x.png",
+            "guaiqiao/icon/guaiqiao_s_highlighted@2x.png",
             18
         ) { index ->
-            Pair(index, "guaiqiaogif/content/guaiqiaogif0${String.format("%02d", index)}@2x.gif")
+            Pair(index, "guaiqiao/content/guaiqiaogif0${String.format("%02d", index)}@2x.gif")
         }
         val b = Array(data.count) {
             data.pathGen(it)

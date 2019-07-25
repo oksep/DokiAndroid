@@ -12,7 +12,7 @@
         android:id="@+id/viewPager"
         tools:background="@color/dd_green"
         android:layout_width="match_parent"
-        android:layout_height="150dp"/>
+        android:layout_height="120dp"/>
 
     <me.relex.circleindicator.CircleIndicator3
         android:id="@+id/indicator"

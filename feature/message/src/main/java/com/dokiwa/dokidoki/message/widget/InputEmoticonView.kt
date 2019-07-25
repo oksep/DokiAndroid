@@ -31,43 +31,13 @@ class InputEmoticonView @JvmOverloads constructor(
     }
 
     private fun setUp() {
-        val list = TabData.getData()
-        val group = list.groupBy { it.count / 10 }
         viewPager.adapter = EmoticonAdapter().apply {
-            group.forEach {
-                // addData(StickerEntity(it.first * 10, ))
-            }
+            addData(emoji.items.map { EmojiEntity(it.value) })
+            addData(guaiqiao.items.map { StickerEntity(it.value) })
+            addData(moni.items.map { StickerEntity(it.value) })
             registerAdapterDataObserver(indicator.adapterDataObserver)
         }
         indicator.setViewPager(viewPager)
-    }
-}
-
-internal data class TabData(
-    val normalIcon: String,
-    val highlightIcon: String,
-    val count: Int,
-    val pathGen: (Int) -> Pair<Int, String>
-) {
-    companion object {
-        fun getData(): List<TabData> {
-            return listOf(
-                TabData(
-                    "guaiqiaogif/icon/guaiqiao_s_normal@2x.png",
-                    "guaiqiaogif/icon/guaiqiao_s_highlighted@2x.png",
-                    18
-                ) { index ->
-                    Pair(index, "guaiqiaogif/content/guaiqiaogif0${String.format("%02d", index)}@2x.gif")
-                },
-                TabData(
-                    "monigif/icon/moni_s_normal@2x.png",
-                    "monigif/icon/moni_s_highlighted@2x.png",
-                    18
-                ) { index ->
-                    Pair(index, "monigif/content/monigif0${String.format("%02d", index)}@2x.gif")
-                }
-            )
-        }
     }
 }
 
@@ -84,14 +54,21 @@ internal class EmoticonAdapter : BaseMultiItemQuickAdapter<MultiItemEntity, Base
     }
 
     override fun convert(helper: BaseViewHolder, item: MultiItemEntity) {
-        (helper.itemView as? GridDrawableView)?.setUp(listOf())
+        when (item) {
+            is EmojiEntity -> {
+                (helper.itemView as? GridDrawableView)?.setUp(item.list)
+            }
+            is StickerEntity -> {
+                (helper.itemView as? GridDrawableView)?.setUp(item.list)
+            }
+        }
     }
 }
 
-private class EmojiEntity(list: List<String>) : MultiItemEntity {
+private class EmojiEntity(val list: List<String>) : MultiItemEntity {
     override fun getItemType() = EmoticonAdapter.TYPE_EMOJI
 }
 
-private class StickerEntity(list: List<String>) : MultiItemEntity {
+private class StickerEntity(val list: List<String>) : MultiItemEntity {
     override fun getItemType() = EmoticonAdapter.TYPE_STICKER
 }

@@ -1,0 +1,627 @@
+[
+  {
+    "id": "emoticon_emoji_01",
+    "file": "emoji_01.png",
+    "tag": "[开心]"
+  },
+  {
+    "id": "emoticon_emoji_0",
+    "file": "emoji_00.png",
+    "tag": "[大笑]"
+  },
+  {
+    "id": "emoticon_emoji_02",
+    "file": "emoji_02.png",
+    "tag": "[色]"
+  },
+  {
+    "id": "emoticon_emoji_03",
+    "file": "emoji_03.png",
+    "tag": "[飞吻]"
+  },
+  {
+    "id": "emoticon_emoji_04",
+    "file": "emoji_04.png",
+    "tag": "[亲]"
+  },
+  {
+    "id": "emoticon_emoji_05",
+    "file": "emoji_05.png",
+    "tag": "[呆]"
+  },
+  {
+    "id": "emoticon_emoji_06",
+    "file": "emoji_06.png",
+    "tag": "[震惊]"
+  },
+  {
+    "id": "emoticon_emoji_145",
+    "file": "emoji_145.png",
+    "tag": "[汗]"
+  },
+  {
+    "id": "emoticon_emoji_07",
+    "file": "emoji_07.png",
+    "tag": "[呲牙]"
+  },
+  {
+    "id": "emoticon_emoji_08",
+    "file": "emoji_08.png",
+    "tag": "[鬼脸]"
+  },
+  {
+    "id": "emoticon_emoji_09",
+    "file": "emoji_09.png",
+    "tag": "[害羞]"
+  },
+  {
+    "id": "emoticon_emoji_10",
+    "file": "emoji_10.png",
+    "tag": "[高兴]"
+  },
+  {
+    "id": "emoticon_emoji_11",
+    "file": "emoji_11.png",
+    "tag": "[调皮]"
+  },
+  {
+    "id": "emoticon_emoji_12",
+    "file": "emoji_12.png",
+    "tag": "[天使]"
+  },
+  {
+    "id": "emoticon_emoji_13",
+    "file": "emoji_13.png",
+    "tag": "[难受]"
+  },
+  {
+    "id": "emoticon_emoji_14",
+    "file": "emoji_14.png",
+    "tag": "[惊讶]"
+  },
+  {
+    "id": "emoticon_emoji_15",
+    "file": "emoji_15.png",
+    "tag": "[流感]"
+  },
+  {
+    "id": "emoticon_emoji_16",
+    "file": "emoji_16.png",
+    "tag": "[委屈]"
+  },
+  {
+    "id": "emoticon_emoji_17",
+    "file": "emoji_17.png",
+    "tag": "[流泪]"
+  },
+  {
+    "id": "emoticon_emoji_18",
+    "file": "emoji_18.png",
+    "tag": "[大哭]"
+  },
+  {
+    "id": "emoticon_emoji_19",
+    "file": "emoji_19.png",
+    "tag": "[惊恐]"
+  },
+  {
+    "id": "emoticon_emoji_20",
+    "file": "emoji_20.png",
+    "tag": "[怒]"
+  },
+  {
+    "id": "emoticon_emoji_21",
+    "file": "emoji_21.png",
+    "tag": "[不看]"
+  },
+  {
+    "id": "emoticon_emoji_22",
+    "file": "emoji_22.png",
+    "tag": "[不说]"
+  },
+  {
+    "id": "emoticon_emoji_23",
+    "file": "emoji_23.png",
+    "tag": "[无语]"
+  },
+  {
+    "id": "emoticon_emoji_24",
+    "file": "emoji_24.png",
+    "tag": "[难过]"
+  },
+  {
+    "id": "emoticon_emoji_25",
+    "file": "emoji_25.png",
+    "tag": "[奸笑]"
+  },
+  {
+    "id": "emoticon_emoji_26",
+    "file": "emoji_26.png",
+    "tag": "[睡着]"
+  },
+  {
+    "id": "emoticon_emoji_27",
+    "file": "emoji_27.png",
+    "tag": "[口罩]"
+  },
+  {
+    "id": "emoticon_emoji_28",
+    "file": "emoji_28.png",
+    "tag": "[努力]"
+  },
+  {
+    "id": "emoticon_emoji_29",
+    "file": "emoji_29.png",
+    "tag": "[抠鼻孔]"
+  },
+  {
+    "id": "emoticon_emoji_30",
+    "file": "emoji_30.png",
+    "tag": "[疑问]"
+  },
+  {
+    "id": "emoticon_emoji_31",
+    "file": "emoji_31.png",
+    "tag": "[阳光]"
+  },
+  {
+    "id": "emoticon_emoji_32",
+    "file": "emoji_32.png",
+    "tag": "[晕]"
+  },
+  {
+    "id": "emoticon_emoji_33",
+    "file": "emoji_33.png",
+    "tag": "[呕吐]"
+  },
+  {
+    "id": "emoticon_emoji_160",
+    "file": "emoji_160.png",
+    "tag": "[拜一拜]"
+  },
+  {
+    "id": "emoticon_emoji_161",
+    "file": "emoji_161.png",
+    "tag": "[惊喜]"
+  },
+  {
+    "id": "emoticon_emoji_162",
+    "file": "emoji_162.png",
+    "tag": "[流汗]"
+  },
+  {
+    "id": "emoticon_emoji_163",
+    "file": "emoji_163.png",
+    "tag": "[卖萌]"
+  },
+  {
+    "id": "emoticon_emoji_164",
+    "file": "emoji_164.png",
+    "tag": "[默契眨眼]"
+  },
+  {
+    "id": "emoticon_emoji_165",
+    "file": "emoji_165.png",
+    "tag": "[烧香拜佛]"
+  },
+  {
+    "id": "emoticon_emoji_166",
+    "file": "emoji_166.png",
+    "tag": "[喷]"
+  },
+  {
+    "id": "emoticon_emoji_34",
+    "file": "emoji_34.png",
+    "tag": "[看着]"
+  },
+  {
+    "id": "emoticon_emoji_35",
+    "file": "emoji_35.png",
+    "tag": "[生气]"
+  },
+  {
+    "id": "emoticon_emoji_36",
+    "file": "emoji_36.png",
+    "tag": "[滑稽]"
+  },
+  {
+    "id": "emoticon_emoji_37",
+    "file": "emoji_37.png",
+    "tag": "[可爱]"
+  },
+  {
+    "id": "emoticon_emoji_38",
+    "file": "emoji_38.png",
+    "tag": "[胜利]"
+  },
+  {
+    "id": "emoticon_emoji_39",
+    "file": "emoji_39.png",
+    "tag": "[鼓掌]"
+  },
+  {
+    "id": "emoticon_emoji_200",
+    "file": "emoji_200.png",
+    "tag": "[握手]"
+  },
+  {
+    "id": "emoticon_emoji_40",
+    "file": "emoji_40.png",
+    "tag": "[发怒]"
+  },
+  {
+    "id": "emoticon_emoji_41",
+    "file": "emoji_41.png",
+    "tag": "[骷髅]"
+  },
+  {
+    "id": "emoticon_emoji_42",
+    "file": "emoji_42.png",
+    "tag": "[便便]"
+  },
+  {
+    "id": "emoticon_emoji_43",
+    "file": "emoji_43.png",
+    "tag": "[火]"
+  },
+  {
+    "id": "emoticon_emoji_44",
+    "file": "emoji_44.png",
+    "tag": "[溜]"
+  },
+  {
+    "id": "emoticon_emoji_45",
+    "file": "emoji_45.png",
+    "tag": "[爱心]"
+  },
+  {
+    "id": "emoticon_emoji_46",
+    "file": "emoji_46.png",
+    "tag": "[心碎]"
+  },
+  {
+    "id": "emoticon_emoji_47",
+    "file": "emoji_47.png",
+    "tag": "[钟情]"
+  },
+  {
+    "id": "emoticon_emoji_48",
+    "file": "emoji_48.png",
+    "tag": "[唇]"
+  },
+  {
+    "id": "emoticon_emoji_49",
+    "file": "emoji_49.png",
+    "tag": "[戒指]"
+  },
+  {
+    "id": "emoticon_emoji_50",
+    "file": "emoji_50.png",
+    "tag": "[钻石]"
+  },
+  {
+    "id": "emoticon_emoji_51",
+    "file": "emoji_51.png",
+    "tag": "[太阳]"
+  },
+  {
+    "id": "emoticon_emoji_52",
+    "file": "emoji_52.png",
+    "tag": "[有时晴]"
+  },
+  {
+    "id": "emoticon_emoji_53",
+    "file": "emoji_53.png",
+    "tag": "[多云]"
+  },
+  {
+    "id": "emoticon_emoji_54",
+    "file": "emoji_54.png",
+    "tag": "[雷]"
+  },
+  {
+    "id": "emoticon_emoji_55",
+    "file": "emoji_55.png",
+    "tag": "[雨]"
+  },
+  {
+    "id": "emoticon_emoji_56",
+    "file": "emoji_56.png",
+    "tag": "[雪花]"
+  },
+  {
+    "id": "emoticon_emoji_57",
+    "file": "emoji_57.png",
+    "tag": "[爱人]"
+  },
+  {
+    "id": "emoticon_emoji_58",
+    "file": "emoji_58.png",
+    "tag": "[帽子]"
+  },
+  {
+    "id": "emoticon_emoji_59",
+    "file": "emoji_59.png",
+    "tag": "[皇冠]"
+  },
+  {
+    "id": "emoticon_emoji_60",
+    "file": "emoji_60.png",
+    "tag": "[篮球]"
+  },
+  {
+    "id": "emoticon_emoji_61",
+    "file": "emoji_61.png",
+    "tag": "[足球]"
+  },
+  {
+    "id": "emoticon_emoji_62",
+    "file": "emoji_62.png",
+    "tag": "[垒球]"
+  },
+  {
+    "id": "emoticon_emoji_63",
+    "file": "emoji_63.png",
+    "tag": "[网球]"
+  },
+  {
+    "id": "emoticon_emoji_64",
+    "file": "emoji_64.png",
+    "tag": "[台球]"
+  },
+  {
+    "id": "emoticon_emoji_65",
+    "file": "emoji_65.png",
+    "tag": "[咖啡]"
+  },
+  {
+    "id": "emoticon_emoji_66",
+    "file": "emoji_66.png",
+    "tag": "[啤酒]"
+  },
+  {
+    "id": "emoticon_emoji_67",
+    "file": "emoji_67.png",
+    "tag": "[干杯]"
+  },
+  {
+    "id": "emoticon_emoji_68",
+    "file": "emoji_68.png",
+    "tag": "[柠檬汁]"
+  },
+  {
+    "id": "emoticon_emoji_69",
+    "file": "emoji_69.png",
+    "tag": "[餐具]"
+  },
+  {
+    "id": "emoticon_emoji_70",
+    "file": "emoji_70.png",
+    "tag": "[汉堡]"
+  },
+  {
+    "id": "emoticon_emoji_71",
+    "file": "emoji_71.png",
+    "tag": "[鸡腿]"
+  },
+  {
+    "id": "emoticon_emoji_72",
+    "file": "emoji_72.png",
+    "tag": "[面条]"
+  },
+  {
+    "id": "emoticon_emoji_73",
+    "file": "emoji_73.png",
+    "tag": "[冰淇淋]"
+  },
+  {
+    "id": "emoticon_emoji_74",
+    "file": "emoji_74.png",
+    "tag": "[沙冰]"
+  },
+  {
+    "id": "emoticon_emoji_75",
+    "file": "emoji_75.png",
+    "tag": "[生日蛋糕]"
+  },
+  {
+    "id": "emoticon_emoji_76",
+    "file": "emoji_76.png",
+    "tag": "[蛋糕]"
+  },
+  {
+    "id": "emoticon_emoji_77",
+    "file": "emoji_77.png",
+    "tag": "[糖果]"
+  },
+  {
+    "id": "emoticon_emoji_78",
+    "file": "emoji_78.png",
+    "tag": "[葡萄]"
+  },
+  {
+    "id": "emoticon_emoji_79",
+    "file": "emoji_79.png",
+    "tag": "[西瓜]"
+  },
+  {
+    "id": "emoticon_emoji_80",
+    "file": "emoji_80.png",
+    "tag": "[光碟]"
+  },
+  {
+    "id": "emoticon_emoji_81",
+    "file": "emoji_81.png",
+    "tag": "[手机]"
+  },
+  {
+    "id": "emoticon_emoji_82",
+    "file": "emoji_82.png",
+    "tag": "[电话]"
+  },
+  {
+    "id": "emoticon_emoji_83",
+    "file": "emoji_83.png",
+    "tag": "[电视]"
+  },
+  {
+    "id": "emoticon_emoji_84",
+    "file": "emoji_84.png",
+    "tag": "[声音开启]"
+  },
+  {
+    "id": "emoticon_emoji_85",
+    "file": "emoji_85.png",
+    "tag": "[声音关闭]"
+  },
+  {
+    "id": "emoticon_emoji_86",
+    "file": "emoji_86.png",
+    "tag": "[铃铛]"
+  },
+  {
+    "id": "emoticon_emoji_87",
+    "file": "emoji_87.png",
+    "tag": "[锁头]"
+  },
+  {
+    "id": "emoticon_emoji_88",
+    "file": "emoji_88.png",
+    "tag": "[放大镜]"
+  },
+  {
+    "id": "emoticon_emoji_89",
+    "file": "emoji_89.png",
+    "tag": "[灯泡]"
+  },
+  {
+    "id": "emoticon_emoji_90",
+    "file": "emoji_90.png",
+    "tag": "[锤头]"
+  },
+  {
+    "id": "emoticon_emoji_91",
+    "file": "emoji_91.png",
+    "tag": "[烟]"
+  },
+  {
+    "id": "emoticon_emoji_92",
+    "file": "emoji_92.png",
+    "tag": "[炸弹]"
+  },
+  {
+    "id": "emoticon_emoji_93",
+    "file": "emoji_93.png",
+    "tag": "[枪]"
+  },
+  {
+    "id": "emoticon_emoji_94",
+    "file": "emoji_94.png",
+    "tag": "[刀]"
+  },
+  {
+    "id": "emoticon_emoji_95",
+    "file": "emoji_95.png",
+    "tag": "[药]"
+  },
+  {
+    "id": "emoticon_emoji_96",
+    "file": "emoji_96.png",
+    "tag": "[打针]"
+  },
+  {
+    "id": "emoticon_emoji_97",
+    "file": "emoji_97.png",
+    "tag": "[钱袋]"
+  },
+  {
+    "id": "emoticon_emoji_98",
+    "file": "emoji_98.png",
+    "tag": "[钞票]"
+  },
+  {
+    "id": "emoticon_emoji_99",
+    "file": "emoji_99.png",
+    "tag": "[银行卡]"
+  },
+  {
+    "id": "emoticon_emoji_100",
+    "file": "emoji_100.png",
+    "tag": "[手柄]"
+  },
+  {
+    "id": "emoticon_emoji_101",
+    "file": "emoji_101.png",
+    "tag": "[麻将]"
+  },
+  {
+    "id": "emoticon_emoji_102",
+    "file": "emoji_102.png",
+    "tag": "[调色板]"
+  },
+  {
+    "id": "emoticon_emoji_103",
+    "file": "emoji_103.png",
+    "tag": "[电影]"
+  },
+  {
+    "id": "emoticon_emoji_104",
+    "file": "emoji_104.png",
+    "tag": "[麦克风]"
+  },
+  {
+    "id": "emoticon_emoji_105",
+    "file": "emoji_105.png",
+    "tag": "[耳机]"
+  },
+  {
+    "id": "emoticon_emoji_106",
+    "file": "emoji_106.png",
+    "tag": "[音乐]"
+  },
+  {
+    "id": "emoticon_emoji_107",
+    "file": "emoji_107.png",
+    "tag": "[吉他]"
+  },
+  {
+    "id": "emoticon_emoji_108",
+    "file": "emoji_108.png",
+    "tag": "[火箭]"
+  },
+  {
+    "id": "emoticon_emoji_109",
+    "file": "emoji_109.png",
+    "tag": "[飞机]"
+  },
+  {
+    "id": "emoticon_emoji_110",
+    "file": "emoji_110.png",
+    "tag": "[火车]"
+  },
+  {
+    "id": "emoticon_emoji_111",
+    "file": "emoji_111.png",
+    "tag": "[公交]"
+  },
+  {
+    "id": "emoticon_emoji_112",
+    "file": "emoji_112.png",
+    "tag": "[轿车]"
+  },
+  {
+    "id": "emoticon_emoji_113",
+    "file": "emoji_113.png",
+    "tag": "[出租车]"
+  },
+  {
+    "id": "emoticon_emoji_114",
+    "file": "emoji_114.png",
+    "tag": "[警车]"
+  },
+  {
+    "id": "emoticon_emoji_115",
+    "file": "emoji_115.png",
+    "tag": "[自行车]"
+  }
+]

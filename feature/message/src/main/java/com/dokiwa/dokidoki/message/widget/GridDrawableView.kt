@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
@@ -34,8 +33,8 @@ class GridDrawableView @JvmOverloads constructor(
     }
 
     private val items = Array(rows * columns) {
-        val wrapDrawable = if (isInEditMode || true) ColorDrawable(ViewUtil.randomColor()) else null
-        GridItem(ItemDrawable(context, wrapDrawable, inset).also { it.callback = this })
+        val wrapDrawable = if (isInEditMode) ColorDrawable(ViewUtil.randomColor()) else null
+        GridItem(ItemDrawable(wrapDrawable, inset).also { it.callback = this })
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -70,8 +69,8 @@ class GridDrawableView @JvmOverloads constructor(
             if (assetPath.isNullOrEmpty()) {
                 item.drawable.setDrawable(null)
             } else {
-                val url = "file:///android_asset/emoji/default/emoji_00.png"
-                RequestOptions().transform(CircleCrop()).override(size, size).also { opt ->
+                val url = "file:///android_asset/$assetPath"
+                RequestOptions().override(size, size).also { opt ->
                     Glide.with(this).load(url).apply(opt).into(object : SimpleTarget<Drawable>(size, size) {
                         override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                             item.drawable.setDrawable(resource)
@@ -89,7 +88,6 @@ class GridDrawableView @JvmOverloads constructor(
     }
 
     class ItemDrawable(
-        private val context: Context,
         private var wrapDrawable: Drawable? = null,
         private val inset: Int
     ) : Drawable() {
@@ -97,17 +95,16 @@ class GridDrawableView @JvmOverloads constructor(
         private val mPaint: Paint = Paint().apply {
             color = Color.GREEN
             style = Paint.Style.STROKE
-            strokeWidth = ViewUtil.dp2px(context, 2f).toFloat()
+            strokeWidth = 1f
             isAntiAlias = true
-            setShadowLayer(10f, 0f, 8f, 0x26000000)
         }
 
-        private var mRadius = 0f
-        private var mBoundsF = RectF()
+        private var mBoundsF = Rect()
 
         override fun draw(canvas: Canvas) {
+            wrapDrawable?.bounds = mBoundsF
             wrapDrawable?.draw(canvas)
-            canvas.drawOval(mBoundsF, mPaint)
+            canvas.drawRect(mBoundsF, mPaint)
         }
 
         override fun setBounds(left: Int, top: Int, right: Int, bottom: Int) {
@@ -115,9 +112,22 @@ class GridDrawableView @JvmOverloads constructor(
         }
 
         override fun onBoundsChange(bounds: Rect) {
-            wrapDrawable?.bounds = bounds
-            mBoundsF.set(bounds.left.toFloat(), bounds.top.toFloat(), bounds.right.toFloat(), bounds.bottom.toFloat())
-            mRadius = mBoundsF.height() / 2
+            if (bounds.width() < bounds.height()) {
+                mBoundsF.set(
+                    bounds.left,
+                    bounds.centerY() - bounds.width() / 2,
+                    bounds.right,
+                    bounds.centerY() + bounds.width() / 2
+                )
+            } else {
+                mBoundsF.set(
+                    bounds.centerX() - bounds.height() / 2,
+                    bounds.top,
+                    bounds.centerX() + bounds.height() / 2,
+                    bounds.bottom
+                )
+            }
+            wrapDrawable?.bounds = mBoundsF
         }
 
         override fun setAlpha(alpha: Int) {
