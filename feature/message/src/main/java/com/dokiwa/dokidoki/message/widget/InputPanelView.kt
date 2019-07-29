@@ -3,6 +3,9 @@ package com.dokiwa.dokidoki.message.widget
 import android.content.Context
 import android.graphics.Color
 import android.net.Uri
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +17,9 @@ import com.dokiwa.dokidoki.center.base.activity.SelectImageDelegate
 import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.message.Log
 import com.dokiwa.dokidoki.message.R
+import com.dokiwa.dokidoki.message.widget.emoction.MoonUtil
+import com.dokiwa.dokidoki.message.widget.emoction.StringUtil
 import com.dokiwa.dokidoki.ui.ext.hideKeyboard
-import com.dokiwa.dokidoki.ui.ext.onceLayoutThen
 import com.dokiwa.dokidoki.ui.ext.showKeyboard
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightObserver
 import com.dokiwa.dokidoki.ui.util.SimpleTextWatcher
@@ -48,6 +52,12 @@ class InputPanelView @JvmOverloads constructor(
         }
         emojiBtn.setOnClickListener {
             toggleSubPanel(emojiBtn, subPanelEmoticon)
+//            val mEditable = editText.text
+//            var start = editText.selectionStart
+//            var end = editText.selectionEnd
+//            start = if (start < 0) 0 else start
+//            end = if (start < 0) 0 else end
+//            mEditable.replace(start, end, tags.random())
         }
         picBtn.setOnClickListener {
             toggleSubPanel(picBtn, null)
@@ -57,6 +67,7 @@ class InputPanelView @JvmOverloads constructor(
             toggleSubPanel(cameraBtn, null)
             selectImageByMatisse()
         }
+        editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
         editText.addTextChangedListener(object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 sendBtn.isEnabled = s?.length ?: 0 > 0
@@ -65,10 +76,43 @@ class InputPanelView @JvmOverloads constructor(
         sendBtn.setOnClickListener {
             onRequestSendTxt?.invoke(editText.text.toString())
         }
+    }
 
-        subPanelContainer.onceLayoutThen {
-            //            translationY = subPanelContainer.height.toFloat()
-        }
+    init {
+        subPanelEmoticon.setUp({
+            val editable = editText.text
+            var start = editText.selectionStart
+            var end = editText.selectionEnd
+            start = if (start < 0) 0 else start
+            end = if (start < 0) 0 else end
+            editable.replace(start, end, it)
+        }, {
+
+        })
+        editText.addTextChangedListener(object : TextWatcher {
+            private var start: Int = 0
+            private var count: Int = 0
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                this.start = start
+                this.count = count
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                MoonUtil.replaceEmoticons(context, s, start, count)
+                var editEnd = editText.selectionEnd
+                editText.removeTextChangedListener(this)
+                while (StringUtil.counterChars(s.toString()) > 300 && editEnd > 0) {
+                    s.delete(editEnd - 1, editEnd)
+                    editEnd--
+                }
+                editText.setSelection(editEnd)
+                editText.addTextChangedListener(this)
+            }
+        })
     }
 
     private var onRequestSendTxt: ((String) -> Unit)? = null
@@ -163,8 +207,7 @@ class InputPanelView @JvmOverloads constructor(
     override fun onSelectImageFromCamera(uri: Uri) {
         onRequestSendImage?.invoke(listOf(uri))
     }
-//endregion
-
+    //endregion
 
     //region recorder
     private var recorder: AudioRecorder? = null
@@ -243,5 +286,5 @@ class InputPanelView @JvmOverloads constructor(
         recorder?.destroyAudioRecorder()
         recorder = null
     }
-//endregion
+    //endregion
 }

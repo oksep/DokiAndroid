@@ -1,11 +1,15 @@
-package com.dokiwa.dokidoki.message.widget
+package com.dokiwa.dokidoki.message.widget.emoction
 
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.SoundEffectConstants
 import android.view.View
+import androidx.core.view.GestureDetectorCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
@@ -25,17 +29,54 @@ class GridDrawableView @JvmOverloads constructor(
     private val columns: Int
     private val inset: Int
 
+    private var onItemClick: ((GridDrawableItemData) -> Unit)? = null
+    private val detector: GestureDetectorCompat
+
     init {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.GridDrawableView)
         rows = ta.getInteger(R.styleable.GridDrawableView_rows, 3)
         columns = ta.getInteger(R.styleable.GridDrawableView_columns, 8)
         inset = ta.getDimensionPixelSize(R.styleable.GridDrawableView_inset, 0)
         ta.recycle()
+
+        detector = GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDown(e: MotionEvent): Boolean {
+                return checkTap(e.x, e.y) != null
+            }
+
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                val tapItem = checkTap(e.x, e.y)
+                return tapItem?.run {
+                    val tag: GridDrawableItemData? = this.data
+                    if (tag == null) {
+                        false
+                    } else {
+                        onItemClick?.invoke(tag)
+                        playSoundEffect(SoundEffectConstants.CLICK)
+                        true
+                    }
+                } ?: false
+            }
+        })
     }
 
     private val items = Array(rows * columns) {
         val wrapDrawable = if (isInEditMode) ColorDrawable(ViewUtil.randomColor()) else null
-        GridItem(ItemDrawable(wrapDrawable, inset).also { it.callback = this })
+        GridItem(
+            ItemDrawable(
+                wrapDrawable,
+                inset
+            ).also { it.callback = this })
+    }
+
+    private fun checkTap(x: Float, y: Float): GridItem? {
+        return items.firstOrNull {
+            it.drawable.bounds.contains(x.toInt(), y.toInt())
+        }
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return detector.onTouchEvent(event)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -63,16 +104,19 @@ class GridDrawableView @JvmOverloads constructor(
         return super.verifyDrawable(who)
     }
 
-    fun setUp(list: List<String>) {
+    fun setUp(list: List<GridDrawableItemData>, onItemClick: (GridDrawableItemData) -> Unit) {
+        this.onItemClick = onItemClick
         val size = ViewUtil.getScreenWidth() / columns
         items.forEachIndexed { index, item ->
-            val assetPath = list.getOrNull(index)
+            val data = list.getOrNull(index)
+            val assetPath = data?.path
+            item.data = data
             if (assetPath.isNullOrEmpty()) {
                 item.drawable.setDrawable(null)
             } else {
-                val url = "file:///android_asset/$assetPath"
+                val uri = "file:///android_asset/$assetPath"
                 RequestOptions().override(size, size).also { opt ->
-                    Glide.with(this).load(url).apply(opt).into(object : SimpleTarget<Drawable>(size, size) {
+                    Glide.with(this).load(uri).apply(opt).into(object : SimpleTarget<Drawable>(size, size) {
                         override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                             item.drawable.setDrawable(resource)
                         }
@@ -82,13 +126,13 @@ class GridDrawableView @JvmOverloads constructor(
         }
     }
 
-    private class GridItem(val drawable: ItemDrawable) {
+    private class GridItem(val drawable: ItemDrawable, var data: GridDrawableItemData? = null) {
         fun setBounds(l: Float, t: Float, r: Float, b: Float) {
             drawable.setBounds(l.roundToInt(), t.roundToInt(), r.roundToInt(), b.roundToInt())
         }
     }
 
-    class ItemDrawable(
+    private class ItemDrawable(
         private var wrapDrawable: Drawable? = null,
         private val inset: Int
     ) : Drawable() {
@@ -153,4 +197,6 @@ class GridDrawableView @JvmOverloads constructor(
             invalidateSelf()
         }
     }
+
+    data class GridDrawableItemData(val path: String, val tag: String)
 }

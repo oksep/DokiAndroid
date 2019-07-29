@@ -38,6 +38,10 @@ class EditableRoundImage @JvmOverloads constructor(
 
         detector = if (icon != null) {
             GestureDetectorCompat(context, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onDown(e: MotionEvent): Boolean {
+                    return isTouchInIconArea(e) && showEditIcon
+                }
+
                 override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
                     if (showEditIcon) {
                         onCloseListener?.invoke()
@@ -57,12 +61,7 @@ class EditableRoundImage @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return if (isTouchInIconArea(event) && showEditIcon) {
-            detector?.onTouchEvent(event)
-            true
-        } else {
-            super.onTouchEvent(event)
-        }
+        return detector?.onTouchEvent(event) == true || super.onTouchEvent(event)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

@@ -11,6 +11,10 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.dokiwa.dokidoki.message.R
+import com.dokiwa.dokidoki.message.widget.emoction.GridDrawableView
+import com.dokiwa.dokidoki.message.widget.emoction.emoji
+import com.dokiwa.dokidoki.message.widget.emoction.guaiqiao
+import com.dokiwa.dokidoki.message.widget.emoction.moni
 import kotlinx.android.synthetic.main.merge_input_panel_emoticon.view.*
 
 /**
@@ -23,10 +27,9 @@ class InputEmoticonView @JvmOverloads constructor(
     init {
         View.inflate(context, R.layout.merge_input_panel_emoticon, this)
         orientation = VERTICAL
-        setUp()
     }
 
-    private fun setUp() {
+    fun setUp(emojiClick: (String) -> Unit, stickerClick: (String) -> Unit) {
         if (viewPager.adapter != null) return
 
         emoticonTabContainer.children.forEachIndexed { index, view ->
@@ -49,7 +52,11 @@ class InputEmoticonView @JvmOverloads constructor(
             }
         })
 
-        viewPager.adapter = EmoticonAdapter().apply {
+        viewPager.adapter = EmoticonAdapter({
+            emojiClick.invoke(it.tag)
+        }, {
+            stickerClick.invoke(it.path)
+        }).apply {
             addData(emoji.items.map { EmojiEntity(it.value) })
             addData(guaiqiao.items.map { StickerEntity(it.value) })
             addData(moni.items.map { StickerEntity(it.value) })
@@ -65,7 +72,10 @@ class InputEmoticonView @JvmOverloads constructor(
     }
 }
 
-internal class EmoticonAdapter : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(null) {
+internal class EmoticonAdapter(
+    private val emojiClick: (GridDrawableView.GridDrawableItemData) -> Unit,
+    private val stickerClick: (GridDrawableView.GridDrawableItemData) -> Unit
+) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(null) {
 
     companion object {
         const val TYPE_EMOJI = 0
@@ -80,19 +90,19 @@ internal class EmoticonAdapter : BaseMultiItemQuickAdapter<MultiItemEntity, Base
     override fun convert(helper: BaseViewHolder, item: MultiItemEntity) {
         when (item) {
             is EmojiEntity -> {
-                (helper.itemView as? GridDrawableView)?.setUp(item.list)
+                (helper.itemView as? GridDrawableView)?.setUp(item.list, emojiClick)
             }
             is StickerEntity -> {
-                (helper.itemView as? GridDrawableView)?.setUp(item.list)
+                (helper.itemView as? GridDrawableView)?.setUp(item.list, stickerClick)
             }
         }
     }
 }
 
-private class EmojiEntity(val list: List<String>) : MultiItemEntity {
+private class EmojiEntity(val list: List<GridDrawableView.GridDrawableItemData>) : MultiItemEntity {
     override fun getItemType() = EmoticonAdapter.TYPE_EMOJI
 }
 
-private class StickerEntity(val list: List<String>) : MultiItemEntity {
+private class StickerEntity(val list: List<GridDrawableView.GridDrawableItemData>) : MultiItemEntity {
     override fun getItemType() = EmoticonAdapter.TYPE_STICKER
 }

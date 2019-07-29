@@ -2,7 +2,6 @@ package com.dokiwa.dokidoki.message
 
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import com.dokiwa.dokidoki.message.widget.EmoticonData
 import org.junit.Test
 
 /**
