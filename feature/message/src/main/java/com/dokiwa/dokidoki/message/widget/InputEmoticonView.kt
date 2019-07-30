@@ -99,7 +99,12 @@ internal class EmoticonAdapter(
     }
 }
 
-private class EmojiEntity(val list: List<GridDrawableView.GridDrawableItemData>) : MultiItemEntity {
+private class EmojiEntity(
+    rawList: List<GridDrawableView.GridDrawableItemData>,
+    val list: List<GridDrawableView.GridDrawableItemData> = rawList.toMutableList().also {
+        it.add(GridDrawableView.GridDrawableItemData("emoji/del.png", "/DEL"))
+    }
+) : MultiItemEntity {
     override fun getItemType() = EmoticonAdapter.TYPE_EMOJI
 }
 

@@ -70,7 +70,7 @@ class ChatRoomActivity : BaseSelectImageActivity() {
 
     private fun initView() {
         toolBar.title.text = intent.getStringExtra(EXTRA_NAME)
-        inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg, ::sendMessageAudio)
+        inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg, ::sendMessageAudio, ::sendMessageSticker)
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
             stackFromEnd = true
         }
@@ -198,6 +198,13 @@ class ChatRoomActivity : BaseSelectImageActivity() {
     private fun sendMessageImg(imgList: List<Uri>) {
         IMService.sendMessageImg(this, contactAccount, imgList).subscribe(::onSendMessage) {
             Log.e(TAG, "send img msg error -> $it")
+        }.bind(this)
+    }
+
+    private fun sendMessageSticker(path: String) {
+        val uris = listOf(Uri.parse("file://android_asset/$path"))
+        IMService.sendMessageImg(this, contactAccount, uris).subscribe(::onSendMessage) {
+            Log.e(TAG, "send sticker msg error -> $it")
         }.bind(this)
     }
 

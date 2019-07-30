@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -52,12 +53,6 @@ class InputPanelView @JvmOverloads constructor(
         }
         emojiBtn.setOnClickListener {
             toggleSubPanel(emojiBtn, subPanelEmoticon)
-//            val mEditable = editText.text
-//            var start = editText.selectionStart
-//            var end = editText.selectionEnd
-//            start = if (start < 0) 0 else start
-//            end = if (start < 0) 0 else end
-//            mEditable.replace(start, end, tags.random())
         }
         picBtn.setOnClickListener {
             toggleSubPanel(picBtn, null)
@@ -80,14 +75,18 @@ class InputPanelView @JvmOverloads constructor(
 
     init {
         subPanelEmoticon.setUp({
-            val editable = editText.text
-            var start = editText.selectionStart
-            var end = editText.selectionEnd
-            start = if (start < 0) 0 else start
-            end = if (start < 0) 0 else end
-            editable.replace(start, end, it)
+            if (it == "/DEL") {
+                editText.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
+            } else {
+                val editable = editText.text
+                var start = editText.selectionStart
+                var end = editText.selectionEnd
+                start = if (start < 0) 0 else start
+                end = if (start < 0) 0 else end
+                editable.replace(start, end, it)
+            }
         }, {
-
+            onRequestSendSticker?.invoke(it)
         })
         editText.addTextChangedListener(object : TextWatcher {
             private var start: Int = 0
@@ -117,16 +116,19 @@ class InputPanelView @JvmOverloads constructor(
 
     private var onRequestSendTxt: ((String) -> Unit)? = null
     private var onRequestSendImage: ((List<Uri>) -> Unit)? = null
+    private var onRequestSendSticker: ((String) -> Unit)? = null
     private var onRequestSendAudio: ((File, Long) -> Unit)? = null
 
     fun setInputPanelCallback(
         onRequestSendTxt: (String) -> Unit,
         onRequestSendImage: (List<Uri>) -> Unit,
-        onRequestSendAudio: (File, Long) -> Unit
+        onRequestSendAudio: (File, Long) -> Unit,
+        onRequestSendSticker: (String) -> Unit
     ) {
         this.onRequestSendTxt = onRequestSendTxt
         this.onRequestSendImage = onRequestSendImage
         this.onRequestSendAudio = onRequestSendAudio
+        this.onRequestSendSticker = onRequestSendSticker
     }
 
     private fun unSelectAll() {

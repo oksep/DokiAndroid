@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.message.chatroom
 
+import android.text.style.ImageSpan
 import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -11,6 +12,7 @@ import com.dokiwa.dokidoki.message.im.IMAudioController
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
 import com.dokiwa.dokidoki.message.widget.AttachmentAudioView
 import com.dokiwa.dokidoki.message.widget.AttachmentImageView
+import com.dokiwa.dokidoki.message.widget.emoction.MoonUtil
 import com.netease.nimlib.sdk.msg.attachment.AudioAttachment
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
@@ -106,7 +108,13 @@ internal class ChatRoomAdapter(
     }
 
     private fun setUpMessageTxtEntity(helper: BaseViewHolder, item: IMSessionMessage) {
-        helper.setText(R.id.content, item.rawMsg.content)
+        val span = MoonUtil.replaceEmoticons(
+            helper.itemView.context,
+            item.rawMsg.content,
+            0.6f,
+            ImageSpan.ALIGN_BOTTOM
+        )
+        helper.setText(R.id.content, span)
     }
 
     private fun setUpMessageImgEntity(helper: BaseViewHolder, item: IMSessionMessage) {

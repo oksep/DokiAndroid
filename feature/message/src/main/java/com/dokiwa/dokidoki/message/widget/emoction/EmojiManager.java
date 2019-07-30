@@ -9,12 +9,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.collection.LruCache;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,16 +41,7 @@ public class EmojiManager {
     }
 
     public static final Drawable getDrawable(Context context, String text) {
-
         String path = "emoji/" + EmoticonDataKt.getEmojiData().get(text);
-
-        Glide.with(context).load("file:///android_asset/" + path).into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-
-            }
-        });
-
         Bitmap cache = drawableCache.get(path);
         if (cache == null) {
             cache = loadAssetBitmap(context, path);

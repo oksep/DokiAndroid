@@ -32,7 +32,12 @@ fun Uri.toUploadFileObservable(context: Context): Observable<String> {
 fun Uri.toUploadFile(context: Context): String {
     return try {
         val saveDir = File(context.cacheDir, "upload").ensureFileDir()
-        val stream = context.contentResolver.openInputStream(this)
+        val isAssetFile = this.toString().startsWith("file://android_asset/")
+        val stream = if (isAssetFile) {
+            context.assets.open((this.path ?: "/").substring(1))
+        } else {
+            context.contentResolver.openInputStream(this) ?: throw Exception("openInputStream $this failed")
+        }
         val tmp = File.createTempFile(now(), ".jpg", saveDir)
         tmp.copyInputStreamToFile(stream)
         tmp.absolutePath

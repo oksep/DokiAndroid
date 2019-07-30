@@ -9,13 +9,6 @@ import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.dokiwa.dokidoki.message.widget.emoction.EmojiManager;
-import com.dokiwa.dokidoki.message.widget.emoction.ImageSpanAlignCenter;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -74,7 +67,7 @@ public class MoonUtil {
         viewSetText(textView, mSpannableString);
     }
 
-    private static SpannableString replaceEmoticons(Context context, String value, float scale, int align) {
+    public static SpannableString replaceEmoticons(Context context, String value, float scale, int align) {
         if (TextUtils.isEmpty(value)) {
             value = "";
         }
@@ -155,21 +148,11 @@ public class MoonUtil {
             final int to = start + matcher.end();
             String emot = editable.subSequence(from, to).toString();
 
-            String path = "emoji/" + EmoticonDataKt.getEmojiData().get(emot);
-
-            Glide.with(context).load("file:///android_asset/" + path).into(new SimpleTarget<Drawable>(100, 100) {
-                @Override
-                public void onResourceReady(@NonNull Drawable d, @Nullable Transition<? super Drawable> transition) {
-                    ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
-                    editable.setSpan(span, from, to, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-            });
-
-//            Drawable d = getEmotDrawable(context, emot, SMALL_SCALE);
-//            if (d != null) {
-//                ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
-//                editable.setSpan(span, from, to, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//            }
+            Drawable d = getEmotDrawable(context, emot, SMALL_SCALE);
+            if (d != null) {
+                ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BOTTOM);
+                editable.setSpan(span, from, to, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
         }
     }
 

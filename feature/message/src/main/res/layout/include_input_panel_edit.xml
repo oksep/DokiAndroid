@@ -26,7 +26,7 @@
         android:textColorHint="@color/text_tip"
         android:imeOptions="actionSend"
         android:lineSpacingMultiplier="1.1"
-        android:maxLength="200"
+        android:maxLength="300"
         android:scrollbars="vertical"
         android:maxHeight="100dp"
         android:layout_width="match_parent"
