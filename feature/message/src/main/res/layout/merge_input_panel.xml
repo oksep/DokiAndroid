@@ -31,7 +31,7 @@
         <com.dokiwa.dokidoki.message.widget.InputEmoticonView
             android:id="@+id/subPanelEmoticon"
             tools:visibility="visible"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
 
