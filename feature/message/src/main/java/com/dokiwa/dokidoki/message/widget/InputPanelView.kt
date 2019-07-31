@@ -165,7 +165,8 @@ class InputPanelView @JvmOverloads constructor(
         changeKeyboardSpace(height)
     }
 
-    private fun changeKeyboardSpace(height: Int): Boolean {
+    private fun changeKeyboardSpace(kbh: Int): Boolean {
+        val height = if (kbh < 0) 0 else kbh
         val p = layoutParams as LayoutParams
         if (p.bottomMargin == height) return false
         Log.d(TAG, "changeKeyboardHeight -> $height")
