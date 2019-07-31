@@ -12,8 +12,8 @@
 
     <com.dokiwa.dokidoki.ui.view.HomeToolBar
         android:id="@+id/toolBar"
-        style="@style/AppToolBar.Dark.Icon.Left"
-        app:toolbar_rightIconVisibility="gone"
+        style="@style/AppToolBar.Dark.Icon"
+        app:toolbar_rightIcon="@drawable/msg_ic_chat_more"
         app:toolbar_titleText="@string/app_name"
         android:background="@color/white"
         android:layout_height="wrap_content"

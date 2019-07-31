@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.ext.rx.bind
 import com.dokiwa.dokidoki.center.ext.rx.composeMainMain
+import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.message.Log
 import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.message.im.IMAudioController
 import com.dokiwa.dokidoki.message.im.IMService
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
+import com.dokiwa.dokidoki.message.widget.ChatMorePopWindow
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightProvider
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
 import kotlinx.android.synthetic.main.activity_chat_room.*
@@ -70,6 +73,15 @@ class ChatRoomActivity : BaseSelectImageActivity() {
 
     private fun initView() {
         toolBar.title.text = intent.getStringExtra(EXTRA_NAME)
+        toolBar.rightTextView.setOnClickListener {
+            ChatMorePopWindow(this, {
+                toast("TODO")
+            }, {
+                toast("TODO")
+            }, {
+                IProfilePlugin.get().launchProfileActivity(this, contactAccount)
+            })
+        }
         inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg, ::sendMessageAudio, ::sendMessageSticker)
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
             stackFromEnd = true
