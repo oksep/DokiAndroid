@@ -30,8 +30,7 @@ class LaunchActivity : BaseActivity() {
         if (IAdminPlugin.get().launchDevelopingPage(this)) {
             finish()
         } else {
-            // delayToHomeWithPermissionCheck()
-            delayToHome()
+            delayToHomeWithPermissionCheck()
         }
     }
 
