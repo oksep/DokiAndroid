@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeLog
-import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.message.chatroom.ChatRoomActivity
+import com.dokiwa.dokidoki.message.dialog.KickOutDialog
 import com.dokiwa.dokidoki.message.home.MessageFragment
 import com.dokiwa.dokidoki.message.im.IMLoginStatus
 import com.dokiwa.dokidoki.message.im.IMService
@@ -30,7 +30,7 @@ class MessagePlugin : IMessagePlugin {
             IMService.subscribeLoginStatus().subscribe({
                 Log.d(TAG, "online status changed -> $it")
                 if (it == IMLoginStatus.KICK_OUT) {
-                    ILoginPlugin.get().logOut(context)
+                    KickOutDialog.launch(context)
                 }
             }, {
                 Log.e(TAG, "online status error", it)
