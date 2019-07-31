@@ -9,6 +9,7 @@ import com.dokiwa.dokidoki.center.plugin.location.ILocationPlugin
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.center.plugin.update.IUpdatePlugin
 import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
@@ -54,6 +55,7 @@ interface FeaturePlugin {
             inMap(context, IFeedPlugin::class.java)
             inMap(context, IUpdatePlugin::class.java)
             inMap(context, ILocationPlugin::class.java)
+            inMap(context, IRelationshipPlugin::class.java)
         }
 
         fun initMultiProcessPlugin(context: Context) {
