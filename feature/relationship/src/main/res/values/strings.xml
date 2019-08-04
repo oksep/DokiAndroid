@@ -9,4 +9,5 @@
 
     <string name="relation_black_list">黑名单</string>
     <string name="relation_black_list_empty">黑名单空空如也~</string>
+    <string name="relation_black_dialog_message">确认取消对TA的屏蔽吗</string>
 </resources>

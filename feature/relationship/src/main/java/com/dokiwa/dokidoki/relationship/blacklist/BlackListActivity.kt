@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
@@ -76,9 +77,25 @@ class BlackListActivity : TranslucentActivity() {
                 IProfilePlugin.get().launchProfileActivity(this, it)
             }
         }
+        adapter.setOnItemLongClickListener { adapter, view, position ->
+            (adapter.getItem(position) as? UserProfile)?.let { profile ->
+                AlertDialog.Builder(this)
+                    .setTitle(R.string.tip)
+                    .setMessage(R.string.relation_black_dialog_message)
+                    .setPositiveButton(R.string.confirm) { d, _ ->
+                        adapter.remove(position)
+                        Api.get(RelationApi::class.java).delFromBlackList(profile.userId).subscribeApi(this)
+                        d.cancel()
+                    }
+                    .setNegativeButton(R.string.cancel) { d, _ ->
+                        d.cancel()
+                    }
+                    .show()
+            }
+            true
+        }
         recyclerView.adapter = adapter
     }
-
 
     private fun ensureData() {
         if (data.isEmpty()) {
