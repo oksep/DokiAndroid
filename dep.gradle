@@ -4,8 +4,8 @@ builds.packageName          = 'com.dokiwa.dokidoki'
 builds.compileSdkVersion    = 28
 builds.minSdkVersion        = 21
 builds.targetSdkVersion     = 28
-builds.versionCode          = 4
-builds.versionName          = '0.0.4'
+builds.versionCode          = 5
+builds.versionName          = '0.0.5'
 builds.renderScriptTarget   = 21
 ext.builds = builds
 
