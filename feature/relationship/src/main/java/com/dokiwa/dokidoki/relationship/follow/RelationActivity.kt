@@ -1,4 +1,4 @@
-package com.dokiwa.dokidoki.relationship.activity
+package com.dokiwa.dokidoki.relationship.follow
 
 import android.content.Context
 import android.content.Intent

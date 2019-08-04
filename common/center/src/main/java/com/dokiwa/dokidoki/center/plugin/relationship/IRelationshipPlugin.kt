@@ -17,4 +17,6 @@ interface IRelationshipPlugin : FeaturePlugin {
     }
 
     fun launchRelationshipActivity(context: Context, isFollowing: Boolean)
+
+    fun launchBlackListActivity(context: Context)
 }

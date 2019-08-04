@@ -54,7 +54,7 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
         }
 
         entranceBlackList.setOnClickListener {
-            IProfilePlugin.get().launchCreateProfileActivity(requireContext(), null)
+            IRelationshipPlugin.get().launchBlackListActivity(requireContext())
         }
 
         entranceFeedback.setOnClickListener {

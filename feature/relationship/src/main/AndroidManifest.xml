@@ -4,7 +4,10 @@
 
     <application>
         <activity
-            android:name=".activity.RelationshipActivity"
+            android:name=".follow.RelationshipActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".blacklist.BlackListActivity"
             android:screenOrientation="portrait"/>
     </application>
 
