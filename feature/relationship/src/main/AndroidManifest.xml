@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".RelationshipActivity"
+            android:name=".activity.RelationshipActivity"
             android:screenOrientation="portrait"/>
     </application>
 

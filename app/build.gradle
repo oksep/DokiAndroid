@@ -146,6 +146,7 @@ dependencies {
     implementationFeature(':location')
     implementationFeature(':message')
     implementationFeature(':uikit')
+    implementationFeature(':relationship')
 
     // admin feature for debug
     debugImplementation project(':admin')
