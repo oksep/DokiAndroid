@@ -58,7 +58,7 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
         }
 
         entranceFeedback.setOnClickListener {
-            requireContext().toast("TODO")
+            IRelationshipPlugin.get().launchFeedbackActivity(requireContext())
         }
 
         entranceSettings.setOnClickListener {

@@ -27,4 +27,8 @@ interface RelationApi {
     @FormUrlEncoded
     @POST("/api/blacklist/v1/del")
     fun delFromBlackList(@Field("user_id") userId: Int): Single<JsonElement>
+
+    @FormUrlEncoded
+    @POST("/api/doki/v1/feedback")
+    fun feedback(@Field("content") content: String): Single<JsonElement>
 }

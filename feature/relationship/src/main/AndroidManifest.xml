@@ -9,6 +9,10 @@
         <activity
             android:name=".blacklist.BlackListActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".feedback.FeedbackActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

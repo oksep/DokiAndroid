@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".feedback.FeedbackActivity">
+
+    <com.dokiwa.dokidoki.ui.view.AppToolBar
+        android:id="@+id/toolBar"
+        style="@style/AppToolBar.Dark.Icon.Left"
+        android:background="@drawable/ui_bg_toolbar"
+        android:elevation="0dp"
+        app:toolbar_leftIcon="@drawable/ui_ic_back_light"
+        app:toolbar_titleTextColor="@color/white"
+        app:toolbar_titleText="@string/relation_feedback_title"
+        app:toolbar_rightText="@string/relation_feedback_submit"
+        app:toolbar_rightTextColor="@color/white"
+        app:toolbar_rightTextVisibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_margin="16dp"
+        android:maxEms="200"
+        android:gravity="start"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:padding="5dp"
+        android:textColor="#333"
+        android:textSize="14sp">
+
+        <requestFocus/>
+    </EditText>
+
+    <LinearLayout
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/counts"
+            android:text="1"
+            android:textColor="@color/dd_red"
+            android:textSize="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="SmallSp"/>
+
+        <TextView
+            android:text=" / 200"
+            android:textColor="#666"
+            android:textSize="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="SmallSp"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="@string/relation_feedback_desc"
+        android:textSize="12sp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/dd_gray_dark"
+        android:gravity="bottom|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
