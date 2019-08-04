@@ -126,6 +126,11 @@ object SocialHelper {
         return SocialHelper.shareEntity(context, type, shareEntity)
     }
 
+    fun shareWebPage(context: Activity, type: SocialType, title: String, summary: String, webUrl: String, icon: Bitmap): Single<Unit> {
+        val shareEntity = ShareEntity.createWebInfo(ShareEntity.SHARE_TYPE_WEB, title, summary, webUrl, icon)
+        return SocialHelper.shareEntity(context, type, shareEntity)
+    }
+
     fun shareEntity(context: Activity, type: SocialType, shareEntity: ShareEntity): Single<Unit> {
         return Single.unsafeCreate<Unit> { emitter ->
             val callback = obtainShareCallback(emitter)

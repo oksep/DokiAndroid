@@ -105,5 +105,8 @@
     <string name="profile_home_mine_blacklist">黑名单</string>
     <string name="profile_home_mine_feedback">问题反馈</string>
     <string name="profile_home_mine_settings">设置</string>
+    <string name="profile_home_mine_share_website">https://dokiwa.com/</string>
+    <string name="profile_home_mine_share_title">DokiDoki - 泛二次元脱单交友平台</string>
+    <string name="profile_home_mine_share_content">推荐你一款好用的二次元向社交软件，脱单找对象就靠TA啦</string>
 
 </resources>

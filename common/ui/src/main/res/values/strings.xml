@@ -12,4 +12,12 @@
     <string name="ui_oops_net_error">与世界的链接中断了?\n(网络连接中断)</string>
     <string name="ui_oops_label">Oops!</string>
 
+    <!--share-->
+    <string name="ui_share_title">一键分享到</string>
+    <string name="ui_share_channel_qq">QQ</string>
+    <string name="ui_share_channel_wx_friend">微信</string>
+    <string name="ui_share_channel_wx_circle">朋友圈</string>
+    <string name="ui_share_channel_weibo">微博</string>
+    <string name="ui_share_cancel">取消</string>
+
 </resources>

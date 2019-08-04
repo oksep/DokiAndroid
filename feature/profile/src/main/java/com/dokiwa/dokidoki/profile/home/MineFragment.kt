@@ -1,9 +1,12 @@
 package com.dokiwa.dokidoki.profile.home
 
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
+import com.dokiwa.dokidoki.center.dialog.ShareDialog
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toast
@@ -16,6 +19,7 @@ import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.api.RelationCount
+import com.dokiwa.dokidoki.social.SocialHelper
 import kotlinx.android.synthetic.main.fragment_home_mine.*
 import kotlinx.android.synthetic.main.view_mine_counts.*
 
@@ -66,7 +70,7 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
         }
 
         entranceShare.setOnClickListener {
-            requireContext().toast("TODO")
+            showShareDialog()
         }
 
         timelineCountContainer.setOnClickListener {
@@ -182,5 +186,22 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
     private fun setTimeLineCount(count: Int) {
         timelineCount.text = count.toString()
         countsModel.timeLineCount = count
+    }
+
+    private fun showShareDialog() {
+        ShareDialog(requireActivity()) {
+            SocialHelper.shareWebPage(
+                requireActivity(),
+                it,
+                getString(R.string.profile_home_mine_share_title),
+                getString(R.string.profile_home_mine_share_content),
+                getString(R.string.profile_home_mine_share_website),
+                (ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.share_logo,
+                    null
+                ) as BitmapDrawable).bitmap
+            ).subscribeApi(this)
+        }.show()
     }
 }

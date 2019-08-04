@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tip"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/ui_share_title"
+        android:textColor="@color/text_dft"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/shareChannelQQ"
+        app:layout_constraintTop_toBottomOf="@id/tip"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/shareChannelWxFriend"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        android:layout_marginTop="20dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ui_ic_share_qq"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"/>
+
+    <TextView
+        android:textSize="14sp"
+        android:text="@string/ui_share_channel_qq"
+        android:textColor="#73767E"
+        app:layout_constraintTop_toBottomOf="@+id/shareChannelQQ"
+        app:layout_constraintLeft_toLeftOf="@+id/shareChannelQQ"
+        app:layout_constraintRight_toRightOf="@+id/shareChannelQQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/shareChannelWxFriend"
+        app:layout_constraintTop_toBottomOf="@id/tip"
+        app:layout_constraintLeft_toRightOf="@+id/shareChannelQQ"
+        app:layout_constraintRight_toLeftOf="@+id/shareChannelWxCircle"
+        android:layout_marginTop="20dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ui_ic_share_wx_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"/>
+
+    <TextView
+        android:id="@+id/shareChannelWxFriendText"
+        android:textSize="14sp"
+        android:text="@string/ui_share_channel_wx_friend"
+        android:textColor="#73767E"
+        app:layout_constraintTop_toBottomOf="@+id/shareChannelWxFriend"
+        app:layout_constraintLeft_toLeftOf="@+id/shareChannelWxFriend"
+        app:layout_constraintRight_toRightOf="@+id/shareChannelWxFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/shareChannelWxCircle"
+        app:layout_constraintTop_toBottomOf="@id/tip"
+        app:layout_constraintLeft_toRightOf="@id/shareChannelWxFriend"
+        app:layout_constraintRight_toLeftOf="@+id/shareChannelWeibo"
+        android:layout_marginTop="20dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ui_ic_share_wx_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"/>
+
+    <TextView
+        android:textSize="14sp"
+        android:text="@string/ui_share_channel_wx_circle"
+        android:textColor="#73767E"
+        app:layout_constraintTop_toBottomOf="@+id/shareChannelWxCircle"
+        app:layout_constraintLeft_toLeftOf="@+id/shareChannelWxCircle"
+        app:layout_constraintRight_toRightOf="@+id/shareChannelWxCircle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/shareChannelWeibo"
+        app:layout_constraintTop_toBottomOf="@id/tip"
+        app:layout_constraintLeft_toRightOf="@id/shareChannelWxCircle"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:background="?selectableItemBackgroundBorderless"
+        android:src="@drawable/ui_ic_share_weibo"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"/>
+
+    <TextView
+        android:textSize="14sp"
+        android:text="@string/ui_share_channel_weibo"
+        android:textColor="#73767E"
+        app:layout_constraintTop_toBottomOf="@+id/shareChannelWeibo"
+        app:layout_constraintLeft_toLeftOf="@+id/shareChannelWeibo"
+        app:layout_constraintRight_toRightOf="@+id/shareChannelWeibo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        app:layout_constraintTop_toTopOf="@+id/shareCancelBtn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/line_light"
+        android:layout_width="0dp"
+        android:layout_height="1px"/>
+
+    <TextView
+        android:id="@+id/shareCancelBtn"
+        app:layout_constraintTop_toBottomOf="@+id/shareChannelWxFriendText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="?selectableItemBackground"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/ui_share_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
