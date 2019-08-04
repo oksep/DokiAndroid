@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.relationship.api
 
+import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.GET
 
@@ -13,4 +14,7 @@ interface RelationApi {
 
     @GET("/api/relation/v1/follower-list")
     fun getFollowerList(): Single<FollowerWrapList>
+
+    @GET("/api/relation/v1/status-list")
+    fun geRelationStateList(): Single<JsonElement>
 }

@@ -10,6 +10,8 @@ import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
+import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
@@ -68,15 +70,17 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
         }
 
         timelineCountContainer.setOnClickListener {
-            requireContext().toast("TODO")
+            this.profileWrap?.profile?.run {
+                ITimelinePlugin.get().launchUserTimelineActivity(requireActivity(), userId.toString(), nickname)
+            }
         }
 
         followCountContainer.setOnClickListener {
-            requireContext().toast("TODO")
+            IRelationshipPlugin.get().launchRelationshipActivity(requireContext(), true)
         }
 
         fansCountContainer.setOnClickListener {
-            requireContext().toast("TODO")
+            IRelationshipPlugin.get().launchRelationshipActivity(requireContext(), false)
         }
 
         ensureData()

@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName
  * Created by Septenary on 2019-08-04.
  */
 data class FollowerWrapList(
-    @SerializedName("follower_list") val followerList: List<UserProfile>
+    @SerializedName("follower_list") val followerList: List<UserProfile>?
 )
 
 data class FollowingWrapList(
-    @SerializedName("following_list") val followingList: List<UserProfile>
+    @SerializedName("following_list") val followingList: List<UserProfile>?
 )

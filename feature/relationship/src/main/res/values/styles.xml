@@ -1,3 +1,22 @@
 <resources>
+    <style name="RelationTabStyle" parent="Widget.Design.TabLayout">
+        <item name="tabMode">fixed</item>
+        <item name="tabUnboundedRipple">true</item>
+        <item name="tabIndicator">@drawable/relation_tab_indicator</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabIndicatorColor">@color/dd_red</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabPaddingStart">6dp</item>
+        <item name="tabPaddingEnd">6dp</item>
+        <item name="tabTextColor">#A4AAB3</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/TimelineHomeTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/dd_red</item>
+    </style>
+
+    <style name="TimelineHomeTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#A4AAB3</item>
+    </style>
 
 </resources>

@@ -16,5 +16,5 @@ interface IRelationshipPlugin : FeaturePlugin {
         }
     }
 
-    fun launchRelationshipActivity(context: Context)
+    fun launchRelationshipActivity(context: Context, isFollowing: Boolean)
 }

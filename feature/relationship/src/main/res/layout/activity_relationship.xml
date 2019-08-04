@@ -24,12 +24,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBar"
-        tools:background="@color/dd_green"
+        android:elevation="@dimen/ui_toolbar_elevation"
+        style="@style/RelationTabStyle"
+        android:background="@color/white"
+        android:orientation="horizontal"
         android:layout_width="0dp"
         android:layout_height="56dp"/>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:background="@color/white"
         android:id="@+id/viewPager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

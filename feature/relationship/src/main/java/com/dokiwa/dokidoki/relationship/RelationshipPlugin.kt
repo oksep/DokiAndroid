@@ -8,7 +8,7 @@ import com.dokiwa.dokidoki.relationship.activity.RelationshipActivity
  * Created by Septenary on 2019-08-01.
  */
 class RelationshipPlugin : IRelationshipPlugin {
-    override fun launchRelationshipActivity(context: Context) {
-        RelationshipActivity.launch(context)
+    override fun launchRelationshipActivity(context: Context, isFollowing: Boolean) {
+        RelationshipActivity.launch(context, isFollowing)
     }
 }

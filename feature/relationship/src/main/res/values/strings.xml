@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">relationship</string>
+
+    <string name="relation_following_empty">你还没有关注任何人喔～</string>
+    <string name="relation_follower_empty">还没有人关注你喔～</string>
+    <string name="relation_tab_follower">关注我的</string>
+    <string name="relation_tab_following">我关注的</string>
 </resources>
