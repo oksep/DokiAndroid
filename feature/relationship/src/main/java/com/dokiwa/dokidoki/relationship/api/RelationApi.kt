@@ -31,4 +31,10 @@ interface RelationApi {
     @FormUrlEncoded
     @POST("/api/doki/v1/feedback")
     fun feedback(@Field("content") content: String): Single<JsonElement>
+
+    @GET("/api/report/v1/type-list")
+    fun getReportTypeList(): Single<ReportTypeList>
+
+    @GET("/api/reportType.json")
+    fun getLocalReportTypeList(): Single<ReportTypeList>
 }

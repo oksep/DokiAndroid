@@ -21,6 +21,7 @@
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="tip">提示</string>
+    <string name="submit">提交</string>
 
     <!--error toast-->
     <string name="center_toast_loading_failed_retry">加载失败，请重试</string>

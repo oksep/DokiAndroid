@@ -26,3 +26,9 @@ data class BlackListPage(
     override val nextQ: Map<String, String?>
         get() = this.next?.toRetrofitQueryMap() ?: mapOf()
 }
+
+data class ReportTypeList(
+    @SerializedName("type_list") val typeList: List<ReportType>
+) : IApiModel {
+    data class ReportType(val type: Int, val text: String) : IApiModel
+}

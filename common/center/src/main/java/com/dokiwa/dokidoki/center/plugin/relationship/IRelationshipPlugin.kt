@@ -20,5 +20,11 @@ interface IRelationshipPlugin : FeaturePlugin {
 
     fun launchBlackListActivity(context: Context)
 
+    fun launchBanReportUserActivity(context: Context, userUUID: String, reportId: String)
+
+    fun launchBanReportTimelineActivity(context: Context, userUUID: String, reportId: String)
+
+    fun launchBanReportCommentActivity(context: Context, userUUID: String, reportId: String)
+
     fun launchFeedbackActivity(context: Context)
 }

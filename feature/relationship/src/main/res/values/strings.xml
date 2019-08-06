@@ -14,4 +14,12 @@
     <string name="relation_feedback_desc">如果文字描述不清楚，您也可以邮件发送问题至\n service@dokiwa.com或者加入QQ群870278209反馈</string>
     <string name="relation_feedback_submit">提交</string>
     <string name="relation_feedback_title">问题反馈</string>
+
+    <string name="relation_ban_report">举报用户</string>
+    <string name="relation_ban_report_reason">举报原因</string>
+    <string name="relation_ban_report_reason_tip">( 恶意举报将导致封号 )</string>
+    <string name="relation_ban_report_reason_addon">补充说明</string>
+    <string name="relation_ban_report_reason_addon_tip">( 可不填 )</string>
+    <string name="relation_ban_report_no_reason">请选择举报原因</string>
+
 </resources>

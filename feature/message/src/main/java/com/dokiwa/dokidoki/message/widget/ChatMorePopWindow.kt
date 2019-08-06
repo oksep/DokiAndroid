@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupWindow
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
+import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
 import com.dokiwa.dokidoki.message.R
 
 class ChatMorePopWindow(
@@ -24,6 +25,7 @@ class ChatMorePopWindow(
         }
         contentView.findViewById<View>(R.id.tipOffBtn).setOnClickListener {
             dismiss()
+            IRelationshipPlugin.get().launchBanReportUserActivity(context, contactAccount, contactAccount)
         }
         contentView.findViewById<View>(R.id.profileBtn).setOnClickListener {
             dismiss()

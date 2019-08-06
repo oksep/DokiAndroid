@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".feedback.FeedbackActivity">
+
+    <com.dokiwa.dokidoki.ui.view.AppToolBar
+        android:id="@+id/toolBar"
+        style="@style/AppToolBar.Dark.Icon.Left"
+        android:background="@drawable/ui_bg_toolbar"
+        android:elevation="0dp"
+        app:toolbar_leftIcon="@drawable/ui_ic_back_light"
+        app:toolbar_titleTextColor="@color/white"
+        app:toolbar_titleText="@string/relation_ban_report"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@+id/toolBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="106dp">
+
+                <com.dokiwa.dokidoki.ui.view.RoundBorderImageView
+                    android:id="@+id/avatar"
+                    tools:src="@drawable/ui_ic_avatar_default_female"
+                    app:borderColor="@color/dd_gray_light"
+                    app:borderWidth="1dp"
+                    tools:borderColor="@color/dd_green"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    tools:text="@tools:sample/lorem"
+                    android:textColor="#333"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="@color/dd_window"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relation_ban_report_reason"
+                    android:textColor="#FF333333"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relation_ban_report_reason_tip"
+                    android:textColor="@color/text_tip"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:divider="@drawable/relation_divider_report"
+                android:showDividers="middle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:orientation="vertical"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="@color/dd_window"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="42dp">
+
+                <TextView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relation_ban_report_reason_addon"
+                    android:textColor="#FF333333"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:layout_marginStart="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/relation_ban_report_reason_addon_tip"
+                    android:textColor="@color/text_tip"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_margin="16dp"
+                android:maxEms="200"
+                android:gravity="start"
+                android:background="@drawable/relation_bg_report_edit"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:padding="5dp"
+                android:textColor="#333"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:gravity="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/counts"
+                    android:text="0"
+                    android:textColor="@color/dd_red"
+                    android:textSize="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="SmallSp"/>
+
+                <TextView
+                    android:text=" / 200"
+                    android:textColor="#666"
+                    android:textSize="10sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:ignore="SmallSp"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="74dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_margin="15dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/ui_bg_btn_gradient_red"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

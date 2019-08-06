@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
+import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import io.reactivex.Single
 
 /**
  * Created by Septenary on 2019/1/2.
@@ -28,6 +30,8 @@ interface IProfilePlugin : FeaturePlugin {
     fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog
 
     fun launchSearchUserActivity(context: Context)
+
+    fun getUserProfile(uuid: String): Single<UserProfileWrap>
 
     companion object {
         fun get(): IProfilePlugin {

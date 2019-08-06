@@ -10,6 +10,10 @@
             android:name=".blacklist.BlackListActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".blacklist.BanReportActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".feedback.FeedbackActivity"
             android:windowSoftInputMode="adjustPan|stateAlwaysVisible"
             android:screenOrientation="portrait"/>
