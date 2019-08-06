@@ -12,14 +12,17 @@
         android:id="@+id/filterSearch"
         android:background="?selectableItemBackground"
         android:drawablePadding="6dp"
-        android:padding="8dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
         android:layout_gravity="center_horizontal"
         android:drawableStart="@drawable/feed_ic_sift"
         android:text="@string/feed_more_filter_search"
         android:textSize="12sp"
         android:textColor="#666"
+        android:minWidth="110dp"
+        android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp"/>
 
     <View
         android:background="@color/dd_gray_middle"
@@ -29,14 +32,17 @@
     <TextView
         android:id="@+id/accurateSearch"
         android:background="?selectableItemBackground"
-        android:padding="8dp"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
         android:drawablePadding="6dp"
         android:layout_gravity="center_horizontal"
         android:drawableStart="@drawable/feed_ic_search"
         android:textSize="12sp"
         android:textColor="#666"
         android:text="@string/feed_more_accurate_search"
+        android:gravity="center"
+        android:minWidth="110dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp"/>
 
 </LinearLayout>
