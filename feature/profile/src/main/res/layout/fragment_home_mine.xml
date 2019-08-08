@@ -157,6 +157,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
+    <View
+        app:layout_constraintLeft_toLeftOf="@+id/realNameCertifyTextView"
+        app:layout_constraintTop_toTopOf="@+id/realNameCertifyTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/realNameCertifyTextView"
+        app:layout_constraintRight_toRightOf="@+id/eduCertifyStatusTextView"
+        android:id="@+id/certifyContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
     <TextView
         android:id="@+id/entranceUserPage"
         app:layout_constraintTop_toTopOf="@+id/avatar"

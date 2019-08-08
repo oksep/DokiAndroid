@@ -19,6 +19,7 @@ import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.api.RelationCount
+import com.dokiwa.dokidoki.profile.certification.CertificationActivity
 import com.dokiwa.dokidoki.social.SocialHelper
 import kotlinx.android.synthetic.main.fragment_home_mine.*
 import kotlinx.android.synthetic.main.view_mine_counts.*
@@ -85,6 +86,10 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
 
         fansCountContainer.setOnClickListener {
             IRelationshipPlugin.get().launchRelationshipActivity(requireContext(), false)
+        }
+
+        certifyContainer.setOnClickListener {
+            CertificationActivity.launch(requireContext())
         }
 
         ensureData()

@@ -86,14 +86,17 @@ data class UserProfile(
     @Parcelize
     data class Identification(
         val name: String,
-        val number: String
+        val number: String,
+        val status: Int = 0
     ) : IApiModel, Parcelable
 
     @Parcelize
     data class Education(
         val education: String,
         @SerializedName("graduation_year") val graduationYear: Int,
-        val school: String
+        val school: String,
+        @SerializedName("show_school") val showSchool: Boolean = true,
+        val status: Int = 0
     ) : IApiModel, Parcelable
 
     @Parcelize

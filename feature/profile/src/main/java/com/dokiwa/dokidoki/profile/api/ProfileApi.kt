@@ -79,4 +79,7 @@ interface ProfileApi {
 
     @GET("/api/ufeed/v1/me")
     fun getTimeLineJson(): Single<JsonElement>
+
+    @GET("/api/certification/v1/me")
+    fun getCertification(): Single<CertificationWrap>
 }
