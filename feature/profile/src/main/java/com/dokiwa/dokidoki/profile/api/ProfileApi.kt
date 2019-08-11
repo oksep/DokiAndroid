@@ -5,6 +5,7 @@ import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.google.gson.JsonElement
 import io.reactivex.Single
+import org.json.JSONException
 import retrofit2.http.*
 
 /**
@@ -90,4 +91,15 @@ interface ProfileApi {
         @Field("number") number: String,
         @Field("image") image: String = ""
     ): Single<IdCertifyResult>
+
+    @FormUrlEncoded
+    @POST("/api/certification-education/v1/update")
+    fun updateCertifyEducation(
+        @Field("name") name: String,
+        @Field("number") number: String,
+        @Field("education") education: Int,
+        @Field("graduation_year") graduationYear: Int,
+        @Field("school") school: String = "",
+        @Field("image") image: String = ""
+    ): Single<JSONException>
 }

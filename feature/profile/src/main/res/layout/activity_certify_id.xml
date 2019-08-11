@@ -13,7 +13,7 @@
         style="@style/AppToolBar.Icon.Left"
         android:background="@drawable/ui_bg_toolbar"
         android:elevation="@dimen/ui_toolbar_elevation"
-        app:toolbar_titleText="@string/profile_certify_mine"
+        app:toolbar_titleText="@string/profile_certify_identify_title"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"/>
 

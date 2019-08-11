@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.profile.certification
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -48,29 +49,60 @@ class CertificationActivity : TranslucentActivity() {
     private fun setData(data: CertificationWrap) {
         Log.d(TAG, "load certification -> $data")
         val certification = data.certification
-        if (certification.identification?.status == CERTIFY_STATUS_SUCCESS) {
-            val identification = certification.identification
-            identifyCertifyDesc.text = "${identification?.name}\n${identification?.number}"
-            identifyCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_dft))
-            identifyCertifyBtn.visibility = View.GONE
-        } else {
-            identifyCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_tip))
-            identifyCertifyBtn.visibility = View.VISIBLE
-            identifyCertifyBtn.setOnClickListener {
-                IdCertifyActivity.launch(this)
+        when {
+            certification.identification?.status == CERTIFY_STATUS_SUCCESS -> {
+                val identification = certification.identification
+                identifyCertifyDesc.text = "${identification?.name}\n${identification?.number}"
+                identifyCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_dft))
+                identifyCertifyBtn.visibility = View.GONE
+            }
+            certification.identification?.status == CERTIFY_STATUS_ING -> {
+                identifyCertifyDesc.setText(R.string.profile_certify_ing)
+                identifyCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.dd_red))
+                identifyCertifyBtn.visibility = View.GONE
+            }
+            else -> {
+                identifyCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_tip))
+                identifyCertifyBtn.visibility = View.VISIBLE
+                identifyCertifyBtn.setOnClickListener {
+                    IdCertifyActivity.launch(this)
+                }
             }
         }
 
-        if (certification.education?.status == CERTIFY_STATUS_SUCCESS) {
-            val education = certification.education
-            eduCertifyDesc.text = "${education?.education}\n${education?.school}"
-            eduCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_dft))
-            eduCertifyBtn.visibility = View.GONE
-        } else {
-            eduCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_tip))
-            eduCertifyBtn.visibility = View.VISIBLE
-            eduCertifyBtn.setOnClickListener {
-                toast("todo")
+        when {
+            certification.education?.status == CERTIFY_STATUS_SUCCESS -> {
+                val education = certification.education
+                eduCertifyDesc.text = "${education?.education}\n${education?.school}"
+                eduCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_dft))
+                eduCertifyBtn.visibility = View.GONE
+            }
+            certification.identification?.status == CERTIFY_STATUS_ING -> {
+                eduCertifyDesc.setText(R.string.profile_certify_ing)
+                eduCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.dd_red))
+                eduCertifyBtn.visibility = View.GONE
+            }
+            else -> {
+                eduCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_tip))
+                eduCertifyBtn.visibility = View.VISIBLE
+                eduCertifyBtn.setOnClickListener {
+                    if (certification.identification?.status != CERTIFY_STATUS_SUCCESS) {
+                        toast(R.string.profile_certify_identify_first)
+                    } else {
+                        EduCertifyActivity.launch(this)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            IdCertifyActivity.REQUEST_CODE, EduCertifyActivity.REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    loadData()
+                }
             }
         }
     }

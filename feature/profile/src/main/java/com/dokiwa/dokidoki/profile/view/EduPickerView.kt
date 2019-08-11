@@ -66,11 +66,11 @@ open class EduPickerView : ConstraintLayout {
         this.cb?.invoke(currentValue.value)
     }
 
-    fun show() {
+    private fun show() {
         this.animate().translationY(0f).start()
     }
 
-    fun hide() {
+    private fun hide() {
         this.animate().translationY(height.toFloat()).start()
     }
 

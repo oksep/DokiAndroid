@@ -27,9 +27,9 @@ object SimpleUploader {
     }
 
     enum class ImageType(val type: String) {
-        AVATAR("avatar"),
-        PICTURE("picture"),
-        PRIVATE("private")
+        AVATAR("avatar"), // 头像
+        PICTURE("picture"), // 展示墙照片
+        PRIVATE("private") // 私有照片，如：身份证照片、学历照片。此类型照片无法被一般用户访问
     }
 
     data class UploadImageResult(val image: Image) {

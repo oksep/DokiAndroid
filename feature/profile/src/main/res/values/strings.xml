@@ -114,7 +114,10 @@
     <string name="profile_certify_todo">去认证</string>
     <string name="profile_certify_not_available">未认证</string>
     <string name="profile_certify_identify_title">实名认证</string>
+    <string name="profile_certify_ing">认证中</string>
+    <string name="profile_certify_identify_first">请先完成实名认证</string>
     <string name="profile_certify_edu_title">学历认证</string>
+
     <string name="profile_certify_id_certify_tip">请如实填写本人信息，否则驳回</string>
     <string name="profile_certify_id_certify_id_title">身份证号</string>
     <string name="profile_certify_id_certify_id_hint">身份证号码</string>
@@ -122,5 +125,23 @@
     <string name="profile_certify_id_certify_name_title">姓名</string>
     <string name="profile_certify_id_certify_zhima_tip">提交成功后，进入芝麻认证服务</string>
     <string name="profile_certify_id_certify_zhima_success">实名认证成功</string>
+
+    <string name="profile_certify_edu_certify_name"><![CDATA[<font color=#FF3264>*</font> 姓名]]></string>
+    <string name="profile_certify_edu_certify_number">证书编号</string>
+    <string name="profile_certify_edu_certify_education"><![CDATA[<font color=#FF3264>*</font> 认证学历]]></string>
+    <string name="profile_certify_edu_certify_year"><![CDATA[<font color=#FF3264>*</font> 毕业时间]]></string>
+    <string name="profile_certify_edu_certify_school"><![CDATA[<font color=#FF3264>*</font> 认证学校]]></string>
+    <string name="profile_certify_edu_certify_name_hint">学历证书上的名字</string>
+    <string name="profile_certify_edu_certify_number_hint">学历证书编号(如有)</string>
+    <string name="profile_certify_edu_certify_education_hint">请选择你的学历</string>
+    <string name="profile_certify_edu_certify_year_hint">请选择你的毕业时间</string>
+    <string name="profile_certify_edu_certify_school_hint">与证书保持一致</string>
+    <string name="profile_certify_edu_certify_image">上传证书</string>
+    <string name="profile_certify_edu_certify_image_choose">选择证书</string>
+    <string name="profile_certify_edu_certify_image_tip">照片需要清晰可见，严禁 ps 处理</string>
+    <string name="profile_certify_edu_certify_tip">
+        1、若是国内学历请提供毕业证书编号，通常为18位，不知道的可咨询发证学校\n2、若是国外学历请提供学历认证编号，教留服认后的内容，例如：美[2018]00001，[]可用其他符号或者空格代替，务必前后区分开来。
+    </string>
+    <string name="profile_certify_submitted">已经提交审核</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.dokiwa.dokidoki.profile.certification
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -26,8 +25,10 @@ class IdCertifyActivity : TranslucentActivity() {
 
     companion object {
 
-        fun launch(context: Context) {
-            context.startActivity(Intent(context, IdCertifyActivity::class.java))
+        internal const val REQUEST_CODE = 0x0001
+
+        fun launch(context: Activity) {
+            context.startActivityForResult(Intent(context, IdCertifyActivity::class.java), REQUEST_CODE)
         }
     }
 

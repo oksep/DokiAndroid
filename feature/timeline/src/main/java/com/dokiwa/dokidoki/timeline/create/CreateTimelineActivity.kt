@@ -163,8 +163,8 @@ class CreateTimelineActivity : BaseSelectImageActivity() {
             override fun onDisplayImage(context: Context, view: ImageView, item: SelectImage) {
                 val imageView = view as EditableRoundImage
                 if (item.type == SelectImage.TYPE_SELECT) {
-                    imageView.setImageResource(R.drawable.timeline_ic_pictures_add)
-                    imageView.setBackgroundResource(R.drawable.timeline_bg_pictures_add)
+                    imageView.setImageResource(R.drawable.ui_ic_pictures_add)
+                    imageView.setBackgroundResource(R.drawable.ui_bg_pictures_add)
                     imageView.showEditIcon(false)
                     imageView.setDragAble(false)
                 } else {

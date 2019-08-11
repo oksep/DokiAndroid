@@ -56,6 +56,10 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".certification.EduCertifyActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

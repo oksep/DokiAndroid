@@ -152,13 +152,6 @@ data class UserProfile(
     fun getReadableBirthday(): String? {
         return this.birthday.birthdayToReadableString()
     }
-
-    private fun Int.educationToString(context: Context): String? {
-        Edu.cases.firstOrNull { it.value == this }?.let {
-            return context.getString(it.textRes)
-        }
-        return ""
-    }
 }
 
 object Gender {
@@ -184,4 +177,11 @@ open class Edu(val value: Int, @StringRes val textRes: Int) {
             Edu(PHD, R.string.center_profile_edu_phd)
         )
     }
+}
+
+fun Int.educationToString(context: Context): String? {
+    Edu.cases.firstOrNull { it.value == this }?.let {
+        return context.getString(it.textRes)
+    }
+    return ""
 }

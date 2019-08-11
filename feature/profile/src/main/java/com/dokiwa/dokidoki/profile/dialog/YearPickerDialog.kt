@@ -6,37 +6,38 @@ import android.graphics.Color
 import android.view.ViewGroup
 import com.dokiwa.dokidoki.center.dialog.BottomDialog
 import com.dokiwa.dokidoki.profile.R
-import com.dokiwa.dokidoki.profile.view.EduPickerView
+import com.dokiwa.dokidoki.profile.view.DatePickerView
+import java.util.*
 
 /**
- * Created by Septenary on 2019-06-08.
+ * Created by Septenary on 2019-08-11.
  */
-class EduPickerDialog(
+class YearPickerDialog(
     context: Activity,
-    private val edu: Int,
+    private val year: Int,
     private val callback: (Int) -> Unit
 ) : BottomDialog(context) {
 
-
     companion object {
-        fun create(context: Activity, edu: Int, callback: (Int) -> Unit): Dialog {
-            return EduPickerDialog(context, edu, callback)
+        fun create(context: Activity, year: Int, callback: (Int) -> Unit): Dialog {
+            return YearPickerDialog(context, year, callback)
         }
     }
 
     init {
-        val pickerView = object : EduPickerView(context) {
+        val pickerView = object : DatePickerView(context) {
             override fun cancel() {
-                this@EduPickerDialog.cancel()
+                this@YearPickerDialog.cancel()
             }
 
             override fun confirm() {
-                this@EduPickerDialog.cancel()
+                this@YearPickerDialog.cancel()
             }
         }
-        pickerView.setCurrent(edu)
-        pickerView.setOnNumberSelectListener { edu ->
-            callback.invoke(edu)
+        Calendar.getInstance().set(Calendar.YEAR, year)
+        pickerView.initView(booleanArrayOf(true, false, false, false, false, false))
+        pickerView.setOnDateSelectListener {
+            callback.invoke(it.get(Calendar.YEAR))
         }
         pickerView.setBackgroundColor(Color.WHITE)
         setContentView(

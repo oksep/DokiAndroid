@@ -15,7 +15,7 @@ import java.util.*
 /**
  * Created by Septenary on 2019/2/12.
  */
-class DatePickerView @JvmOverloads constructor(
+open class DatePickerView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
@@ -25,7 +25,7 @@ class DatePickerView @JvmOverloads constructor(
         return format.format(date)
     }
 
-    fun initView() {
+    fun initView(type: BooleanArray = booleanArrayOf(true, true, true, false, false, false)) {
         val currentDate = Calendar.getInstance()
 
         selectDate.time = currentDate.time
@@ -43,16 +43,16 @@ class DatePickerView @JvmOverloads constructor(
             .setDate(currentDate)
             .setRangDate(startDate, currentDate)
             .setLayoutRes(R.layout.view_picker_date) { v ->
+                v.findViewById<View>(R.id.pickerCancelBtn).setOnClickListener {
+                    cancel()
+                }
                 v.findViewById<View>(R.id.pickerConfirmBtn).setOnClickListener {
                     timePickerView?.returnData()
-                    hide()
-                }
-                v.findViewById<View>(R.id.pickerCancelBtn).setOnClickListener {
-                    hide()
+                    confirm()
                 }
             }
             .setOutSideCancelable(false)
-            .setType(booleanArrayOf(true, true, true, false, false, false))
+            .setType(type)
             .isCenterLabel(false) // 是否只显示中间选中项的label文字，false 则每项item全部都带有label。
             .isDialog(false)
             .setDecorView(this)
@@ -79,5 +79,13 @@ class DatePickerView @JvmOverloads constructor(
 
     fun hide() {
         this.animate().translationY(height.toFloat()).start()
+    }
+
+    open fun cancel() {
+        hide()
+    }
+
+    open fun confirm() {
+        hide()
     }
 }
