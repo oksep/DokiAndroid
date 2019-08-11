@@ -63,6 +63,10 @@ class BanReportActivity : TranslucentActivity() {
             }
         }
 
+        radioGroup.setOnCheckedChangeListener { _, _ ->
+            submitBtn.isEnabled = true
+        }
+
         loadData(Api.get(RelationApi::class.java).getReportTypeList(), true)
 
         loadUserData()

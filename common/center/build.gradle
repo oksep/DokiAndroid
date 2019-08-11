@@ -40,6 +40,9 @@ android {
         // 蚂蚁认证
         buildConfigField "String", "SESAME_CERT_ID", "\"300002982\""
 
+        // 芝麻认证
+        buildConfigField "String", "ZHIMA_APP_ID", "\"20000067\""
+
         // 友盟
         buildConfigField "String", "UMENG_KEY", "\"5c30b59ab465f52965000468\""
 

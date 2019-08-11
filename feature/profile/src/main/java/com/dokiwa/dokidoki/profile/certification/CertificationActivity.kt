@@ -57,7 +57,7 @@ class CertificationActivity : TranslucentActivity() {
             identifyCertifyDesc.setTextColor(ContextCompat.getColor(this, R.color.text_tip))
             identifyCertifyBtn.visibility = View.VISIBLE
             identifyCertifyBtn.setOnClickListener {
-                toast("todo")
+                IdCertifyActivity.launch(this)
             }
         }
 

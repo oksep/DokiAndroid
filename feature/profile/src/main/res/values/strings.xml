@@ -14,7 +14,7 @@
     <string name="profile_create_profile_nick_tip">我的昵称是</string>
     <string name="profile_create_profile_nick_tip2">*注册后昵称可随时修改</string>
     <string name="profile_create_profile_nick_hint">我的昵称</string>
-    <string name="profile_create_profile_nick_error">请填写合法的昵称 </string>
+    <string name="profile_create_profile_nick_error">请填写合法的昵称</string>
     <string name="profile_create_profile_birth_tip">我的生日是</string>
     <string name="profile_create_profile_birth_tip2">*生日确认后无法修改</string>
     <string name="profile_create_profile_height_tip">我的身高是</string>
@@ -115,5 +115,12 @@
     <string name="profile_certify_not_available">未认证</string>
     <string name="profile_certify_identify_title">实名认证</string>
     <string name="profile_certify_edu_title">学历认证</string>
+    <string name="profile_certify_id_certify_tip">请如实填写本人信息，否则驳回</string>
+    <string name="profile_certify_id_certify_id_title">身份证号</string>
+    <string name="profile_certify_id_certify_id_hint">身份证号码</string>
+    <string name="profile_certify_id_certify_name_hint">身份证上的名字</string>
+    <string name="profile_certify_id_certify_name_title">姓名</string>
+    <string name="profile_certify_id_certify_zhima_tip">提交成功后，进入芝麻认证服务</string>
+    <string name="profile_certify_id_certify_zhima_success">实名认证成功</string>
 
 </resources>

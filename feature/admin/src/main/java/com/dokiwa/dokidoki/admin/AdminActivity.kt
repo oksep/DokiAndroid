@@ -12,6 +12,7 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.ext.toPrettyJson
+import com.dokiwa.dokidoki.center.ext.toUriAndResolveDeepLink
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
@@ -122,6 +123,10 @@ internal class AdminActivity : BaseActivity() {
             Api.get(AdminApi::class.java).getTimelineComment("909").subscribeApi(this, {
                 showApiContent(text, it)
             })
+        },
+        Item("实名认证回调") { text ->
+            "dokidoki://dokiwa.com/certify?sp=zhima&ceritfy_id=12params=ol7QUHPW0kljxPUq7is1lBh3OeainrE9cO%2F6B2myPhqLU3JhUn0pBVMwy1P02YLJEmSjulvNGE1yNrDCjo29iR2yTHfy%2BF5JJfTaqiNdDEoFV8JU1lLkUmASCbX9mCh1asgka0WelXr98ZezDXUMju%2F3A9Z2hJF%2BHIE8GU8SR9M%3D&sign=LrSQ8rd8BCvyXx%2BavVMctprgo3PeelTmwwKCwBwUC4ouKrQ4MKOkpR7jIRmjF9cDLHUO5607tc7fbVYTtgGTdRIz83hOOQJFcD8A%2BCEDdXA%2BDRWyaqHbvAH%2FxsQ3MHd%2Fk4HIk1NHX%2FPoA3V1UdFUgJEW5FL6znlRyaFhLIqntEc%3D"
+                .toUriAndResolveDeepLink(this, false)
         }
     )
 

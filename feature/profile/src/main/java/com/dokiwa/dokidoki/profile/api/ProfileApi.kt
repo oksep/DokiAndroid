@@ -82,4 +82,12 @@ interface ProfileApi {
 
     @GET("/api/certification/v1/me")
     fun getCertification(): Single<CertificationWrap>
+
+    @FormUrlEncoded
+    @POST("/api/certification-identification/v1/update")
+    fun updateCertifyId(
+        @Field("name") name: String,
+        @Field("number") number: String,
+        @Field("image") image: String = ""
+    ): Single<IdCertifyResult>
 }

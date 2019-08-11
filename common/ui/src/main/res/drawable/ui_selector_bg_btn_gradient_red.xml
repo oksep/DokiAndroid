@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <ripple
+            android:color="?attr/colorControlHighlight">
+            <item android:id="@android:id/mask">
+                <shape android:shape="rectangle">
+                    <corners android:radius="22dp"/>
+                    <solid android:color="@color/white_20"/>
+                </shape>
+            </item>
+
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="22dp"/>
+                    <gradient
+                        android:startColor="@color/dd_yellow"
+                        android:endColor="@color/dd_red"/>
+                </shape>
+            </item>
+        </ripple>
+    </item>
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <corners android:radius="22dp"/>
+            <solid android:color="@color/dd_gray_middle"/>
+        </shape>
+    </item>
+</selector>
