@@ -9,6 +9,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Build;
+import android.text.TextUtils;
+import com.dokiwa.dokidoki.center.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -157,5 +159,27 @@ public class AppUtil {
             e.printStackTrace();
         }
         return sVerCode;
+    }
+
+    private static String sVerName = "";
+
+    /**
+     * 获取版本名称
+     */
+    public static String getVerName(Context context) {
+
+        if (!TextUtils.isEmpty(sVerName)) {
+            return sVerName;
+        }
+        try {
+            sVerName =
+                    context.getPackageManager()
+                            .getPackageInfo(context.getPackageName(), 0)
+                            .versionName;
+        } catch (Exception e) {
+            Log.INSTANCE.e("AppUtil", "get version name exception", e);
+        }
+        return sVerName;
+
     }
 }

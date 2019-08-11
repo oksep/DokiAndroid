@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.dokiwa.dokidoki.ui.view.AppToolBar
+        android:id="@+id/toolBar"
+        style="@style/AppToolBar.Icon.Left"
+        android:background="@drawable/ui_bg_toolbar"
+        android:elevation="@dimen/ui_toolbar_elevation"
+        app:toolbar_titleText="@string/profile_setting"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:background="@color/white"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_message_notify"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="@color/text_tip"
+                android:textSize="13sp"
+                android:text="@string/profile_setting_message_notify_tip"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_sound"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <include layout="@layout/view_profile_setting_line"/>
+
+            <FrameLayout
+                android:background="@color/white"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_vibration"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:textColor="@color/text_tip"
+                android:textSize="13sp"
+                android:text="@string/profile_setting_sound_vibration_tip"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_feed_recommend"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <include layout="@layout/view_profile_setting_line"/>
+
+            <FrameLayout
+                android:background="@color/white"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_receive_message_certify_only"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <Switch
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/bindPhoneNumberBtn"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:foreground="?selectableItemBackground"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:minHeight="42dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_phone"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    tools:text="1560****9567"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/profile_selector_bind_status"
+                    android:drawablePadding="8dp"
+                    android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <include layout="@layout/view_profile_setting_line"/>
+
+            <FrameLayout
+                android:id="@+id/bindWechatBtn"
+                android:background="@color/white"
+                android:foreground="?selectableItemBackground"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:minHeight="42dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_wechat"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    tools:text="已绑定"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/profile_selector_bind_status"
+                    android:drawablePadding="8dp"
+                    android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <include layout="@layout/view_profile_setting_line"/>
+
+            <FrameLayout
+                android:id="@+id/bindWeiboBtn"
+                android:background="@color/white"
+                android:foreground="?selectableItemBackground"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:minHeight="42dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_weibo"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    tools:text="已绑定"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/profile_selector_bind_status"
+                    android:drawablePadding="8dp"
+                    android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <include layout="@layout/view_profile_setting_line"/>
+
+            <FrameLayout
+                android:id="@+id/bindQQBtn"
+                android:background="@color/white"
+                android:foreground="?selectableItemBackground"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:minHeight="42dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_qq"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    tools:text="未绑定"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:enabled="false"
+                    android:textSize="14sp"
+                    android:textColor="@color/profile_selector_bind_status"
+                    android:drawablePadding="8dp"
+                    android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/clearCacheBtn"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:foreground="?selectableItemBackground"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:minHeight="42dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/text_dft"
+                    android:textSize="14sp"
+                    android:text="@string/profile_setting_clear_cache"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    tools:text="56MB"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/profile_selector_bind_status"
+                    android:drawablePadding="8dp"
+                    android:drawableEnd="@drawable/ui_ic_arrow_gray_right"
+                    tools:checked="true"/>
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/logoutBtn"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/ui_selector_bg_btn_gradient_red"
+                android:enabled="true"
+                android:text="@string/profile_setting_logout"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"/>
+            <TextView
+                android:id="@+id/version"
+                tools:text="v0.0.1(4)"
+                android:textSize="12sp"
+                android:textColor="@color/text_tip"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
