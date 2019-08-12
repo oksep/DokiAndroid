@@ -6,23 +6,34 @@ import android.util.Log
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.google.gson.annotations.SerializedName
+import com.umeng.analytics.MobclickAgent
+import com.umeng.commonsdk.UMConfigure
 import io.reactivex.Single
 import retrofit2.http.GET
 
-class AppCenter private constructor(val context: Context) {
+@SuppressLint("StaticFieldLeak")
+object AppCenter {
 
-    companion object {
+    lateinit var context: Context
 
-        @SuppressLint("StaticFieldLeak")
-        private lateinit var appCenter: AppCenter
-
-        fun init(context: Context) {
-            appCenter = AppCenter(context)
-            appCenter.getApiConfig()
-        }
-
-        fun get() = appCenter
+    fun init(context: Context) {
+        this.context = context
+        initUmeng()
     }
+
+    private fun initUmeng() {
+        val appkey = BuildConfig.UMENG_KEY
+        val channel = "debug"
+        val deviceType = UMConfigure.DEVICE_TYPE_PHONE
+        val pushSecret = ""
+        UMConfigure.init(context, appkey, channel, deviceType, pushSecret)
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
+        if (BuildConfig.DEBUG || true) {
+            MobclickAgent.setCatchUncaughtExceptions(false)
+        }
+    }
+
+    fun get() = this
 
     private var apiConfig: ApiConfig = ApiConfig(imageSizeLimit = 1024 * 1024 * 24)
 

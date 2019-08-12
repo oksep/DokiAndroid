@@ -44,7 +44,7 @@ android {
         buildConfigField "String", "ZHIMA_APP_ID", "\"20000067\""
 
         // 友盟
-        buildConfigField "String", "UMENG_KEY", "\"5c30b59ab465f52965000468\""
+        buildConfigField "String", "UMENG_KEY", "\"5d518003570df31910000646\""
 
         // 高德地图
         buildConfigField "String", "AMAP_KEY", "\"\""
@@ -100,4 +100,7 @@ dependencies {
 
     implementation project(":ui")
     implementation project(":social")
+
+    implementation  'com.umeng.umsdk:analytics:8.0.0'
+    implementation  'com.umeng.umsdk:common:2.0.0'
 }
