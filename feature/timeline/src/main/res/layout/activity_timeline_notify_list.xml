@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".notify.TimelineNotifyListActivity"
+    android:id="@+id/root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.dokiwa.dokidoki.ui.view.HomeToolBar
+        android:id="@+id/toolBar"
+        style="@style/AppToolBar.Icon.Left"
+        android:background="@drawable/ui_bg_toolbar"
+        android:elevation="@dimen/ui_toolbar_elevation"
+        app:toolbar_titleText="@string/timeline_notify"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.dokiwa.dokidoki.ui.view.RefreshRecyclerView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/refreshRecyclerView"/>
+
+</LinearLayout>

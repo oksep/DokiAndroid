@@ -23,4 +23,6 @@
     <string name="timeline_create_publish_failed">发布失败</string>
     <string name="timeline_create_publish_success">发布成功</string>
 
+    <string name="timeline_notify">通知</string>
+
 </resources>

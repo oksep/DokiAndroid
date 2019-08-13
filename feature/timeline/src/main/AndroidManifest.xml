@@ -13,5 +13,8 @@
         <activity
             android:name=".personal.UserTimelineListActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".notify.TimelineNotifyListActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

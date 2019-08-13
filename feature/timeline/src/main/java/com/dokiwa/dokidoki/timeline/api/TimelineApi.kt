@@ -54,4 +54,7 @@ interface TimelineApi {
         @Field("position_latitude") positionLatitude: Double? = 0.0, // 纬度
         @Field("position_name") positionName: String? = "" // 位置名
     ): Single<JsonElement>
+
+    @GET("/api/notification/v1/me")
+    fun getNotification(): Single<TimelineNotification>
 }
