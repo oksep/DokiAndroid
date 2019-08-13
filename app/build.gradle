@@ -19,6 +19,8 @@ android {
 
         renderscriptTargetApi builds.renderScriptTarget
         renderscriptSupportModeEnabled true
+
+        multiDexKeepProguard file("multidexKeep.pro")
     }
 
     dataBinding {
@@ -150,4 +152,13 @@ dependencies {
 
     // admin feature for debug
     debugImplementation project(':admin')
+}
+
+// https://bugly.qq.com/docs/utility-tools/plugin-gradle-bugly/
+apply plugin: 'bugly'
+
+bugly {
+    appId = "7987fc1a55"
+    appKey = "ccf95304-e610-46ee-b48c-93a49a9a2917"
+    // debug = true
 }

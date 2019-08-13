@@ -9,7 +9,6 @@ import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.dialog.ShareDialog
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
-import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin

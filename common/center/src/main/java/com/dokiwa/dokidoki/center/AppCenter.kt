@@ -6,6 +6,7 @@ import android.util.Log
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.google.gson.annotations.SerializedName
+import com.tencent.bugly.crashreport.CrashReport
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 import io.reactivex.Single
@@ -19,6 +20,7 @@ object AppCenter {
     fun init(context: Context) {
         this.context = context
         initUmeng()
+        initBulgy()
     }
 
     private fun initUmeng() {
@@ -28,9 +30,11 @@ object AppCenter {
         val pushSecret = ""
         UMConfigure.init(context, appkey, channel, deviceType, pushSecret)
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
-        if (BuildConfig.DEBUG || true) {
-            MobclickAgent.setCatchUncaughtExceptions(false)
-        }
+        // MobclickAgent.setCatchUncaughtExceptions(BuildConfig.DEBUG)
+    }
+
+    private fun initBulgy() {
+        CrashReport.initCrashReport(context, BuildConfig.BUGLY_ID, false)
     }
 
     fun get() = this

@@ -34,8 +34,8 @@ android {
         buildConfigField "String", "IM_SECRET", "\"ffc44d46c714\""
 
         // bugly
-        buildConfigField "String", "BUGLY_ID", "\"900bcc52e8\""
-        buildConfigField "String", "BUBLY_KEY", "\"007a6062-0f10-4183-abde-7fa6fd3b4e55\""
+        buildConfigField "String", "BUGLY_ID", "\"7987fc1a55\""
+        buildConfigField "String", "BUBLY_KEY", "\"ccf95304-e610-46ee-b48c-93a49a9a2917\""
 
         // 蚂蚁认证
         buildConfigField "String", "SESAME_CERT_ID", "\"300002982\""
@@ -101,6 +101,11 @@ dependencies {
     implementation project(":ui")
     implementation project(":social")
 
+    // umeng
     implementation  'com.umeng.umsdk:analytics:8.0.0'
     implementation  'com.umeng.umsdk:common:2.0.0'
+
+    // bugly
+    implementation 'com.tencent.bugly:crashreport:2.8.6'
+    // implementation 'com.tencent.bugly:nativecrashreport:3.6.0'
 }
