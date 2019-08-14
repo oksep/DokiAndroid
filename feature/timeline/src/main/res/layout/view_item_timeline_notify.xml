@@ -1,76 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?selectableItemBackground"
-    android:padding="15dp"
-    android:clipToPadding="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:background="?selectableItemBackground">
 
-    <com.dokiwa.dokidoki.ui.view.RoundBorderImageView
+    <ImageView
         android:id="@+id/avatar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:borderColor="@color/dd_gray_light"
-        app:borderWidth="1dp"
-        tools:borderColor="@color/dd_green"
-        android:src="@drawable/ui_ic_avatar_default_female"
-        android:scaleType="centerCrop"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@tools:sample/avatars"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
 
     <TextView
         android:id="@+id/name"
-        app:layout_constraintTop_toTopOf="@+id/avatar"
         app:layout_constraintLeft_toRightOf="@+id/avatar"
-        app:layout_constraintRight_toLeftOf="@+id/moreBtn"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="5dp"
-        android:textColor="#A4AAB3"
-        android:textSize="14sp"
-        tools:text="DokiDoki酱"
-        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/avatar"
+        app:layout_constraintRight_toLeftOf="@+id/time"
+        android:layout_marginEnd="10dp"
+        tools:text="@tools:sample/lorem/random"
         android:maxLines="1"
         android:ellipsize="end"
+        android:textSize="16sp"
+        android:textColor="@color/text_dft"
+        android:layout_marginStart="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/time"
-        tools:text="刚刚活跃"
-        app:layout_constraintBottom_toBottomOf="@+id/avatar"
-        app:layout_constraintLeft_toLeftOf="@id/name"
+        tools:text="星期四"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
         android:textSize="12sp"
         android:textColor="#A4AAB3"
-        android:layout_marginBottom="1dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <ImageButton
-        android:id="@+id/moreBtn"
-        android:src="@drawable/timeline_ic_more"
-        android:scaleType="center"
-        android:background="?selectableItemBackgroundBorderless"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/avatar"
-        app:layout_constraintBottom_toBottomOf="@id/avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        tools:ignore="ContentDescription"/>
-
     <TextView
-        android:id="@+id/content"
-        app:layout_constraintTop_toBottomOf="@+id/avatar"
-        app:layout_constraintLeft_toLeftOf="@+id/name"
+        android:id="@+id/desc"
+        app:layout_constraintLeft_toRightOf="@+id/avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/avatar"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="我信你个鬼哦，你个糟老头子坏的很"
+        android:layout_marginEnd="10dp"
+        tools:text="老咸鱼更新了照片"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="14sp"
-        android:textColor="#666"
-        android:lineSpacingMultiplier="1.1"
-        android:layout_marginTop="8dp"
+        android:textColor="#A4AAB3"
+        android:layout_marginStart="10dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 

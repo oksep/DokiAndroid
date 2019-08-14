@@ -4,4 +4,8 @@
     <dimen name="timeline_divider_margin">0dp</dimen>
     <dimen name="timeline_comment_divider_height">1dp</dimen>
     <dimen name="timeline_comment_divider_margin">16dp</dimen>
+
+    <dimen name="timeline_notify_divider_height">0.5dp</dimen>
+    <dimen name="timeline_notify_divider_left">75dp</dimen>
+    <dimen name="timeline_notify_divider_right">0dp</dimen>
 </resources>
