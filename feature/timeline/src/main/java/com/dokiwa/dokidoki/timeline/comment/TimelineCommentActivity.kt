@@ -37,10 +37,17 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
 
     companion object {
         private const val EXTRA_TIMELINE = "extra.timeline"
+        private const val EXTRA_ID = "extra.id"
 
         fun launch(context: Context, data: Timeline) {
             context.startActivity(
                 Intent(context, TimelineCommentActivity::class.java).putExtra(EXTRA_TIMELINE, data)
+            )
+        }
+
+        fun launch(context: Context, id: String) {
+            context.startActivity(
+                Intent(context, TimelineCommentActivity::class.java).putExtra(EXTRA_ID, id)
             )
         }
     }
@@ -56,13 +63,30 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
 
         setContentView(R.layout.activity_timeline_comment)
 
-        this.timeline = intent.getParcelableExtra(EXTRA_TIMELINE) ?: return finish()
-
         KeyboardHeightProvider(this).attach(this)
 
-        initView()
+        loadTimelineData()
+    }
 
-        refresh()
+    private fun loadTimelineData() {
+        val timeline: Timeline? = intent.getParcelableExtra(EXTRA_TIMELINE)
+        val id: String? = intent.getStringExtra(EXTRA_ID) ?: intent.data?.getQueryParameter("ufeed_id")
+
+        if (timeline != null) {
+            this.timeline = timeline
+            initView()
+            refresh()
+        } else if (!id.isNullOrEmpty()) {
+            Api.get(TimelineApi::class.java).getTimeline(id).subscribeApi(this, {
+                this.timeline = it.ufeed
+                initView()
+                refresh()
+            }, {
+                toastApiException(it, R.string.load_failed)
+            })
+        } else {
+            return finish()
+        }
     }
 
     private fun initView() {
@@ -107,10 +131,10 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
     }
 
     private fun refresh() {
-        loadData()
+        loadCommentData()
     }
 
-    private fun loadData() {
+    private fun loadCommentData() {
 
         refreshRecyclerView.showLoading()
 
@@ -125,7 +149,7 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
             })
     }
 
-    private fun requestReply(content: String) {
+    private fun submitReply(content: String) {
         val replyToUser = editText.tag as? TimelineUser
         Api.get(TimelineApi::class.java)
             .createComment(timeline.id, replyToUser?.id, content)
@@ -170,7 +194,7 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
         editText.removeTextChangedListener(textChangeListener)
         editText.addTextChangedListener(textChangeListener)
         sendBtn.setOnClickListener {
-            requestReply(editText.text.toString())
+            submitReply(editText.text.toString())
         }
     }
 

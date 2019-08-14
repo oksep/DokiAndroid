@@ -16,6 +16,10 @@ data class TimelinePage(
         get() = this.next?.toRetrofitQueryMap() ?: mapOf()
 }
 
+data class SingleTimeline(
+    val ufeed: Timeline
+) : IApiModel
+
 @Parcelize
 data class Timeline(
     val id: String,

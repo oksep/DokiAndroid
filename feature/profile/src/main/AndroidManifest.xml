@@ -5,7 +5,17 @@
     <application>
         <activity
             android:name=".detail.ProfileDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:scheme="dokidoki"
+                    android:host="dokiwa.com"
+                    android:path="/user"/>
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".create.CreateProfileActivity"

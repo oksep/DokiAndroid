@@ -28,7 +28,7 @@ interface TimelineApi {
     ): Single<TimelinePage>
 
     @GET("/api/ufeed/v1/get")
-    fun getTimeline(@Query("ufeed_id") id: String): Single<Timeline>
+    fun getTimeline(@Query("ufeed_id") id: String): Single<SingleTimeline>
 
     @GET("/api/ufeed-comment/v1/list")
     fun getTimelineComment(

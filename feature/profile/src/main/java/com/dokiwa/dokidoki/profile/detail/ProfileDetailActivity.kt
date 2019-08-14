@@ -22,6 +22,7 @@ import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.gallery.GalleryActivity
+import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.edit.ProfileEditActivity
@@ -43,6 +44,7 @@ class ProfileDetailActivity : TranslucentActivity() {
     companion object {
         private const val EXTRA_UUID = "extra.user.uuid"
         private const val EXTRA_PROFILE = "extra.user.profile"
+        private const val TAG = "ProfileDetailActivity"
 
         fun launch(context: Context, uuid: String) {
             context.startActivity(
@@ -71,16 +73,25 @@ class ProfileDetailActivity : TranslucentActivity() {
     private fun loadData() {
         val profile: UserProfile? = intent.getParcelableExtra(EXTRA_PROFILE)
         val uuid = profile?.uuid ?: intent.getStringExtra(EXTRA_UUID)
+        val id = intent.data?.getQueryParameter("user_id")
 
         if (profile != null) {
             setData(UserProfileWrap(profile))
-            return
-        } else {
+        } else if (!uuid.isNullOrEmpty()) {
             Api.get(ProfileApi::class.java)
                 .getUserProfileByUUID(uuid)
                 .subscribeApiWithDialog(this, this, ::setData) {
                     toastApiException(it, R.string.center_toast_loading_failed_retry)
                 }
+        } else if (!id.isNullOrEmpty()) {
+            Api.get(ProfileApi::class.java)
+                .getUserProfileById(id)
+                .subscribeApiWithDialog(this, this, ::setData) {
+                    toastApiException(it, R.string.center_toast_loading_failed_retry)
+                }
+        } else {
+            Log.e(TAG, "no available arguments.")
+            finish()
         }
     }
 

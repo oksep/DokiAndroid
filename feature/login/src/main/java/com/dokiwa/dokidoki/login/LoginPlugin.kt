@@ -6,7 +6,6 @@ import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
-import com.dokiwa.dokidoki.center.ext.toUriAndResolveDeepLink
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
@@ -30,10 +29,6 @@ class LoginPlugin : ILoginPlugin {
 
     override fun launchLoginActivity(context: Context) {
         LoginActivity.launch(context)
-    }
-
-    override fun launchBindPhoneActivity(context: Context) {
-        "dokidoki://dokiwa.com/me/bind_phone".toUriAndResolveDeepLink(context, false)
     }
 
     override fun getLoginUserId(): Int? {

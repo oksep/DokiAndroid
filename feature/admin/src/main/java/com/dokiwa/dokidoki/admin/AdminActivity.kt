@@ -47,6 +47,15 @@ internal class AdminActivity : BaseActivity() {
     data class Item(val text: String, val clickListener: (String) -> Unit)
 
     private val list = listOf(
+        Item("Deeplink 用户资料页") {
+            "dokidoki://dokiwa.com/user?user_id=116".toUriAndResolveDeepLink(this, false)
+        },
+        Item("Deeplink 动态评论页") {
+            "dokidoki://dokiwa.com/ufeed?ufeed_id=894&comment_id=0&up_user_id=659".toUriAndResolveDeepLink(this, false)
+        },
+        Item("Deeplink 绑定手机号页面") {
+            "dokidoki://dokiwa.com/me/bind_phone".toUriAndResolveDeepLink(this, false)
+        },
         Item("测试账号登陆") {
             // 12345000001 - 12345000010
             ILoginPlugin.get().loginTestingAccount(this, "+8612345000007", "233333")
@@ -62,9 +71,6 @@ internal class AdminActivity : BaseActivity() {
         },
         Item("NIM 登出") {
             IMessagePlugin.get().logoutIM()
-        },
-        Item("绑定手机号页面") {
-            ILoginPlugin.get().launchBindPhoneActivity(this)
         },
         Item("角色创建页面") {
             IProfilePlugin.get().launchCreateProfileActivity(this, null)

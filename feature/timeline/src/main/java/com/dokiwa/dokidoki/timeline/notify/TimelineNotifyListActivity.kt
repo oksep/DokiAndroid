@@ -10,6 +10,7 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.ext.toUriAndResolveDeepLink
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.timeline.Log
 import com.dokiwa.dokidoki.timeline.R
@@ -51,6 +52,12 @@ class TimelineNotifyListActivity : TranslucentActivity() {
             loadData()
         }
         refreshRecyclerView.setAdapter(adapter)
+
+        adapter.setOnItemClickListener { adapter, view, position ->
+            (adapter.getItem(position) as? Notification)?.let {
+                it.uri.toUriAndResolveDeepLink(this, false)
+            }
+        }
         loadData()
     }
 

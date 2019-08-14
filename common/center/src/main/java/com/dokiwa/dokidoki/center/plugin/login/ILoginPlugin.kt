@@ -38,9 +38,6 @@ interface ILoginPlugin : FeaturePlugin {
     // 登出 (包括： doki 账号，NIM 账号)
     fun logOut(context: Context)
 
-    // 启动绑定手机号界面
-    fun launchBindPhoneActivity(context: Context)
-
     // 该方法在登录 doki 账号系统完成时调用
     // 该方法的实现，需要考虑 调用 message plugin 来登录 NIM 账号系统
     fun onLoginDokiComplete(profile: UserProfile, userToken: Parcelable?)
