@@ -1,11 +1,14 @@
 package com.dokiwa.dokidoki.message.im
 
+import com.dokiwa.dokidoki.message.home.TAG_STICKY
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.RecentContact
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo
+import java.util.*
+import kotlin.Comparator
 
 /**
  * Created by Septenary on 2019-07-11.
@@ -25,7 +28,8 @@ data class IMRecentMessage(
     val tag: Long?, // 获取标签
     val time: Long, // 获取最近一条消息的时间，单位为 s
     val unreadCount: Int, // 获取该联系人的未读消息条数
-    var contactUserInfo: NimUserInfo? // 联系人信息
+    var contactUserInfo: NimUserInfo?, // 联系人信息
+    val rawData: RecentContact
 )
 
 fun RecentContact.toRecentMessage(): IMRecentMessage {
@@ -43,6 +47,35 @@ fun RecentContact.toRecentMessage(): IMRecentMessage {
         tag,
         time / 1000,
         unreadCount,
-        getCacheNimUser(contactId)
+        getCacheNimUser(contactId),
+        this
     )
+}
+
+fun RecentContact.addTag(tag: Long) {
+    this.tag = this.tag or tag
+}
+
+fun RecentContact.removeTag(tag: Long) {
+    this.tag = this.tag and tag.inv()
+}
+
+fun RecentContact.hasTag(tag: Long): Boolean {
+    return this.tag and tag == tag
+}
+
+private val comp = Comparator<RecentContact> { o1, o2 ->
+    // 先比较置顶tag
+    val sticky = (o1.tag and TAG_STICKY) - (o2.tag and TAG_STICKY)
+    if (sticky != 0L) {
+        if (sticky > 0) -1 else 1
+    } else {
+        val time = o1.time - o2.time
+        if (time == 0L) 0 else if (time > 0) -1 else 1
+    }
+}
+
+fun List<RecentContact>.sortTo(): List<IMRecentMessage> {
+    Collections.sort(this, comp)
+    return this.map { it.toRecentMessage() }
 }

@@ -142,7 +142,7 @@ object IMService {
                 "get recent message",
                 emitter
             ) { list ->
-                list?.map { it.toRecentMessage() } ?: listOf()
+                list?.sortTo() ?: listOf()
             }
             NIMSDK.getMsgService().queryRecentContacts().setCallback(callback)
         }
@@ -152,8 +152,7 @@ object IMService {
         var tmp: Observer<List<RecentContact>>? = null
         return Observable.create<List<IMRecentMessage>> { emitter ->
             tmp = Observer { list ->
-                val l = list?.map { it.toRecentMessage() } ?: listOf()
-                emitter.onNext(l)
+                emitter.onNext(list?.sortTo() ?: listOf())
             }
             NIMSDK.getMsgServiceObserve().observeRecentContact(tmp, true)
         }.doOnDispose {
@@ -161,6 +160,14 @@ object IMService {
                 NIMSDK.getMsgServiceObserve().observeRecentContact(tmp, false)
             }
         }
+    }
+
+    fun deleteRecentMessage(recentMsg: IMRecentMessage) {
+        NIMSDK.getMsgService().deleteRecentContact(recentMsg.rawData)
+    }
+
+    fun updateRecentMessage(recentMsg: IMRecentMessage) {
+        NIMSDK.getMsgService().updateRecentAndNotify(recentMsg.rawData)
     }
     //endregion
 

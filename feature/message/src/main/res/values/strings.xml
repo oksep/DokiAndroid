@@ -15,4 +15,9 @@
     <string name="message_input_panel_record_cancel1">手指上滑，取消发送</string>
     <string name="message_input_panel_record_cancel2">松开手指，取消发送</string>
     <string name="message_input_panel_record_failed">录音失败，请重试</string>
+
+    <string name="message_recent_pin">置顶</string>
+    <string name="message_recent_un_pin">取消置顶</string>
+    <string name="message_recent_delete">删除</string>
+
 </resources>
