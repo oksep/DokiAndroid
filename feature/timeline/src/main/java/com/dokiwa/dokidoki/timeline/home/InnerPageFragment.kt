@@ -7,6 +7,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
 import com.dokiwa.dokidoki.timeline.Log
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
@@ -198,6 +199,10 @@ internal abstract class InnerPageFragment : BaseShareFragment(R.layout.fragment_
     }
 
     private fun onMoreClick(entity: TimelineAdapter.TimelineEntity) {
-        AlertDialog.Builder(requireContext()).setMessage("todo").create().show()
+        val options = arrayOf(getString(R.string.timeline_ban_report))
+        AlertDialog.Builder(requireContext()).setItems(options) { dialog, which ->
+            IRelationshipPlugin.get()
+                .launchBanReportTimelineActivity(requireContext(), entity.timeline.user.uuid, entity.timeline.id)
+        }.create().show()
     }
 }
