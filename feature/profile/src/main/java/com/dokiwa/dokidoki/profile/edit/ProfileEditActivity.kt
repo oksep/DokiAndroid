@@ -110,7 +110,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         this.newProfile = newProfile.copy()
         avatar.glideAvatar(newProfile)
         nameEditText.setText(newProfile.nickname)
-        incomeEditText.setText(if (newProfile.income > 0) newProfile.income.toString() else null)
+        incomeEditText.setText(if (newProfile.income > 0) newProfile.income.toString() else "0")
         gender.setText(
             when (newProfile.gender) {
                 Gender.FEMALE -> getString(R.string.profile_edit_gender_female)
