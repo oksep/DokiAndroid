@@ -72,8 +72,8 @@ object Api {
         simpleClient
             .newBuilder()
             .connectTimeout(15L, TimeUnit.SECONDS)
-            .writeTimeout(5L, TimeUnit.SECONDS)
-            .readTimeout(5L, TimeUnit.SECONDS)
+            .writeTimeout(10L, TimeUnit.SECONDS)
+            .readTimeout(10L, TimeUnit.SECONDS)
             .addInterceptor(headerInterceptor)
             .addInterceptor(queryInterceptor)
             .addInterceptor(tokenInterceptor)
@@ -94,24 +94,35 @@ object Api {
 
     // dok api
     fun <T> get(clazz: Class<T>, baseUrl: String = BASE_URL): T {
-        val client = dokiClient.newBuilder().build()
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(CustomConverterFactory.create())
-            .client(client)
+            .client(dokiClient)
+            .build()
+            .create(clazz)
+    }
+
+    fun <T> getNoTimeOut(clazz: Class<T>, baseUrl: String = BASE_URL): T {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
+            .addConverterFactory(CustomConverterFactory.create())
+            .client(dokiClient.newBuilder().also {
+                it.writeTimeout(0, TimeUnit.MILLISECONDS)
+                it.readTimeout(0, TimeUnit.MILLISECONDS)
+            }.build())
             .build()
             .create(clazz)
     }
 
     // simple api
     fun <T> getSimpleClient(clazz: Class<T>, baseUrl: String): T {
-        val client = dokiClient.newBuilder().build()
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
+            .client(dokiClient)
             .build()
             .create(clazz)
     }

@@ -63,7 +63,7 @@ object SimpleUploader {
 
         val body2 = MultipartBody.Part.createFormData("type", imageType.type)
 
-        return Api.get(UploadApi::class.java).uploadFile(body1, body2)
+        return Api.getNoTimeOut(UploadApi::class.java).uploadFile(body1, body2)
     }
 
 }
