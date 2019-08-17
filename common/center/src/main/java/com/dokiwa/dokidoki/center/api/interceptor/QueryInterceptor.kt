@@ -49,7 +49,7 @@ class QueryInterceptor(
         val formBodyList = (chain.request().body() as? FormBody)?.run {
             val list = mutableListOf<Pair<String, String>>()
             for (i in 0 until this.size()) {
-                list.add(Pair(this.encodedName(i), this.encodedValue(i)))
+                list.add(Pair(this.encodedName(i), URLEncoder.encode(this.value(i) ?: "", "UTF-8")))
             }
             list
         } ?: mutableListOf()

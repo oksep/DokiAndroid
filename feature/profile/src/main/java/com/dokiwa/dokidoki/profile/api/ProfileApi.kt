@@ -55,7 +55,7 @@ interface ProfileApi {
         @Field("city_code") cityCode: String? = "",
         @Field("industry_id") industryCode: Int? = 0,
         @Field("income") income: Int? = 0,
-        @Field(value = "intro", encoded = false) intro: String? = "",
+        @Field("intro") intro: String? = "",
         @Field("pictures") pictures: String? = "",
         @Field("keywords") keywords: String? = ""
     ): Single<UserProfileWrap>
