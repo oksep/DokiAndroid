@@ -84,7 +84,7 @@ class BlackListActivity : TranslucentActivity() {
                     .setMessage(R.string.relation_black_dialog_message)
                     .setPositiveButton(R.string.confirm) { d, _ ->
                         adapter.remove(position)
-                        Api.get(RelationApi::class.java).delFromBlackList(profile.userId).subscribeApi(this)
+                        Api.get(RelationApi::class.java).delFromBlackList(profile.userId.toString()).subscribeApi(this)
                         d.cancel()
                     }
                     .setNegativeButton(R.string.cancel) { d, _ ->

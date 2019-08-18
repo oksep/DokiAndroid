@@ -17,6 +17,7 @@ package com.dokiwa.dokidoki.center.ext
  */
 
 import android.content.Context
+import android.view.Gravity
 import android.widget.Toast
 import androidx.annotation.StringRes
 import com.dokiwa.dokidoki.center.Log
@@ -28,7 +29,10 @@ import com.dokiwa.dokidoki.center.api.exception.ApiException
  * @param duration Toast duration, defaults to [Toast.LENGTH_SHORT]
  */
 fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT): Toast {
-    return Toast.makeText(this, text, duration).apply { show() }
+    return Toast.makeText(this, text, duration).apply {
+        setGravity(Gravity.CENTER, 0, 0)
+        show()
+    }
 }
 
 /**
@@ -38,7 +42,10 @@ fun Context.toast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT): Toast
  * @param duration Toast duration, defaults to [Toast.LENGTH_SHORT]
  */
 fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT): Toast {
-    return Toast.makeText(this, resId, duration).apply { show() }
+    return Toast.makeText(this, resId, duration).apply {
+        setGravity(Gravity.CENTER, 0, 0)
+        show()
+    }
 }
 
 fun Context.toastApiException(throwable: Throwable, @StringRes resId: Int): Toast {

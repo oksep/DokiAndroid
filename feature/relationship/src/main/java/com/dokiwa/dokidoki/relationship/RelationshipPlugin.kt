@@ -1,11 +1,15 @@
 package com.dokiwa.dokidoki.relationship
 
 import android.content.Context
+import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
+import com.dokiwa.dokidoki.relationship.api.RelationApi
 import com.dokiwa.dokidoki.relationship.blacklist.BanReportActivity
 import com.dokiwa.dokidoki.relationship.blacklist.BlackListActivity
 import com.dokiwa.dokidoki.relationship.feedback.FeedbackActivity
 import com.dokiwa.dokidoki.relationship.follow.RelationshipActivity
+import io.reactivex.Single
 
 /**
  * Created by Septenary on 2019-08-01.
@@ -33,5 +37,29 @@ class RelationshipPlugin : IRelationshipPlugin {
 
     override fun launchFeedbackActivity(context: Context) {
         FeedbackActivity.launch(context)
+    }
+
+    override fun isInBlackList(uuid: String): Single<Boolean> {
+        return IProfilePlugin.get()
+            .getUserProfile(uuid)
+            .flatMap { Api.get(RelationApi::class.java).isInBlackList(it.profile.userId.toString()) }
+            .map {
+                // TODO: 2019-08-19 @Septenary 黑名单状态
+                false
+            }
+    }
+
+    override fun addToBlackList(uuid: String): Single<Boolean> {
+        return IProfilePlugin.get()
+            .getUserProfile(uuid)
+            .flatMap { Api.get(RelationApi::class.java).addToBlackList(it.profile.userId.toString()) }
+            .map { true }
+    }
+
+    override fun delFromBlackList(uuid: String): Single<Boolean> {
+        return IProfilePlugin.get()
+            .getUserProfile(uuid)
+            .flatMap { Api.get(RelationApi::class.java).delFromBlackList(it.profile.userId.toString()) }
+            .map { true }
     }
 }

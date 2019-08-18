@@ -9,6 +9,11 @@
     <string name="message_chat_room_edit_hint">打个招呼吧…</string>
     <string name="message_chat_room_audio_duration">%d \"</string>
     <string name="message_chat_ban">屏蔽TA</string>
+    <string name="message_chat_ban_message">确认屏蔽TA吗</string>
+    <string name="message_chat_baned">屏蔽成功</string>
+    <string name="message_chat_un_ban">取消屏蔽</string>
+    <string name="message_chat_un_ban_message">确认取消对TA的屏蔽吗</string>
+    <string name="message_chat_un_baned">已取消对TA的屏蔽</string>
     <string name="message_chat_tip_off">举报TA</string>
     <string name="message_chat_profile">查看资料</string>
 

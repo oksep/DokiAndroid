@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.center.plugin.relationship
 import android.content.Context
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
+import io.reactivex.Single
 
 /**
  * Created by Septenary on 2019/8/1.
@@ -27,4 +28,10 @@ interface IRelationshipPlugin : FeaturePlugin {
     fun launchBanReportCommentActivity(context: Context, userUUID: String, reportId: String)
 
     fun launchFeedbackActivity(context: Context)
+
+    fun isInBlackList(uuid: String): Single<Boolean>
+
+    fun addToBlackList(uuid: String): Single<Boolean>
+
+    fun delFromBlackList(uuid: String): Single<Boolean>
 }

@@ -51,6 +51,8 @@ class ChatRoomActivity : BaseSelectImageActivity() {
 
     private val adapter by lazy { ChatRoomAdapter(contactAccount, ::onResendMsgClick) }
 
+    private val morePopWindow by lazy { ChatMorePopWindow(this, contactAccount) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,6 +66,8 @@ class ChatRoomActivity : BaseSelectImageActivity() {
 
         loadData()
 
+        morePopWindow.preLoad()
+
         IMAudioController.attach(this) {
             adapter.updateRawData(it)
         }
@@ -72,7 +76,7 @@ class ChatRoomActivity : BaseSelectImageActivity() {
     private fun initView() {
         toolBar.title.text = intent.getStringExtra(EXTRA_NAME)
         toolBar.rightIconView.setOnClickListener {
-            ChatMorePopWindow(this, contactAccount).showAsDropDown(it, 0, 0)
+            morePopWindow.showAsDropDown(it, 0, 0)
         }
         inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg, ::sendMessageAudio, ::sendMessageSticker)
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
@@ -108,7 +112,7 @@ class ChatRoomActivity : BaseSelectImageActivity() {
         IMService.attachChatRoomSession(this.lifecycle, contactAccount)
 
         IMService.subscribeChatRoomIncomingMessage().subscribe(::onReceiveNewMessage) {
-            Log.e(TAG, "subscribeNimUserInfoList error", it)
+            Log.e(TAG, "subscribeChatRoomIncomingMessage error", it)
         }.bind(this)
 
         IMService.subscribeNimUserInfoList().subscribe(::onUpdateRecentMessageNimUserInfo) {
