@@ -54,4 +54,10 @@ class ProfilePlugin : IProfilePlugin {
     override fun getUserProfile(uuid: String): Single<UserProfileWrap> {
         return Api.get(ProfileApi::class.java).getUserProfileByUUID(uuid)
     }
+
+    override fun isNotifyEnable(): Boolean = ProfileSP.getBoolean(ProfileSP.KEY_NOTIFY_ENABLE, false)
+
+    override fun isSoundEnable(): Boolean = ProfileSP.getBoolean(ProfileSP.KEY_SOUND_ENABLE, false)
+
+    override fun isVibrateEnable(): Boolean = ProfileSP.getBoolean(ProfileSP.KEY_VIBRATE_ENABLE, false)
 }

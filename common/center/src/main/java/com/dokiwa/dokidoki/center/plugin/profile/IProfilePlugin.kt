@@ -33,6 +33,12 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun getUserProfile(uuid: String): Single<UserProfileWrap>
 
+    fun isNotifyEnable(): Boolean
+
+    fun isSoundEnable(): Boolean
+
+    fun isVibrateEnable(): Boolean
+
     companion object {
         fun get(): IProfilePlugin {
             return FeaturePlugin.get(IProfilePlugin::class.java)

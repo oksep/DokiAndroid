@@ -43,6 +43,7 @@
                     android:layout_height="wrap_content"/>
 
                 <Switch
+                    android:id="@+id/notifySwitch"
                     android:layout_gravity="end|center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,6 +81,7 @@
                     android:layout_height="wrap_content"/>
 
                 <Switch
+                    android:id="@+id/soundSwitch"
                     android:layout_gravity="end|center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,6 +109,7 @@
                     android:layout_height="wrap_content"/>
 
                 <Switch
+                    android:id="@+id/vibrateSwitch"
                     android:layout_gravity="end|center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
