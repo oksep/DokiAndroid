@@ -80,14 +80,9 @@ class BlackListActivity : TranslucentActivity() {
         adapter.setOnItemLongClickListener { adapter, view, position ->
             (adapter.getItem(position) as? UserProfile)?.let { profile ->
                 AlertDialog.Builder(this)
-                    .setTitle(R.string.tip)
-                    .setMessage(R.string.relation_black_dialog_message)
-                    .setPositiveButton(R.string.confirm) { d, _ ->
+                    .setItems(arrayOf(getString(R.string.relation_black_dialog_message))) { d, _ ->
                         adapter.remove(position)
                         Api.get(RelationApi::class.java).delFromBlackList(profile.userId.toString()).subscribeApi(this)
-                        d.cancel()
-                    }
-                    .setNegativeButton(R.string.cancel) { d, _ ->
                         d.cancel()
                     }
                     .show()

@@ -9,7 +9,7 @@
 
     <string name="relation_black_list">黑名单</string>
     <string name="relation_black_list_empty">黑名单空空如也~</string>
-    <string name="relation_black_dialog_message">确认取消对TA的屏蔽吗</string>
+    <string name="relation_black_dialog_message">取消对TA的屏蔽</string>
 
     <string name="relation_feedback_desc">如果文字描述不清楚，您也可以邮件发送问题至\n service@dokiwa.com或者加入QQ群870278209反馈</string>
     <string name="relation_feedback_submit">提交</string>
