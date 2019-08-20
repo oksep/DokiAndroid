@@ -85,7 +85,6 @@
     <string name="profile_edit_alert_message">如需修改请联系客服</string>
     <string name="profile_edit_tags_count">当前标签(%d / 6)</string>
     <string name="profile_edit_tags_max_tip">最多只能添加 6 个关键词</string>
-    <string name="profile_edit_pic_del_message">确认删除该图片吗?</string>
     <string name="profile_edit_crop_failed">图片剪裁失败</string>
     <string name="profile_edit_save_success">资料修改成功</string>
     <string name="profile_edit_save_failed">资料修改失败</string>

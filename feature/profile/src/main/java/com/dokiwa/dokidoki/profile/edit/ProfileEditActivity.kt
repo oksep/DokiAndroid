@@ -19,6 +19,7 @@ import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile.*
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.center.plugin.web.IWebPlugin
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader.ImageType
 import com.dokiwa.dokidoki.center.uploader.SimpleUploader.UploadImageResult
@@ -45,6 +46,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_profile_edit.*
 import kotlinx.android.synthetic.main.view_profile_edit_pictures.*
 import kotlinx.android.synthetic.main.view_profile_edit_pictures_empty.*
+import kotlinx.android.synthetic.main.view_profile_edit_pictures_empty.view.*
 
 private const val TAG = "ProfileEditActivity"
 
@@ -142,6 +144,9 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
             picturesEmpty.visibility = View.VISIBLE
             uploadPicturesBtn.visibility = View.VISIBLE
             picturesCounts.text = getString(R.string.profile_edit_pictures_counts, 0)
+            picturesEmpty.guideText.setOnClickListener {
+                IWebPlugin.get().launchWebActivity(this, "https://dokiwa.com/tutorial/")
+            }
         } else {
             picturesEmpty.visibility = View.GONE
             (pictures as DragNineGridImageView<Picture>).apply {
@@ -160,18 +165,13 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         }
     }
 
-    private fun showEnsureRemovePictureDialog(tag: Picture?) {
-        AlertDialog.Builder(this@ProfileEditActivity, R.style.AppCompatAlertDialogStyle)
-            .setTitle(R.string.tip)
-            .setMessage(R.string.profile_edit_pic_del_message)
-            .setNegativeButton(R.string.cancel) { d, _ -> d.cancel() }
-            .setPositiveButton(R.string.confirm) { d, _ ->
-                d.cancel()
-                val list = newProfile.pictures?.toMutableList()
-                list?.remove(tag)
-                setUpViews(newProfile.copy(pictures = list))
-            }
-            .create().show()
+    private fun removePicture(tag: Picture?) {
+        val confirmCallback = {
+            val list = newProfile.pictures?.toMutableList()
+            list?.remove(tag)
+            setUpViews(newProfile.copy(pictures = list))
+        }
+        confirmCallback()
     }
 
     private val picturesAdapter by lazy {
@@ -188,7 +188,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
                     null
                 ) as EditableRoundImage).apply {
                     onCloseListener = {
-                        showEnsureRemovePictureDialog(editTag as? Picture)
+                        removePicture(editTag as? Picture)
                     }
                 }
             }
