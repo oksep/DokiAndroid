@@ -1,19 +1,24 @@
 package com.dokiwa.dokidoki.timeline.home
 
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.ext.glideAvatar
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.Timeline
+import com.dokiwa.dokidoki.timeline.api.TimelineApi
 import kotlinx.android.synthetic.main.view_item_timeline.view.*
 
 open class TimelineAdapter(
-    private val onUpBtnClick: ((View, TimelineEntity, Int) -> Unit)? = null,
+    private val cdc: CompositeDisposableContext,
     private val onMoreBtnClick: ((TimelineEntity) -> Unit)? = null
 ) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(listOf()) {
 
@@ -69,8 +74,7 @@ open class TimelineAdapter(
             if (timeline.isUp == true) R.drawable.timeline_ic_like else R.drawable.timeline_ic_unlike
         )
         helper.itemView.upBtn.setOnClickListener {
-            onUpBtnClick?.invoke(it, item, helper.adapterPosition)
-            convert(helper, item)
+            onUpClick(it, item, helper.adapterPosition)
         }
 
         // comments
@@ -84,6 +88,21 @@ open class TimelineAdapter(
         // TODO: 2019-06-27 @Septenary 关注字段?
         // follow
         helper.itemView.followBtn.visibility = View.GONE
+    }
+
+    private fun onUpClick(view: View, entity: TimelineEntity, position: Int) {
+        val isUp = entity.timeline.isUp == true
+        if (isUp) {
+            entity.timeline.upCount -= 1
+            Api.get(TimelineApi::class.java).downTimeline(entity.timeline.id).subscribeApi(cdc)
+        } else {
+            entity.timeline.upCount += 1
+            view.startAnimation(AnimationUtils.loadAnimation(view.context, R.anim.timeline_heart))
+            Api.get(TimelineApi::class.java).upTimeline(entity.timeline.id).subscribeApi(cdc)
+        }
+        entity.timeline.isUp = !isUp
+
+        notifyItemChanged(position, TimelineEntity(entity.timeline))
     }
 
     fun setNewRawData(data: List<Timeline>?) {

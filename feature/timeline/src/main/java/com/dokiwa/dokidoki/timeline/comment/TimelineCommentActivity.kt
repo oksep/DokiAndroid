@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
 import com.dokiwa.dokidoki.center.api.Api
@@ -21,7 +20,6 @@ import com.dokiwa.dokidoki.timeline.api.Timeline
 import com.dokiwa.dokidoki.timeline.api.TimelineApi
 import com.dokiwa.dokidoki.timeline.api.TimelineComment
 import com.dokiwa.dokidoki.timeline.api.TimelineUser
-import com.dokiwa.dokidoki.timeline.home.TimelineAdapter
 import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.ext.showKeyboard
 import com.dokiwa.dokidoki.ui.util.KeyboardHeightObserver
@@ -52,7 +50,7 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
         }
     }
 
-    private val adapter by lazy { TimelineCommentAdapter(::onUpClick, ::onMoreClick) }
+    private val adapter by lazy { TimelineCommentAdapter(this, ::onMoreClick) }
 
     private lateinit var timeline: Timeline
 
@@ -169,20 +167,6 @@ class TimelineCommentActivity : TranslucentActivity(), KeyboardHeightObserver {
         showEdit()
         refreshRecyclerView.showSuccess(true)
         adapter.setData(timeline, list)
-    }
-
-    private fun onUpClick(view: View, entity: TimelineAdapter.TimelineEntity, position: Int) {
-        val isUp = entity.timeline.isUp == true
-        if (isUp) {
-            entity.timeline.upCount -= 1
-        } else {
-            entity.timeline.upCount += 1
-            view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.timeline_heart))
-        }
-        entity.timeline.isUp = !isUp
-
-        // TODO: 2019-06-27 @Septenary notify not work?
-        adapter.notifyItemChanged(position, entity)
     }
 
     private fun onMoreClick(comment: TimelineComment) {

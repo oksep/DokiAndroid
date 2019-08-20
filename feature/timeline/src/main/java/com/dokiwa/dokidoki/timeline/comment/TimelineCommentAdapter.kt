@@ -3,6 +3,7 @@ package com.dokiwa.dokidoki.timeline.comment
 import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
@@ -15,9 +16,9 @@ import kotlinx.android.synthetic.main.view_item_timeline_comment.view.*
 import kotlinx.android.synthetic.main.view_item_timeline_comment_sort.view.*
 
 internal class TimelineCommentAdapter(
-    onUpBtnClick: (View, TimelineEntity, Int) -> Unit,
+    cdc: CompositeDisposableContext,
     private val onMoreBtnClick: (TimelineComment) -> Unit
-) : TimelineAdapter(onUpBtnClick) {
+) : TimelineAdapter(cdc) {
 
     companion object {
         private const val TYPE_COMMENT_SORT = 10

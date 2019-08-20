@@ -57,4 +57,12 @@ interface TimelineApi {
 
     @GET("/api/notification/v1/me")
     fun getNotification(): Single<TimelineNotification>
+
+    @POST("/api/ufeed/v1/up")
+    @FormUrlEncoded
+    fun upTimeline(@Field("ufeed_id") id: String): Single<JsonElement>
+
+    @POST("/api/ufeed/v1/cancel-up")
+    @FormUrlEncoded
+    fun downTimeline(@Field("ufeed_id") id: String): Single<JsonElement>
 }
