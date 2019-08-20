@@ -3,9 +3,8 @@ package com.dokiwa.dokidoki.gallery;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.veinhorn.scrollgalleryview.ScrollGalleryView;
@@ -44,7 +43,7 @@ public class GalleryActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        ArrayList<String> urls = getIntent().getStringArrayListExtra(EXTRA_DATA);
+        final ArrayList<String> urls = getIntent().getStringArrayListExtra(EXTRA_DATA);
 
         GalleryBuilder builder = ScrollGalleryView
                 .from((ScrollGalleryView) findViewById(R.id.scroll_gallery_view))
@@ -58,27 +57,31 @@ public class GalleryActivity extends FragmentActivity {
         }
 
         final ScrollGalleryView galleryView = builder.build();
+        galleryView.hideThumbnails();
 
-        if (urls.size() > 1) {
-            galleryView.withHiddenThumbnails(false).hideThumbnailsOnClick(true).hideThumbnailsAfter(5000);
-        } else {
-            galleryView.hideThumbnails();
-        }
+        final TextView indicate = findViewById(R.id.indicate);
+
+        indicate.setVisibility(urls.size() > 1 ? View.VISIBLE : View.GONE);
+
+        galleryView.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                indicate.setText((position + 1) + " / " + urls.size());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         final int currentIndex = getIntent().getIntExtra(EXTRA_CURRENT, 0);
         galleryView.setCurrentItem(currentIndex);
-
-        // fix thumbnail position
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                ViewGroup thumbnailContainer = galleryView.findViewById(R.id.thumbnails_container);
-                View thumbnailView = thumbnailContainer.getChildAt(currentIndex);
-                if (thumbnailView != null) {
-                    thumbnailView.callOnClick();
-                }
-            }
-        });
     }
 
     private ScrollGalleryView.OnImageClickListener clickListener = new ScrollGalleryView.OnImageClickListener() {
