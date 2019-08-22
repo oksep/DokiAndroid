@@ -9,6 +9,17 @@ import retrofit2.http.*
  */
 interface RelationApi {
 
+    @GET("/api/relation/v1/status-list")
+    fun getRelationStatusList(): Single<RelationStatusList>
+
+    @POST("/api/relation/v1/follow")
+    @FormUrlEncoded
+    fun followUser(@Field("user_id") userId: String): Single<RelationStatusWrap>
+
+    @POST("/api/relation/v1/unfollow")
+    @FormUrlEncoded
+    fun unFollowUser(@Field("user_id") userId: String): Single<RelationStatusWrap>
+
     @GET("/api/relation/v1/following-list")
     fun getFollowingList(): Single<FollowingWrapList>
 

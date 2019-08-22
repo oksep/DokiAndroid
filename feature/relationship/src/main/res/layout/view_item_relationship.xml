@@ -51,16 +51,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
-    <TextView
+    <com.dokiwa.dokidoki.relationship.follow.FollowBtn
         android:id="@+id/followBtn"
         app:layout_constraintTop_toTopOf="@+id/avatar"
         app:layout_constraintBottom_toBottomOf="@+id/avatar"
         app:layout_constraintRight_toRightOf="parent"
-        android:visibility="gone"
         tools:text="关注"
         android:gravity="center"
-        android:background="@drawable/relation_bg_follow_btn"
-        android:layout_width="64dp"
-        android:layout_height="28dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

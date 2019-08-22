@@ -9,6 +9,21 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by Septenary on 2019-08-04.
  */
+
+data class RelationStatus(
+    val userId: Int,
+    val following: Boolean,
+    val follower: Boolean
+) : IApiModel
+
+data class RelationStatusList(
+    @SerializedName("status_list") val list: List<RelationStatus>
+) : IApiModel
+
+data class RelationStatusWrap(
+    val status: RelationStatus
+) : IApiModel
+
 data class FollowerWrapList(
     @SerializedName("follower_list") val followerList: List<UserProfile>?
 ) : IApiModel
@@ -16,7 +31,6 @@ data class FollowerWrapList(
 data class FollowingWrapList(
     @SerializedName("following_list") val followingList: List<UserProfile>?
 ) : IApiModel
-
 
 data class BlackListPage(
     @SerializedName("user_profile_list")
