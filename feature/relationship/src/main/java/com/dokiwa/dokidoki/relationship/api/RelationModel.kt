@@ -17,7 +17,7 @@ data class RelationStatus(
 ) : IApiModel
 
 data class RelationStatusList(
-    @SerializedName("status_list") val list: List<RelationStatus>
+    @SerializedName("status_list") val list: List<RelationStatus>?
 ) : IApiModel
 
 data class RelationStatusWrap(

@@ -10,7 +10,7 @@ import retrofit2.http.*
 interface RelationApi {
 
     @GET("/api/relation/v1/status-list")
-    fun getRelationStatusList(): Single<RelationStatusList>
+    fun getRelationStatusList(@Field("user_ids") ids: String): Single<RelationStatusList>
 
     @POST("/api/relation/v1/follow")
     @FormUrlEncoded

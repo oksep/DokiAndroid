@@ -52,7 +52,9 @@ class FollowBtn @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.view_relation_status_btn, this)
-        relationsStatus = RelationStatus(0, following = true, follower = false)
+        relationsStatus = null
+        isLoading = false
+
         setOnClickListener {
             isLoading = true
             postDelayed({

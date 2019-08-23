@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.relationship
 
 import android.content.Context
+import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
@@ -8,6 +9,7 @@ import com.dokiwa.dokidoki.relationship.api.RelationApi
 import com.dokiwa.dokidoki.relationship.blacklist.BanReportActivity
 import com.dokiwa.dokidoki.relationship.blacklist.BlackListActivity
 import com.dokiwa.dokidoki.relationship.feedback.FeedbackActivity
+import com.dokiwa.dokidoki.relationship.follow.FollowingFragment
 import com.dokiwa.dokidoki.relationship.follow.RelationshipActivity
 import io.reactivex.Single
 
@@ -61,5 +63,9 @@ class RelationshipPlugin : IRelationshipPlugin {
             .getUserProfile(uuid)
             .flatMap { Api.get(RelationApi::class.java).delFromBlackList(it.profile.userId.toString()) }
             .map { true }
+    }
+
+    override fun getDevFragment(): Fragment {
+        return FollowingFragment()
     }
 }

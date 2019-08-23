@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.center.plugin.relationship
 
 import android.content.Context
+import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 import io.reactivex.Single
@@ -34,4 +35,6 @@ interface IRelationshipPlugin : FeaturePlugin {
     fun addToBlackList(uuid: String): Single<Boolean>
 
     fun delFromBlackList(uuid: String): Single<Boolean>
+
+    fun getDevFragment(): Fragment
 }
