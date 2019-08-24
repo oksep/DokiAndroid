@@ -3,10 +3,10 @@ package com.dokiwa.dokidoki.relationship
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.api.Api
+import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
 import com.dokiwa.dokidoki.relationship.api.RelationApi
-import com.dokiwa.dokidoki.relationship.api.RelationStatus
 import com.dokiwa.dokidoki.relationship.api.toRelationStatusPair
 import com.dokiwa.dokidoki.relationship.blacklist.BanReportActivity
 import com.dokiwa.dokidoki.relationship.blacklist.BlackListActivity
@@ -71,7 +71,10 @@ class RelationshipPlugin : IRelationshipPlugin {
         return FollowingFragment()
     }
 
-    fun <T> toRelationStatusPair(req: Single<List<T>>, getId: (T) -> Int): Single<List<Pair<T, RelationStatus?>>> {
+    override fun <T> toRelationStatusPair(
+        req: Single<List<T>>,
+        getId: (T) -> Int
+    ): Single<List<Pair<T, RelationStatus?>>> {
         return req.toRelationStatusPair(getId)
     }
 }

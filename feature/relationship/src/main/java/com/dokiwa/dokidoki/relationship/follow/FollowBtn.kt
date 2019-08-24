@@ -7,10 +7,10 @@ import android.widget.FrameLayout
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import com.dokiwa.dokidoki.relationship.Log
 import com.dokiwa.dokidoki.relationship.R
 import com.dokiwa.dokidoki.relationship.api.RelationApi
-import com.dokiwa.dokidoki.relationship.api.RelationStatus
 import com.dokiwa.dokidoki.relationship.api.RelationStatusWrap
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

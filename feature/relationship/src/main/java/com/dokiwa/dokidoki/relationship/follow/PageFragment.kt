@@ -9,11 +9,11 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.relationship.Log
 import com.dokiwa.dokidoki.relationship.R
-import com.dokiwa.dokidoki.relationship.api.RelationStatus
 import com.dokiwa.dokidoki.relationship.api.toRelationStatusPair
 import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.util.LineDivider

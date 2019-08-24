@@ -3,18 +3,13 @@ package com.dokiwa.dokidoki.relationship.api
 import com.dokiwa.dokidoki.center.api.model.IApiModel
 import com.dokiwa.dokidoki.center.api.model.IApiModelPage
 import com.dokiwa.dokidoki.center.ext.toRetrofitQueryMap
+import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Septenary on 2019-08-04.
  */
-
-data class RelationStatus(
-    @SerializedName("user_id") val userId: Int,
-    var following: Boolean,
-    var follower: Boolean
-) : IApiModel
 
 data class RelationStatusList(
     @SerializedName("status_list") val list: List<RelationStatus>?

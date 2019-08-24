@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
+import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import io.reactivex.Single
 
 /**
@@ -37,4 +38,5 @@ interface IRelationshipPlugin : FeaturePlugin {
     fun delFromBlackList(uuid: String): Single<Boolean>
 
     fun getDevFragment(): Fragment
+    fun <T> toRelationStatusPair(req: Single<List<T>>, getId: (T) -> Int): Single<List<Pair<T, RelationStatus?>>>
 }
