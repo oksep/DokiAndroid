@@ -30,16 +30,15 @@ class QueryInterceptor(
         val nonce = Pair("_nonce", UUID.randomUUID().toString().substring(0, 5))
         val ak = Pair("_ak", apiKey)
 
+        val additionQuery = listOf(ts, nonce, ak) + commonQueries
+
         val originUrl = chain.request().url()
 
         // url query
         val urlQueryList = originUrl.queryParameterNames().map {
             Pair(it, originUrl.queryParameter(it) ?: "")
-        }.toMutableList().apply {
-            add(ts)
-            add(nonce)
-            add(ak)
-            addAll(commonQueries)
+        }.toMutableList().run {
+            addAll(additionQuery)
             map { pair ->
                 Pair(pair.first, URLEncoder.encode(pair.second, "UTF-8"))
             }
@@ -86,7 +85,7 @@ class QueryInterceptor(
         // new url
         val newUrl = originUrl.newBuilder().apply {
             urlQueryList.forEach {
-                setQueryParameter(it.first, it.second)
+                setEncodedQueryParameter(it.first, it.second)
             }
             setQueryParameter("_sign", sign)
         }.build()

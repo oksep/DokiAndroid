@@ -28,7 +28,7 @@ class TokenInterceptor : Interceptor {
                     ts,
                     nonce,
                     chain.request().method().toUpperCase(),
-                    "${encodedPath()}?${query()}",
+                    "${encodedPath()}?${encodedQuery()}",
                     host(),
                     port(),
                     ""
