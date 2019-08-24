@@ -10,13 +10,13 @@
         android:id="@+id/status"
         android:background="@drawable/ui_selector_red_gray_border_small"
         android:layout_gravity="center"
-        tools:text="关注TA"
+        tools:text="关注"
         android:gravity="center"
         android:maxLines="1"
         android:textSize="12sp"
         android:textColor="@color/ui_selector_red_gray"
-        android:minHeight="26dp"
-        android:minWidth="62dp"
+        android:minHeight="28dp"
+        android:minWidth="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

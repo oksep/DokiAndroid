@@ -107,8 +107,8 @@ internal abstract class PageFragment : BaseFragment(R.layout.fragment_relationsh
     private fun loadNewData() {
         showRefreshing()
         onGetApiSingle()
-            .toRelationStatusPair { it.userId }
-            .map { l -> l.map { Entity(it.first, it.second ?: it.first.toDefaultStatus) } }
+            .toRelationStatusPair { it.userId.toString() }
+            .map { l -> l.map { Entity(it.first, it.second) } }
             .subscribeApi(
                 this,
                 {
@@ -127,7 +127,4 @@ internal abstract class PageFragment : BaseFragment(R.layout.fragment_relationsh
                 }
             )
     }
-
-    private val UserProfile.toDefaultStatus: RelationStatus
-        get() = RelationStatus(this.userId, following = false, follower = false)
 }

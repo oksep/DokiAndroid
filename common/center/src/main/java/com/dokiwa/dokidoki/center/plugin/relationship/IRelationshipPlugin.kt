@@ -38,5 +38,8 @@ interface IRelationshipPlugin : FeaturePlugin {
     fun delFromBlackList(uuid: String): Single<Boolean>
 
     fun getDevFragment(): Fragment
-    fun <T> toRelationStatusPair(req: Single<List<T>>, getId: (T) -> Int): Single<List<Pair<T, RelationStatus?>>>
+
+    fun <T> toRelationStatusPair(req: Single<List<T>>, getId: (T) -> String): Single<List<Pair<T, RelationStatus>>>
+
+    fun followUser(userId: String): Single<RelationStatus>
 }

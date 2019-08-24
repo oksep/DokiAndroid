@@ -73,8 +73,12 @@ class RelationshipPlugin : IRelationshipPlugin {
 
     override fun <T> toRelationStatusPair(
         req: Single<List<T>>,
-        getId: (T) -> Int
-    ): Single<List<Pair<T, RelationStatus?>>> {
+        getId: (T) -> String
+    ): Single<List<Pair<T, RelationStatus>>> {
         return req.toRelationStatusPair(getId)
+    }
+
+    override fun followUser(userId: String): Single<RelationStatus> {
+        return Api.get(RelationApi::class.java).followUser(userId).map { it.status }
     }
 }

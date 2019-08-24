@@ -60,18 +60,15 @@
         android:layout_height="40dp"
         tools:ignore="ContentDescription"/>
 
-    <Button
+    <com.dokiwa.dokidoki.timeline.widget.FollowBtn
         android:id="@+id/followBtn"
         app:layout_constraintTop_toTopOf="@+id/moreBtn"
         app:layout_constraintBottom_toBottomOf="@+id/moreBtn"
         app:layout_constraintRight_toLeftOf="@+id/moreBtn"
+        app:layout_goneMarginEnd="0dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/ui_bg_btn_round_border_red_small"
-        android:text="@string/timeline_follow"
-        android:textSize="12sp"
-        android:textColor="@color/dd_red"
-        android:layout_width="48dp"
-        android:layout_height="28dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <com.dokiwa.dokidoki.timeline.widget.TimelinePicturesView
         android:id="@+id/picturesContainer"

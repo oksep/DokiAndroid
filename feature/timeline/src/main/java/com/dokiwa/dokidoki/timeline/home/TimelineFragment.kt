@@ -5,6 +5,7 @@ import android.view.View
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.adapter.SimplePager2Adapter
 import com.dokiwa.dokidoki.center.base.fragment.BaseShareFragment
+import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
 import com.dokiwa.dokidoki.timeline.R
 import com.dokiwa.dokidoki.timeline.api.TimelineApi
 import com.dokiwa.dokidoki.timeline.api.TimelinePage
@@ -78,7 +79,16 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
 
 internal class RecommendFragment : InnerPageFragment() {
     override fun onGetApiSingle(map: Map<String, String?>): Single<TimelinePage> {
-        return Api.get(TimelineApi::class.java).getRecommendTimeline(map = map)
+        return Api.get(TimelineApi::class.java).getRecommendTimeline(map = map).flatMap { page ->
+            IRelationshipPlugin.get()
+                .toRelationStatusPair(Single.just(page.timelineList)) { it.user.id }
+                .map { pairList ->
+                    TimelinePage(
+                        pairList.map { it.first.apply { relationStatus = it.second } },
+                        page.next
+                    )
+                }
+        }
     }
 }
 

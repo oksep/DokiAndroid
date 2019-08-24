@@ -16,11 +16,11 @@ interface RelationApi {
 
     @POST("/api/relation/v1/follow")
     @FormUrlEncoded
-    fun followUser(@Field("user_id") userId: Int): Single<RelationStatusWrap>
+    fun followUser(@Field("user_id") userId: String): Single<RelationStatusWrap>
 
     @POST("/api/relation/v1/unfollow")
     @FormUrlEncoded
-    fun unFollowUser(@Field("user_id") userId: Int): Single<RelationStatusWrap>
+    fun unFollowUser(@Field("user_id") userId: String): Single<RelationStatusWrap>
 
     @GET("/api/relation/v1/following-list")
     fun getFollowingList(): Single<FollowingWrapList>
@@ -60,15 +60,19 @@ interface RelationApi {
     fun getLocalReportTypeList(): Single<ReportTypeList>
 }
 
-fun <T> Single<List<T>>.toRelationStatusPair(getId: (T) -> Int): Single<List<Pair<T, RelationStatus?>>> {
+fun <T> Single<List<T>>.toRelationStatusPair(getId: (T) -> String): Single<List<Pair<T, RelationStatus>>> {
     return this.flatMap { reqL ->
-        Single.create<List<Pair<T, RelationStatus?>>> { emitter ->
-            val ids = reqL.joinToString(",") { getId(it).toString() }
+        Single.create<List<Pair<T, RelationStatus>>> { emitter ->
+            val ids = reqL.joinToString(",") { getId(it) }
             Api.get(RelationApi::class.java).getRelationStatusList(ids)
                 .onErrorReturn { RelationStatusList(null) }
                 .subscribe { statusList ->
                     val result = reqL.map { user ->
-                        Pair(user, statusList.list?.firstOrNull { getId(user) == it.userId })
+                        val id = getId(user)
+                        Pair(
+                            user,
+                            statusList.list?.firstOrNull { getId(user) == it.userId } ?: RelationStatus(id)
+                        )
                     }
                     emitter.onSuccess(result)
                 }

@@ -85,9 +85,11 @@ open class TimelineAdapter(
             onMoreBtnClick?.invoke(item)
         }
 
-        // TODO: 2019-06-27 @Septenary 关注字段?
         // follow
-        helper.itemView.followBtn.visibility = View.GONE
+        helper.itemView.followBtn.relationsStatus = timeline.relationStatus
+        helper.itemView.followBtn.onRelationStatusChanged = {
+            timeline.relationStatus = it
+        }
     }
 
     private fun onUpClick(view: View, entity: TimelineEntity, position: Int) {
