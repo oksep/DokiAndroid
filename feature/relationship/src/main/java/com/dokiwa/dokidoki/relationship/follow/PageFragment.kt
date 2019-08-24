@@ -6,7 +6,6 @@ import android.view.View
 import androidx.annotation.StringRes
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.fragment.BaseFragment
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
@@ -14,9 +13,8 @@ import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.relationship.Log
 import com.dokiwa.dokidoki.relationship.R
-import com.dokiwa.dokidoki.relationship.api.RelationApi
 import com.dokiwa.dokidoki.relationship.api.RelationStatus
-import com.dokiwa.dokidoki.relationship.api.RelationStatusList
+import com.dokiwa.dokidoki.relationship.api.toRelationStatusPair
 import com.dokiwa.dokidoki.ui.ext.setRefreshListenerHaptic
 import com.dokiwa.dokidoki.ui.util.LineDivider
 import io.reactivex.Single
@@ -25,7 +23,7 @@ import kotlinx.android.synthetic.main.view_item_relationship.view.*
 
 internal abstract class PageFragment : BaseFragment(R.layout.fragment_relationship_list) {
 
-    private data class Entity(val user: UserProfile, val status: RelationStatus?)
+    private data class Entity(val user: UserProfile, val status: RelationStatus)
 
     private val adapter by lazy {
         object : BaseQuickAdapter<Entity, BaseViewHolder>(R.layout.view_item_relationship, null) {
@@ -104,34 +102,32 @@ internal abstract class PageFragment : BaseFragment(R.layout.fragment_relationsh
 
     abstract fun onGetApiSingle(): Single<List<UserProfile>>
 
+    abstract fun updateIndicatorCountText(count: Int)
+
     private fun loadNewData() {
         showRefreshing()
-        onGetApiSingle().flatMap { userList ->
-            Single.create<List<Entity>> { emitter ->
-                val ids = userList.joinToString(",") { it.userId.toString() }
-                Api.get(RelationApi::class.java).getRelationStatusList(ids)
-                    .onErrorReturn { RelationStatusList(null) }
-                    .subscribeApi(this, { relationList ->
-                        val result = userList.map { user ->
-                            Entity(user, relationList.list?.firstOrNull { it.userId == user.userId })
-                        }
-                        emitter.onSuccess(result)
-                    })
-            }
-        }.subscribeApi(
-            this,
-            {
-                setData(it)
-                if (it.isEmpty()) {
-                    showLoadingEmpty()
-                } else {
-                    showLoadingSuccess()
+        onGetApiSingle()
+            .toRelationStatusPair { it.userId }
+            .map { l -> l.map { Entity(it.first, it.second ?: it.first.toDefaultStatus) } }
+            .subscribeApi(
+                this,
+                {
+                    setData(it)
+                    if (it.isEmpty()) {
+                        showLoadingEmpty()
+                    } else {
+                        showLoadingSuccess()
+                    }
+                    updateIndicatorCountText(it.size)
+                },
+                {
+                    showLoadingError()
+                    updateIndicatorCountText(0)
+                    Log.e("RelationsFragment", "get relations user failed", it)
                 }
-            },
-            {
-                showLoadingError()
-                Log.e("RelationsFragment", "get relations user failed", it)
-            }
-        )
+            )
     }
+
+    private val UserProfile.toDefaultStatus: RelationStatus
+        get() = RelationStatus(this.userId, following = false, follower = false)
 }

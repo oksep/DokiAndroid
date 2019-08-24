@@ -6,6 +6,8 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
 import com.dokiwa.dokidoki.relationship.api.RelationApi
+import com.dokiwa.dokidoki.relationship.api.RelationStatus
+import com.dokiwa.dokidoki.relationship.api.toRelationStatusPair
 import com.dokiwa.dokidoki.relationship.blacklist.BanReportActivity
 import com.dokiwa.dokidoki.relationship.blacklist.BlackListActivity
 import com.dokiwa.dokidoki.relationship.feedback.FeedbackActivity
@@ -67,5 +69,9 @@ class RelationshipPlugin : IRelationshipPlugin {
 
     override fun getDevFragment(): Fragment {
         return FollowingFragment()
+    }
+
+    fun <T> toRelationStatusPair(req: Single<List<T>>, getId: (T) -> Int): Single<List<Pair<T, RelationStatus?>>> {
+        return req.toRelationStatusPair(getId)
     }
 }

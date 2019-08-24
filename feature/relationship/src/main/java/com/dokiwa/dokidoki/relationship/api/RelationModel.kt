@@ -11,9 +11,9 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class RelationStatus(
-    val userId: Int,
-    val following: Boolean,
-    val follower: Boolean
+    @SerializedName("user_id") val userId: Int,
+    var following: Boolean,
+    var follower: Boolean
 ) : IApiModel
 
 data class RelationStatusList(

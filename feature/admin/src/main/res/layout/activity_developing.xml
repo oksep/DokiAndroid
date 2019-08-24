@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/root"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:orientation="vertical"
+    tools:context=".AdminActivity">
 
-    <com.dokiwa.dokidoki.ui.view.WaterMaskView
-        app:wm_text="@string/admin_developing"
-        app:wm_color="@color/black_10"
-        app:wm_size="20sp"
-        app:wm_angle="30"
+    <com.dokiwa.dokidoki.ui.view.AppToolBar
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/toolBar"
+        style="@style/AppToolBar.Icon.Left"
+        app:toolbar_titleText="Admin"
+        tools:layout_height="44dp"
+        android:background="@color/dd_green"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/root"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.dokiwa.dokidoki.ui.view.WaterMaskView
+            app:wm_text="@string/admin_developing"
+            app:wm_color="@color/black_10"
+            app:wm_size="20sp"
+            app:wm_angle="30"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+</LinearLayout>

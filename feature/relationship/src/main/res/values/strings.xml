@@ -4,8 +4,8 @@
     <string name="relation_list">关注列表</string>
     <string name="relation_following_empty">你还没有关注任何人喔～</string>
     <string name="relation_follower_empty">还没有人关注你喔～</string>
-    <string name="relation_tab_follower">关注我的</string>
-    <string name="relation_tab_following">我关注的</string>
+    <string name="relation_tab_follower">关注我的（%d）</string>
+    <string name="relation_tab_following">我关注的（%d）</string>
 
     <string name="relation_black_list">黑名单</string>
     <string name="relation_black_list_empty">黑名单空空如也~</string>
@@ -21,5 +21,9 @@
     <string name="relation_ban_report_reason_addon">补充说明</string>
     <string name="relation_ban_report_reason_addon_tip">( 可不填 )</string>
     <string name="relation_ban_report_no_reason">请选择举报原因</string>
+
+    <string name="relation_status_follow_both">互相关注</string>
+    <string name="relation_status_follow_it">关注TA</string>
+    <string name="relation_status_followed">已关注</string>
 
 </resources>

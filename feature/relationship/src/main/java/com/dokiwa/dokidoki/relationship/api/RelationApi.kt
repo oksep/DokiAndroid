@@ -1,5 +1,6 @@
 package com.dokiwa.dokidoki.relationship.api
 
+import com.dokiwa.dokidoki.center.api.Api
 import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.*
@@ -10,15 +11,15 @@ import retrofit2.http.*
 interface RelationApi {
 
     @GET("/api/relation/v1/status-list")
-    fun getRelationStatusList(@Field("user_ids") ids: String): Single<RelationStatusList>
+    fun getRelationStatusList(@Query("user_ids") ids: String): Single<RelationStatusList>
 
     @POST("/api/relation/v1/follow")
     @FormUrlEncoded
-    fun followUser(@Field("user_id") userId: String): Single<RelationStatusWrap>
+    fun followUser(@Field("user_id") userId: Int): Single<RelationStatusWrap>
 
     @POST("/api/relation/v1/unfollow")
     @FormUrlEncoded
-    fun unFollowUser(@Field("user_id") userId: String): Single<RelationStatusWrap>
+    fun unFollowUser(@Field("user_id") userId: Int): Single<RelationStatusWrap>
 
     @GET("/api/relation/v1/following-list")
     fun getFollowingList(): Single<FollowingWrapList>
@@ -56,4 +57,20 @@ interface RelationApi {
 
     @GET("/api/reportType.json")
     fun getLocalReportTypeList(): Single<ReportTypeList>
+}
+
+fun <T> Single<List<T>>.toRelationStatusPair(getId: (T) -> Int): Single<List<Pair<T, RelationStatus?>>> {
+    return this.flatMap { reqL ->
+        Single.create<List<Pair<T, RelationStatus?>>> { emitter ->
+            val ids = reqL.joinToString(",") { getId(it).toString() }
+            Api.get(RelationApi::class.java).getRelationStatusList(ids)
+                .onErrorReturn { RelationStatusList(null) }
+                .subscribe { statusList ->
+                    val result = reqL.map { user ->
+                        Pair(user, statusList.list?.firstOrNull { getId(user) == it.userId })
+                    }
+                    emitter.onSuccess(result)
+                }
+        }
+    }
 }

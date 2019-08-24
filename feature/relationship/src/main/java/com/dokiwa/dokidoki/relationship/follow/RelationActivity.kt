@@ -36,19 +36,21 @@ class RelationshipActivity : TranslucentActivity() {
             addFragment(FollowerFragment())
         }
 
+        viewPager.offscreenPageLimit = 1
+
         TabLayoutMediator(tabLayout, viewPager, true,
             TabLayoutMediator.OnConfigureTabCallback { tab, position ->
-                tab.setText(
-                    if (position == 0) {
-                        R.string.relation_tab_following
-                    } else {
-                        R.string.relation_tab_follower
-                    }
-                )
+                tab.text = if (position == 0) {
+                    getString(R.string.relation_tab_following, 0)
+                } else {
+                    getString(R.string.relation_tab_follower, 0)
+                }
             }
         ).attach()
 
-        viewPager.currentItem = if (intent.getBooleanExtra(EXTRA_IS_FOLLOWING, true)) 0 else 1
+        viewPager.post {
+            viewPager.currentItem = if (intent.getBooleanExtra(EXTRA_IS_FOLLOWING, true)) 0 else 1
+        }
     }
 }
 
@@ -59,6 +61,10 @@ internal class FollowingFragment : PageFragment() {
             .getFollowingList()
             .map { it.followingList ?: listOf() }
     }
+
+    override fun updateIndicatorCountText(count: Int) {
+        activity?.tabLayout?.getTabAt(0)?.text = getString(R.string.relation_tab_following, count)
+    }
 }
 
 internal class FollowerFragment : PageFragment() {
@@ -67,5 +73,9 @@ internal class FollowerFragment : PageFragment() {
         return Api.get(RelationApi::class.java)
             .getFollowerList()
             .map { it.followerList ?: listOf() }
+    }
+
+    override fun updateIndicatorCountText(count: Int) {
+        activity?.tabLayout?.getTabAt(1)?.text = getString(R.string.relation_tab_follower, count)
     }
 }
