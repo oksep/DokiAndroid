@@ -97,6 +97,13 @@
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateVisible"
+            android:theme="@style/AppTheme"
+            android:name=".dialog.KickOutDialog">
+        </activity>
+
     </application>
 
 </manifest>
