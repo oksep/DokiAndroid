@@ -24,7 +24,7 @@ class FollowBtn @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    var isLoading: Boolean = false
+    private var isLoading: Boolean = false
         set(value) {
             field = value
             if (value) {
@@ -36,68 +36,102 @@ class FollowBtn @JvmOverloads constructor(
             }
         }
 
-    var relationsStatus: RelationStatus? = null
-        set(value) {
-            field = value
-            if (value != null) {
-                if (value.follower && value.following) {
-                    status.setText(R.string.relation_status_follow_both)
-                    status.isSelected = true
-                    setUnFollowClickListener()
-                } else if (value.follower && !value.following) {
-                    status.setText(R.string.relation_status_follow_it)
-                    status.isSelected = false
-                    setFollowClickListener()
-                } else if (!value.follower && value.following) {
-                    status.setText(R.string.relation_status_followed)
-                    status.isSelected = true
-                    setUnFollowClickListener()
-                } else {
-                    status.setText(R.string.relation_status_follow_it)
-                    status.isSelected = false
-                    setFollowClickListener()
-                }
-                visibility = View.VISIBLE
-            } else {
-                visibility = View.GONE
-                setOnClickListener(null)
-            }
-        }
-
     init {
         View.inflate(context, R.layout.view_relation_status_btn, this)
-        relationsStatus = null
         isLoading = false
     }
 
-    private fun setFollowClickListener() {
+    fun setRelationsStatus(relationStatus: RelationStatus) {
+        setUpRelationStatus(
+            relationStatus,
+            {
+                isLoading = it
+            },
+            { newRelationStatus ->
+                if (newRelationStatus.follower && newRelationStatus.following) {
+                    status.setText(R.string.relation_status_follow_both)
+                    status.isSelected = true
+                } else if (newRelationStatus.follower && !newRelationStatus.following) {
+                    status.setText(R.string.relation_status_follow_it)
+                    status.isSelected = false
+                } else if (!newRelationStatus.follower && newRelationStatus.following) {
+                    status.setText(R.string.relation_status_followed)
+                    status.isSelected = true
+                } else {
+                    status.setText(R.string.relation_status_follow_it)
+                    status.isSelected = false
+                }
+            },
+            false
+        )
+    }
+}
+
+fun View.setUpRelationStatus(
+    relationStatus: RelationStatus,
+    onLoading: (Boolean) -> Unit,
+    onStatusChange: (RelationStatus) -> Unit,
+    requestRelationStatus: Boolean = false
+) {
+
+    this.tag = relationStatus
+
+    onStatusChange(relationStatus)
+
+    fun Single<RelationStatusWrap>.request() {
+        onLoading(true)
+        subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeApi(context as? CompositeDisposableContext, {
+                onLoading(false)
+                if (it.status.userId == (this@setUpRelationStatus.tag as? RelationStatus)?.userId) {
+                    setUpRelationStatus(it.status, onLoading, onStatusChange, false)
+                }
+                Log.d("SetUpRelationStatus", "relation status $it")
+            }, {
+                onLoading(false)
+                Log.e("SetUpRelationStatus", "follow user failed", it)
+            })
+    }
+
+    fun setFollowClickListener() {
         setOnClickListener {
-            relationsStatus?.userId?.let {
+            (this@setUpRelationStatus.tag as? RelationStatus)?.userId?.let {
                 Api.get(RelationApi::class.java).followUser(it).request()
             }
         }
     }
 
-    private fun setUnFollowClickListener() {
+    fun setUnFollowClickListener() {
         setOnClickListener {
-            relationsStatus?.userId?.let {
+            (this@setUpRelationStatus.tag as? RelationStatus)?.userId?.let {
                 Api.get(RelationApi::class.java).unFollowUser(it).request()
             }
         }
     }
 
-    private fun Single<RelationStatusWrap>.request() {
-        isLoading = true
-        subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    relationStatus.apply {
+        if (follower && following) {
+            setUnFollowClickListener()
+        } else if (follower && !following) {
+            setFollowClickListener()
+        } else if (!follower && following) {
+            setUnFollowClickListener()
+        } else {
+            setFollowClickListener()
+        }
+    }
+
+    if (requestRelationStatus) {
+        val default = RelationStatus(relationStatus.userId, following = false, follower = false)
+        Api.get(RelationApi::class.java).getRelationStatusList(default.userId)
+            .map { it.list?.getOrNull(0) ?: default }
+            .onErrorReturn { default }
             .subscribeApi(context as? CompositeDisposableContext, {
-                isLoading = false
-                if (it.status.userId == relationsStatus?.userId) {
-                    relationsStatus = it.status
-                }
+                Log.d("SetUpRelationStatus", "get relation status -> $it")
+                setUpRelationStatus(it, onLoading, onStatusChange, false)
             }, {
-                isLoading = false
-                Log.e("FollowBtn", "follow user failed", it)
+                Log.e("SetUpRelationStatus", "get relation status failed", it)
             })
     }
 }

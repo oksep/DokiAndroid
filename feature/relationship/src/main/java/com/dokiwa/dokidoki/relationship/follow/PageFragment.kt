@@ -31,7 +31,7 @@ internal abstract class PageFragment : BaseFragment(R.layout.fragment_relationsh
                 helper.itemView.avatar.glideAvatar(item.user)
                 helper.itemView.name.text = item.user.nickname
                 helper.itemView.intro.text = item.user.intro
-                helper.itemView.followBtn.relationsStatus = item.status
+                helper.itemView.followBtn.setRelationsStatus(item.status)
             }
         }
     }

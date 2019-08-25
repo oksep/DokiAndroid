@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:elevation="4dp"
     android:layout_width="match_parent"
     android:layout_height="44dp"
@@ -41,7 +40,7 @@
         android:layout_width="1px"
         android:layout_height="0dp"/>
 
-    <FrameLayout
+    <com.dokiwa.dokidoki.profile.view.FollowBtn
         android:id="@+id/followBtn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,20 +48,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:background="?selectableItemBackground"
         android:layout_width="0dp"
-        android:layout_height="0dp">
-
-        <TextView
-            android:layout_gravity="center"
-            android:text="@string/profile_detail_follow_plus"
-            android:drawableStart="@drawable/profile_ic_follow_plus"
-            android:drawablePadding="6dp"
-            android:background="?selectableItemBackgroundBorderless"
-            android:gravity="center"
-            android:textColor="#FF666666"
-            tools:textColor="@color/dd_red"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </FrameLayout>
+        android:layout_height="0dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

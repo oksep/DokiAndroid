@@ -9,6 +9,7 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.CompositeDisposableContext
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.gallery.GalleryActivity
@@ -86,8 +87,7 @@ open class TimelineAdapter(
         }
 
         // follow
-        helper.itemView.followBtn.relationsStatus = timeline.relationStatus
-        helper.itemView.followBtn.onRelationStatusChanged = {
+        helper.itemView.followBtn.setRelationsStatus(timeline.relationStatus ?: RelationStatus(timeline.user.id)) {
             timeline.relationStatus = it
         }
     }

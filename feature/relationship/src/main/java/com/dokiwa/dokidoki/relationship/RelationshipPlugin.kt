@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.relationship
 
 import android.content.Context
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
@@ -13,6 +14,7 @@ import com.dokiwa.dokidoki.relationship.blacklist.BlackListActivity
 import com.dokiwa.dokidoki.relationship.feedback.FeedbackActivity
 import com.dokiwa.dokidoki.relationship.follow.FollowingFragment
 import com.dokiwa.dokidoki.relationship.follow.RelationshipActivity
+import com.dokiwa.dokidoki.relationship.follow.setUpRelationStatus
 import io.reactivex.Single
 
 /**
@@ -78,7 +80,13 @@ class RelationshipPlugin : IRelationshipPlugin {
         return req.toRelationStatusPair(getId)
     }
 
-    override fun followUser(userId: String): Single<RelationStatus> {
-        return Api.get(RelationApi::class.java).followUser(userId).map { it.status }
+    override fun setUpRelationStatus(
+        view: View,
+        relationStatus: RelationStatus,
+        onLoading: (Boolean) -> Unit,
+        onStatusChange: (RelationStatus) -> Unit,
+        requestRelationStatus: Boolean
+    ) {
+        view.setUpRelationStatus(relationStatus, onLoading, onStatusChange, requestRelationStatus)
     }
 }

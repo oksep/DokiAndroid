@@ -1,6 +1,7 @@
 package com.dokiwa.dokidoki.center.plugin.relationship
 
 import android.content.Context
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
@@ -41,5 +42,11 @@ interface IRelationshipPlugin : FeaturePlugin {
 
     fun <T> toRelationStatusPair(req: Single<List<T>>, getId: (T) -> String): Single<List<Pair<T, RelationStatus>>>
 
-    fun followUser(userId: String): Single<RelationStatus>
+    fun setUpRelationStatus(
+        view: View,
+        relationStatus: RelationStatus,
+        onLoading: (Boolean) -> Unit,
+        onStatusChange: (RelationStatus) -> Unit,
+        requestRelationStatus: Boolean = false
+    )
 }

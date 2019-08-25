@@ -17,6 +17,7 @@ import com.dokiwa.dokidoki.center.ext.toast
 import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
+import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
@@ -189,9 +190,7 @@ class ProfileDetailActivity : TranslucentActivity() {
             sendMsgBtn.setOnClickListener {
                 IMessagePlugin.get().launchChatRoom(this@ProfileDetailActivity, profile)
             }
-            followBtn.setOnClickListener {
-                toast("关注")
-            }
+            followBtn.setRelationsStatus(RelationStatus(profile.userId.toString()))
         }
     }
 
