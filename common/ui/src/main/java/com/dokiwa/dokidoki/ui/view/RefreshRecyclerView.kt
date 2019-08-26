@@ -21,7 +21,7 @@ import kotlin.math.abs
 /**
  * Created by Septenary on 2019-06-11.
  */
-class RefreshRecyclerView : FrameLayout {
+class RefreshRecyclerView : FrameLayout, IRefreshLayout {
 
     constructor(context: Context) : super(context)
 
@@ -38,13 +38,17 @@ class RefreshRecyclerView : FrameLayout {
         this.refreshLayout.setColorSchemeResources(R.color.dd_red)
     }
 
-    fun setOnRefreshListener(refreshListener: SwipeRefreshLayout.OnRefreshListener) {
+    override fun initRefreshLayout(context: Context, refreshLayout: SwipeRefreshLayout, oopsContainer: View, contentView: View) {
+        // noop
+    }
+
+    override fun setOnRefreshListener(refreshListener: SwipeRefreshLayout.OnRefreshListener) {
         this.refreshLayout.setRefreshListenerHaptic {
             refreshListener.onRefresh()
         }
     }
 
-    fun showError(@DrawableRes iconResId: Int, @StringRes messageResId: Int) {
+    override fun showError(@DrawableRes iconResId: Int, @StringRes messageResId: Int) {
         this.refreshLayout.isRefreshing = false
         this.recyclerView.gone()
         this.oopsContainer.visible()
@@ -52,7 +56,7 @@ class RefreshRecyclerView : FrameLayout {
         this.oopsMessage.setText(messageResId)
     }
 
-    fun showError(icon: Drawable, message: String) {
+    override fun showError(icon: Drawable, message: String) {
         this.refreshLayout.isRefreshing = false
         this.oopsContainer.visible()
         this.recyclerView.gone()
@@ -60,12 +64,12 @@ class RefreshRecyclerView : FrameLayout {
         this.oopsMessage.text = message
     }
 
-    fun showLoading() {
+    override fun showLoading() {
         this.refreshLayout.isRefreshing = true
         this.oopsContainer.gone()
     }
 
-    fun showSuccess(anim: Boolean = true) {
+    override fun showSuccess(anim: Boolean) {
         this.refreshLayout.isRefreshing = false
         this.recyclerView.visible(anim)
         this.oopsContainer.gone(anim)

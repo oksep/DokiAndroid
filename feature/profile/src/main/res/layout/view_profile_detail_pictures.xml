@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"/>
 
     <com.jaeger.ninegridimageview.NineGridImageView
+        android:visibility="gone"
         tools:background="@color/dd_green"
         android:layout_marginTop="12dp"
         android:id="@+id/pictures"

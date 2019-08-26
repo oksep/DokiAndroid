@@ -91,6 +91,6 @@ object ShakeHelper : SensorEventListener, LifecycleObserver {
 
     fun attach(lifecycle: Lifecycle) {
         lifecycle.addObserver(this)
-        // init player
+        // initRefreshLayout player
     }
 }

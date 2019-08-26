@@ -24,7 +24,7 @@ class MessagePlugin : IMessagePlugin {
 
     @SuppressLint("CheckResult")
     override fun onInit(context: Context) {
-        Log.d(TAG, "init nim sdk")
+        Log.d(TAG, "initRefreshLayout nim sdk")
         IMService.init(context)
         if (NIMUtil.isMainProcess(context)) {
             IMService.subscribeLoginStatus().subscribe({

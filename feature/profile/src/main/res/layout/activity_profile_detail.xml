@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".detail.ProfileDetailActivity">
 
     <com.dokiwa.dokidoki.ui.view.AppToolBar
@@ -42,7 +43,7 @@
             android:layout_marginStart="4dp"
             tools:src="@drawable/profile_ic_gender_female_small"
             android:layout_width="14dp"
-            android:layout_height="14dp"/>
+            android:layout_height="14dp" tools:ignore="ContentDescription"/>
 
         <TextView
             app:layout_constraintLeft_toLeftOf="parent"
@@ -58,48 +59,61 @@
             tools:ignore="SmallSp"/>
     </com.dokiwa.dokidoki.ui.view.AppToolBar>
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         app:layout_constraintTop_toBottomOf="@+id/toolBar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomContainer"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            tools:background="@color/dd_green"
+        <ScrollView
+            android:id="@+id/contentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <include layout="@layout/view_profile_detail_head"/>
-
-            <include
-                layout="@layout/view_profile_detail_certify"
-                android:layout_marginTop="16dp"
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                tools:background="@color/dd_green"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
 
-            <include
-                layout="@layout/view_profile_detail_timeline"
-                android:layout_marginTop="16dp"
-                tools:layout_height="150dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <include layout="@layout/view_profile_detail_head"/>
 
-            <include
-                layout="@layout/view_profile_detail_pictures"
-                tools:layout_height="150dp"
-                android:layout_marginTop="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <include
+                    layout="@layout/view_profile_detail_certify"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </LinearLayout>
-    </ScrollView>
+                <include
+                    layout="@layout/view_profile_detail_timeline"
+                    android:layout_marginTop="16dp"
+                    tools:layout_height="150dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <include
+                    layout="@layout/view_profile_detail_pictures"
+                    tools:layout_height="150dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/oopsLayout"
+        layout="@layout/ui_view_oops"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <include
         android:id="@+id/bottomContainer"

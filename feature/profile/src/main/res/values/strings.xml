@@ -46,6 +46,7 @@
     <string name="profile_detail_pictures_title">展示墙</string>
     <string name="profile_detail_pictures_none_tip">TA还没有展示图片</string>
     <string name="profile_detail_timeline_title">动态(%d)</string>
+    <string name="profile_detail_timeline_title_empty">动态</string>
     <string name="profile_detail_timeline_none">TA还没有发布动态</string>
     <string name="profile_detail_send_msg">发消息</string>
     <string name="profile_detail_follow_plus">关注 TA</string>

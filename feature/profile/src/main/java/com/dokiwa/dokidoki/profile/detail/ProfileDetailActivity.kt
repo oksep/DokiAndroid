@@ -6,20 +6,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.glideUrl
-import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
-import com.dokiwa.dokidoki.center.ext.toast
-import com.dokiwa.dokidoki.center.ext.toastApiException
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.model.RelationStatus
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
-import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.gallery.GalleryActivity
@@ -30,17 +28,19 @@ import com.dokiwa.dokidoki.profile.edit.ProfileEditActivity
 import com.dokiwa.dokidoki.ui.ext.onceLayoutThen
 import com.dokiwa.dokidoki.ui.ext.zoomTouchArea
 import com.dokiwa.dokidoki.ui.span.HtmlSpan
+import com.dokiwa.dokidoki.ui.view.DefaultRefreshLayoutHandler
+import com.dokiwa.dokidoki.ui.view.IRefreshLayout
 import com.jaeger.ninegridimageview.NineGridImageView
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_profile_detail.*
 import kotlinx.android.synthetic.main.view_profile_detail_bottom.*
 import kotlinx.android.synthetic.main.view_profile_detail_certify.*
 import kotlinx.android.synthetic.main.view_profile_detail_head.*
 import kotlinx.android.synthetic.main.view_profile_detail_pictures.*
-import kotlinx.android.synthetic.main.view_profile_detail_pictures.picturesEmpty
 import kotlinx.android.synthetic.main.view_profile_detail_timeline.*
 
-class ProfileDetailActivity : TranslucentActivity() {
+class ProfileDetailActivity : TranslucentActivity(), IRefreshLayout by DefaultRefreshLayoutHandler() {
 
     companion object {
         private const val EXTRA_UUID = "extra.user.uuid"
@@ -64,6 +64,10 @@ class ProfileDetailActivity : TranslucentActivity() {
         super.onCreate(savedInstanceState)
         changeStatusBarDark()
         setContentView(R.layout.activity_profile_detail)
+        initRefreshLayout(this, refreshLayout, oopsLayout, contentLayout)
+        setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener {
+            loadData()
+        })
         loadData()
     }
 
@@ -76,29 +80,32 @@ class ProfileDetailActivity : TranslucentActivity() {
         val uuid = profile?.uuid ?: intent.getStringExtra(EXTRA_UUID)
         val id = intent.data?.getQueryParameter("user_id")
 
-        if (profile != null) {
-            setData(UserProfileWrap(profile))
+        val single: Single<UserProfile> = if (profile != null) {
+            Single.just(profile)
         } else if (!uuid.isNullOrEmpty()) {
-            Api.get(ProfileApi::class.java)
-                .getUserProfileByUUID(uuid)
-                .subscribeApiWithDialog(this, this, ::setData) {
-                    toastApiException(it, R.string.center_toast_loading_failed_retry)
-                }
+            Api.get(ProfileApi::class.java).getUserProfileByUUID(uuid).map { it.profile }
         } else if (!id.isNullOrEmpty()) {
-            Api.get(ProfileApi::class.java)
-                .getUserProfileById(id)
-                .subscribeApiWithDialog(this, this, ::setData) {
-                    toastApiException(it, R.string.center_toast_loading_failed_retry)
-                }
+            Api.get(ProfileApi::class.java).getUserProfileById(id).map { it.profile }
         } else {
             Log.e(TAG, "no available arguments.")
-            finish()
+            return finish()
         }
+
+        showLoading()
+
+        single.flatMap { pf ->
+            ITimelinePlugin.get()
+                .getUserTimelineThumbs(pf.userId.toString())
+                .map { pf.apply { timelineThumbs = it } }
+        }.subscribeApi(this, {
+            showSuccess(true)
+            setData(it)
+        }, {
+            showError(R.drawable.ui_ic_oops_network, R.string.ui_oops_net_error)
+        })
     }
 
-    private fun setData(profileWrap: UserProfileWrap) {
-        val profile = profileWrap.profile
-
+    private fun setData(profile: UserProfile) {
         name.text = profile.nickname
 
         avatar.glideAvatar(profile)
@@ -163,15 +170,27 @@ class ProfileDetailActivity : TranslucentActivity() {
             nineGridImageView.setImagesData(profile.pictures)
         }
 
-        timelinePictures.layoutManager = LinearLayoutManager(this).apply {
-            orientation = LinearLayoutManager.HORIZONTAL
-        }
-        timelinePictures.adapter = timelineAdapter.apply {
-            setNewData(profile.pictures)
-        }
-
-        timelineAdapter.setOnItemClickListener { _, _, _ ->
-            ITimelinePlugin.get().launchUserTimelineActivity(this, profile.userId.toString(), profile.nickname)
+        if (profile.timelineThumbs.isNullOrEmpty()) {
+            timelineCount.setText(R.string.profile_detail_timeline_title_empty)
+            timelinePicturesEmpty.visibility = View.VISIBLE
+            timelinePictures.visibility = View.GONE
+        } else {
+            timelineCount.text = getString(R.string.profile_detail_timeline_title, profile.timelineThumbs!!.size)
+            timelinePicturesEmpty.visibility = View.GONE
+            timelinePictures.visibility = View.VISIBLE
+            timelinePictures.layoutManager = LinearLayoutManager(this).apply {
+                orientation = LinearLayoutManager.HORIZONTAL
+            }
+            timelinePictures.adapter = timelineAdapter.apply {
+                setNewData(profile.timelineThumbs)
+                setOnItemClickListener { _, _, _ ->
+                    ITimelinePlugin.get().launchUserTimelineActivity(
+                        this@ProfileDetailActivity,
+                        profile.userId.toString(),
+                        profile.nickname
+                    )
+                }
+            }
         }
 
         val editable = ensureEditAble(profile.userId)
@@ -195,11 +214,11 @@ class ProfileDetailActivity : TranslucentActivity() {
     }
 
     private val timelineAdapter by lazy {
-        object : BaseQuickAdapter<UserProfile.Picture, BaseViewHolder>(
+        object : BaseQuickAdapter<String, BaseViewHolder>(
             R.layout.view_item_profile_detail_timeline, null
         ) {
-            override fun convert(helper: BaseViewHolder?, item: UserProfile.Picture) {
-                (helper?.itemView as? ImageView)?.glideUrl(item.adaptUrl(), 5f, R.drawable.ui_placeholder_radius_5dp)
+            override fun convert(helper: BaseViewHolder?, item: String) {
+                (helper?.itemView as? ImageView)?.glideUrl(item, 5f, R.drawable.ui_placeholder_radius_5dp)
             }
         }
     }

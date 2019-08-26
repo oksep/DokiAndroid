@@ -33,7 +33,8 @@ data class UserProfile(
     val setting: Setting,
     @SerializedName("user_id") val userId: Int,
     val uuid: String,
-    @SerializedName("picture_list") val pictures: List<Picture>?
+    @SerializedName("picture_list") val pictures: List<Picture>?,
+    var timelineThumbs: List<String>?
 ) : IApiModel, Parcelable {
 
     @Parcelize
