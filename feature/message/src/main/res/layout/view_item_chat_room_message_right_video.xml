@@ -9,10 +9,12 @@
     android:layout_marginBottom="8dp"
     tools:context=".chatroom.ChatRoomActivity">
 
+    <include android:id="@+id/time" layout="@layout/view_chat_room_time"/>
+
     <com.dokiwa.dokidoki.ui.view.RoundBorderImageView
         android:id="@+id/avatar"
         android:layout_gravity="end"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time"
         app:layout_constraintRight_toRightOf="parent"
         tools:src="@drawable/ui_ic_avatar_default_female"
         app:borderColor="@color/dd_gray_light"
@@ -41,7 +43,7 @@
         android:layout_marginTop="2dp"
         android:minHeight="40dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
     <Space
         android:id="@+id/space"
