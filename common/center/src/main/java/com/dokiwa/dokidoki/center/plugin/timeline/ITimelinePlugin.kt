@@ -19,7 +19,7 @@ interface ITimelinePlugin : FeaturePlugin {
 
     fun launchUserTimelineActivity(context: Activity, userId: String, userName: String)
 
-    fun getUserTimelineThumbs(userId: String): Single<List<String>>
+    fun getUserTimelineThumbs(userId: String): Single<Pair<Int, List<String>>>
 
     companion object {
         fun get(): ITimelinePlugin {

@@ -28,7 +28,7 @@ class TimelinePlugin : ITimelinePlugin {
         UserTimelineListActivity.launch(context, userId, userName)
     }
 
-    override fun getUserTimelineThumbs(userId: String): Single<List<String>> {
+    override fun getUserTimelineThumbs(userId: String): Single<Pair<Int, List<String>>> {
         return Api.get(TimelineApi::class.java)
             .getUserTimeline(map = mapOf("user_id" to userId))
             .map { page: TimelinePage ->
@@ -36,8 +36,8 @@ class TimelinePlugin : ITimelinePlugin {
                 page.timelineList.forEach { timeline ->
                     list = list + (timeline.pictureList?.map { it.adaptUrl() }?.toList() ?: listOf())
                 }
-                list
+                Pair(page.total ?: 0, list)
             }
-            .onErrorReturn { listOf() }
+            .onErrorReturn { Pair(0, listOf()) }
     }
 }

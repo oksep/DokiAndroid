@@ -34,7 +34,7 @@ data class UserProfile(
     @SerializedName("user_id") val userId: Int,
     val uuid: String,
     @SerializedName("picture_list") val pictures: List<Picture>?,
-    var timelineThumbs: List<String>?
+    var timelineThumbs: TimelineThumbs?
 ) : IApiModel, Parcelable {
 
     @Parcelize
@@ -116,6 +116,12 @@ data class UserProfile(
     @Parcelize
     data class Tag(
         val name: String
+    ) : IApiModel, Parcelable
+
+    @Parcelize
+    data class TimelineThumbs(
+        val total: Int,
+        val thumbList: List<String>
     ) : IApiModel, Parcelable
 
     fun assembleCityIndustry(): String {

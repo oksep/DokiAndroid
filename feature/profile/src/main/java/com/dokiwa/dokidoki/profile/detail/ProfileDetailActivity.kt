@@ -96,7 +96,7 @@ class ProfileDetailActivity : TranslucentActivity(), IRefreshLayout by DefaultRe
         single.flatMap { pf ->
             ITimelinePlugin.get()
                 .getUserTimelineThumbs(pf.userId.toString())
-                .map { pf.apply { timelineThumbs = it } }
+                .map { pf.apply { timelineThumbs = UserProfile.TimelineThumbs(it.first, it.second) } }
         }.subscribeApi(this, {
             showSuccess(true)
             setData(it)
@@ -170,27 +170,32 @@ class ProfileDetailActivity : TranslucentActivity(), IRefreshLayout by DefaultRe
             nineGridImageView.setImagesData(profile.pictures)
         }
 
-        if (profile.timelineThumbs.isNullOrEmpty()) {
+        val timelineTotal = profile.timelineThumbs?.total ?: 0
+        if (timelineTotal > 0) {
+            timelinePicturesEmpty.visibility = View.GONE
+            timelineCount.text = getString(R.string.profile_detail_timeline_title, timelineTotal)
+            if (profile.timelineThumbs?.thumbList.isNullOrEmpty()) {
+                timelinePictures.visibility = View.GONE
+            } else {
+                timelinePictures.visibility = View.VISIBLE
+                timelinePictures.layoutManager = LinearLayoutManager(this).apply {
+                    orientation = LinearLayoutManager.HORIZONTAL
+                }
+                timelinePictures.adapter = timelineAdapter.apply {
+                    setNewData(profile.timelineThumbs?.thumbList)
+                    setOnItemClickListener { _, _, _ ->
+                        ITimelinePlugin.get().launchUserTimelineActivity(
+                            this@ProfileDetailActivity,
+                            profile.userId.toString(),
+                            profile.nickname
+                        )
+                    }
+                }
+            }
+        } else {
             timelineCount.setText(R.string.profile_detail_timeline_title_empty)
             timelinePicturesEmpty.visibility = View.VISIBLE
             timelinePictures.visibility = View.GONE
-        } else {
-            timelineCount.text = getString(R.string.profile_detail_timeline_title, profile.timelineThumbs!!.size)
-            timelinePicturesEmpty.visibility = View.GONE
-            timelinePictures.visibility = View.VISIBLE
-            timelinePictures.layoutManager = LinearLayoutManager(this).apply {
-                orientation = LinearLayoutManager.HORIZONTAL
-            }
-            timelinePictures.adapter = timelineAdapter.apply {
-                setNewData(profile.timelineThumbs)
-                setOnItemClickListener { _, _, _ ->
-                    ITimelinePlugin.get().launchUserTimelineActivity(
-                        this@ProfileDetailActivity,
-                        profile.userId.toString(),
-                        profile.nickname
-                    )
-                }
-            }
         }
 
         val editable = ensureEditAble(profile.userId)

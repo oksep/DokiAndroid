@@ -11,7 +11,8 @@ import kotlinx.android.parcel.Parcelize
 data class TimelinePage(
     @SerializedName("ufeed_list")
     val timelineList: List<Timeline>,
-    val next: String?
+    val next: String?,
+    val total: Int? = 0
 ) : IApiModel, IApiModelPage {
     override val nextQ: Map<String, String?>
         get() = this.next?.toRetrofitQueryMap() ?: mapOf()
