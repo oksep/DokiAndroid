@@ -43,6 +43,10 @@ class ProfilePlugin : IProfilePlugin {
         ProfileEditActivity.launch(context, profile)
     }
 
+    override fun launchEditProfileActivity(context: Fragment, requestCode: Int, profile: UserProfile) {
+        ProfileEditActivity.launchForResult(context, requestCode, profile)
+    }
+
     override fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog {
         return CityPickerDialog.create(context, callback)
     }

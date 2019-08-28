@@ -27,6 +27,8 @@ interface IProfilePlugin : FeaturePlugin {
 
     fun launchEditProfileActivity(context: Context, profile: UserProfile)
 
+    fun launchEditProfileActivity(context: Fragment, requestCode: Int, profile: UserProfile)
+
     fun getCityPickerDialog(context: Activity, callback: (String, String, String) -> Unit): Dialog
 
     fun launchSearchUserActivity(context: Context)

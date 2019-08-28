@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.BaseSelectImageActivity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
@@ -58,6 +59,14 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         fun launch(context: Context, profile: UserProfile) {
             context.startActivity(
                 Intent(context, ProfileEditActivity::class.java).putExtra(EXTRA_PROFILE, profile)
+            )
+        }
+
+        fun launchForResult(context: Fragment, requestCode: Int, profile: UserProfile) {
+            context.startActivityForResult(
+                Intent(context.requireContext(), ProfileEditActivity::class.java)
+                    .putExtra(EXTRA_PROFILE, profile),
+                requestCode
             )
         }
     }
@@ -356,6 +365,7 @@ class ProfileEditActivity : BaseSelectImageActivity(), CropIwaResultReceiver.Lis
         }.subscribeApiWithDialog(this, this, {
             Log.d(TAG, "updateProfile success -> $it")
             toast(R.string.profile_edit_save_success)
+            setResult(Activity.RESULT_OK)
             finish()
         }, {
             Log.e(TAG, "updateProfile failed", it)

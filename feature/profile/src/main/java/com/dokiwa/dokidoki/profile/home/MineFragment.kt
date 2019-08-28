@@ -1,5 +1,7 @@
 package com.dokiwa.dokidoki.profile.home
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
@@ -28,6 +30,8 @@ private const val TAG = "MineFragment"
 
 private const val KEY_VIEW_MODEL = 0x0004
 
+private const val REQUEST_CODE_EDIT_PROFILE = 0x0001
+
 class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
 
     private fun ensureModel(): MineViewModel {
@@ -54,7 +58,7 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
 
         entranceEdit.setOnClickListener {
             profileWrap?.profile?.let {
-                IProfilePlugin.get().launchEditProfileActivity(requireContext(), it)
+                IProfilePlugin.get().launchEditProfileActivity(this, REQUEST_CODE_EDIT_PROFILE, it)
             }
         }
 
@@ -208,5 +212,11 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
                 ) as BitmapDrawable).bitmap
             ).subscribeApi(this)
         }.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == Activity.RESULT_OK) {
+            loadProfile()
+        }
     }
 }
