@@ -12,7 +12,6 @@ import com.dokiwa.dokidoki.center.util.toReadable
 import com.dokiwa.dokidoki.feed.R
 import com.dokiwa.dokidoki.feed.api.Feed
 import com.dokiwa.dokidoki.feed.widget.FeedPictureListView
-import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.ui.view.TagsView
 
 internal class FeedAdapter : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(listOf()) {
@@ -46,7 +45,8 @@ internal class FeedAdapter : BaseMultiItemQuickAdapter<MultiItemEntity, BaseView
         helper.getView<TextView>(R.id.name).text = profile.nickname
 
         // 年龄 | 身高 | 教育程度
-        helper.getView<TextView>(R.id.ageHeightEdu).text = profile.assembleAgeHeightEdu(helper.itemView.context)
+        helper.getView<TextView>(R.id.ageHeightEdu).text =
+            profile.assembleAgeHeightEdu(helper.itemView.context)
 
         // 地点 | 职位
         helper.getView<TextView>(R.id.addressPosition).text = profile.assembleCityIndustry()
@@ -79,9 +79,7 @@ internal class FeedAdapter : BaseMultiItemQuickAdapter<MultiItemEntity, BaseView
         }
 
         // pictures
-        helper.getView<FeedPictureListView>(R.id.pictureListView).setPictures(profile.pictures) { l, index ->
-            GalleryActivity.launchGallery(helper.itemView.context, index, l.map { it.adaptUrl() })
-        }
+        helper.getView<FeedPictureListView>(R.id.pictureListView).setPictures(profile.pictures)
     }
 
     fun setNewRawData(data: List<Feed>?) {

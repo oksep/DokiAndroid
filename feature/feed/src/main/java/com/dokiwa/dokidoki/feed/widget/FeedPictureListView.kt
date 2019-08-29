@@ -28,7 +28,7 @@ class FeedPictureListView @JvmOverloads constructor(
         }
     }
 
-    fun setPictures(rawList: List<UserProfile.Picture>?, onPictureClick: (List<UserProfile.Picture>, Int) -> Unit) {
+    fun setPictures(rawList: List<UserProfile.Picture>?) {
         if (rawList.isNullOrEmpty()) {
             removeAllViews()
             visibility = View.GONE
@@ -46,9 +46,6 @@ class FeedPictureListView @JvmOverloads constructor(
                 val picture = list.getOrNull(index)
                 if (picture != null) {
                     child.glideUrl(picture.adaptUrl(), 5f, R.drawable.ui_placeholder_radius_5dp)
-                    child.setOnClickListener {
-                        onPictureClick.invoke(list, index)
-                    }
                 }
             }
         }
