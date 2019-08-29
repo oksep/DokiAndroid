@@ -45,6 +45,24 @@
         android:layout_height="0dp"
         tools:ignore="ContentDescription,UnusedAttribute"/>
 
+    <TextView
+        android:id="@+id/homeTagMsgUnreadCount"
+        app:layout_constraintLeft_toLeftOf="@+id/homeTabMsg"
+        app:layout_constraintTop_toTopOf="@+id/homeTabMsg"
+        app:layout_constraintRight_toRightOf="@+id/homeTabMsg"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:layout_marginStart="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:background="@drawable/home_bg_unread_count"
+        android:minWidth="16dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="8dp"
+        tools:ignore="SpUsage"
+        tools:text="56" />
+
     <ImageView
         android:id="@+id/homeTabMine"
         app:layout_constraintRight_toRightOf="parent"

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
+import io.reactivex.Observable
 
 /**
  * Created by Septenary on 2018/10/24.
@@ -29,4 +30,7 @@ interface IMessagePlugin : FeaturePlugin {
 
     // 进入一对一聊天室
     fun launchChatRoom(context: Context, userProfile: UserProfile)
+
+    // 订阅纬度消息数量
+    fun subscribeUnreadMsgCount(): Observable<Int>
 }

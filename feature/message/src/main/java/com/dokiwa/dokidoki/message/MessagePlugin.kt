@@ -3,7 +3,6 @@ package com.dokiwa.dokidoki.message
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.dokiwa.dokidoki.center.ext.rx.subscribeLog
 import com.dokiwa.dokidoki.center.plugin.message.IMessagePlugin
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.message.chatroom.ChatRoomActivity
@@ -12,6 +11,7 @@ import com.dokiwa.dokidoki.message.home.MessageFragment
 import com.dokiwa.dokidoki.message.im.IMLoginStatus
 import com.dokiwa.dokidoki.message.im.IMService
 import com.netease.nimlib.sdk.util.NIMUtil
+import io.reactivex.Observable
 
 /**
  * Created by Septenary on 2018/10/24.
@@ -35,7 +35,7 @@ class MessagePlugin : IMessagePlugin {
             }, {
                 Log.e(TAG, "online status error", it)
             })
-            IMService.getRecentMessages().subscribeLog(TAG, "recentMessages")
+            IMService.subscribeIncomingMsg(context)
         }
     }
 
@@ -55,5 +55,9 @@ class MessagePlugin : IMessagePlugin {
 
     override fun launchChatRoom(context: Context, userProfile: UserProfile) {
         ChatRoomActivity.launch(context, userProfile)
+    }
+
+    override fun subscribeUnreadMsgCount(): Observable<Int> {
+        return IMService.subscribeUnreadMsgCount()
     }
 }

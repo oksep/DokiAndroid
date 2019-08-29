@@ -17,6 +17,8 @@ import com.dokiwa.dokidoki.center.plugin.update.IUpdatePlugin
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import kotlinx.android.synthetic.main.activity_home.*
 
+private const val TAG = "HomeActivity"
+
 class HomeActivity : TranslucentActivity() {
 
     companion object {
@@ -33,6 +35,11 @@ class HomeActivity : TranslucentActivity() {
         IAdminPlugin.get().attachShakeAdmin(lifecycle)
         ILoginPlugin.get().ensureLogin(this)
         IUpdatePlugin.get().checkUpdate(this)
+        IMessagePlugin.get().subscribeUnreadMsgCount().subscribe({
+            homeTabs.setUnreadCount(it)
+        }, {
+            Log.e(TAG, "subscribeUnreadMsgCount failed", it)
+        }).also { addDispose(it) }
     }
 
     private fun initView() {

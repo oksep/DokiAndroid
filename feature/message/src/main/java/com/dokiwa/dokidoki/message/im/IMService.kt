@@ -6,8 +6,10 @@ import androidx.core.net.toFile
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toUploadFileObservable
 import com.dokiwa.dokidoki.message.Log
+import com.dokiwa.dokidoki.message.util.vibrateIncomingMsg
 import com.netease.nimlib.sdk.*
 import com.netease.nimlib.sdk.auth.ClientType
 import com.netease.nimlib.sdk.auth.LoginInfo
@@ -282,6 +284,37 @@ object IMService {
                 NIMSDK.getMsgServiceObserve().observeMsgStatus(tmp, false)
             }
         }
+    }
+    //endregion
+
+    //region 新消息数量
+    private val msgCountSubject by lazy {
+        subscribeRecentContact()
+        BehaviorSubject.create<Int>()
+    }
+
+    fun subscribeUnreadMsgCount(): Observable<Int> {
+        return msgCountSubject.also {
+            it.onNext(getUnreadMsgCount())
+        }
+    }
+
+    private fun subscribeRecentContact() {
+        NIMSDK.getMsgServiceObserve().observeRecentContact({
+            msgCountSubject.onNext(getUnreadMsgCount())
+        }, true)
+    }
+
+    private fun getUnreadMsgCount(): Int {
+        return NIMSDK.getMsgService().totalUnreadCount
+    }
+
+    fun subscribeIncomingMsg(context: Context) {
+        NIMSDK.getMsgServiceObserve().observeReceiveMessage({
+            if (IProfilePlugin.get().isVibrateEnable()) {
+                vibrateIncomingMsg(context)
+            }
+        }, true)
     }
     //endregion
 }

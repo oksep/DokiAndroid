@@ -14,8 +14,6 @@ import kotlinx.android.synthetic.main.activity_settings.*
 
 private const val TAG = "SettingActivity"
 
-private const val SP_KEY = "key."
-
 class SettingActivity : TranslucentActivity() {
 
     companion object {
