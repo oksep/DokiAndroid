@@ -7,7 +7,3 @@ App Signature
 
 Package name
 > com.dokiwa.dokidoki
-
-测试账号
-> 12345000001-12345000010
-> 888888
