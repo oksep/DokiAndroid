@@ -9,6 +9,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toUploadFileObservable
 import com.dokiwa.dokidoki.message.Log
+import com.dokiwa.dokidoki.message.util.soundIncomingMsg
 import com.dokiwa.dokidoki.message.util.vibrateIncomingMsg
 import com.netease.nimlib.sdk.*
 import com.netease.nimlib.sdk.auth.ClientType
@@ -313,6 +314,9 @@ object IMService {
         NIMSDK.getMsgServiceObserve().observeReceiveMessage({
             if (IProfilePlugin.get().isVibrateEnable()) {
                 vibrateIncomingMsg(context)
+            }
+            if (IProfilePlugin.get().isSoundEnable()) {
+                soundIncomingMsg(context)
             }
         }, true)
     }
