@@ -19,8 +19,6 @@ import com.netease.nimlib.sdk.msg.attachment.AudioAttachment
 import com.netease.nimlib.sdk.msg.attachment.ImageAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
-import com.netease.nimlib.sdk.msg.model.IMMessage
 
 /**
  * Created by Septenary on 2019-07-13.
@@ -37,6 +35,8 @@ private const val TYPE_MESSAGE_RIGHT_TXT = 4
 private const val TYPE_MESSAGE_RIGHT_IMG = 5
 private const val TYPE_MESSAGE_RIGHT_AUDIO = 6
 private const val TYPE_MESSAGE_RIGHT_VIDEO = 7
+
+private const val DISPLAY_MSG_TIME_GAP = (1 * 30 * 1000).toLong()
 
 internal class ChatRoomAdapter(
     private val contactAccount: String,
@@ -71,133 +71,7 @@ internal class ChatRoomAdapter(
         }
         setUpStatus(helper, item.sessionMsg)
         setUpAvatar(helper, item.sessionMsg)
-        setUpTime(helper, item.sessionMsg)
-    }
-
-    private val timedItems = HashSet<String>() // 需要显示消息时间的消息ID
-    private var lastShowTimeItem: IMMessage? = null // 用于消息时间显示,判断和上条消息间的时间间隔
-    var displayMsgTimeWithInterval = (5 * 60 * 1000).toLong()
-
-    /**
-     * 列表加入新消息时，更新时间显示
-     */
-    fun updateShowTimeItem(items: List<IMMessage>, fromStart: Boolean, update: Boolean) {
-        var anchor: IMMessage? = if (fromStart) null else lastShowTimeItem
-        for (message in items) {
-            if (setShowTimeFlag(message, anchor)) {
-                anchor = message
-            }
-        }
-
-        if (update) {
-            lastShowTimeItem = anchor
-        }
-    }
-
-    private fun hideTimeAlways(message: IMMessage): Boolean {
-        if (message.sessionType == SessionTypeEnum.ChatRoom) {
-            return true
-        }
-        return when (message.msgType) {
-            MsgTypeEnum.notification -> true
-            else -> false
-        }
-    }
-
-    /**
-     * 是否显示时间item
-     */
-    private fun setShowTimeFlag(message: IMMessage, anchor: IMMessage?): Boolean {
-        var update = false
-
-        if (hideTimeAlways(message)) {
-            setShowTime(message, false)
-        } else {
-            if (anchor == null) {
-                setShowTime(message, true)
-                update = true
-            } else {
-                val time = anchor.time
-                val now = message.time
-
-                if (now - time == 0L) {
-                    // 消息撤回时使用
-                    setShowTime(message, true)
-                    lastShowTimeItem = message
-                    update = true
-                } else if (now - time < displayMsgTimeWithInterval) {
-                    setShowTime(message, false)
-                } else {
-                    setShowTime(message, true)
-                    update = true
-                }
-            }
-        }
-
-        return update
-    }
-
-    private fun setShowTime(message: IMMessage, show: Boolean) {
-        if (show) {
-            timedItems.add(message.uuid)
-        } else {
-            timedItems.remove(message.uuid)
-        }
-    }
-
-    fun needShowTime(message: IMMessage): Boolean {
-        return timedItems.contains(message.uuid)
-    }
-
-    private fun setUpTime(helper: BaseViewHolder, sessionMsg: IMSessionMessage) {
-        val timeTextView = helper.getView<TextView>(R.id.time)
-        if (needShowTime(sessionMsg.rawMsg)) {
-            timeTextView.visibility = View.VISIBLE
-            val text = TimeUtil.getTimeShowString(sessionMsg.rawMsg.time, false)
-            timeTextView.text = text
-        } else {
-            timeTextView.visibility = View.GONE
-        }
-    }
-
-    private fun relocateShowTimeItemAfterDelete(messageItem: IMMessage, index: Int) {
-        // 如果被删的项显示了时间，需要继承
-        if (needShowTime(messageItem)) {
-            setShowTime(messageItem, false)
-            if (data.size > 0) {
-                val nextItem: IMMessage = (if (index == data.size) {
-                    //删除的是最后一项
-                    getItem(index - 1)?.sessionMsg?.rawMsg
-                } else {
-                    //删除的不是最后一项
-                    getItem(index)?.sessionMsg?.rawMsg
-                }) ?: return
-
-                // 增加其他不需要显示时间的消息类型判断
-                if (hideTimeAlways(nextItem)) {
-                    setShowTime(nextItem, false)
-                    if (lastShowTimeItem != null && lastShowTimeItem != null
-                        && lastShowTimeItem?.isTheSame(messageItem) == true
-                    ) {
-                        lastShowTimeItem = null
-                        for (i in data.size - 1 downTo 0) {
-                            val item = getItem(i)
-                            if (item != null && needShowTime(item.sessionMsg.rawMsg)) {
-                                lastShowTimeItem = item.sessionMsg.rawMsg
-                                break
-                            }
-                        }
-                    }
-                } else {
-                    setShowTime(nextItem, true)
-                    if (lastShowTimeItem == null || lastShowTimeItem != null && lastShowTimeItem?.isTheSame(messageItem) == true) {
-                        lastShowTimeItem = nextItem
-                    }
-                }
-            } else {
-                lastShowTimeItem = null
-            }
-        }
+        setUpTime(helper, item)
     }
 
     private fun setUpStatus(helper: BaseViewHolder, item: IMSessionMessage) {
@@ -238,6 +112,17 @@ internal class ChatRoomAdapter(
         }
     }
 
+    private fun setUpTime(helper: BaseViewHolder, entity: AbsMessageEntity) {
+        val timeTextView = helper.getView<TextView>(R.id.time)
+        if (entity.showTime) {
+            timeTextView.visibility = View.VISIBLE
+            val text = TimeUtil.getTimeShowString(entity.sessionMsg.rawMsg.time, false)
+            timeTextView.text = text
+        } else {
+            timeTextView.visibility = View.GONE
+        }
+    }
+
     private fun setUpMessageTxtEntity(helper: BaseViewHolder, item: IMSessionMessage) {
         val span = MoonUtil.replaceEmoticons(
             helper.itemView.context,
@@ -275,20 +160,19 @@ internal class ChatRoomAdapter(
     }
 
     fun setRawData(list: List<IMSessionMessage>) {
-        updateShowTimeItem(list.map { it.rawMsg }, fromStart = true, update = true)
-        setNewData(list.map { it.toEntity() })
+        setNewData(list.toListEntity())
     }
 
     fun addNewRawData(msg: IMSessionMessage) {
-        addData(msg.toEntity())
+        addData(listOf(msg).toListEntity())
     }
 
     fun addOldRawData(list: List<IMSessionMessage>) {
-        addData(0, list.map { it.toEntity() })
+        addData(0, list.toListEntity())
     }
 
     fun addNewRawData(list: List<IMSessionMessage>) {
-        addData(list.map { it.toEntity() })
+        addData(list.toListEntity())
     }
 
     private fun IMSessionMessage.toEntity(): AbsMessageEntity {
@@ -318,9 +202,33 @@ internal class ChatRoomAdapter(
             notifyItemChanged(it + headerLayoutCount)
         }
     }
+
+    private fun List<IMSessionMessage>.toListEntity(): List<AbsMessageEntity> {
+        return this.map { it.toEntity() }.also { it.ensureTimeGap() }
+    }
+
+    private fun List<AbsMessageEntity>.ensureTimeGap() {
+        val last = data.lastOrNull()
+        val list = if (last == null) this else listOf(last) + this
+        list.forEachIndexed { index, entity ->
+            entity.ensureNextTimeGap(list.getOrNull(index + 1))
+        }
+    }
+
+    private fun AbsMessageEntity?.ensureNextTimeGap(next: AbsMessageEntity?) {
+        if (this != null) {
+            if (next != null) {
+                val isTimeGap = next.sessionMsg.rawMsg.time - this.sessionMsg.rawMsg.time > DISPLAY_MSG_TIME_GAP
+                next.showTime = isTimeGap
+            }
+        } else {
+            next?.showTime = true
+        }
+    }
 }
 
-internal abstract class AbsMessageEntity(val sessionMsg: IMSessionMessage) : MultiItemEntity
+internal abstract class AbsMessageEntity(val sessionMsg: IMSessionMessage, var showTime: Boolean = false) :
+    MultiItemEntity
 
 private class UnknownEntity(msg: IMSessionMessage) : AbsMessageEntity(msg) {
     override fun getItemType() = TYPE_MESSAGE_UNKNOWN
