@@ -31,5 +31,5 @@ project(':message').projectDir = new File(settingsDir, 'feature/message')
 include ':relationship'
 project(':relationship').projectDir = new File(settingsDir, 'feature/relationship')
 
-include ':uikit'
-project(':uikit').projectDir = new File(settingsDir, 'feature/uikit')
+//include ':uikit'
+//project(':uikit').projectDir = new File(settingsDir, 'feature/uikit')
