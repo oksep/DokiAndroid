@@ -1,4 +1,8 @@
 file=/Users/renyufeng/Documents/dokiwa/AndroidDoki/app/build/outputs/mapping/release/mapping.txt
-sha1=b5cb6ce86682b4b05bbf3cb55a0c0796233332b8
+sha1=60c4a6afd79d5f0f9053c2426a34108846c5bec7
+appId=7987fc1a55
+
+file=/Users/renyufeng/Documents/dokiwa/AndroidDoki/app/build/outputs/mapping/release/mapping.txt
+sha1=60c4a6afd79d5f0f9053c2426a34108846c5bec7
 appId=7987fc1a55
 
