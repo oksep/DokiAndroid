@@ -56,6 +56,15 @@ interface RelationApi {
     @GET("/api/report/v1/type-list")
     fun getReportTypeList(): Single<ReportTypeList>
 
+    @FormUrlEncoded
+    @POST("/api/report/v1/create")
+    fun createReport(
+        @Field("object") obj: Int,
+        @Field("object_id") objId: Int,
+        @Field("type") type: Int,
+        @Field("reason") reason: String
+    ): Single<JsonElement>
+
     @GET("/api/reportType.json")
     fun getLocalReportTypeList(): Single<ReportTypeList>
 }

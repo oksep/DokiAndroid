@@ -21,6 +21,8 @@
     <string name="relation_ban_report_reason_addon">补充说明</string>
     <string name="relation_ban_report_reason_addon_tip">( 可不填 )</string>
     <string name="relation_ban_report_no_reason">请选择举报原因</string>
+    <string name="relation_ban_report_success">举报成功</string>
+    <string name="relation_ban_report_failed">请求失败，请稍候再试</string>
 
     <string name="relation_status_follow_both">互相关注</string>
     <string name="relation_status_follow_it">关注TA</string>

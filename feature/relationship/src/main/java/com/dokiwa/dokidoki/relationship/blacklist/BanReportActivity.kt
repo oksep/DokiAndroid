@@ -10,7 +10,10 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
+import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.ext.toastApiException
+import com.dokiwa.dokidoki.center.plugin.model.UserProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.relationship.Log
 import com.dokiwa.dokidoki.relationship.R
@@ -41,6 +44,8 @@ class BanReportActivity : TranslucentActivity() {
             )
         }
     }
+
+    private var userProfile: UserProfile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,13 +78,42 @@ class BanReportActivity : TranslucentActivity() {
     }
 
     private fun submitPayload(reportType: ReportTypeList.ReportType) {
-        toast("TODO $reportType")
+        val objType = intent.getIntExtra(EXTRA_OBJECT_TYPE, -1)
+        if (objType == -1) {
+            return Log.w(TAG, "[submitPayload] illegal obj type -> $objType")
+        }
+
+        val objId = if (objType == ObjectType.USER.value) {
+            userProfile?.userId ?: return Log.w(TAG, "[submitPayload] userProfile is not available")
+        } else {
+            val id = intent.getIntExtra(EXTRA_REPORT_ID, -1)
+            if (id == -1) {
+                return Log.w(TAG, "[submitPayload] illegal obj id")
+            } else {
+                id
+            }
+        }
+
+        Api.get(RelationApi::class.java)
+            .createReport(
+                obj = objType,
+                objId = objId,
+                type = reportType.type,
+                reason = editText.text.toString()
+            )
+            .subscribeApiWithDialog(this, this, {
+                toast(R.string.relation_ban_report_success)
+                finish()
+            }, {
+                toastApiException(it, R.string.relation_ban_report_failed)
+            })
     }
 
     private fun loadUserData() {
         IProfilePlugin.get()
             .getUserProfile(intent.getStringExtra(EXTRA_USER_UUID))
             .subscribeApi(this, {
+                userProfile = it.profile
                 avatar.glideAvatar(it.profile.avatar)
                 name.text = it.profile.nickname
             })
