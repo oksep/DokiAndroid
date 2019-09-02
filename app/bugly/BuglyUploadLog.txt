@@ -10,3 +10,7 @@ file=/Users/renyufeng/Documents/dokiwa/AndroidDoki/app/build/outputs/mapping/rel
 sha1=60c4a6afd79d5f0f9053c2426a34108846c5bec7
 appId=7987fc1a55
 
+file=/Users/renyufeng/Documents/dokiwa/AndroidDoki/app/build/outputs/mapping/release/mapping.txt
+sha1=84d6b781eb44fe0552081f8ed57acf2831f8c797
+appId=7987fc1a55
+
