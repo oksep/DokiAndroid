@@ -46,8 +46,10 @@ dependencies {
     implementation "com.jaeger.ninegridimageview:library:${versions.nineGridImageView}"
 
     // util
-    implementation ('com.github.niorgai:StatusBarCompat:2.3.1', {
-        exclude group: 'androidx.appcompat:appcompat'
-        exclude group: 'com.google.android.material:material'
-    })
+    // 基础依赖包，必须要依赖
+    implementation "com.gyf.immersionbar:immersionbar:${versions.immersionBar}"
+    // fragment快速实现（可选）
+    implementation "com.gyf.immersionbar:immersionbar-components:${versions.immersionBar}"
+    // kotlin扩展（可选）
+    implementation "com.gyf.immersionbar:immersionbar-ktx:${versions.immersionBar}"
 }
