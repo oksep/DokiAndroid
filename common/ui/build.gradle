@@ -52,4 +52,6 @@ dependencies {
     implementation "com.gyf.immersionbar:immersionbar-components:${versions.immersionBar}"
     // kotlin扩展（可选）
     implementation "com.gyf.immersionbar:immersionbar-ktx:${versions.immersionBar}"
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipeRefreshLayout}"
 }

@@ -23,6 +23,7 @@ versions.coordinatorlayout = '1.1.0-beta01'
 versions.drawerlayout = '1.0.0'
 versions.annotation = '1.1.0'
 versions.multiDex = '2.0.1'
+versions.swipeRefreshLayout = '1.0.0'
 
 // test
 versions.testJunit = '4.12'
