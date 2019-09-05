@@ -65,7 +65,7 @@ class HomeActivity : TranslucentActivity() {
 
         override fun getItemCount() = 4
 
-        override fun getItem(position: Int): Fragment {
+        override fun createFragment(position: Int): Fragment {
             return when (position) {
                 0 -> IFeedPlugin.get().obtainHomeFeedFragment()
                 1 -> ITimelinePlugin.get().obtainHomeTimelineFragment()

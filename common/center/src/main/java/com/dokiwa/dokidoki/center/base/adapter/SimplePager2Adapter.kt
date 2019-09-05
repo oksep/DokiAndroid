@@ -11,7 +11,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class SimplePager2Adapter(fm: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fm, lifecycle) {
     private val fragments = mutableListOf<Fragment>()
 
-    override fun getItem(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment {
         return fragments[position]
     }
 
