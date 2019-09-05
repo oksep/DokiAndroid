@@ -76,17 +76,11 @@ abstract class BaseSelectImageActivity : TranslucentActivity(), SelectImageDeleg
 
     @NeedsPermission(value = [READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
     fun selectImageByMatisseImpl(max: Int = 9) {
-        Matisse.from(this)
-            .choose(MimeType.ofAll())
-            .countable(true)
-            .maxSelectable(max)
-            // .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-            .gridExpectedSize(ViewUtil.getScreenWidth() / 3)
-            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-            .thumbnailScale(0.85f)
-            .imageEngine(Glide4Engine())
-            .theme(R.style.Matisse_Zhihu)
-            .forResult(REQUEST_CODE_MATISSE)
+        selectMatisse(max, MimeType.ofImage())
+    }
+
+    override fun selectVideoByMatisse(max: Int) {
+        selectMatisse(max, MimeType.ofVideo())
     }
 
     override fun onSelectImageFromCamera(uri: Uri) {
@@ -99,6 +93,24 @@ abstract class BaseSelectImageActivity : TranslucentActivity(), SelectImageDeleg
 
     override fun onSelectImageFromMatisse(list: List<Uri>) {
         selectImageDelegate?.onSelectImageFromMatisse(list)
+    }
+
+    override fun onSelectVideoFromMatisse(list: List<Uri>) {
+        selectImageDelegate?.onSelectVideoFromMatisse(list)
+    }
+
+    private fun selectMatisse(max: Int = 9, mimeType: MutableSet<MimeType>) {
+        Matisse.from(this)
+            .choose(mimeType)
+            .countable(true)
+            .maxSelectable(max)
+            // .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+            .gridExpectedSize(ViewUtil.getScreenWidth() / 3)
+            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+            .thumbnailScale(0.85f)
+            .imageEngine(Glide4Engine())
+            .theme(R.style.Matisse_Doki)
+            .forResult(REQUEST_CODE_MATISSE)
     }
 
     ///////////////////////////////////////////
@@ -236,6 +248,9 @@ interface SelectImageDelegate {
 
     fun selectImageByMatisse(max: Int = 9)
     fun onSelectImageFromMatisse(list: List<Uri>)
+
+    fun selectVideoByMatisse(max: Int = 9)
+    fun onSelectVideoFromMatisse(list: List<Uri>)
 
     fun selectImageByCamera()
     fun onSelectImageFromCamera(uri: Uri)

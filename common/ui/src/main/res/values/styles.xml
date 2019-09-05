@@ -13,9 +13,9 @@
         <!--<item name="android:background">@color/white</item>-->
 
         <!--主色调 -->
-        <item name="colorPrimary">@color/dd_blue</item>
+        <item name="colorPrimary">@color/dd_red</item>
         <!--状态栏颜色-->
-        <!--<item name="colorPrimaryDark">@color/transparent</item>-->
+        <item name="colorPrimaryDark">@color/transparent</item>
         <!--控制各个控件被选中时的颜色-->
         <item name="colorAccent">@color/dd_red</item>
         <!--页面背景色-->

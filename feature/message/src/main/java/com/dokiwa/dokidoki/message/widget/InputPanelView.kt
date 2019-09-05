@@ -210,6 +210,14 @@ class InputPanelView @JvmOverloads constructor(
     override fun onSelectImageFromCamera(uri: Uri) {
         onRequestSendImage?.invoke(listOf(uri))
     }
+
+    override fun selectVideoByMatisse(max: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onSelectVideoFromMatisse(list: List<Uri>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
     //endregion
 
     //region recorder
