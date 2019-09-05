@@ -38,7 +38,7 @@ fun Uri.toUploadFile(context: Context): String {
         } else {
             context.contentResolver.openInputStream(this) ?: throw Exception("openInputStream $this failed")
         }
-        val tmp = File.createTempFile(now(), ".jpg", saveDir)
+        val tmp = File.createTempFile(now(), ".tmp", saveDir)
         tmp.copyInputStreamToFile(stream)
         tmp.absolutePath
     } catch (e: Exception) {

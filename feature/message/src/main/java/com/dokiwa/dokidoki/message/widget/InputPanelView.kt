@@ -11,6 +11,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
 import androidx.transition.ChangeBounds
 import androidx.transition.TransitionManager
@@ -56,11 +57,11 @@ class InputPanelView @JvmOverloads constructor(
         }
         picBtn.setOnClickListener {
             toggleSubPanel(picBtn, null)
-            selectImageByMatisse()
+            showSelectMediaDialog()
         }
         cameraBtn.setOnClickListener {
             toggleSubPanel(cameraBtn, null)
-            selectImageByMatisse()
+            selectImageByCamera()
         }
         editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
         editText.addTextChangedListener(object : SimpleTextWatcher {
@@ -116,17 +117,20 @@ class InputPanelView @JvmOverloads constructor(
 
     private var onRequestSendTxt: ((String) -> Unit)? = null
     private var onRequestSendImage: ((List<Uri>) -> Unit)? = null
+    private var onRequestSendVideo: ((List<Uri>) -> Unit)? = null
     private var onRequestSendSticker: ((String) -> Unit)? = null
     private var onRequestSendAudio: ((File, Long) -> Unit)? = null
 
     fun setInputPanelCallback(
         onRequestSendTxt: (String) -> Unit,
         onRequestSendImage: (List<Uri>) -> Unit,
+        onRequestSendVideo: ((List<Uri>) -> Unit),
         onRequestSendAudio: (File, Long) -> Unit,
         onRequestSendSticker: (String) -> Unit
     ) {
         this.onRequestSendTxt = onRequestSendTxt
         this.onRequestSendImage = onRequestSendImage
+        this.onRequestSendVideo = onRequestSendVideo
         this.onRequestSendAudio = onRequestSendAudio
         this.onRequestSendSticker = onRequestSendSticker
     }
@@ -195,6 +199,16 @@ class InputPanelView @JvmOverloads constructor(
         selectImageDelegate?.selectImageDelegate = this
     }
 
+    private fun showSelectMediaDialog() {
+        AlertDialog.Builder(context)
+            .setItems(R.array.message_input_panel_select_media) { d, i ->
+                when (i) {
+                    0 -> selectImageByMatisse()
+                    1 -> selectVideoByMatisse()
+                }
+            }.create().show()
+    }
+
     override fun selectImageByMatisse(max: Int) {
         selectImageDelegate?.selectImageByMatisse(max)
     }
@@ -212,11 +226,11 @@ class InputPanelView @JvmOverloads constructor(
     }
 
     override fun selectVideoByMatisse(max: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        selectImageDelegate?.selectVideoByMatisse(max)
     }
 
     override fun onSelectVideoFromMatisse(list: List<Uri>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        onRequestSendVideo?.invoke(list)
     }
     //endregion
 

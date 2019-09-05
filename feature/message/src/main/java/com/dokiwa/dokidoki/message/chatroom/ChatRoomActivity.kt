@@ -78,7 +78,13 @@ class ChatRoomActivity : BaseSelectImageActivity() {
         toolBar.rightIconView.setOnClickListener {
             morePopWindow.showAsDropDown(it, 0, 0)
         }
-        inputPanel.setInputPanelCallback(::sendMessageTxt, ::sendMessageImg, ::sendMessageAudio, ::sendMessageSticker)
+        inputPanel.setInputPanelCallback(
+            ::sendMessageTxt,
+            ::sendMessageImg,
+            ::sendMessageVideo,
+            ::sendMessageAudio,
+            ::sendMessageSticker
+        )
         recyclerView.layoutManager = LinearLayoutManager(this).apply {
             stackFromEnd = true
         }
@@ -206,6 +212,12 @@ class ChatRoomActivity : BaseSelectImageActivity() {
     private fun sendMessageImg(imgList: List<Uri>) {
         IMService.sendMessageImg(this, contactAccount, imgList).subscribe(::onSendMessage) {
             Log.e(TAG, "send img msg error -> $it")
+        }.bind(this)
+    }
+
+    private fun sendMessageVideo(imgList: List<Uri>) {
+        IMService.sendMessageVideo(this, contactAccount, imgList).subscribe(::onSendMessage) {
+            Log.e(TAG, "send video msg error -> $it")
         }.bind(this)
     }
 

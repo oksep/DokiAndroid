@@ -9,6 +9,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.util.toUploadFileObservable
 import com.dokiwa.dokidoki.message.Log
+import com.dokiwa.dokidoki.message.util.checkVideo
 import com.dokiwa.dokidoki.message.util.soundIncomingMsg
 import com.dokiwa.dokidoki.message.util.vibrateIncomingMsg
 import com.netease.nimlib.sdk.*
@@ -245,6 +246,33 @@ object IMService {
             .flatMap { uri: Uri ->
                 Observable.create<IMSessionMessage> { emitter ->
                     val payload = MessageBuilder.createImageMessage(account, SessionTypeEnum.P2P, uri.toFile())
+                    emitter.onNext(payload.toSessionMessage())
+                    NIMSDK.getMsgService().sendMessage(payload, false)
+                        .setCallback(DummyAdaptRequestCallback("send img message"))
+                }
+            }
+    }
+
+    fun sendMessageVideo(context: Context, account: String, list: List<Uri>): Observable<IMSessionMessage> {
+        val copyFileTasks = list.map { it.toUploadFileObservable(context) }
+        return Observable.merge<String>(copyFileTasks)
+            .filter { it.isNotEmpty() }
+            .map { Uri.parse(it) }
+            .map {
+                val file = it.toFile()
+                Pair(file, checkVideo(context, file))
+            }
+            .flatMap { meta: Pair<File, Triple<Long, Int, Int>> ->
+                Observable.create<IMSessionMessage> { emitter ->
+                    val payload = MessageBuilder.createVideoMessage(
+                        account,
+                        SessionTypeEnum.P2P,
+                        meta.first,
+                        meta.second.first,
+                        meta.second.second,
+                        meta.second.third,
+                        meta.first.name
+                    )
                     emitter.onNext(payload.toSessionMessage())
                     NIMSDK.getMsgService().sendMessage(payload, false)
                         .setCallback(DummyAdaptRequestCallback("send img message"))

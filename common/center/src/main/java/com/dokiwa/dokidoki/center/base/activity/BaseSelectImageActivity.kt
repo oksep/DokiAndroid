@@ -32,7 +32,8 @@ abstract class BaseSelectImageActivity : TranslucentActivity(), SelectImageDeleg
         private const val TAG = "BaseSelectImageActivity"
         private const val REQUEST_CODE_CAMERA = 0x0005
         private const val REQUEST_CODE_GALLERY = 0x0006
-        private const val REQUEST_CODE_MATISSE = 0x0007
+        private const val REQUEST_CODE_MATISSE_IMAGE = 0x0007
+        private const val REQUEST_CODE_MATISSE_VIDEO = 0x0008
     }
 
     override var selectImageDelegate: SelectImageDelegate? = null
@@ -76,11 +77,16 @@ abstract class BaseSelectImageActivity : TranslucentActivity(), SelectImageDeleg
 
     @NeedsPermission(value = [READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
     fun selectImageByMatisseImpl(max: Int = 9) {
-        selectMatisse(max, MimeType.ofImage())
+        selectMatisse(max, MimeType.ofImage(), REQUEST_CODE_MATISSE_IMAGE)
     }
 
     override fun selectVideoByMatisse(max: Int) {
-        selectMatisse(max, MimeType.ofVideo())
+        selectVideoByMatisseImplWithPermissionCheck(max)
+    }
+
+    @NeedsPermission(value = [READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE])
+    fun selectVideoByMatisseImpl(max: Int = 9) {
+        selectMatisse(max, MimeType.ofVideo(), REQUEST_CODE_MATISSE_VIDEO)
     }
 
     override fun onSelectImageFromCamera(uri: Uri) {
@@ -99,18 +105,19 @@ abstract class BaseSelectImageActivity : TranslucentActivity(), SelectImageDeleg
         selectImageDelegate?.onSelectVideoFromMatisse(list)
     }
 
-    private fun selectMatisse(max: Int = 9, mimeType: MutableSet<MimeType>) {
+    private fun selectMatisse(max: Int = 9, mimeType: MutableSet<MimeType>, requestCode: Int) {
         Matisse.from(this)
             .choose(mimeType)
             .countable(true)
             .maxSelectable(max)
+            .showSingleMediaType(true)
             // .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
             .gridExpectedSize(ViewUtil.getScreenWidth() / 3)
             .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
             .thumbnailScale(0.85f)
             .imageEngine(Glide4Engine())
             .theme(R.style.Matisse_Doki)
-            .forResult(REQUEST_CODE_MATISSE)
+            .forResult(requestCode)
     }
 
     ///////////////////////////////////////////
@@ -229,9 +236,14 @@ abstract class BaseSelectImageActivity : TranslucentActivity(), SelectImageDeleg
                         onSelectImageFromGallery(it)
                     }
                 }
-                REQUEST_CODE_MATISSE -> {
+                REQUEST_CODE_MATISSE_IMAGE -> {
                     Matisse.obtainResult(data)?.let {
                         onSelectImageFromMatisse(it)
+                    }
+                }
+                REQUEST_CODE_MATISSE_VIDEO -> {
+                    Matisse.obtainResult(data)?.let {
+                        onSelectVideoFromMatisse(it)
                     }
                 }
             }
