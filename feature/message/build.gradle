@@ -57,6 +57,7 @@ dependencies {
     implementation project(':center')
     implementation project(':ui')
     implementation project(':social')
+    implementation project(':gallery')
 
     // 网易云信相关依赖 注意，版本号必须一致。
     // 基础功能 (必需)

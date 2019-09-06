@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.dokiwa.dokidoki.center.ext.glideAvatar
+import com.dokiwa.dokidoki.gallery.GalleryActivity
 import com.dokiwa.dokidoki.message.R
 import com.dokiwa.dokidoki.message.im.IMAudioController
 import com.dokiwa.dokidoki.message.im.IMSessionMessage
@@ -67,6 +68,9 @@ internal class ChatRoomAdapter(
             }
             is LeftAudioMessageEntity, is RightAudioMessageEntity -> {
                 setUpMessageAudioEntity(helper, item.sessionMsg)
+            }
+            is LeftVideoMessageEntity, is RightVideoMessageEntity -> {
+                setUpMessageVideoEntity(helper, item.sessionMsg)
             }
         }
         setUpStatus(helper, item.sessionMsg)
@@ -134,8 +138,15 @@ internal class ChatRoomAdapter(
     }
 
     private fun setUpMessageImgEntity(helper: BaseViewHolder, item: IMSessionMessage) {
-        (item.rawMsg.attachment as? ImageAttachment)?.let {
-            helper.getView<AttachmentImageView>(R.id.content).setAttachment(it)
+        (item.rawMsg.attachment as? ImageAttachment)?.let { attachment ->
+            val imgView = helper.getView<AttachmentImageView>(R.id.content)
+            imgView.setAttachment(attachment)
+            imgView.setOnClickListener {
+                val list = data.filter {
+                    it is LeftImgMessageEntity || it is RightImgMessageEntity
+                }.filterIsInstance<ImageAttachment>().map { it.thumbUrl }
+                GalleryActivity.launchGallery(helper.itemView.context, 0, list)
+            }
         }
     }
 
@@ -157,6 +168,10 @@ internal class ChatRoomAdapter(
                 View.GONE
             }
         }
+    }
+
+    private fun setUpMessageVideoEntity(helper: BaseViewHolder, sessionMsg: IMSessionMessage) {
+        // todo
     }
 
     fun setRawData(list: List<IMSessionMessage>) {
