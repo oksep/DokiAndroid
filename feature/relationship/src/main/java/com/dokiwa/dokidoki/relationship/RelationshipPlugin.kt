@@ -49,10 +49,7 @@ class RelationshipPlugin : IRelationshipPlugin {
         return IProfilePlugin.get()
             .getUserProfile(uuid)
             .flatMap { Api.get(RelationApi::class.java).isInBlackList(it.profile.userId.toString()) }
-            .map {
-                // TODO: 2019-08-19 @Septenary 黑名单状态
-                false
-            }
+            .map { it.exists }
     }
 
     override fun addToBlackList(uuid: String): Single<Boolean> {

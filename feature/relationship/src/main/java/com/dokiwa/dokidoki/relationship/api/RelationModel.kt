@@ -41,3 +41,5 @@ data class ReportTypeList(
 ) : IApiModel {
     data class ReportType(val type: Int, val text: String) : IApiModel
 }
+
+data class InBlacklistResult(val exists: Boolean) : IApiModel
