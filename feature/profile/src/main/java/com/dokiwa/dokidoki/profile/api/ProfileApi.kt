@@ -4,6 +4,7 @@ import com.dokiwa.dokidoki.center.plugin.model.Edu
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.MineProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.google.gson.JsonElement
 import io.reactivex.Single
 import org.json.JSONException
 import retrofit2.http.*
@@ -96,4 +97,14 @@ interface ProfileApi {
         @Field("school") school: String = "",
         @Field("image") image: String = ""
     ): Single<JSONException>
+
+    @GET("/api/setting/v1/me")
+    fun getSettings(): Single<SettingsModel>
+
+    @FormUrlEncoded
+    @POST("/api/setting/v1/update")
+    fun updateSettings(
+        @Field("allow_recommend") allowRecommend: Boolean,
+        @Field("certificated_only") certificatedOnly: Boolean
+    ): Single<JsonElement>
 }
