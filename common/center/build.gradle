@@ -97,6 +97,7 @@ dependencies {
         implementation "org.permissionsdispatcher:permissionsdispatcher:${versions.permissionDispatcher}"
         kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${versions.permissionDispatcher}"
     }
+    implementation "com.jaredrummler:android-device-names:${versions.adn}"
 
     implementation project(":ui")
     implementation project(":social")

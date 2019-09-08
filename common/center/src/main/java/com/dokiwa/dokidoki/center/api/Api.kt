@@ -1,10 +1,16 @@
 package com.dokiwa.dokidoki.center.api
 
 import android.content.Context
+import com.dokiwa.dokidoki.center.AppCenter
 import com.dokiwa.dokidoki.center.BuildConfig
 import com.dokiwa.dokidoki.center.Log
 import com.dokiwa.dokidoki.center.api.convert.CustomConverterFactory
 import com.dokiwa.dokidoki.center.api.interceptor.*
+import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
+import com.dokiwa.dokidoki.center.util.AppUtil
+import com.dokiwa.dokidoki.center.util.DeviceUtils
+import com.dokiwa.dokidoki.center.util.NetworkUtils
+import com.jaredrummler.android.device.DeviceName
 import io.reactivex.subjects.PublishSubject
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,23 +31,18 @@ object Api {
         get() = BuildConfig.API_BASE_URL
 
     private val commonQueries by lazy {
-        mapOf<String, String>()
-        /*
-        "appId" to AppCenter.get().context.packageName,
-        "deviceId" to "",
-        "sDeviceId" to ""
-        */
+        mapOf<String, String>(
+            "_av" to AppUtil.getVerName(AppCenter.context),
+            "_avc" to AppUtil.getVerCode(AppCenter.context).toString(),
+            "_uid" to (ILoginPlugin.get().getLoginUserUUID() ?: ""),
+            "_d" to DeviceName.getDeviceName(),
+            "_nw" to NetworkUtils.getNetworkType().value,
+            "_did" to DeviceUtils.getUniqueDeviceId()
+        )
     }
 
     private val commonHeaders by lazy {
         mapOf<String, String>()
-        /*
-        headers["User-Agent"] = UserAgentUtil.getUserAgent()
-        headers["Accept-Language"] = "zh-cn"
-        headers["appId"] = DWApkConfig.getAppId()
-        headers["deviceId"] = ContextHelper.getDeviceId(context)
-        headers["sDeviceId"] = ContextHelper.getSdeviceId(context)
-        */
     }
 
     private val headerInterceptor = HeaderInterceptor(commonHeaders)
