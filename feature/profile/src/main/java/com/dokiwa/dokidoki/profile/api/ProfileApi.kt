@@ -2,8 +2,8 @@ package com.dokiwa.dokidoki.profile.api
 
 import com.dokiwa.dokidoki.center.plugin.model.Edu
 import com.dokiwa.dokidoki.center.plugin.model.Gender
+import com.dokiwa.dokidoki.center.plugin.model.MineProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
-import com.google.gson.JsonElement
 import io.reactivex.Single
 import org.json.JSONException
 import retrofit2.http.*
@@ -73,13 +73,7 @@ interface ProfileApi {
     fun getTagsConfig(): Single<TagsGroupModel>
 
     @GET("/api/profile/v1/me")
-    fun getMeProfile(): Single<UserProfileWrap>
-
-    @GET("/api/relation/v1/count")
-    fun getRelationCount(): Single<RelationCount>
-
-    @GET("/api/ufeed/v1/me")
-    fun getTimeLineJson(): Single<JsonElement>
+    fun getMeProfile(): Single<MineProfile>
 
     @GET("/api/certification/v1/me")
     fun getCertification(): Single<CertificationWrap>

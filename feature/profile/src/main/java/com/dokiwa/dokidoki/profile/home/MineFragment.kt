@@ -12,14 +12,13 @@ import com.dokiwa.dokidoki.center.dialog.ShareDialog
 import com.dokiwa.dokidoki.center.ext.glideAvatar
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApi
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
-import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.center.plugin.model.MineProfile
 import com.dokiwa.dokidoki.center.plugin.profile.IProfilePlugin
 import com.dokiwa.dokidoki.center.plugin.relationship.IRelationshipPlugin
 import com.dokiwa.dokidoki.center.plugin.timeline.ITimelinePlugin
 import com.dokiwa.dokidoki.profile.Log
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
-import com.dokiwa.dokidoki.profile.api.RelationCount
 import com.dokiwa.dokidoki.profile.certification.CertificationActivity
 import com.dokiwa.dokidoki.profile.setting.SettingActivity
 import com.dokiwa.dokidoki.social.SocialHelper
@@ -40,24 +39,21 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
         }
     }
 
-    private var profileWrap: UserProfileWrap?
+    private var mineProfile: MineProfile?
         get() = ensureModel().profileWrap
         set(value) {
             ensureModel().profileWrap = value
         }
 
-    private val countsModel: CountsViewModel
-        get() = ensureModel().countsModel
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         entranceUserPage.setOnClickListener {
-            profileWrap?.profile?.let {
+            mineProfile?.profile?.let {
                 IProfilePlugin.get().launchProfileActivity(requireContext(), it)
             }
         }
 
         entranceEdit.setOnClickListener {
-            profileWrap?.profile?.let {
+            mineProfile?.profile?.let {
                 IProfilePlugin.get().launchEditProfileActivity(this, REQUEST_CODE_EDIT_PROFILE, it)
             }
         }
@@ -79,7 +75,7 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
         }
 
         timelineCountContainer.setOnClickListener {
-            this.profileWrap?.profile?.run {
+            this.mineProfile?.profile?.run {
                 ITimelinePlugin.get().launchUserTimelineActivity(requireActivity(), userId.toString(), nickname)
             }
         }
@@ -100,31 +96,13 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
     }
 
     private fun ensureData() {
-        val profileWrap = profileWrap
-        if (profileWrap == null) {
+        val mineProfile = mineProfile
+        if (mineProfile == null) {
             Log.d(TAG, "ensure profile -> load api data")
             loadProfile()
         } else {
-            setProfile(profileWrap)
-            Log.d(TAG, "ensure profile -> load cache data $profileWrap")
-        }
-
-        val relationCount = countsModel.relationCount
-        if (relationCount == null) {
-            Log.d(TAG, "ensure relation -> load api data")
-            loadRelationCount()
-        } else {
-            setRelationCount(relationCount)
-            Log.d(TAG, "ensure relation -> load cache data $relationCount")
-        }
-
-        val timelineCount = countsModel.timeLineCount
-        if (timelineCount == null) {
-            Log.d(TAG, "ensure timeline -> load api data")
-            loadTimeLineCount()
-        } else {
-            setTimeLineCount(timelineCount)
-            Log.d(TAG, "ensure timeline -> load cache data $timelineCount")
+            setProfile(mineProfile)
+            Log.d(TAG, "ensure profile -> load cache data $mineProfile")
         }
     }
 
@@ -134,33 +112,13 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
             .subscribeApi(this, ::setProfile, ::loadError)
     }
 
-    private fun loadRelationCount() {
-        Api.get(ProfileApi::class.java)
-            .getRelationCount()
-            .subscribeApi(this, ::setRelationCount, ::loadError)
-    }
-
-    private fun loadTimeLineCount() {
-        Api.get(ProfileApi::class.java)
-            .getTimeLineJson()
-            .subscribeApi(this, {
-                val count = try {
-                    it.asJsonObject.get("total")?.asInt ?: 0
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    0
-                }
-                setTimeLineCount(count)
-            }, ::loadError)
-    }
-
     private fun loadError(error: Throwable) {
         Log.e(TAG, "load data error", error)
     }
 
-    private fun setProfile(profileWrap: UserProfileWrap) {
-        val profile = profileWrap.profile
-        avatar.glideAvatar(profileWrap.profile)
+    private fun setProfile(mineProfile: MineProfile) {
+        val profile = mineProfile.profile
+        avatar.glideAvatar(mineProfile.profile)
         nameTextView.text = profile.nickname
         idTextView.text = getString(R.string.profile_home_mine_id, profile.userId)
         if (profile.verify != null) {
@@ -181,20 +139,13 @@ class MineFragment : BaseShareFragment(R.layout.fragment_home_mine) {
         } else {
             View.GONE
         }
-        this.profileWrap = profileWrap
+        this.mineProfile = mineProfile
+
+        fansCount.text = mineProfile.relationStats.followerTotal.toString()
+        followCount.text = mineProfile.relationStats.followingTotal.toString()
+        timelineCount.text = mineProfile.timelineStats.timelineTotal.toString()
 
         ILoginPlugin.get().updateUserProfile(profile)
-    }
-
-    private fun setRelationCount(relationCount: RelationCount) {
-        fansCount.text = relationCount.followerTotal.toString()
-        followCount.text = relationCount.followingTotal.toString()
-        countsModel.relationCount = relationCount
-    }
-
-    private fun setTimeLineCount(count: Int) {
-        timelineCount.text = count.toString()
-        countsModel.timeLineCount = count
     }
 
     private fun showShareDialog() {

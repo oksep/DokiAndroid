@@ -11,6 +11,21 @@ import com.dokiwa.dokidoki.center.util.birthdayToReadableString
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+data class MineProfile(
+    val profile: UserProfile,
+    @SerializedName("relation_stats") val relationStats: RelationStats,
+    @SerializedName("ufeed_stats") val timelineStats: TimelineStats
+) : IApiModel {
+    data class RelationStats(
+        @SerializedName("follower_total") val followerTotal: Int,
+        @SerializedName("following_total") val followingTotal: Int
+    ) : IApiModel
+
+    data class TimelineStats(
+        @SerializedName("ufeed_total") val timelineTotal: Int
+    ) : IApiModel
+}
+
 data class UserProfileWrap(val profile: UserProfile) : IApiModel
 
 @SuppressLint("ParcelCreator")
