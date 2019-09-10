@@ -29,8 +29,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${versions.axConstraintLayout}"
 
     // test
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     testImplementation "junit:junit:${versions.testJunit}"
     androidTestImplementation "androidx.test:runner:${versions.testAxRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.testAxEspresso}"
