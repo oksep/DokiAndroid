@@ -107,4 +107,26 @@ interface ProfileApi {
         @Field("allow_recommend") allowRecommend: Boolean,
         @Field("certificated_only") certificatedOnly: Boolean
     ): Single<JsonElement>
+
+    @FormUrlEncoded
+    @POST("/api/social/v1/bind")
+    fun bindSocialAccount(
+        @Field("type") type: String
+    ): Single<JsonElement>
+
+    @FormUrlEncoded
+    @POST("/api/social/v1/unbind")
+    fun unbindSocialAccount(
+        @Field("type") type: String,
+        @Field("code") code: String
+    ): Single<JsonElement>
+
+    @GET("/api/social/v1/list")
+    fun getSocialAccountList(): Single<JsonElement>
+
+    @GET("/api/social/v1/info")
+    fun getSocialAccountInfo(): Single<JsonElement>
+
+    @GET("/api/user/v1/phone")
+    fun getBindPhone(): Single<JsonElement>
 }
