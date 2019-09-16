@@ -1,7 +1,10 @@
 package com.dokiwa.dokidoki.profile.api
 
+import com.google.gson.JsonElement
+import com.google.gson.annotations.SerializedName
+
 data class SocialListModel(
-    val todo: String?
+    @SerializedName("social_list") val list: List<JsonElement>?
 )
 
 data class SocialModel(

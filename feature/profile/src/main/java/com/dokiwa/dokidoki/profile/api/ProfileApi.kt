@@ -99,14 +99,19 @@ interface ProfileApi {
     ): Single<JSONException>
 
     @GET("/api/setting/v1/me")
-    fun getSettings(): Single<SettingsModel>
+    fun getSettings(): Single<SettingModel>
 
     @FormUrlEncoded
     @POST("/api/setting/v1/update")
-    fun updateSettings(
-        @Field("allow_recommend") allowRecommend: Boolean,
+    fun updateSettingRealNameMsg(
         @Field("certificated_only") certificatedOnly: Boolean
-    ): Single<JsonElement>
+    ): Single<SettingModel>
+
+    @FormUrlEncoded
+    @POST("/api/setting/v1/update")
+    fun updateSettingAllowRecommend(
+        @Field("allow_recommend") allowRecommend: Boolean
+    ): Single<SettingModel>
 
     @FormUrlEncoded
     @POST("/api/social/v1/bind")
@@ -122,7 +127,7 @@ interface ProfileApi {
     ): Single<JsonElement>
 
     @GET("/api/social/v1/list")
-    fun getSocialAccountList(): Single<JsonElement>
+    fun getSocialAccountList(): Single<SocialListModel>
 
     @GET("/api/social/v1/info")
     fun getSocialAccountInfo(): Single<JsonElement>

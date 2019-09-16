@@ -6,10 +6,10 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by Septenary on 2019-09-08.
  */
-data class SettingsModel(
-    val setting: Settings
+data class SettingModel(
+    val setting: Setting
 ) {
-    data class Settings(
+    data class Setting(
         @SerializedName("certificated_only") val certificatedOnly: Boolean,
         @SerializedName("allow_recommend") val allowRecommend: Boolean
     ) : IApiModel

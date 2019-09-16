@@ -8,11 +8,14 @@ import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
 import com.dokiwa.dokidoki.center.ext.toast
+import com.dokiwa.dokidoki.center.ext.toastApiException
 import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.util.AppUtil
 import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.ProfileApi
+import com.dokiwa.dokidoki.profile.api.SettingModel
+import com.dokiwa.dokidoki.profile.api.SocialListModel
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import kotlinx.android.synthetic.main.activity_settings.*
@@ -28,10 +31,16 @@ class SettingActivity : TranslucentActivity() {
         }
     }
 
+    private var settingModel: SettingModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        version.text = getString(R.string.profile_setting_version, AppUtil.getVerName(this), AppUtil.getVerCode(this))
+        version.text = getString(
+            R.string.profile_setting_version,
+            AppUtil.getVerName(this),
+            AppUtil.getVerCode(this)
+        )
 
         notifySwitch.initSwitchBtn(ProfileSP.KEY_NOTIFY_ENABLE)
         soundSwitch.initSwitchBtn(ProfileSP.KEY_SOUND_ENABLE)
@@ -61,6 +70,8 @@ class SettingActivity : TranslucentActivity() {
             toast("TODO")
         }
 
+        initSettingSwitch()
+
         loadData()
     }
 
@@ -71,17 +82,48 @@ class SettingActivity : TranslucentActivity() {
         }
     }
 
+    private fun initSettingSwitch() {
+        feedRecommendSwitch.setOnCheckedChangeListener { _, isChecked ->
+            Api.get(ProfileApi::class.java)
+                .updateSettingAllowRecommend(isChecked)
+                .subscribeApiWithDialog(this, this, ::updateSettingModel)
+                {
+                    toastApiException(it, R.string.center_toast_loading_failed_retry)
+                    updateSettingModel(settingModel)
+                }
+        }
+
+        realNameMsgSwitch.setOnCheckedChangeListener { _, isChecked ->
+            Api.get(ProfileApi::class.java)
+                .updateSettingRealNameMsg(isChecked)
+                .subscribeApiWithDialog(this, this, ::updateSettingModel)
+                {
+                    toastApiException(it, R.string.center_toast_loading_failed_retry)
+                    updateSettingModel(settingModel)
+                }
+        }
+    }
+
     private fun loadData() {
-        Single.zip(
+        Single.zip<SettingModel, SocialListModel, Pair<SettingModel, SocialListModel>>(
             Api.get(ProfileApi::class.java).getSettings(),
             Api.get(ProfileApi::class.java).getSocialAccountList(),
             BiFunction { t1, t2 ->
                 Pair(t1, t2)
             }
         ).subscribeApiWithDialog(this, this, {
-
+            updateSettingModel(it.first)
         }, {
-
+            toastApiException(it, R.string.center_toast_loading_failed_retry)
         })
+    }
+
+    private fun updateSettingModel(settingModel: SettingModel?) {
+        this.settingModel = settingModel
+        feedRecommendSwitch.setOnCheckedChangeListener(null)
+        realNameMsgSwitch.setOnCheckedChangeListener(null)
+        feedRecommendSwitch.isChecked = settingModel?.setting?.allowRecommend ?: false
+        realNameMsgSwitch.isChecked = settingModel?.setting?.certificatedOnly ?: false
+        initSettingSwitch()
     }
 }
