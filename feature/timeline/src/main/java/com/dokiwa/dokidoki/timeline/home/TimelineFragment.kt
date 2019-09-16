@@ -56,7 +56,7 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
         })
 
         TabLayoutMediator(tabLayout, viewPager, true,
-            TabLayoutMediator.OnConfigureTabCallback { tab, position ->
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 tab.setText(
                     if (position == 0) {
                         R.string.timeline_home_tab_recommend
