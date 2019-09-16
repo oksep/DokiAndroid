@@ -39,7 +39,7 @@ class RelationshipActivity : TranslucentActivity() {
         viewPager.offscreenPageLimit = 1
 
         TabLayoutMediator(tabLayout, viewPager, true,
-            TabLayoutMediator.OnConfigureTabCallback { tab, position ->
+            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                 tab.text = if (position == 0) {
                     getString(R.string.relation_tab_following, 0)
                 } else {
