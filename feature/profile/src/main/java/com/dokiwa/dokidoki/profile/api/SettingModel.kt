@@ -14,3 +14,8 @@ data class SettingModel(
         @SerializedName("allow_recommend") val allowRecommend: Boolean
     ) : IApiModel
 }
+
+data class PhoneBindModel(
+    val bind: Boolean,
+    val phone: String
+): IApiModel

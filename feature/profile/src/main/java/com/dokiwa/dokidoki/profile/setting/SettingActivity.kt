@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Switch
+import androidx.appcompat.app.AlertDialog
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
 import com.dokiwa.dokidoki.center.ext.rx.subscribeApiWithDialog
@@ -13,11 +14,12 @@ import com.dokiwa.dokidoki.center.plugin.login.ILoginPlugin
 import com.dokiwa.dokidoki.center.util.AppUtil
 import com.dokiwa.dokidoki.profile.ProfileSP
 import com.dokiwa.dokidoki.profile.R
+import com.dokiwa.dokidoki.profile.api.PhoneBindModel
 import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.api.SettingModel
 import com.dokiwa.dokidoki.profile.api.SocialListModel
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import kotlinx.android.synthetic.main.activity_settings.*
 
 private const val TAG = "SettingActivity"
@@ -32,6 +34,7 @@ class SettingActivity : TranslucentActivity() {
     }
 
     private var settingModel: SettingModel? = null
+    private var phoneBindModel: PhoneBindModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +54,7 @@ class SettingActivity : TranslucentActivity() {
         }
 
         bindPhoneNumberBtn.setOnClickListener {
-            toast("TODO")
+            alertChangeBindPhoneNum()
         }
 
         bindWechatBtn.setOnClickListener {
@@ -73,6 +76,20 @@ class SettingActivity : TranslucentActivity() {
         initSettingSwitch()
 
         loadData()
+    }
+
+    private fun alertChangeBindPhoneNum() {
+        val model = phoneBindModel ?: return
+        AlertDialog.Builder(this)
+            .setTitle(R.string.profile_setting_alert_title_change_phone_num)
+            .setMessage(getString(R.string.profile_setting_alert_msg_change_phone_num, model.phone))
+            .setNegativeButton(R.string.cancel) { d, _ ->
+                d.cancel()
+            }
+            .setPositiveButton(R.string.confirm) { d, _ ->
+                d.cancel()
+                toast("TODO")
+            }.create().show()
     }
 
     private fun Switch.initSwitchBtn(key: String) {
@@ -105,14 +122,16 @@ class SettingActivity : TranslucentActivity() {
     }
 
     private fun loadData() {
-        Single.zip<SettingModel, SocialListModel, Pair<SettingModel, SocialListModel>>(
+        Single.zip<SettingModel, SocialListModel, PhoneBindModel, Triple<SettingModel, SocialListModel, PhoneBindModel>>(
             Api.get(ProfileApi::class.java).getSettings(),
             Api.get(ProfileApi::class.java).getSocialAccountList(),
-            BiFunction { t1, t2 ->
-                Pair(t1, t2)
+            Api.get(ProfileApi::class.java).getBindPhone(),
+            Function3 { t1, t2, t3 ->
+                Triple(t1, t2, t3)
             }
         ).subscribeApiWithDialog(this, this, {
             updateSettingModel(it.first)
+            updatePhoneBindModel(it.third)
         }, {
             toastApiException(it, R.string.center_toast_loading_failed_retry)
         })
@@ -125,5 +144,10 @@ class SettingActivity : TranslucentActivity() {
         feedRecommendSwitch.isChecked = settingModel?.setting?.allowRecommend ?: false
         realNameMsgSwitch.isChecked = settingModel?.setting?.certificatedOnly ?: false
         initSettingSwitch()
+    }
+
+    private fun updatePhoneBindModel(phoneBindModel: PhoneBindModel) {
+        bindPhoneNumberText.text = phoneBindModel.phone
+        this.phoneBindModel = phoneBindModel
     }
 }

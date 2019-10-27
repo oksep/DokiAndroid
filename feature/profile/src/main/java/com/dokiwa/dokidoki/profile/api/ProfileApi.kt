@@ -133,5 +133,5 @@ interface ProfileApi {
     fun getSocialAccountInfo(): Single<JsonElement>
 
     @GET("/api/user/v1/phone")
-    fun getBindPhone(): Single<JsonElement>
+    fun getBindPhone(): Single<PhoneBindModel>
 }
