@@ -1,7 +1,9 @@
 package com.dokiwa.dokidoki.login.api
 
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
+import com.dokiwa.dokidoki.login.model.SocialListModel
 import com.dokiwa.dokidoki.login.model.UserToken
+import com.dokiwa.dokidoki.social.SocialHelper
 import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.Field
@@ -47,9 +49,28 @@ interface LoginApi {
     enum class XSocialType(val type: String) {
         QQ("qq"),
         Weibo("weibo"),
-        Wechat("wechat")
+        Wechat("wechat");
     }
 
     @GET("/api/profile/v1/me")
     fun getLoginUserProfile(): Single<UserProfileWrap>
+
+    @FormUrlEncoded
+    @POST("/api/social/v1/bind")
+    fun bindSocialAccount(
+        @Field("type") type: String,
+        @Field("code") code: String
+    ): Single<JsonElement>
+
+    @FormUrlEncoded
+    @POST("/api/social/v1/unbind")
+    fun unbindSocialAccount(
+        @Field("type") type: String
+    ): Single<JsonElement>
+
+    @GET("/api/social/v1/list")
+    fun getSocialAccountList(): Single<SocialListModel>
+
+    @GET("/api/social/v1/info")
+    fun getSocialAccountInfo(): Single<JsonElement>
 }

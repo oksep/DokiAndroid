@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Switch
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.dokiwa.dokidoki.center.api.Api
 import com.dokiwa.dokidoki.center.base.activity.TranslucentActivity
@@ -17,7 +18,8 @@ import com.dokiwa.dokidoki.profile.R
 import com.dokiwa.dokidoki.profile.api.PhoneBindModel
 import com.dokiwa.dokidoki.profile.api.ProfileApi
 import com.dokiwa.dokidoki.profile.api.SettingModel
-import com.dokiwa.dokidoki.profile.api.SocialListModel
+import com.dokiwa.dokidoki.social.SocialHelper
+import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 import kotlinx.android.synthetic.main.activity_settings.*
@@ -35,6 +37,10 @@ class SettingActivity : TranslucentActivity() {
 
     private var settingModel: SettingModel? = null
     private var phoneBindModel: PhoneBindModel? = null
+
+    private var wechatBound = false
+    private var weiboBound = false
+    private var qqBound = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,21 +63,11 @@ class SettingActivity : TranslucentActivity() {
             alertChangeBindPhoneNum()
         }
 
-        bindWechatBtn.setOnClickListener {
-            toast("TODO")
-        }
-
-        bindWeiboBtn.setOnClickListener {
-            toast("TODO")
-        }
-
-        bindQQBtn.setOnClickListener {
-            toast("TODO")
-        }
-
         clearCacheBtn.setOnClickListener {
             toast("TODO")
         }
+
+        initSocialBtn()
 
         initSettingSwitch()
 
@@ -90,6 +86,60 @@ class SettingActivity : TranslucentActivity() {
                 d.cancel()
                 toast("TODO")
             }.create().show()
+    }
+
+    private fun initSocialBtn() {
+        bindWechatBtn.setOnClickListener {
+            if (wechatBound) {
+                unbindSocial(SocialHelper.SocialType.WECHAT) {
+                    wechatBound = false
+                    initSocialBtnDesc(bindWechatBtnDesc, wechatBound)
+                }
+            } else {
+                bindSocial(SocialHelper.SocialType.WECHAT) {
+                    wechatBound = true
+                    initSocialBtnDesc(bindWechatBtnDesc, wechatBound)
+                }
+            }
+        }
+
+        bindWeiboBtn.setOnClickListener {
+            if (weiboBound) {
+                unbindSocial(SocialHelper.SocialType.WEIBO) {
+                    weiboBound = false
+                    initSocialBtnDesc(bindWeiboBtnDesc, weiboBound)
+                }
+            } else {
+                bindSocial(SocialHelper.SocialType.WEIBO) {
+                    weiboBound = true
+                    initSocialBtnDesc(bindWeiboBtnDesc, weiboBound)
+                }
+            }
+        }
+
+        bindQQBtn.setOnClickListener {
+            if (qqBound) {
+                unbindSocial(SocialHelper.SocialType.QQ) {
+                    qqBound = false
+                    initSocialBtnDesc(bindQQBtnDesc, qqBound)
+                }
+            } else {
+                bindSocial(SocialHelper.SocialType.QQ) {
+                    qqBound = true
+                    initSocialBtnDesc(bindQQBtnDesc, qqBound)
+                }
+            }
+        }
+    }
+
+    private fun initSocialBtnDesc(view: TextView, bound: Boolean?) {
+        if (bound == true) {
+            view.isEnabled = true
+            view.setText(R.string.profile_setting_bound)
+        } else {
+            view.isEnabled = false
+            view.setText(R.string.profile_setting_unbound)
+        }
     }
 
     private fun Switch.initSwitchBtn(key: String) {
@@ -122,15 +172,16 @@ class SettingActivity : TranslucentActivity() {
     }
 
     private fun loadData() {
-        Single.zip<SettingModel, SocialListModel, PhoneBindModel, Triple<SettingModel, SocialListModel, PhoneBindModel>>(
+        Single.zip<SettingModel, Triple<Boolean, Boolean, Boolean>, PhoneBindModel, Triple<SettingModel, Triple<Boolean, Boolean, Boolean>, PhoneBindModel>>(
             Api.get(ProfileApi::class.java).getSettings(),
-            Api.get(ProfileApi::class.java).getSocialAccountList(),
+            ILoginPlugin.get().getSocialBindList(),
             Api.get(ProfileApi::class.java).getBindPhone(),
             Function3 { t1, t2, t3 ->
                 Triple(t1, t2, t3)
             }
         ).subscribeApiWithDialog(this, this, {
             updateSettingModel(it.first)
+            updateSocialBindModel(it.second)
             updatePhoneBindModel(it.third)
         }, {
             toastApiException(it, R.string.center_toast_loading_failed_retry)
@@ -149,5 +200,42 @@ class SettingActivity : TranslucentActivity() {
     private fun updatePhoneBindModel(phoneBindModel: PhoneBindModel) {
         bindPhoneNumberText.text = phoneBindModel.phone
         this.phoneBindModel = phoneBindModel
+    }
+
+    private fun updateSocialBindModel(socialListModel: Triple<Boolean, Boolean, Boolean>?) {
+        wechatBound = socialListModel?.first ?: false
+        weiboBound = socialListModel?.second ?: false
+        qqBound = socialListModel?.third ?: false
+        initSocialBtnDesc(bindWechatBtnDesc, wechatBound)
+        initSocialBtnDesc(bindWeiboBtnDesc, weiboBound)
+        initSocialBtnDesc(bindQQBtnDesc, qqBound)
+    }
+
+    private fun bindSocial(type: SocialHelper.SocialType, cb: () -> Unit) {
+        ILoginPlugin.get().bindSocial(this, type).subscribeApiWithDialog(this, this, {
+            toast(R.string.profile_setting_bind_success)
+            cb()
+        }, {
+            toast(R.string.profile_setting_bind_failed)
+        })
+    }
+
+    private fun unbindSocial(type: SocialHelper.SocialType, cb: () -> Unit) {
+        ILoginPlugin.get().unbindSocial(type).subscribeApiWithDialog(this, this, {
+            toast(R.string.profile_setting_unbind_success)
+            cb()
+        }, {
+            toast(R.string.profile_setting_unbind_failed)
+        })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        SocialGo.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        SocialGo.onNewIntent(intent)
+        super.onNewIntent(intent)
     }
 }

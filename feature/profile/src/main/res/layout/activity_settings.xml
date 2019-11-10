@@ -241,6 +241,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/bindWechatBtnDesc"
                     tools:text="已绑定"
                     android:layout_gravity="end|center_vertical"
                     android:layout_width="wrap_content"
@@ -276,6 +277,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/bindWeiboBtnDesc"
                     tools:text="已绑定"
                     android:layout_gravity="end|center_vertical"
                     android:layout_width="wrap_content"
@@ -311,6 +313,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/bindQQBtnDesc"
                     tools:text="未绑定"
                     android:layout_gravity="end|center_vertical"
                     android:layout_width="wrap_content"

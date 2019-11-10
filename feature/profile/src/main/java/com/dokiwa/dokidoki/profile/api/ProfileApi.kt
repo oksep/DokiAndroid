@@ -4,7 +4,6 @@ import com.dokiwa.dokidoki.center.plugin.model.Edu
 import com.dokiwa.dokidoki.center.plugin.model.Gender
 import com.dokiwa.dokidoki.center.plugin.model.MineProfile
 import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
-import com.google.gson.JsonElement
 import io.reactivex.Single
 import org.json.JSONException
 import retrofit2.http.*
@@ -112,25 +111,6 @@ interface ProfileApi {
     fun updateSettingAllowRecommend(
         @Field("allow_recommend") allowRecommend: Boolean
     ): Single<SettingModel>
-
-    @FormUrlEncoded
-    @POST("/api/social/v1/bind")
-    fun bindSocialAccount(
-        @Field("type") type: String
-    ): Single<JsonElement>
-
-    @FormUrlEncoded
-    @POST("/api/social/v1/unbind")
-    fun unbindSocialAccount(
-        @Field("type") type: String,
-        @Field("code") code: String
-    ): Single<JsonElement>
-
-    @GET("/api/social/v1/list")
-    fun getSocialAccountList(): Single<SocialListModel>
-
-    @GET("/api/social/v1/info")
-    fun getSocialAccountInfo(): Single<JsonElement>
 
     @GET("/api/user/v1/phone")
     fun getBindPhone(): Single<PhoneBindModel>

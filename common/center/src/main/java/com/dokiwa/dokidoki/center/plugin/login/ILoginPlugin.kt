@@ -6,6 +6,9 @@ import com.dokiwa.dokidoki.center.base.activity.BaseActivity
 import com.dokiwa.dokidoki.center.plugin.FeaturePlugin
 import com.dokiwa.dokidoki.center.plugin.PluginImplMeta
 import com.dokiwa.dokidoki.center.plugin.model.UserProfile
+import com.dokiwa.dokidoki.social.SocialHelper
+import io.reactivex.Completable
+import io.reactivex.Single
 
 /**
  * Created by Septenary on 2018/10/24.
@@ -45,7 +48,17 @@ interface ILoginPlugin : FeaturePlugin {
     // 刷新登录用户信息
     fun updateUserProfile(profile: UserProfile)
 
+    // 登录测试账号
     fun loginTestingAccount(context: BaseActivity, phoneNumber: String, verifyCode: String)
+
+    // 第三方绑定信息
+    fun getSocialBindList(): Single<Triple<Boolean, Boolean, Boolean>>
+
+    // 绑定第三方
+    fun bindSocial(context: BaseActivity, type: SocialHelper.SocialType): Completable
+
+    // 解绑第三方
+    fun unbindSocial(type: SocialHelper.SocialType): Completable
 
     companion object {
         fun get(): ILoginPlugin {

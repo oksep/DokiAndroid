@@ -15,6 +15,7 @@ import com.dokiwa.dokidoki.login.Log
 import com.dokiwa.dokidoki.login.R
 import com.dokiwa.dokidoki.login.api.LoginApi
 import com.dokiwa.dokidoki.login.model.UserToken
+import com.dokiwa.dokidoki.login.model.toX
 import com.dokiwa.dokidoki.social.SocialHelper
 import com.dokiwa.dokidoki.social.socialgo.core.SocialGo
 import com.dokiwa.dokidoki.ui.ext.hideSoftInputWhenClick
@@ -98,11 +99,7 @@ class LoginActivity : TranslucentActivity() {
     }
 
     private fun loginSocial(type: SocialHelper.SocialType) {
-        val xSocialType = when (type) {
-            SocialHelper.SocialType.QQ -> LoginApi.XSocialType.QQ
-            SocialHelper.SocialType.WEIBO -> LoginApi.XSocialType.Weibo
-            SocialHelper.SocialType.WECHAT -> LoginApi.XSocialType.Wechat
-        }.type
+        val xSocialType = type.toX().type
         var socialCode: String? = null
         SocialHelper.auth(this, type)
             .flatMap {

@@ -42,3 +42,4 @@ data class UserToken(
     @SerializedName("token_type")
     val tokenType: String
 ) : IApiModel, Parcelable
+

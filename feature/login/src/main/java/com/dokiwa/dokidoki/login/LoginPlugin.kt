@@ -13,6 +13,10 @@ import com.dokiwa.dokidoki.login.activity.LoginActivity
 import com.dokiwa.dokidoki.login.activity.ToHomeUtil
 import com.dokiwa.dokidoki.login.api.LoginApi
 import com.dokiwa.dokidoki.login.model.UserToken
+import com.dokiwa.dokidoki.login.model.toX
+import com.dokiwa.dokidoki.social.SocialHelper
+import io.reactivex.Completable
+import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.internal.disposables.EmptyDisposable
 
@@ -124,5 +128,25 @@ class LoginPlugin : ILoginPlugin {
                 context,
                 { ToHomeUtil.ensureProfileThenToHome(it, context) }
             )
+    }
+
+    override fun getSocialBindList(): Single<Triple<Boolean, Boolean, Boolean>> {
+        return Api.get(LoginApi::class.java).getSocialAccountList().map {
+            Triple(
+                it.getWechatBindProfile() != null,
+                it.getWeiboBindProfile() != null,
+                it.getQQBindProfile() != null
+            )
+        }
+    }
+
+    override fun bindSocial(context: BaseActivity, type: SocialHelper.SocialType): Completable {
+        return SocialHelper.auth(context, type)
+            .flatMap { Api.get(LoginApi::class.java).bindSocialAccount(type.toX().type, it) }
+            .ignoreElement()
+    }
+
+    override fun unbindSocial(type: SocialHelper.SocialType): Completable {
+        return Api.get(LoginApi::class.java).unbindSocialAccount(type.toX().type).ignoreElement()
     }
 }

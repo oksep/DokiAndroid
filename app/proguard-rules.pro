@@ -280,3 +280,5 @@
 # immersionbar
 -keep class com.gyf.immersionbar.* {*;}
 -dontwarn com.gyf.immersionbar.**
+
+-keep class com.sina.weibo.sdk.** { *; }

@@ -1,6 +1,5 @@
 package com.dokiwa.dokidoki.admin.api
 
-import com.dokiwa.dokidoki.center.plugin.model.UserProfileWrap
 import com.google.gson.JsonElement
 import io.reactivex.Single
 import retrofit2.http.GET

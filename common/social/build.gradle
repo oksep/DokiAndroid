@@ -34,8 +34,8 @@ dependencies {
 
     implementation files('libs/open_sdk_r6019_lite.jar')
     api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.4'
-    implementation 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
-    // implementation 'com.sina.weibo.sdk:core:4.2.7:openDefaultRelease@aar'
+    // implementation 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
+    api 'com.sina.weibo.sdk:core:4.4.1:openDefaultRelease@aar'
     implementation 'com.alibaba.android:ddsharesdk:1.1.0'
 
     // util
