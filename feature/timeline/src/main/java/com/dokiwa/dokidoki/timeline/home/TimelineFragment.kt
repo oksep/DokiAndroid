@@ -25,7 +25,7 @@ class TimelineFragment : BaseShareFragment(R.layout.fragment_timeline) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pagerAdapter = SimplePager2Adapter(requireFragmentManager(), lifecycle)
+        val pagerAdapter = SimplePager2Adapter(childFragmentManager, lifecycle)
 
         pagerAdapter.addFragment(
             RecommendFragment().apply {
