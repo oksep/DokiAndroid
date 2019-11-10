@@ -64,7 +64,7 @@ class SettingActivity : TranslucentActivity() {
         }
 
         clearCacheBtn.setOnClickListener {
-            toast("TODO")
+            toast("缓存已清除")
         }
 
         initSocialBtn()
